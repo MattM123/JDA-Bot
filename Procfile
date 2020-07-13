@@ -1,1 +1,1 @@
-web: java -cp target/classes/:target/dependency/* com.marcuzzo.JDABot
+web: java -jar target/JDABot-0.0.1-SNAPSHOT.jar
