@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes/com/marcuzzo/JDABot:target/dependency/* com.marcuzzo.JDABot
+web: java -cp target/classes/:target/dependency/* com.marcuzzo.JDABot
