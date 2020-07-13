@@ -1,1 +1,1 @@
-web: java $Bot -cp target/classes:target/dependency/* me.marcuzzo.JDABot
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* com.marcuzzo.JDABot
