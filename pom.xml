@@ -42,7 +42,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.marcuzzo.JDABot</mainClass>
+							<mainClass>com.marcuzzo.JDABot.Bot</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
