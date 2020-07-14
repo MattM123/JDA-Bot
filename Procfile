@@ -1,1 +1,1 @@
-web: java -cp target/classes:target/dependency/* com.marcuzzo.JDABot
+web: java -cp target/classes:target/dependency/* com.marcuzzo.JDABot Bot
