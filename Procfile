@@ -1,1 +1,1 @@
-web: java -cp target/classes/com.marcuzzo.JDABot
+web: java -cp target/classes/com/marcuzzo/JDABot Bot
