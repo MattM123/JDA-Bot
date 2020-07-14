@@ -39,10 +39,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.1</version>
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.marcuzzo.JDABot.Bot</mainClass>
+							<mainClass>com.marcuzzo.JDABot</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
