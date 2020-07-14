@@ -43,7 +43,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>main.java.com.marcuzzo.JDABot</mainClass>
+							<mainClass>com.marcuzzo.JDABot</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
