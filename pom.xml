@@ -18,18 +18,12 @@
     	<artifactId>JDA</artifactId>
     	<version>4.2.0_178</version>
     </dependency>
-	<dependency>
-  		<groupId>io.github.qsy7.java.dependencies</groupId>
-  		<artifactId>slf4j-simple</artifactId>
-  		<version>0.1.0</version>
-  		<type>pom</type>
-		</dependency>
-	<dependency>
-  		<groupId>io.github.qsy7.java.dependencies</groupId>
-  		<artifactId>slf4j-api</artifactId>
-  		<version>0.1.0</version>
-  		<type>pom</type>
-		</dependency>
+    <dependency>
+    	<groupId>org.slf4j</groupId>
+    	<artifactId>slf4j-simple</artifactId>
+    	<version>1.6.2</version>
+   	 	<scope>test</scope>
+	</dependency>
     </dependencies>
     
      <repositories>
