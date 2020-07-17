@@ -9,14 +9,14 @@ public class Bot {
 	public static void main (String[] args) {
 
 		int port = Integer.parseInt(System.getenv("PORT"));
-		String host = "0.0.0.0";
+	//	String host = "0.0.0.0";
 		
 		String token = "NzMyMjkwMTUzNjg2NDk5MzY4.Xw0Srg.Y6xwY481QrIGqcbHpv2fF4a5ZxY";
 		try {
 			JDA jda = JDABuilder.createDefault(token).build();
-			jda.getGatewayPool();
-			jda.setRequestTimeoutRetry(true);
-			jda.setAutoReconnect(true);
+			//jda.getGatewayPool();
+			//jda.setRequestTimeoutRetry(true);
+			//jda.setAutoReconnect(true);
 			
 			
 		} catch (Exception e) {
