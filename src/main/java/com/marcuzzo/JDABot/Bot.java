@@ -14,9 +14,9 @@ public class Bot {
 		String token = "NzMyMjkwMTUzNjg2NDk5MzY4.Xw0Srg.Y6xwY481QrIGqcbHpv2fF4a5ZxY";
 		try {
 			JDA jda = JDABuilder.createDefault(token).build();
-			//jda.getGatewayPool();
-			//jda.setRequestTimeoutRetry(true);
-			//jda.setAutoReconnect(true);
+			jda.getGatewayPool();
+			jda.setRequestTimeoutRetry(true);
+			jda.setAutoReconnect(true);
 			
 			
 		} catch (Exception e) {
