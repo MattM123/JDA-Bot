@@ -2,7 +2,6 @@ package com.marcuzzo.JDABot;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import okhttp3.internal.http2.Http2Connection.Listener;
 
 public class Bot {
 
@@ -14,18 +13,11 @@ public class Bot {
 		String token = "NzMyMjkwMTUzNjg2NDk5MzY4.Xw0Srg.Y6xwY481QrIGqcbHpv2fF4a5ZxY";
 		try {
 			JDA jda = JDABuilder.createDefault(token).build();
-			jda.getGatewayPool();
-			jda.setRequestTimeoutRetry(true);
-			jda.setAutoReconnect(true);
-			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
 		
 	}
 }
