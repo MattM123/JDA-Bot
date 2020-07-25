@@ -2,6 +2,8 @@ package com.marcuzzo.JDABot;
 
 import javax.security.auth.login.LoginException;
 
+import com.apollographql.apollo.api.Response;
+
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
@@ -35,8 +37,11 @@ public class MessageListener extends ListenerAdapter
         if (msg.getContentRaw().equals("!test"))
         {
             MessageChannel channel = event.getChannel();
-            channel.sendMessage("Tested");
-        }/* => RestAction<Message> */
-
-    };
+            long time = System.currentTimeMillis();
+            channel.sendMessage("Test") /* => RestAction<Message> */
+                   .queue(response /* => Message */ -> {
+                       response.editMessageFormat("Tested %d ms", System.currentTimeMillis() - time).queue();
+                   });
+        }
+    }
 }
