@@ -14,7 +14,7 @@ public class MapCommand extends ListenerAdapter {
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setTitle("BTE Midwest Map");
 		embed.setColor(Color.magenta);
-		embed.setImage("https://i.imgur.com/Uhiyi6B.png");
+		embed.setImage("https://imgur.com/meaamm7");
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!map")){
 			event.getChannel().sendMessage(embed.build()).queue();
