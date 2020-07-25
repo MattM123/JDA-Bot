@@ -2,7 +2,7 @@ package com.marcuzzo.JDABot;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import events.MessageListener;
+import commands.MessageListener;
 
 public class Bot {
 
