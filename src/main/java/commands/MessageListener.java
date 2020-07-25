@@ -15,7 +15,7 @@ public class MessageListener extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!capitalism")) {
-			event.getChannel().sendMessage("Down with west!").queue();
+			event.getChannel().sendMessage("Down with the west!").queue();
 		}
 	}
 }
