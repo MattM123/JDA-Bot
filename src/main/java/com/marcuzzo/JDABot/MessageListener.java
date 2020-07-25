@@ -35,11 +35,8 @@ public class MessageListener extends ListenerAdapter
         if (msg.getContentRaw().equals("!test"))
         {
             MessageChannel channel = event.getChannel();
-            long time = System.currentTimeMillis();
-            channel.sendMessage("Pong!") /* => RestAction<Message> */
-                   .queue(response /* => Message */ -> {
-                       response.editMessageFormat("Tested %d ms", System.currentTimeMillis() - time).queue();
-                   });
-        }
-    }
+            channel.sendMessage("Tested");
+        }/* => RestAction<Message> */
+
+    };
 }
