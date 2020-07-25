@@ -64,8 +64,7 @@ public class Bot {
 		String token = "NzMyMjkwMTUzNjg2NDk5MzY4.XxinCA.00eQw8ZSdMq1chDG1v_KpQKTPKU";	
 		try {
 			JDA jda = JDABuilder.createDefault(token).build();
-			MessageListener mes = new MessageListener();
-			jda.addEventListener(mes);
+			jda.addEventListener(new MessageListener());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
