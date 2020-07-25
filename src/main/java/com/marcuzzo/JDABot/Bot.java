@@ -1,19 +1,8 @@
 package com.marcuzzo.JDABot;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import com.github.twitch4j.TwitchClient;
-import com.github.twitch4j.common.util.TwitchUtils;
-import com.github.twitch4j.helix.TwitchHelix;
-
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import events.MessageListener;
 
 public class Bot {
 
