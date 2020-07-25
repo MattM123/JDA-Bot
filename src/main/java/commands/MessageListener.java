@@ -13,6 +13,10 @@ public class MessageListener extends ListenerAdapter {
 			event.getChannel().sendMessage("Tested!").queue();
 			
 		}
+		
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!capitalism")) {
+			event.getChannel().sendMessage("Down with west!").queue();
+		}
 	}
 }
 
