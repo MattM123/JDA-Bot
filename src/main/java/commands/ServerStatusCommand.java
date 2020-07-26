@@ -74,29 +74,26 @@ public class ServerStatusCommand extends ListenerAdapter {
 			event.getChannel().sendMessage(embed.build()).queue();	
 		}
 		
-		else if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart") && event.getMessage().getAuthor().getName() == "mattm") {
-			server.restart();
-			event.getChannel().sendMessage("Server Restarting...").queue();
-		}
+	//	else if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart") && event.getMessage().getAuthor().getName() == "mattm") {
+	//		server.restart();
+	//		event.getChannel().sendMessage("Server Restarting...").queue();
+	//	}
 		
-		else if (event.getMessage().getContentRaw().equalsIgnoreCase("!server start") && event.getMessage().getAuthor().getName() == "mattm") {
-			if (serverStatus() == "ONLINE") {
-				event.getChannel().sendMessage("Server already running!").queue();
-			}
-			else {
-				server.start();
-				event.getChannel().sendMessage("Server Starting...").queue();
-			}
-		}
+	//	else if (event.getMessage().getContentRaw().equalsIgnoreCase("!server start") && event.getMessage().getAuthor().getName() == "mattm") {
+	//		if (serverStatus() == "ONLINE") {
+	//			event.getChannel().sendMessage("Server already running!").queue();
+	//		}
+	//		else {
+	//			server.start();
+	//			event.getChannel().sendMessage("Server Starting...").queue();
+	//		}
+	//	}
 		
-		else if (event.getMessage().getContentRaw().equalsIgnoreCase("!server stop")) {
-			server.stop();
-			event.getChannel().sendMessage("Server Stopping...").queue();
-		}
+	//	else if (event.getMessage().getContentRaw().equalsIgnoreCase("!server stop")) {
+	//		server.stop();
+	//		event.getChannel().sendMessage("Server Stopping...").queue();
+	//	}
 		
-	}
-	public static void main (String[]args) {
-		System.out.println(cpuUsage());
 	}
 }
 
