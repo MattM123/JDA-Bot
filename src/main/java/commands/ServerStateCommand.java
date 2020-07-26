@@ -16,7 +16,7 @@ public class ServerStateCommand extends ListenerAdapter {
 
 		
 		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart"))// && event.getMessage().getAuthor().getName() == "mattm") {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart")) {// && event.getMessage().getAuthor().getName() == "mattm") {
 			server.restart();
 			event.getChannel().sendMessage("Server Restarting...").queue();
 		}
