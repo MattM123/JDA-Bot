@@ -17,7 +17,7 @@ public class MapCommand extends ListenerAdapter {
 		embed.setImage("https://i.imgur.com/meaamm7.png");
 		embed.addField("Made by: ", "MN Admin | Mr Jew", true);
 		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!map")){
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!map")) {
 			event.getChannel().sendMessage(embed.build()).queue();
 		}
 		
