@@ -71,16 +71,15 @@ public class ServerStatusCommand extends ListenerAdapter {
 		
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server status")) {
-			event.getChannel().sendMessage(embed.build()).queue();
-			
+			event.getChannel().sendMessage(embed.build()).queue();	
 		}
 		
-		else if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart") && event.getMessage().getAuthor().getId() == "387330197420113930" ) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart") && event.getMessage().getAuthor().getId() == "387330197420113930" ) {
 			server.restart();
 			event.getChannel().sendMessage("Server Restarting...").queue();
 		}
 		
-		else if (event.getMessage().getContentRaw().equalsIgnoreCase("!server start") && event.getMessage().getAuthor().getId() == "387330197420113930") {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server start") && event.getMessage().getAuthor().getId() == "387330197420113930") {
 			if (serverStatus() == "ONLINE") {
 				event.getChannel().sendMessage("Server already running!").queue();
 			}
@@ -89,7 +88,8 @@ public class ServerStatusCommand extends ListenerAdapter {
 				event.getChannel().sendMessage("Server Starting...").queue();
 			}
 		}
-		else if (event.getMessage().getContentRaw().equalsIgnoreCase("!server stop")) {
+		
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server stop")) {
 			server.stop();
 			event.getChannel().sendMessage("Server Stopping...").queue();
 		}
