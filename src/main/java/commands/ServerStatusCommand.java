@@ -28,7 +28,6 @@ public class ServerStatusCommand extends ListenerAdapter {
 		
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
-			event.getChannel().sendMessage(serverName()).queue();
 			event.getChannel().sendMessage(embed.build()).queue();
 			
 		}
