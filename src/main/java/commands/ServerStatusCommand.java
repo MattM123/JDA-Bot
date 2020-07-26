@@ -17,25 +17,25 @@ public class ServerStatusCommand extends ListenerAdapter {
 	
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
-		
+	
 	
 		
 		 Server server = api.getServersController().getServer(12 /* Server ID */); 
-		 Boolean truthBool = server.isSuspended();
-		 String truthString = truthBool.toString();
+		 Boolean status = server.isSuspended();
+		 String statusString = status.toString();
 		 
 		 EmbedBuilder embed = new EmbedBuilder();
 		 
-		 if (truthString == "false") {
+		 if (statusString == "false") {
 			 embed.addField("Status: ", "Offline", true);
 		 }
 		 
-		 else if (truthString == "true") {
+		 else if (statusString == "true") {
 			 embed.addField("Status: ", "Online", true);
 		 }
 		 
 		
-		if (event.getMessage().getContentRaw().startsWith("!server status")) {
+		if (event.getMessage().getContentRaw().equals(statusString)) {
 			
 			event.getChannel().sendMessage(embed.build());
 		}
