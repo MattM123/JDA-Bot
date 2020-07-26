@@ -78,6 +78,8 @@ public class ServerStatusCommand extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart")) {// && event.getAuthor().getId() == id) {
 			//server.restart();
 			event.getChannel().sendMessage("Server Restarting...").queue();
+			event.getChannel().sendMessage("event.getAuthor() ID: " + event.getAuthor().getId()).queue();
+			event.getChannel().sendMessage("event.getMessage().getAuthor() ID: " + event.getMessage().getAuthor().getId()).queue();;
 	}
 	//	}
 		
