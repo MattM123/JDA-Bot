@@ -74,12 +74,12 @@ public class ServerStatusCommand extends ListenerAdapter {
 			event.getChannel().sendMessage(embed.build()).queue();	
 		}
 		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart") && event.getMessage().getAuthor().getId() == "387330197420113930" ) {
+		else if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart") && event.getMessage().getAuthor().getName() == "mattm") {
 			server.restart();
 			event.getChannel().sendMessage("Server Restarting...").queue();
 		}
 		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server start") && event.getMessage().getAuthor().getId() == "387330197420113930") {
+		else if (event.getMessage().getContentRaw().equalsIgnoreCase("!server start") && event.getMessage().getAuthor().getName() == "mattm") {
 			if (serverStatus() == "ONLINE") {
 				event.getChannel().sendMessage("Server already running!").queue();
 			}
@@ -89,14 +89,14 @@ public class ServerStatusCommand extends ListenerAdapter {
 			}
 		}
 		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server stop")) {
+		else if (event.getMessage().getContentRaw().equalsIgnoreCase("!server stop")) {
 			server.stop();
 			event.getChannel().sendMessage("Server Stopping...").queue();
 		}
 		
 	}
 	public static void main (String[]args) {
-		System.out.println(memoryUsage());
+		System.out.println(cpuUsage());
 	}
 }
 
