@@ -62,11 +62,12 @@ public class ServerStatusCommand extends ListenerAdapter {
 		
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setTitle("Nebraska/Iowa Build Server Status").setColor(Color.blue);
-		embed.addField("Server Name: " , serverName(), true);
-		embed.addField("Server Status: ", serverStatus(), true);
-		embed.addField("CPU Usage: ", cpuUsage(), true);
-		embed.addField("Disk Usage: ", diskUsage(), true);
-		embed.addField("Memory Ussage: ", memoryUsage(), true);
+		embed.addField("Server Name: " , serverName(), false);
+		embed.addField("Server Status: ", serverStatus(), false);
+		embed.addField("CPU Usage: ", cpuUsage(), false);
+		embed.addField("Disk Usage: ", diskUsage(), false);
+		embed.addField("Memory Ussage: ", memoryUsage(), false);
+		
 		
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server status")) {
