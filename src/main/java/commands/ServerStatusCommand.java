@@ -59,6 +59,7 @@ public class ServerStatusCommand extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		String id = "387330197420113930";
+		long idlong = Long.parseLong(id);
 
 		
 		EmbedBuilder embed = new EmbedBuilder();
@@ -75,11 +76,16 @@ public class ServerStatusCommand extends ListenerAdapter {
 			event.getChannel().sendMessage(embed.build()).queue();	
 		}
 		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart")) {// && event.getAuthor().getId() == id) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart")) {
+			
+			if (event.getAuthor().getIdLong() == idlong) {
 			//server.restart();
-		//	event.getChannel().sendMessage("Server Restarting...").queue();
-			event.getChannel().sendMessage("event.getAuthor() ID: " + event.getAuthor().getId() + "        " + "event.getMessage().getAuthor() ID: " + event.getMessage().getAuthor().getId()).queue();
-		//	event.getChannel().sendMessage("event.getMessage().getAuthor() ID: " + event.getMessage().getAuthor().getId()).queue();;
+			event.getChannel().sendMessage("Server Restarting...").queue();
+		}
+			
+			else {
+			event.getChannel().sendMessage("You do not have permission to alter the server state!");
+		}
 	}
 	//	}
 		
