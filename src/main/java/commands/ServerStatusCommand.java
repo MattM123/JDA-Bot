@@ -9,21 +9,20 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class ServerStatusCommand extends ListenerAdapter {
 	
+	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
+	private static UserServer server = api.getServersController().getServer("ef773a66");
+	private static String name = server.getName();;
 
-	private static  PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
-	private static String name;
-
-
-	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 
-		UserServer server = api.getServersController().getServer("ef773a66");
+
+		
 		
 		//UserServersController controller = api.getServersController();
 		//UserServer server = controller.getServer("aaaa88");
-		name = server.getName();
+	 
 		
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setTitle("Nebraska/Iowa Build Server Status");
@@ -36,6 +35,10 @@ public class ServerStatusCommand extends ListenerAdapter {
 			
 		}
 		
+	}
+	
+	public static void main (String[]args) {
+		System.out.println(name);
 	}
 }
 
