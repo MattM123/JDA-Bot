@@ -15,7 +15,6 @@ public class Bot {
 			JDA jda = JDABuilder.createDefault(token).build();
 			jda.addEventListener(new MapCommand());
 			jda.addEventListener(new ServerStatusCommand());
-			jda.addEventListener(new ServerStateCommand());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
