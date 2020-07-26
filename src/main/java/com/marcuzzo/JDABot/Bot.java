@@ -3,7 +3,6 @@ package com.marcuzzo.JDABot;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import commands.MapCommand;
-import commands.ServerStateCommand;
 import commands.ServerStatusCommand;
 
 public class Bot {	
