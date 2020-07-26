@@ -58,6 +58,7 @@ public class ServerStatusCommand extends ListenerAdapter {
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
+		String id = "387330197420113930";
 
 		
 		EmbedBuilder embed = new EmbedBuilder();
@@ -74,9 +75,10 @@ public class ServerStatusCommand extends ListenerAdapter {
 			event.getChannel().sendMessage(embed.build()).queue();	
 		}
 		
-	//	else if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart") && event.getMessage().getAuthor().getName() == "mattm") {
-	//		server.restart();
-	//		event.getChannel().sendMessage("Server Restarting...").queue();
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart") && event.getAuthor().getId() == id) {
+			//server.restart();
+			event.getChannel().sendMessage("Server Restarting...").queue();
+	}
 	//	}
 		
 	//	else if (event.getMessage().getContentRaw().equalsIgnoreCase("!server start") && event.getMessage().getAuthor().getName() == "mattm") {
