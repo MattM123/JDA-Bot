@@ -1,7 +1,5 @@
 package commands;
 
-import java.awt.Color;
-
 import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.entities.panel.admin.Server;
 
@@ -10,19 +8,16 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class ServerStatusCommand extends ListenerAdapter {
-	private  PteroAdminAPI api = new PteroAdminAPI("https://panel.pterodactyl.io/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
+	private static  PteroAdminAPI api = new PteroAdminAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
 	private Boolean g;
+	private static Server server = api.getServersController().getServer(12 /* Server ID */); 
+	private static Boolean status = server.isSuspended();
+	private static String statusString = status.toString();
 	
 	@Override
 	
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
-	
-	
-		
-		 Server server = api.getServersController().getServer(12 /* Server ID */); 
-		 Boolean status = server.isSuspended();
-		 String statusString = status.toString();
 		 
 		 EmbedBuilder embed = new EmbedBuilder();
 		 
@@ -41,5 +36,9 @@ public class ServerStatusCommand extends ListenerAdapter {
 		}
 		
 	}
-
+	
+	public static void main (String[]args) {
+		System.out.println(statusString);
+	}
 }
+
