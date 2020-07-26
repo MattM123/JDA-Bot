@@ -75,7 +75,7 @@ public class ServerStatusCommand extends ListenerAdapter {
 			event.getChannel().sendMessage(embed.build()).queue();	
 		}
 		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart") && event.getAuthor().getId() == id) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart")) {// && event.getAuthor().getId() == id) {
 			//server.restart();
 			event.getChannel().sendMessage("Server Restarting...").queue();
 	}
