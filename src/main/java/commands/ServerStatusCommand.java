@@ -23,20 +23,23 @@ public class ServerStatusCommand extends ListenerAdapter {
 		
 		//UserServersController controller = api.getServersController();
 		//UserServer server = controller.getServer("aaaa88");
-		name = server.getId();
+		name = server.getName();
 		
-		EmbedBuilder embed = new EmbedBuilder();
-		embed.setTitle("Nebraska/Iowa Build Server Status");
-		embed.addField("Server Name: " , name, true);
+	//	EmbedBuilder embed = new EmbedBuilder();
+		//embed.setTitle("Nebraska/Iowa Build Server Status");
+	//	embed.addField("Server Name: " , name, true);
 		
 		if (event.getMessage().getContentRaw().equals("!server")) {
 			
-			event.getChannel().sendMessage(embed.build());
+			if (name == null) {
+				event.getChannel().sendMessage("I'm having trouble communicating with the panel!");
+			}
+			else {
+				//	event.getChannel().sendMessage(embed.build());
+				event.getChannel().sendMessage(name);
+			}
 		}
 		
 	}
-	
-
-
 }
 
