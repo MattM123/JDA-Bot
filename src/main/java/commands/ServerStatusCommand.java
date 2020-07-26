@@ -18,6 +18,7 @@ public class ServerStatusCommand extends ListenerAdapter {
 	
 
 	private static  PteroAdminAPI api = new PteroAdminAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
+	private static String name;
 
 
 	
@@ -26,11 +27,11 @@ public class ServerStatusCommand extends ListenerAdapter {
 		super.onGuildMessageReceived(event);
 
 		Server server = (Server) api.getServersController().getServers("ef773a66");
-		String name = server.getName();
+		name = server.getName();
 
 		
 		EmbedBuilder embed = new EmbedBuilder();
-		embed.setTitle("Nebraska/Iowa Server Status");
+		embed.setTitle("Nebraska/Iowa Build Server Status");
 		embed.addField("Server Name: " , name, true);
 		
 		if (event.getMessage().getContentRaw().equals("!server")) {
@@ -41,7 +42,7 @@ public class ServerStatusCommand extends ListenerAdapter {
 	}
 	
 	 public static void main(String[] args) {
-		 
+		 System.out.println(name);
 	 }
 
 }

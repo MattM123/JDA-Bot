@@ -13,7 +13,7 @@ public class MapCommand extends ListenerAdapter {
 		
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setTitle("BTE Midwest Map");
-		embed.setColor(Color.magenta);
+		embed.setColor(Color.blue);
 		embed.setImage("https://i.imgur.com/meaamm7.png");
 		embed.addField("Made by: ", "MN Admin | Mr Jew", true);
 		
