@@ -29,7 +29,7 @@ public class ServerStatusCommand extends ListenerAdapter {
 		
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
-				event.getChannel().sendMessage(embed.build()).queue();;
+				event.getChannel().sendMessage(embed.build()).queue();
 			
 		}
 		
