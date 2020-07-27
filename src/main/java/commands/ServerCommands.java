@@ -57,6 +57,7 @@ public class ServerCommands extends ListenerAdapter {
 		super.onGuildMessageReceived(event);
 		String id = "387330197420113930";
 		long idlong = Long.parseLong(id);
+		String namebuilder = "";
 
 		
 		EmbedBuilder embed = new EmbedBuilder();
@@ -118,7 +119,6 @@ public class ServerCommands extends ListenerAdapter {
 					&& event.getMessage().getContentRaw().contains("add") 
 					&& event.getMessage().getContentRaw().contains("user")) {
 				if (event.getAuthor().getIdLong() == idlong) {
-					String g = "";
 					server.sendCommand(event.getMessage().getContentRaw().substring(8));
 					
 					char[] arr = event.getMessage().getContentRaw().toCharArray();
@@ -128,11 +128,14 @@ public class ServerCommands extends ListenerAdapter {
 						if (event.getMessage().getContentRaw().charAt(i) == ' ') {
 							break;
 						}
+						else {
+							namebuilder += event.getMessage().getContentRaw().charAt(i);
+						}
 					}
 					
 						
 					
-					event.getChannel().sendMessage("Server rank updated for " + g).queue();
+					event.getChannel().sendMessage("Server rank updated for " + namebuilder).queue();
 				//	+ event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().charAt(17));
 				
 				}//id check
