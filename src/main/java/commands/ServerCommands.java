@@ -124,7 +124,6 @@ public class ServerCommands extends ListenerAdapter {
 					char[] arr = event.getMessage().getContentRaw().toCharArray();
 					
 					for (int i = 8; i < arr.length; i++) {
-						g += event.getMessage().getContentRaw().charAt(i);
 						if (event.getMessage().getContentRaw().charAt(i) == ' ') {
 							break;
 						}
