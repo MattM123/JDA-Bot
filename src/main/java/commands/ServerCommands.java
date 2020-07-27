@@ -58,6 +58,7 @@ public class ServerCommands extends ListenerAdapter {
 		String id = "387330197420113930";
 		long idlong = Long.parseLong(id);
 		String namebuilder = "";
+		String rankbuilder = "";
 
 		
 		EmbedBuilder embed = new EmbedBuilder();
@@ -131,7 +132,16 @@ public class ServerCommands extends ListenerAdapter {
 							namebuilder += event.getMessage().getContentRaw().charAt(i);
 						}
 					}
-					event.getChannel().sendMessage("Server rank updated for " + namebuilder).queue();
+					
+					for (int i = 0; i < arr.length; i++) {
+						if (event.getMessage().getContentRaw().charAt(i) == 'a'
+							&& event.getMessage().getContentRaw().charAt(i + 1) == 'd'
+							&& event.getMessage().getContentRaw().charAt(i + 2) == 'd') {
+							rankbuilder = event.getMessage().getContentRaw().substring(i + 4);
+						}
+					}
+					
+					event.getChannel().sendMessage("Server rank updated to " + rankbuilder + "for " + namebuilder).queue();
 				}//id check
 				else {
 					event.getChannel().sendMessage("You do not have permission to send console commands.").queue();
