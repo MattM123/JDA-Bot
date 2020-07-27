@@ -123,7 +123,7 @@ public class ServerCommands extends ListenerAdapter {
 					
 					char[] arr = event.getMessage().getContentRaw().toCharArray();
 					
-					for (int i = 9; i < arr.length; i++) {
+					for (int i = 17; i < arr.length; i++) {
 						if (event.getMessage().getContentRaw().charAt(i) == ' ') {
 							break;
 						}
