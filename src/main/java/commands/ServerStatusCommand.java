@@ -79,12 +79,12 @@ public class ServerStatusCommand extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart")) {
 			
 			if (event.getAuthor().getIdLong() == idlong) {
-			//server.restart();
-			event.getChannel().sendMessage("Server Restarting...").queue();
+				event.getChannel().sendMessage("Server Restarting...").queue();
+				//server.restart();
 		}
 			
 			else {
-			event.getChannel().sendMessage("You do not have permission to alter the server state!");
+				event.getChannel().sendMessage("You do not have permission to alter the server state!").queue();
 		}
 	}
 	//	}
