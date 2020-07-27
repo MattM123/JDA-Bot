@@ -114,16 +114,16 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}
 		
-		if (event.getMessage().getContentRaw().startsWith("!console")) {
+		if (event.getMessage().getContentRaw().startsWith("!console")) { //!console
 			if (event.getMessage().getContentRaw().contains("parent") 
 					&& event.getMessage().getContentRaw().contains("add") 
-					&& event.getMessage().getContentRaw().contains("user")) {
-				if (event.getAuthor().getIdLong() == idlong) {
+					&& event.getMessage().getContentRaw().contains("user")) { //contains parent/add/user
+				if (event.getAuthor().getIdLong() == idlong) { //id check
 					server.sendCommand(event.getMessage().getContentRaw().substring(8));
 					
 					char[] arr = event.getMessage().getContentRaw().toCharArray();
 					
-					for (int i = 8; i < arr.length; i++) {
+					for (int i = 9; i < arr.length; i++) {
 						if (event.getMessage().getContentRaw().charAt(i) == ' ') {
 							break;
 						}
@@ -131,19 +131,15 @@ public class ServerCommands extends ListenerAdapter {
 							namebuilder += event.getMessage().getContentRaw().charAt(i);
 						}
 					}
-					
-						
-					
 					event.getChannel().sendMessage("Server rank updated for " + namebuilder).queue();
-				//	+ event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().charAt(17));
-				
 				}//id check
-				
 				else {
 					event.getChannel().sendMessage("You do not have permission to send console commands.").queue();
 					}
-				
 			}//contains parent/add/user
+			else {
+				event.getChannel().sendMessage("Console command issued.").queue();
+			}
 		}//!console
 	}
 }
