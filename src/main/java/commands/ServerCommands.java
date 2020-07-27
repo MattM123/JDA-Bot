@@ -49,11 +49,8 @@ public class ServerCommands extends ListenerAdapter {
 	public static String memoryUsage() {
 		ServerUsage s = server.getServerUsage();
 		return s.getMemoryUsage() + "/" + server.getLimits().getMemory() + "MB";
-	
 	}
 
-	
-	
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -82,8 +79,9 @@ public class ServerCommands extends ListenerAdapter {
 		}	
 			else {
 				event.getChannel().sendMessage("You do not have permission to alter the server state!").queue();
+			}
 		}
-	}
+	
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server start")) {
 			if (serverStatus() == "ONLINE" && event.getAuthor().getIdLong() == idlong) {
@@ -116,17 +114,42 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().startsWith("!console")) {
-			if (event.getAuthor().getIdLong() == idlong) {
-				server.sendCommand(event.getMessage().getContentRaw().substring(8));
-				event.getChannel().sendMessage("Console command issued: " + event.getMessage().getContentRaw().substring(8)).queue();
-			}
-			
-			else {
-				event.getChannel().sendMessage("You do not have permission to send console commands.").queue();
-				}
-		}
+			if (event.getMessage().getContentRaw().contains("parent") 
+					&& event.getMessage().getContentRaw().contains("add") 
+					&& event.getMessage().getContentRaw().contains("user")) {
+				if (event.getAuthor().getIdLong() == idlong) {
+					String g = "";
+					server.sendCommand(event.getMessage().getContentRaw().substring(8));
+					
+					char[] arr = event.getMessage().getContentRaw().toCharArray();
+					
+					for (int i = 8; i < arr.length; i++) {
+						g += event.getMessage().getContentRaw().charAt(i);
+						if (event.getMessage().getContentRaw().charAt(i) == ' ') {
+							break;
+						}
+					}
+					
+						
+					
+					event.getChannel().sendMessage("Server rank updated for " + g).queue();
+				//	+ event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().charAt(17));
+				
+				}//id check
+				
+				else {
+					event.getChannel().sendMessage("You do not have permission to send console commands.").queue();
+					}
+				
+			}//contains parent/add/user
+		}//!console
 	}
-		
 }
+			
+		
+
+			
+
+
 
 
