@@ -123,9 +123,9 @@ public class ServerCommands extends ListenerAdapter {
 			else {
 				event.getChannel().sendMessage("You do not have permission to send console commands.").queue();
 				}
-			}
 		}
-		
 	}
+		
 }
+
 
