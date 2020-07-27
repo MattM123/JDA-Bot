@@ -141,7 +141,7 @@ public class ServerCommands extends ListenerAdapter {
 						}
 					}
 					
-					event.getChannel().sendMessage("Server rank updated to " + rankbuilder + "for " + namebuilder).queue();
+					event.getChannel().sendMessage("Server rank updated to " + rankbuilder + " for " + namebuilder).queue();
 				}//id check
 				else {
 					event.getChannel().sendMessage("You do not have permission to send console commands.").queue();
