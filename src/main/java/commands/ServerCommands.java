@@ -115,9 +115,9 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}
 		
-		if (event.getMessage().getContentRaw().startsWith("!server command")) {
+		if (event.getMessage().getContentRaw().startsWith("!console")) {
 			if (event.getAuthor().getIdLong() == idlong) {
-				server.sendCommand(event.getMessage().getContentRaw().substring(15));
+				server.sendCommand(event.getMessage().getContentRaw().substring(8));
 				event.getChannel().sendMessage("Console command issued: " + event.getMessage().getContentRaw().substring(15));
 			}
 			
