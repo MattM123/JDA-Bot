@@ -15,7 +15,7 @@ public class MapCommand extends ListenerAdapter {
 		embed.setTitle("BTE Midwest Map");
 		embed.setColor(Color.blue);
 		embed.setImage("https://i.imgur.com/meaamm7.png");
-		embed.addField("Made by: ", "MN Admin | Mr Jew", true);
+		embed.setFooter("Made by: MN Admin | Mr Jew");
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!map")) {
 			event.getChannel().sendMessage(embed.build()).queue();
