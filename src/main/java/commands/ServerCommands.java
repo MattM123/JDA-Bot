@@ -148,6 +148,7 @@ public class ServerCommands extends ListenerAdapter {
 					}
 			}//contains parent/add/user
 			else {
+				server.sendCommand(event.getMessage().getContentRaw().substring(8));
 				event.getChannel().sendMessage("Console command issued.").queue();
 			}
 		}//!console
