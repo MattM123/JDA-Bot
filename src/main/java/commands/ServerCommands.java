@@ -96,7 +96,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			else {
-				event.getChannel().sendMessage("You do not have permission to alter the server state!").queue();
+				event.getChannel().sendMessage("You do not have permission to alter the server state.").queue();
 			}
 		}
 		
@@ -111,7 +111,18 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			else {
-				event.getChannel().sendMessage("You do not have permission to alter the server state!").queue();
+				event.getChannel().sendMessage("You do not have permission to alter the server state.").queue();
+			}
+		}
+		
+		if (event.getMessage().getContentRaw().startsWith("!server command")) {
+			if (event.getAuthor().getIdLong() == idlong) {
+				server.sendCommand(event.getMessage().getContentRaw().substring(15));
+			}
+			
+			else {
+				event.getChannel().sendMessage("You do not have permission to send console commands.").queue();
+				}
 			}
 		}
 		
