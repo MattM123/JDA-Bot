@@ -90,14 +90,14 @@ public class ServerCommands extends ListenerAdapter {
 					current = event.getMessage().getContentRaw().substring(13);
 				}
 			}
-			event.getChannel().sendMessage(current).queue();
-			event.getChannel().sendMessage(password).queue();
 			
 			if (current.equals(password)) {
 				event.getChannel().sendMessage("Test").queue();
 				User user = event.getMessage().getAuthor();
 				Random rand = new Random();
-				user.openPrivateChannel().complete().sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
+				user.openPrivateChannel()
+					.flatMap(channel -> channel.sendMessage(("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999))))
+					.queue();
 			}
 			else {
 				event.getChannel().sendMessage("Incorrect password.").queue();
