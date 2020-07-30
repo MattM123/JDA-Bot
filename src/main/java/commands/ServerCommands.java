@@ -83,7 +83,7 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
 	
 		//set password command		
-		if (event.getMessage().getContentRaw().startsWith("!setpassword ", 0)) {
+		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {
 			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
 				if (i == ' ') {
 					current += i;
@@ -97,6 +97,10 @@ public class ServerCommands extends ListenerAdapter {
 				Random rand = new Random();
 				user.openPrivateChannel().complete().sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
 			}
+		}
+		
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!setpassword")) {
+			event.getChannel().sendMessage("Unknown command. Usage: !setpassword <currentpassword>");
 		}
 
 
