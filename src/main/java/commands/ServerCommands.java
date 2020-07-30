@@ -87,13 +87,14 @@ public class ServerCommands extends ListenerAdapter {
 			
 			for (int i = 0; i < chararr.length; i++) {
 				if (chararr[i] == ' ') {
-					current = event.getMessage().getContentRaw().substring(12);
+					current = event.getMessage().getContentRaw().substring(13);
 				}
 			}
 			event.getChannel().sendMessage(current).queue();
 			event.getChannel().sendMessage(password).queue();
 			
 			if (current == password) {
+				event.getChannel().sendMessage("Test").queue();
 				User user = event.getMessage().getAuthor();
 				Random rand = new Random();
 				user.openPrivateChannel().complete().sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
