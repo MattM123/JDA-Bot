@@ -93,7 +93,7 @@ public class ServerCommands extends ListenerAdapter {
 			event.getChannel().sendMessage(current).queue();
 			event.getChannel().sendMessage(password).queue();
 			
-			if (current == password) {
+			if (String.valueOf(current) == password) {
 				event.getChannel().sendMessage("Test").queue();
 				User user = event.getMessage().getAuthor();
 				Random rand = new Random();
