@@ -91,13 +91,13 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			event.getChannel().sendMessage(current).queue();
 			
-			if (current != password) {
-				event.getChannel().sendMessage("Incorrect password.").queue();
-			}
-			else {
+			if (current == password) {
 				User user = event.getMessage().getAuthor();
 				Random rand = new Random();
 				user.openPrivateChannel().complete().sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
+			}
+			else {
+				event.getChannel().sendMessage("Incorrect password.").queue();
 			}
 		}
 		
