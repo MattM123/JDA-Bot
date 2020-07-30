@@ -74,17 +74,17 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
 	
 		//set password command
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!setpasword")) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!setpassword")) {
 			event.getChannel().sendMessage("Please enter the current psasword to change it.").queue();
 				if (event.getMessage().getContentRaw().equals(password)) {
 					User user = event.getMessage().getAuthor();
 					Random rand = new Random();
 					user.openPrivateChannel().complete().sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
 				}
-				
-				else {
-					event.getChannel().sendMessage("Wrong Password").queue();
+				else if (!(event.getMessage().getContentRaw().equals(password))) {
+					event.getChannel().sendMessage("Wrong Password.").queue();
 				}
+
 		}
 		
 		//server status command
