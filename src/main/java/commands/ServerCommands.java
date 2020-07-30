@@ -18,6 +18,7 @@ public class ServerCommands extends ListenerAdapter {
 
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
 	private static UserServer server = api.getServersController().getServer("ef773a66");
+	private static String g = "";
 	
 	public static String serverName() {
 		String name = server.getName();
@@ -55,10 +56,12 @@ public class ServerCommands extends ListenerAdapter {
 	}
 
 	public static void sendPM(User user) {
+		Random rand = new Random();
+		g = "Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999);
+		
 		  try {
-			Random rand = new Random();
 		    user.openPrivateChannel().complete()
-		        .sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
+		        .sendMessage("Your new password is: " + g).queue();
 		  } catch (ErrorResponseException ignored) {
 		  }
 		}
@@ -100,9 +103,12 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Test");
 				User user = event.getMessage().getAuthor();
 				sendPM(user);
+				password = g;
+				event.getChannel().sendMessage(password);
 			//	Random rand = new Random();
 			//	user.openPrivateChannel().complete()
 			//        .sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
+				
 			}
 			else {
 				event.getChannel().sendMessage("Incorrect password.").queue();
