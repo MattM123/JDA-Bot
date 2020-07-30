@@ -54,16 +54,17 @@ public class ServerCommands extends ListenerAdapter {
 		return s.getMemoryUsage() + "/" + server.getLimits().getMemory() + "MB";
 	}
 
-	public long lastMessageId(long id) {
-		id = msgid;
-		return msgid;
-	}
+//	public long lastMessageId(long id) {
+//		id = msgid;
+//		return msgid;
+//	}
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		String id = "387330197420113930";
 		long idlong = Long.parseLong(id);
+		
 		
 		String namebuilder = "";
 		String rankbuilder = "";
@@ -81,7 +82,7 @@ public class ServerCommands extends ListenerAdapter {
 		//set password command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!setpassword")) {
 			event.getChannel().sendMessage("Please enter the current psasword to change it.").queue((message) -> {
-				lastMessageId(message.getIdLong());
+				msgid = message.getIdLong();
 			});
 			
 		if (event.getMessage().getContentRaw().equals("!setpassword") && Long.parseLong(event.getChannel().getLatestMessageId()) == msgid) {
