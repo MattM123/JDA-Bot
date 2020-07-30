@@ -100,7 +100,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!setpassword")) {
-			event.getChannel().sendMessage("Unknown command. Usage: !setpassword <currentpassword>");
+			event.getChannel().sendMessage("Unknown command. Usage: !setpassword <currentpassword>").queue();
 		}
 
 
