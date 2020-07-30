@@ -83,14 +83,14 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
 	
 		//set password command		
-		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {
+		if (event.getMessage().getContentRaw().startsWith("!setpassword ", 0)) {
 			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
 				if (i == ' ') {
 					current += i;
 				}
 			}
 			if (current != password) {
-				event.getChannel().sendMessage("Incorrect password").queue();
+				event.getChannel().sendMessage("Incorrect password.").queue();
 			}
 			else {
 				User user = event.getMessage().getAuthor();
