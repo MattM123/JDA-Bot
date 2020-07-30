@@ -84,8 +84,11 @@ public class ServerCommands extends ListenerAdapter {
 		//set password command		
 		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {
 			event.getChannel().sendMessage("Test").queue();
-			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
-				if (i == ' ') {
+			
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			
+			for (int i = 0; i < chararr.length; i++) {
+				if (chararr[i] == ' ') {
 					current = event.getMessage().getContentRaw().substring(13);
 				}
 			}
@@ -101,12 +104,6 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}
 		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!setpassword")) {
-			event.getChannel().sendMessage("Unknown command. Usage: !setpassword <currentpassword>").queue();
-		}
-
-
-
 	
 		//server status command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server status")) {
