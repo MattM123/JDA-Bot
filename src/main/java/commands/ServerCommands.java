@@ -89,7 +89,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 			for (int i = 0; i < chararr.length; i++) {
 				if (chararr[i] == ' ') {
-					current = event.getMessage().getContentRaw().substring(13);
+					current = event.getMessage().getContentRaw().substring(14);
 				}
 			}
 			event.getChannel().sendMessage(current).queue();
