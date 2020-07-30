@@ -84,12 +84,12 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//set password command		
 		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {
-			event.getChannel().sendMessage("Test").queue();
 			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
 				if (i == ' ') {
 					current += i;
 				}
 			}
+			event.getChannel().sendMessage(current).queue();
 			if (current != password) {
 				event.getChannel().sendMessage("Incorrect password.").queue();
 			}
