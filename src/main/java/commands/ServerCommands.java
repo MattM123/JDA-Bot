@@ -11,6 +11,7 @@ import com.stanjg.ptero4j.entities.panel.user.UserServer;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class ServerCommands extends ListenerAdapter {
@@ -53,10 +54,14 @@ public class ServerCommands extends ListenerAdapter {
 		return s.getMemoryUsage() + "/" + server.getLimits().getMemory() + "MB";
 	}
 
-//	public long lastMessageId(long id) {
-//		id = msgid;
-//		return msgid;
-//	}
+	public static void sendPM(User user) {
+		  try {
+			Random rand = new Random();
+		    user.openPrivateChannel().complete()
+		        .sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
+		  } catch (ErrorResponseException ignored) {
+		  }
+		}
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -92,12 +97,11 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (current.equals(password)) {
-				event.getChannel().sendMessage("Test").queue();
 				User user = event.getMessage().getAuthor();
-				Random rand = new Random();
-				user.openPrivateChannel().complete()
-			        .sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
-				//user.openPrivateChannel().complete().sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
+				sendPM(user);
+			//	Random rand = new Random();
+			//	user.openPrivateChannel().complete()
+			//        .sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
 			}
 			else {
 				event.getChannel().sendMessage("Incorrect password.").queue();
