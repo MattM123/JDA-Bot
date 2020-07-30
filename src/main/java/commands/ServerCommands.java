@@ -90,10 +90,10 @@ public class ServerCommands extends ListenerAdapter {
 					current = event.getMessage().getContentRaw().substring(13);
 				}
 			}
-			event.getChannel().sendMessage(String.valueOf(current.length())).queue();
+			event.getChannel().sendMessage("|" + current + "|").queue();
 			event.getChannel().sendMessage(password).queue();
 			
-			if ("password" == password) {
+			if (current == password) {
 				event.getChannel().sendMessage("Test").queue();
 				User user = event.getMessage().getAuthor();
 				Random rand = new Random();
