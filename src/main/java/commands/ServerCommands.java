@@ -62,6 +62,7 @@ public class ServerCommands extends ListenerAdapter {
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
+		
 		String id = "387330197420113930";
 		long idlong = Long.parseLong(id);
 		
@@ -69,6 +70,8 @@ public class ServerCommands extends ListenerAdapter {
 		String namebuilder = "";
 		String rankbuilder = "";
 		String password = "password";
+		String current = "password";
+		
 
 		
 		EmbedBuilder embed = new EmbedBuilder();
@@ -79,24 +82,26 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
 	
-		//set password command
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!setpassword")) {
-			event.getChannel().sendMessage("Please enter the current psasword to change it.").queue();//((message) -> {
-			//	msgid = message.getIdLong();
-		//	});
+		//set password command		
+		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {
+			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
+				if (i == ' ') {
+					current += i;
+				}
+			}
+			if (current != password) {
+				event.getChannel().sendMessage("Incorrect password").queue();
+			}
+			else {
+				User user = event.getMessage().getAuthor();
+				Random rand = new Random();
+				user.openPrivateChannel().complete().sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
+			}
 		}
-			
-		if (event.getMessage().getContentRaw().equals("!setpassword")) {// && Long.parseLong(event.getChannel().getLatestMessageId()) == msgid) {
-					User user = event.getMessage().getAuthor();
-					Random rand = new Random();
-					user.openPrivateChannel().complete().sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
-				}
-				else if (!(event.getMessage().getContentRaw().equals(password))) {
-					event.getChannel().sendMessage("Wrong Password.").queue();
-				}
 
-	//}
-		
+
+
+	
 		//server status command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server status")) {
 			event.getChannel().sendMessage(embed.build()).queue();	
