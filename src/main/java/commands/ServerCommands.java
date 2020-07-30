@@ -70,7 +70,7 @@ public class ServerCommands extends ListenerAdapter {
 		String namebuilder = "";
 		String rankbuilder = "";
 		String password = "password";
-		String current = "password";
+		String current = "";
 		
 
 		
@@ -84,6 +84,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//set password command		
 		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {
+			event.getChannel().sendMessage("Test").queue();
 			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
 				if (i == ' ') {
 					current += i;
