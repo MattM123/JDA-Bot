@@ -97,6 +97,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (current.equals(password)) {
+				event.getChannel().sendMessage("Test");
 				User user = event.getMessage().getAuthor();
 				sendPM(user);
 			//	Random rand = new Random();
