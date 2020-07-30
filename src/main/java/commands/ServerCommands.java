@@ -17,6 +17,7 @@ public class ServerCommands extends ListenerAdapter {
 
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
 	private static UserServer server = api.getServersController().getServer("ef773a66");
+	private long msgid;
 	
 	public static String serverName() {
 		String name = server.getName();
@@ -53,6 +54,10 @@ public class ServerCommands extends ListenerAdapter {
 		return s.getMemoryUsage() + "/" + server.getLimits().getMemory() + "MB";
 	}
 
+	public long lastMessageId(long id) {
+		id = msgid;
+		return msgid;
+	}
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -75,8 +80,11 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//set password command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!setpassword")) {
-			event.getChannel().sendMessage("Please enter the current psasword to change it.").queue();
-				if (event.getMessage().getContentRaw().equals(password)) {
+			event.getChannel().sendMessage("Please enter the current psasword to change it.").queue((message) -> {
+				lastMessageId(message.getIdLong());
+			});
+			
+		if (event.getMessage().getContentRaw().equals("!setpassword") && Long.parseLong(event.getChannel().getLatestMessageId()) == msgid) {
 					User user = event.getMessage().getAuthor();
 					Random rand = new Random();
 					user.openPrivateChannel().complete().sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
