@@ -89,10 +89,11 @@ public class ServerCommands extends ListenerAdapter {
 			
 			for (int i = 0; i < chararr.length; i++) {
 				if (chararr[i] == ' ') {
-					current = event.getMessage().getContentRaw().substring(14);
+					current = event.getMessage().getContentRaw().substring(13);
 				}
 			}
 			event.getChannel().sendMessage(current).queue();
+			event.getChannel().sendMessage(password).queue();
 			
 			if (current == password) {
 				User user = event.getMessage().getAuthor();
