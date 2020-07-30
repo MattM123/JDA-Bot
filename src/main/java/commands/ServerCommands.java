@@ -90,6 +90,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 			}
 			event.getChannel().sendMessage(current).queue();
+			
 			if (current != password) {
 				event.getChannel().sendMessage("Incorrect password.").queue();
 			}
