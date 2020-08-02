@@ -94,6 +94,7 @@ public class ServerCommands extends ListenerAdapter {
 					
 					e.printStackTrace();
 				}
+				event.getChannel().sendMessage("Your session has expired, " + event.getAuthor().getName()).queue();
 				id = "0";
 
 				
