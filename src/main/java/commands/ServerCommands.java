@@ -18,7 +18,6 @@ public class ServerCommands extends ListenerAdapter {
 
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
 	private static UserServer server = api.getServersController().getServer("ef773a66");
-	private static String g = "";
 	
 	public static String serverName() {
 		String name = server.getName();
@@ -70,14 +69,15 @@ public class ServerCommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		
-		String id = "387330197420113930";
+		//String id = "387330197420113930";
+		String id = "0";
 		long idlong = Long.parseLong(id);
 		
 		
 		String namebuilder = "";
 		String rankbuilder = "";
 		String password = "password";
-		String current = "";
+		String passwordkeyed = "";
 		
 
 		
@@ -90,24 +90,26 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
 	
 		//set password command		
-		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {			
+		if (event.getMessage().getContentRaw().startsWith("!password")) {			
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			
 			for (int i = 0; i < chararr.length; i++) {
 				if (chararr[i] == ' ') {
-					current = event.getMessage().getContentRaw().substring(13);
+					passwordkeyed = event.getMessage().getContentRaw().substring(10);
 				}
 			}
 			
-			if (current.equals(password)) {
-				event.getChannel().sendMessage("Test");
-				User user = event.getMessage().getAuthor();
-				sendPM(user);
-				password = g;
-				event.getChannel().sendMessage(password);
-			//	Random rand = new Random();
-			//	user.openPrivateChannel().complete()
-			//        .sendMessage("Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999)).queue();
+			if (passwordkeyed.equals(password)) {
+				event.getChannel().sendMessage("Your elevated session will expire in 5 minutes.");
+				id = event.getMessage().getAuthor().getId();
+				try {
+					event.wait(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				id = "0";
+
 				
 			}
 			else {
@@ -205,7 +207,8 @@ public class ServerCommands extends ListenerAdapter {
 	}
 }
 			
-		
+		//Idea: !password <password> gives access to elevated session commands such as 
+		//!setpassword, !server restart, start, stop, !apikey, !serverID.
 
 			
 
