@@ -86,7 +86,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (passwordkeyed.equals(password)) {
-				event.getChannel().sendMessage("Your elevated session will expire in 5 minutes.");
+				event.getChannel().sendMessage("Your elevated session will expire in 5 minutes.").queue();
 				id = event.getMessage().getAuthor().getId();
 				try {
 					event.wait(3000);
