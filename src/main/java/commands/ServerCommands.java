@@ -1,17 +1,13 @@
 package commands;
 
 import java.awt.Color;
-import java.util.Random;
-
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
 import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class ServerCommands extends ListenerAdapter {
@@ -54,16 +50,6 @@ public class ServerCommands extends ListenerAdapter {
 		return s.getMemoryUsage() + "/" + server.getLimits().getMemory() + "MB";
 	}
 
-	public static void sendPM(User user) {
-		Random rand = new Random();
-		g = "Your new password is: " + (CharSequence) rand.longs(1000000000, 999999999);
-		
-		  try {
-		    user.openPrivateChannel().complete()
-		        .sendMessage("Your new password is: " + g).queue();
-		  } catch (ErrorResponseException ignored) {
-		  }
-		}
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -105,7 +91,7 @@ public class ServerCommands extends ListenerAdapter {
 				try {
 					event.wait(3000);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 				id = "0";
