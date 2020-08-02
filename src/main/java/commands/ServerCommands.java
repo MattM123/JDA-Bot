@@ -89,7 +89,7 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Your elevated session will expire in 5 minutes.").queue();
 				id = event.getMessage().getAuthor().getId();
 				try {
-					wait(3000);
+					event.wait(3000);
 					event.getChannel().sendMessage("Your session has expired, " + event.getAuthor().getName()).queue();
 					id = "0";
 				} catch (InterruptedException e) {
