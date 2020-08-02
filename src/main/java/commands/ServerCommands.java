@@ -90,12 +90,13 @@ public class ServerCommands extends ListenerAdapter {
 				id = event.getMessage().getAuthor().getId();
 				try {
 					wait(3000);
+					event.getChannel().sendMessage("Your session has expired, " + event.getAuthor().getName()).queue();
+					id = "0";
 				} catch (InterruptedException e) {
 					
 					e.printStackTrace();
 				}
-				event.getChannel().sendMessage("Your session has expired, " + event.getAuthor().getName()).queue();
-				id = "0";
+
 
 				
 			}
