@@ -113,7 +113,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//server restart command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart")) {	
-			if (event.getAuthor().getIdLong() == idlong) {
+			if (event.getAuthor().getId() == id) {
 				event.getChannel().sendMessage("Server Restarting...").queue();
 				server.restart();
 		}	
@@ -124,7 +124,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//server start command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server start")) {
-			if (serverStatus() == "ONLINE" && event.getAuthor().getIdLong() == idlong) {
+			if (serverStatus() == "ONLINE" && event.getAuthor().getId() == id) {
 				event.getChannel().sendMessage("Server already running!").queue();
 			}
 			
@@ -140,7 +140,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//server stop command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server stop")) {
-			if (serverStatus() == "OFFLINE" && event.getAuthor().getIdLong() == idlong) {
+			if (serverStatus() == "OFFLINE" && event.getAuthor().getId() == id) {
 				event.getChannel().sendMessage("Server already stopped!").queue();
 			}
 			
@@ -159,7 +159,7 @@ public class ServerCommands extends ListenerAdapter {
 			if (event.getMessage().getContentRaw().contains("parent") 
 					&& event.getMessage().getContentRaw().contains("add") 
 					&& event.getMessage().getContentRaw().contains("user")) { //contains parent/add/user
-				if (event.getAuthor().getIdLong() == idlong) { //id check
+				if (event.getAuthor().getId() == id) { //id check
 					server.sendCommand(event.getMessage().getContentRaw().substring(8));
 					
 					char[] arr = event.getMessage().getContentRaw().toCharArray();
