@@ -62,8 +62,8 @@ public class ServerCommands extends ListenerAdapter {
 		
 		String namebuilder = "";
 		String rankbuilder = "";
-		String password = "password";
-		String passwordkeyed = "";
+	//	String password = "password";
+	//	String passwordkeyed = "";
 		
 
 		
@@ -74,7 +74,7 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("CPU Usage: ", cpuUsage(), false);
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
-	
+	/*
 		//set password command		
 		if (event.getMessage().getContentRaw().startsWith("!password")) {			
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
@@ -104,7 +104,7 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Incorrect password.").queue();
 			}
 		}
-		
+	*/	
 	
 		//server status command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server status")) {
