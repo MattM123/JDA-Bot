@@ -55,8 +55,8 @@ public class ServerCommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		
-		//String id = "387330197420113930";
-		String id = "0";
+		String id = "387330197420113930";
+		//String id = "0";
 		long idlong = Long.parseLong(id);
 		
 		
@@ -89,7 +89,7 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Your elevated session will expire in 5 minutes.").queue();
 				id = event.getMessage().getAuthor().getId();
 				try {
-					event.wait(3000);
+					wait(3000);
 					event.getChannel().sendMessage("Your session has expired, " + event.getAuthor().getName()).queue();
 					id = "0";
 				} catch (InterruptedException e) {
