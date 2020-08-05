@@ -21,9 +21,9 @@ public class ServerCommands extends ListenerAdapter {
 	private String stored = "";
 	private String pass = passwordGen();
 
-	public ServerCommands() {
-		stored = pass;
-	}
+	//public ServerCommands() {
+//		stored = pass;
+//	}
 	public static String serverName() {
 		String name = server.getName();
 		return name;
@@ -66,6 +66,7 @@ public class ServerCommands extends ListenerAdapter {
 	}
 	
 	public String passwordStore() {
+		stored = pass;
 		return stored;
 	}
 
@@ -94,7 +95,7 @@ public class ServerCommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
 			User user = event.getMessage().getAuthor();
 		    user.openPrivateChannel().complete()
-		    	.sendMessage("you new password is: " + stored + ". Can be used with !setpassword <currentpassword>.").queue();
+		    	.sendMessage("you new password is: " + passwordStore() + ". Can be used with !setpassword <currentpassword>.").queue();
 		}
 		
 		//set password command		
@@ -209,10 +210,10 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}//!console
 	}
+	
 }
 			
-		//Idea: !password <password> gives access to elevated session commands such as 
-		//!setpassword, !server restart, start, stop, !apikey, !serverID.
+
 
 			
 
