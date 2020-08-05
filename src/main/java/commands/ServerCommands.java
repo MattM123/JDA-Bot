@@ -88,9 +88,10 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
 	
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
+			passwordGen();
 			User user = event.getMessage().getAuthor();
 		    user.openPrivateChannel().complete()
-		    	.sendMessage("you new password is: " + passwordGen()).queue();
+		    	.sendMessage("you new password is: " + stored).queue();
 		}
 		//set password command		
 		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {	
