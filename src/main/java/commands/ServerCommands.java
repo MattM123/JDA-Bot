@@ -2,8 +2,6 @@ package commands;
 
 import java.awt.Color;
 import java.util.Random;
-import java.util.stream.LongStream;
-
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
 import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
@@ -53,14 +51,18 @@ public class ServerCommands extends ListenerAdapter {
 		ServerUsage s = server.getServerUsage();
 		return s.getMemoryUsage() + "/" + server.getLimits().getMemory() + "MB";
 	}
-
 	
+	public String setPassword() {
+		
+		return String.valueOf(Math.random()*9000000L);
+		
+	}
+
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		
 		String id = "387330197420113930";
-		//String id = "0";
 		long idlong = Long.parseLong(id);
 		
 		
@@ -91,19 +93,12 @@ public class ServerCommands extends ListenerAdapter {
 			
 			if (passwordkeyed.equals(password)) {
 				event.getChannel().sendMessage("Check your DMs!").queue();
-				Random rand = new Random();
-				String message = String.valueOf(rand.nextLong());
-				
 				
 				User user = event.getMessage().getAuthor();
 			    user.openPrivateChannel().complete()
-			    	.sendMessage("Your new password is: " + message).queue();
-			   
-			    password.equals(message);
-
-
-
+			    	.sendMessage("Your new password is: " + setPassword()).queue();
 				
+			   event.getChannel().sendMessage(setPassword()).queue();
 			}
 			else {
 				event.getChannel().sendMessage("Incorrect password.").queue();
