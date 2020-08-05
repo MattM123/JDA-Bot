@@ -7,6 +7,7 @@ import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -62,8 +63,8 @@ public class ServerCommands extends ListenerAdapter {
 		
 		String namebuilder = "";
 		String rankbuilder = "";
-	//	String password = "password";
-	//	String passwordkeyed = "";
+		String password = "password";
+		String passwordkeyed = "";
 		
 
 		
@@ -74,28 +75,24 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("CPU Usage: ", cpuUsage(), false);
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
-	/*
+	
 		//set password command		
-		if (event.getMessage().getContentRaw().startsWith("!password")) {			
+		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {			
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			
 			for (int i = 0; i < chararr.length; i++) {
 				if (chararr[i] == ' ') {
-					passwordkeyed = event.getMessage().getContentRaw().substring(10);
+					passwordkeyed = event.getMessage().getContentRaw().substring(13);
 				}
 			}
 			
 			if (passwordkeyed.equals(password)) {
-				event.getChannel().sendMessage("Your elevated session will expire in 5 minutes.").queue();
-				id = event.getMessage().getAuthor().getId();
-				try {
-					wait(3000);
-					event.getChannel().sendMessage("Your session has expired, " + event.getAuthor().getName()).queue();
-					id = "0";
-				} catch (InterruptedException e) {
-					
-					e.printStackTrace();
-				}
+				event.getChannel().sendMessage("test").queue();
+				User user = event.getMessage().getAuthor();
+				user.openPrivateChannel().queue((channel) ->
+		        {
+		            channel.sendMessage("Test").queue();
+		        });
 
 
 				
@@ -104,7 +101,7 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Incorrect password.").queue();
 			}
 		}
-	*/	
+		
 	
 		//server status command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server status")) {
