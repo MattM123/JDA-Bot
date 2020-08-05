@@ -18,7 +18,7 @@ public class ServerCommands extends ListenerAdapter {
 
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
 	private static UserServer server = api.getServersController().getServer("ef773a66");
-	private String stored;
+	private String stored = "";
 	private String pass = passwordGen();
 
 	public ServerCommands() {
