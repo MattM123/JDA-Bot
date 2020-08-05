@@ -95,6 +95,7 @@ public class ServerCommands extends ListenerAdapter {
 					passwordkeyed = event.getMessage().getContentRaw().substring(13);
 				}
 			}
+			event.getChannel().sendMessage(passwordGen()).queue();
 			
 			if (passwordkeyed.equals(passwordGen())) {
 				event.getChannel().sendMessage("Check your DMs!").queue();
