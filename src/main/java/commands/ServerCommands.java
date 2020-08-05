@@ -89,10 +89,8 @@ public class ServerCommands extends ListenerAdapter {
 			if (passwordkeyed.equals(password)) {
 				event.getChannel().sendMessage("test").queue();
 				User user = event.getMessage().getAuthor();
-				user.openPrivateChannel().queue((channel) ->
-		        {
-		            channel.sendMessage("Test").queue();
-		        });
+			    user.openPrivateChannel().complete()
+		        .sendMessage("Test").queue();
 
 
 				
