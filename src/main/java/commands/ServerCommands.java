@@ -93,10 +93,9 @@ public class ServerCommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
 			User user = event.getMessage().getAuthor();
 		    user.openPrivateChannel().complete()
-		    	.sendMessage("you new password is: " + passwordStore() + ". Use with !setpassword <currentpassword>.").queue();
-		    
-		    event.getChannel().sendMessage(passwordStore());
+		    	.sendMessage("you new password is: " + stored + ". Can be with !setpassword <currentpassword>.").queue();
 		}
+		
 		//set password command		
 		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {	
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
