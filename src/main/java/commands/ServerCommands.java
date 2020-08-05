@@ -19,9 +19,10 @@ public class ServerCommands extends ListenerAdapter {
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
 	private static UserServer server = api.getServersController().getServer("ef773a66");
 	private String stored;
+	private String pass = passwordGen();
 
 	public ServerCommands() {
-		stored = passwordGen();
+		stored = pass;
 	}
 	public static String serverName() {
 		String name = server.getName();
@@ -93,7 +94,7 @@ public class ServerCommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
 			User user = event.getMessage().getAuthor();
 		    user.openPrivateChannel().complete()
-		    	.sendMessage("you new password is: " + stored + ". Can be with !setpassword <currentpassword>.").queue();
+		    	.sendMessage("you new password is: " + stored + ". Can be used with !setpassword <currentpassword>.").queue();
 		}
 		
 		//set password command		
