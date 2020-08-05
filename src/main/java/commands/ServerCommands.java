@@ -18,8 +18,11 @@ public class ServerCommands extends ListenerAdapter {
 
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
 	private static UserServer server = api.getServersController().getServer("ef773a66");
-	private String stored = "";
+	private String stored;
 
+	public ServerCommands() {
+		stored = passwordGen();
+	}
 	public static String serverName() {
 		String name = server.getName();
 		return name;
@@ -90,9 +93,9 @@ public class ServerCommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
 			User user = event.getMessage().getAuthor();
 		    user.openPrivateChannel().complete()
-		    	.sendMessage("you new password is: " + passwordGen()).queue();
+		    	.sendMessage("you new password is: " + passwordStore() + ". Use with !setpassword <currentpassword>.").queue();
 		    
-		    event.getChannel().sendMessage(stored);
+		    event.getChannel().sendMessage(passwordStore());
 		}
 		//set password command		
 		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {	
@@ -109,7 +112,7 @@ public class ServerCommands extends ListenerAdapter {
 				
 				User user1 = event.getMessage().getAuthor();
 			    user1.openPrivateChannel().complete()
-			    	.sendMessage("Your new password is: " + stored).queue();
+			    	.sendMessage("Your new password is: " + passwordStore()).queue();
 				
 			   event.getChannel().sendMessage(passwordGen()).queue();
 			}
