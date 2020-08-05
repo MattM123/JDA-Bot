@@ -1,6 +1,9 @@
 package commands;
 
 import java.awt.Color;
+
+import org.apache.commons.lang.RandomStringUtils;
+
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
 import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
@@ -16,8 +19,7 @@ public class ServerCommands extends ListenerAdapter {
 
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
 	private static UserServer server = api.getServersController().getServer("ef773a66");
-	private Message message;
-	
+
 	public static String serverName() {
 		String name = server.getName();
 		return name;
@@ -53,8 +55,9 @@ public class ServerCommands extends ListenerAdapter {
 		return s.getMemoryUsage() + "/" + server.getLimits().getMemory() + "MB";
 	}
 	
-	public void setPassword(Message m) {	
-		message = m;
+	public String passwordGen() {	
+		String generatedString = RandomStringUtils.random(15, true, true);
+		return generatedString;
 	}
 
 	@Override
@@ -67,9 +70,8 @@ public class ServerCommands extends ListenerAdapter {
 		
 		String namebuilder = "";
 		String rankbuilder = "";
-	//	String password = "password";
 		String passwordkeyed = "";
-		
+
 
 		
 		EmbedBuilder embed = new EmbedBuilder();
@@ -80,29 +82,29 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
 	
-		//set password command		
-		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {	
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
 			User user = event.getMessage().getAuthor();
 		    user.openPrivateChannel().complete()
-		    	.sendMessage("Enter a new password.").queue((message) -> {
-		    		setPassword(message);
-		    	});
-		//	char[] chararr = event.getMessage().getContentRaw().toCharArray();
+		    	.sendMessage("you new password is: " + passwordGen()).queue();
+		}
+		//set password command		
+		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {	
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			
-		//	for (int i = 0; i < chararr.length; i++) {
-		//		if (chararr[i] == ' ') {
-		//			passwordkeyed = event.getMessage().getContentRaw().substring(13);
-		//		}
-		//	}
+			for (int i = 0; i < chararr.length; i++) {
+				if (chararr[i] == ' ') {
+					passwordkeyed = event.getMessage().getContentRaw().substring(13);
+				}
+			}
 			
-			if (passwordkeyed.equals(message.toString())) {
+			if (passwordkeyed.equals(passwordGen())) {
 				event.getChannel().sendMessage("Check your DMs!").queue();
 				
 				User user1 = event.getMessage().getAuthor();
 			    user1.openPrivateChannel().complete()
-			    	.sendMessage("Your new password is: " + message).queue();
+			    	.sendMessage("Your new password is: " + passwordGen()).queue();
 				
-			   event.getChannel().sendMessage(message).queue();
+			   event.getChannel().sendMessage(passwordGen()).queue();
 			}
 			else {
 				event.getChannel().sendMessage("Incorrect password.").queue();
