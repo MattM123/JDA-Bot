@@ -97,10 +97,10 @@ public class ServerCommands extends ListenerAdapter {
 				
 				User user = event.getMessage().getAuthor();
 			    user.openPrivateChannel().complete()
-			    	.sendMessage("Your new password is: " + String.valueOf(message)).queue();
-			    
-			    password = message;
-			    event.getChannel().sendMessage(message).queue();
+			    	.sendMessage("Your new password is: " + message).queue();
+			   
+			    password.equals(message);
+
 
 
 				
