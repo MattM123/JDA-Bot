@@ -2,6 +2,7 @@ package commands;
 
 import java.awt.Color;
 import java.util.Random;
+import java.util.stream.LongStream;
 
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
@@ -89,13 +90,14 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (passwordkeyed.equals(password)) {
-				event.getChannel().sendMessage("Check you DMs!").queue();
+				event.getChannel().sendMessage("Check your DMs!").queue();
 				Random rand = new Random();
-				String message = String.valueOf(rand.longs());
+				String message = String.valueOf(rand.nextLong());
+				
 				
 				User user = event.getMessage().getAuthor();
 			    user.openPrivateChannel().complete()
-			    	.sendMessage(String.valueOf(message)).queue();
+			    	.sendMessage("Your new password is: " + String.valueOf(message)).queue();
 			    
 			    password = message;
 			    event.getChannel().sendMessage(message).queue();
