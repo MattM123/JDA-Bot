@@ -128,7 +128,7 @@ public class ServerCommands extends ListenerAdapter {
 			    user1.openPrivateChannel().complete()
 			    	.sendMessage("Your new password is: " + passwordStore()).queue();
 				
-			   event.getChannel().sendMessage(passwordGen()).queue();
+			//   event.getChannel().sendMessage(passwordGen()).queue();
 			}
 			else {
 				event.getChannel().sendMessage("Incorrect password.").queue();
