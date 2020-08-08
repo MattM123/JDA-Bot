@@ -69,7 +69,7 @@ public class ServerCommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		
-		String id = "";//"387330197420113930";
+		String id = "387330197420113930";
 		long idlong = Long.parseLong(id);
 		
 		
@@ -88,7 +88,7 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
 	
 		//password generator
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen") && event.getMessage().getAuthor().getIdLong() == idlong) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
 			if (id == "" || idlong == event.getMessage().getAuthor().getIdLong()) {
 				passwordGen();
 				User user = event.getMessage().getAuthor();
