@@ -120,7 +120,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 			}
 			
-			if (passwordkeyed.equals(passwordStore())) {
+			if (passwordkeyed.equals(passwordStore()) && !passwordkeyed.equals("")) {
 				passwordGen();
 				event.getChannel().sendMessage("Check your DMs!").queue();
 				
