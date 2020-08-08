@@ -57,7 +57,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 	public void passwordGen() {	
 		String generatedString = RandomStringUtils.random(15, true, true);
-		stored += generatedString;
+		stored += "<" + generatedString + ">";
 		
 
 			//stored += generatedString;
@@ -66,14 +66,11 @@ public class ServerCommands extends ListenerAdapter {
 	
 	
 	public String passwordStore() {
-		return stored;
+		return stored.substring(1, 15);
 	}
 	
 	public void clearPassword() {
-		char[] chararr = stored.toCharArray();
-		for (int i = 0; i < chararr.length; i++) {
-			stored.replaceAll(String.valueOf(chararr[i]), "");
-		}
+		stored.replaceAll("<.*>", "");
 	}
 	
 
