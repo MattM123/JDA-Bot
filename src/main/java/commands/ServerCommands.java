@@ -68,7 +68,7 @@ public class ServerCommands extends ListenerAdapter {
 	}
 	
 	public void clearPassword() {
-		stored.replaceAll("<.*>", "");
+		stored.replaceAll("\\<.*?\\>", "");
 	}
 	
 
