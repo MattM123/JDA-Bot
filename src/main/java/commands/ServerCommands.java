@@ -55,10 +55,14 @@ public class ServerCommands extends ListenerAdapter {
 		return s.getMemoryUsage() + "/" + server.getLimits().getMemory() + "MB";
 	}
 	
-	public String passwordGen() {	
+	public void passwordGen() {	
 		String generatedString = RandomStringUtils.random(15, true, true);
-		stored += generatedString;
-		return generatedString;
+		if (stored.isEmpty()) {
+			stored += generatedString;
+		}
+		else {
+			stored.replaceAll(stored, generatedString);
+		}
 	}
 	
 	public String passwordStore() {
@@ -66,10 +70,7 @@ public class ServerCommands extends ListenerAdapter {
 	}
 	
 	public void clearPassword() {
-	//	char[] chararr = stored.toCharArray();
-	//	for (int i = 0; i < chararr.length; i++) {
-			stored.replaceAll(stored, "");
-	//	}	
+	
 	}
 	
 
@@ -98,7 +99,6 @@ public class ServerCommands extends ListenerAdapter {
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
 			if (id == "" || idlong == event.getMessage().getAuthor().getIdLong()) {
-				clearPassword();
 				passwordGen();
 				User user = event.getMessage().getAuthor();
 				user.openPrivateChannel().complete()
@@ -111,7 +111,6 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//set password command		
 		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {	
-			clearPassword();
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			
 			for (int i = 0; i < chararr.length; i++) {
@@ -134,7 +133,7 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Incorrect password.").queue();
 			}
 			
-			if (passwordStore().equals("")) {
+			if (passwordStore().isEmpty()) {
 				event.getChannel().sendMessage("Please use !passwordgen to generate an initial password.").queue();
 			}
 		}
