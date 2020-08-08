@@ -171,7 +171,7 @@ public class ServerCommands extends ListenerAdapter {
 			if (event.getMessage().getContentRaw().contains("parent") 
 					&& event.getMessage().getContentRaw().contains("add") 
 					&& event.getMessage().getContentRaw().contains("user")) { //contains parent/add/user
-				if (event.getAuthor().getId() == id) { //id check
+				if (event.getAuthor().getIdLong() == idlong) { //id check
 					server.sendCommand(event.getMessage().getContentRaw().substring(8));
 					
 					char[] arr = event.getMessage().getContentRaw().toCharArray();
