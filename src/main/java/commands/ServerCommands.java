@@ -61,7 +61,7 @@ public class ServerCommands extends ListenerAdapter {
 			stored += generatedString;
 		}
 		else {
-			stored.replaceAll(stored.substring(0), passwordGen());
+			stored.replaceAll(passwordStore(), generatedString);
 		}
 		return generatedString;
 	}
