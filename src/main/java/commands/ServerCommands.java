@@ -66,8 +66,12 @@ public class ServerCommands extends ListenerAdapter {
 	}
 	
 	public void clearPassword() {
-		stored.replace(stored, "");
+		char[] chararr = stored.toCharArray();
+		for (int i = 0; i < chararr.length; i++) {
+			stored.replace(String.valueOf(chararr[i]), "");
+		}	
 	}
+	
 
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -107,6 +111,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//set password command		
 		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {	
+			clearPassword();
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			
 			for (int i = 0; i < chararr.length; i++) {
@@ -116,7 +121,6 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (passwordkeyed.equals(passwordStore())) {
-				clearPassword();
 				passwordGen();
 				event.getChannel().sendMessage("Check your DMs!").queue();
 				
