@@ -18,7 +18,7 @@ public class ServerCommands extends ListenerAdapter {
 
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
 	private static UserServer server = api.getServersController().getServer("ef773a66");
-	public static String spaces = "               ";
+	public static String stored = "";
 	
 
 	public static String serverName() {
@@ -57,11 +57,12 @@ public class ServerCommands extends ListenerAdapter {
 	
 	public String passwordGen() {	
 		String generatedString = RandomStringUtils.random(15, true, true);
+		stored += generatedString;
 		return generatedString;
 	}
 	
 	public String passwordStore() {
-		return spaces;
+		return stored;
 	}
 
 	@Override
