@@ -57,25 +57,23 @@ public class ServerCommands extends ListenerAdapter {
 	
 	public void passwordGen() {	
 		String generatedString = RandomStringUtils.random(15, true, true);
-		if (stored.isEmpty()) {
-			stored += generatedString;
-		}
-		else {
-			char[] chararr = stored.toCharArray();
-			for (int i = 0; i < chararr.length; i++) {
-				stored.replace(String.valueOf(chararr[i]), "");
-			}
+		stored += generatedString;
+		
+
 			//stored += generatedString;
-		}
-	//	return generatedString;
 	}
+	//	return generatedString;
+	
 	
 	public String passwordStore() {
 		return stored;
 	}
 	
 	public void clearPassword() {
-	
+		char[] chararr = stored.toCharArray();
+		for (int i = 0; i < chararr.length; i++) {
+			stored.replaceAll(String.valueOf(chararr[i]), "");
+		}
 	}
 	
 
@@ -122,8 +120,8 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (passwordkeyed.equals(passwordStore()) && !(passwordkeyed.equals(""))) {
-				passwordGen();
-			
+				clearPassword();
+				passwordGen();	
 				event.getChannel().sendMessage("Check your DMs!").queue();
 				
 				User user1 = event.getMessage().getAuthor();
