@@ -69,7 +69,7 @@ public class ServerCommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		
-		String id = "387330197420113930";
+		String id = "";//"387330197420113930";
 		long idlong = Long.parseLong(id);
 		
 		
@@ -88,10 +88,16 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
 	
 		//password generator
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
-			User user = event.getMessage().getAuthor();
-		    user.openPrivateChannel().complete()
-		    	.sendMessage("you new password is: " + passwordStore() + ". Can be used with !setpassword <currentpassword>.").queue();
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen") && event.getMessage().getAuthor().getIdLong() == idlong) {
+			if (id == "" || idlong == event.getMessage().getAuthor().getIdLong()) {
+				passwordGen();
+				User user = event.getMessage().getAuthor();
+				user.openPrivateChannel().complete()
+		    		.sendMessage("you new password is: " + passwordStore() + ". Can be used with !setpassword <currentpassword>.").queue();
+			}
+			else {
+				event.getChannel().sendMessage("test").queue();
+			}
 		}
 		
 		//set password command		
@@ -105,6 +111,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (passwordkeyed.equals(passwordStore())) {
+				passwordGen();
 				event.getChannel().sendMessage("Check your DMs!").queue();
 				
 				User user1 = event.getMessage().getAuthor();
@@ -116,7 +123,13 @@ public class ServerCommands extends ListenerAdapter {
 			else {
 				event.getChannel().sendMessage("Incorrect password.").queue();
 			}
+			
+			if (passwordStore().equals("")) {
+				event.getChannel().sendMessage("Please use !initialize to generate an initial password.").queue();
+			}
 		}
+		
+	
 		
 	
 		//server status command
