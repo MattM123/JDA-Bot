@@ -61,7 +61,7 @@ public class ServerCommands extends ListenerAdapter {
 			stored += generatedString;
 		}
 		else {
-			stored.replaceAll(stored, generatedString);
+			stored.replaceAll(stored.substring(0), generatedString);
 		}
 	}
 	
@@ -79,14 +79,11 @@ public class ServerCommands extends ListenerAdapter {
 		super.onGuildMessageReceived(event);
 		
 		String id = "387330197420113930";
-		long idlong = Long.parseLong(id);
-		
+		long idlong = Long.parseLong(id);		
 		
 		String namebuilder = "";
 		String rankbuilder = "";
 		String passwordkeyed = "";
-
-
 		
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setTitle("Nebraska/Iowa Build Server Status").setColor(Color.blue);
