@@ -65,7 +65,7 @@ public class ServerCommands extends ListenerAdapter {
 			for (int i = 0; i < chararr.length; i++) {
 				stored.replace(String.valueOf(chararr[i]), "");
 			}
-			stored += generatedString;
+			//stored += generatedString;
 		}
 	//	return generatedString;
 	}
