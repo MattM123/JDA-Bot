@@ -64,6 +64,10 @@ public class ServerCommands extends ListenerAdapter {
 	public String passwordStore() {
 		return stored;
 	}
+	
+	public void clearPassword() {
+		stored.replace(stored, "");
+	}
 
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -90,6 +94,7 @@ public class ServerCommands extends ListenerAdapter {
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
 			if (id == "" || idlong == event.getMessage().getAuthor().getIdLong()) {
+				clearPassword();
 				passwordGen();
 				User user = event.getMessage().getAuthor();
 				user.openPrivateChannel().complete()
@@ -111,6 +116,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (passwordkeyed.equals(passwordStore())) {
+				clearPassword();
 				passwordGen();
 				event.getChannel().sendMessage("Check your DMs!").queue();
 				
