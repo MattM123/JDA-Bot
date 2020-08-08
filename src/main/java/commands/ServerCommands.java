@@ -131,7 +131,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (passwordStore().equals("")) {
-				event.getChannel().sendMessage("Please use !initialize to generate an initial password.").queue();
+				event.getChannel().sendMessage("Please use !passwordgen to generate an initial password.").queue();
 			}
 		}
 		
