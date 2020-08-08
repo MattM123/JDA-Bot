@@ -55,14 +55,15 @@ public class ServerCommands extends ListenerAdapter {
 		return s.getMemoryUsage() + "/" + server.getLimits().getMemory() + "MB";
 	}
 	
-	public void passwordGen() {	
+	public String passwordGen() {	
 		String generatedString = RandomStringUtils.random(15, true, true);
 		if (stored.isEmpty()) {
 			stored += generatedString;
 		}
 		else {
-			stored.replaceAll(stored.substring(0), generatedString);
+			stored.replaceAll(stored.substring(0), passwordGen());
 		}
+		return generatedString;
 	}
 	
 	public String passwordStore() {
