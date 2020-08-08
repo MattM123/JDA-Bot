@@ -130,7 +130,7 @@ public class ServerCommands extends ListenerAdapter {
 				
 			//   event.getChannel().sendMessage(passwordGen()).queue();
 			}
-			else {
+			else if (!(passwordkeyed.equals(passwordStore()))) {
 				event.getChannel().sendMessage("Incorrect password.").queue();
 			}
 			
