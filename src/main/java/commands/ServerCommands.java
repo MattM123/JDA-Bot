@@ -96,7 +96,7 @@ public class ServerCommands extends ListenerAdapter {
 		    		.sendMessage("you new password is: " + passwordStore() + ". Can be used with !setpassword <currentpassword>.").queue();
 			}
 			else {
-				event.getChannel().sendMessage("test").queue();
+				event.getChannel().sendMessage("You do not have permission to generate a new password.").queue();
 			}
 		}
 		
@@ -106,7 +106,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 			for (int i = 0; i < chararr.length; i++) {
 				if (chararr[i] == ' ') {
-					passwordkeyed = event.getMessage().getContentRaw().substring(13);
+					passwordkeyed += event.getMessage().getContentRaw().substring(13);
 				}
 			}
 			
