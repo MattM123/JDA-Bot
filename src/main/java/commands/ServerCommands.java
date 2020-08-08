@@ -66,10 +66,10 @@ public class ServerCommands extends ListenerAdapter {
 	}
 	
 	public void clearPassword() {
-		char[] chararr = stored.toCharArray();
-		for (int i = 0; i < chararr.length; i++) {
-			stored.replace(String.valueOf(chararr[i]), "");
-		}	
+	//	char[] chararr = stored.toCharArray();
+	//	for (int i = 0; i < chararr.length; i++) {
+			stored.replaceAll(stored, "");
+	//	}	
 	}
 	
 
