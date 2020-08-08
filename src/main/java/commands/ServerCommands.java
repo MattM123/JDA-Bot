@@ -55,14 +55,12 @@ public class ServerCommands extends ListenerAdapter {
 		return s.getMemoryUsage() + "/" + server.getLimits().getMemory() + "MB";
 	}
 	
-	public void passwordGen() {	
+	public String passwordGen() {	
 		String generatedString = RandomStringUtils.random(15, true, true);
 		stored += "<" + generatedString + ">";
 		
-
-			//stored += generatedString;
+		return generatedString;
 	}
-	//	return generatedString;
 	
 	
 	public String passwordStore() {
@@ -119,13 +117,13 @@ public class ServerCommands extends ListenerAdapter {
 			if (passwordkeyed.equals(passwordStore()) && !(passwordkeyed.equals(""))) {
 				clearPassword();
 				passwordGen();	
+				
+				event.getChannel().sendMessage(passwordGen()).queue();
 				event.getChannel().sendMessage("Check your DMs!").queue();
 				
 				User user1 = event.getMessage().getAuthor();
 			    user1.openPrivateChannel().complete()
-			    	.sendMessage("Your new password is: " + passwordStore()).queue();
-				
-			//   event.getChannel().sendMessage(passwordGen()).queue();
+			    	.sendMessage("Your new password is: " + passwordStore()).queue();  
 			}
 			else if (!(passwordkeyed.equals(passwordStore()))) {
 				event.getChannel().sendMessage("Incorrect password.").queue();
