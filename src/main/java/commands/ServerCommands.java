@@ -116,6 +116,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 			if (passwordkeyed.equals(passwordStore()) && !(passwordkeyed.equals(""))) {
 				clearPassword();
+				stored.replaceAll("<.*?>", "");
 				event.getChannel().sendMessage(passwordStore()).queue();
 				passwordGen();	
 				
