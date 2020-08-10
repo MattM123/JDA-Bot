@@ -111,33 +111,26 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (passwordkeyed.equals(stored) && !(passwordkeyed.isEmpty())) {
-			//	event.getChannel().sendMessage(passwordStore()).queue();
 				stored.replaceAll(".*", "");
-				stored += generatedString;
-				
+	
 				event.getChannel().sendMessage("test" + stored).queue();
 				event.getChannel().sendMessage("Check your DMs!").queue();
+				
+				stored += generatedString;
 				
 				User user1 = event.getMessage().getAuthor();
 			    user1.openPrivateChannel().complete()
 			    	.sendMessage("Your new password is: " + stored).queue();  
 			}
-			else if (!(passwordkeyed.equals(stored))) {
+				if (!(passwordkeyed.equals(stored))) {
 				event.getChannel().sendMessage("Incorrect password." + stored).queue();
 			}
 			
-			else if (stored.isEmpty()) {
+				if (stored.isEmpty()) {
 				event.getChannel().sendMessage("Please use !passwordgen to generate an initial password.").queue();
-			}
-			
-			else if (stored.isEmpty() && !passwordkeyed.equals(stored)) {
-				event.getChannel().sendMessage("Incorrect password. Please use !passwordgen to generate an initial password. stored: " + stored).queue();
 			}
 		}
 		
-	
-		
-	
 		//server status command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server status")) {
 			event.getChannel().sendMessage(embed.build()).queue();	
