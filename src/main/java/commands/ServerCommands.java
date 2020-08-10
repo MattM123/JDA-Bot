@@ -129,6 +129,10 @@ public class ServerCommands extends ListenerAdapter {
 			else if (stored.isEmpty()) {
 				event.getChannel().sendMessage("Please use !passwordgen to generate an initial password.").queue();
 			}
+			
+			else if (stored.isEmpty() && !passwordkeyed.equals(stored)) {
+				event.getChannel().sendMessage("Incorrect password. Please use !passwordgen to generate an initial password. stored: " + stored).queue();
+			}
 		}
 		
 	
