@@ -18,8 +18,6 @@ public class ServerCommands extends ListenerAdapter {
 
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
 	private static UserServer server = api.getServersController().getServer("ef773a66");
-	public static String stored = "";
-	
 
 	public static String serverName() {
 		return server.getName();
@@ -55,21 +53,17 @@ public class ServerCommands extends ListenerAdapter {
 		return s.getMemoryUsage() + "/" + server.getLimits().getMemory() + "MB";
 	}
 	
-	public String passwordGen() {	
-		String generatedString = RandomStringUtils.random(15, true, true);
-		stored += generatedString;
+//	public String passwordGen() {	
+//		String generatedString = RandomStringUtils.random(15, true, true);
+//		stored += generatedString;
 		
-		return generatedString;
-	}
+//		return generatedString;
+//	}
 	
 	
-	public String passwordStore() {
-		return stored.substring(1, 15);
-	}
-	
-	public void clearPassword() {
-		stored.replaceAll(".*", "test");
-	}
+//	public String passwordStore() {
+//		return stored.substring(1, 15);
+//	}
 	
 
 	@Override
@@ -79,6 +73,8 @@ public class ServerCommands extends ListenerAdapter {
 		String id = "387330197420113930";
 		long idlong = Long.parseLong(id);		
 		
+		String generatedString = RandomStringUtils.random(15, true, true);
+		String stored = "";
 		String namebuilder = "";
 		String rankbuilder = "";
 		String passwordkeyed = "";
@@ -93,11 +89,11 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
-			if (id == "" || idlong == event.getMessage().getAuthor().getIdLong()) {
-				passwordGen();
+			if (id == "" && idlong == event.getMessage().getAuthor().getIdLong()) {
+				stored += generatedString;
 				User user = event.getMessage().getAuthor();
 				user.openPrivateChannel().complete()
-		    		.sendMessage("you new password is: " + passwordStore() + ". Can be used with !setpassword <currentpassword>.").queue();
+		    		.sendMessage("you new password is: " + stored + ". Can be used with !setpassword <currentpassword>.").queue();
 			}
 			else {
 				event.getChannel().sendMessage("You do not have permission to generate a new password.").queue();
@@ -114,22 +110,22 @@ public class ServerCommands extends ListenerAdapter {
 				}
 			}
 			
-			if (passwordkeyed.equals(passwordStore()) && !(passwordkeyed.equals(""))) {
-				clearPassword();
-				event.getChannel().sendMessage(passwordStore()).queue();
-				passwordGen();	
+			if (passwordkeyed.equals(stored) && !(passwordkeyed.equals(""))) {
+			//	event.getChannel().sendMessage(passwordStore()).queue();
+				stored.replaceAll(".*", "");
+				stored += generatedString;
 				
 				event.getChannel().sendMessage("Check your DMs!").queue();
 				
 				User user1 = event.getMessage().getAuthor();
 			    user1.openPrivateChannel().complete()
-			    	.sendMessage("Your new password is: " + passwordStore()).queue();  
+			    	.sendMessage("Your new password is: " + stored).queue();  
 			}
-			else if (!(passwordkeyed.equals(passwordStore()))) {
+			else if (!(passwordkeyed.equals(stored))) {
 				event.getChannel().sendMessage("Incorrect password.").queue();
 			}
 			
-			if (passwordStore().isEmpty()) {
+			if (stored.isEmpty()) {
 				event.getChannel().sendMessage("Please use !passwordgen to generate an initial password.").queue();
 			}
 		}
