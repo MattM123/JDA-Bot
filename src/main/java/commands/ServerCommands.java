@@ -115,6 +115,7 @@ public class ServerCommands extends ListenerAdapter {
 				stored.replaceAll(".*", "");
 				stored += generatedString;
 				
+				event.getChannel().sendMessage("test" + stored).queue();
 				event.getChannel().sendMessage("Check your DMs!").queue();
 				
 				User user1 = event.getMessage().getAuthor();
