@@ -89,14 +89,14 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
-			if (stored == "" || idlong == event.getMessage().getAuthor().getIdLong()) {
+			if (stored.isEmpty() == true || idlong == event.getMessage().getAuthor().getIdLong()) {
 				stored += generatedString;
 				User user = event.getMessage().getAuthor();
 				user.openPrivateChannel().complete()
-		    		.sendMessage("you new password is: " + stored + ". Can be used with !setpassword <currentpassword>.").queue();
+		    		.sendMessage("you new password is: " + stored + ". You can change your password in the future with !setpassword <currentpassword>.").queue();
 			}
 			else {
-				event.getChannel().sendMessage("You do not have permission to generate a new password.").queue();
+				event.getChannel().sendMessage("You do not have permission to generate a new password  and/or an initial password has already been set.").queue();
 			}
 		}
 		
