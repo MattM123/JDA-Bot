@@ -110,7 +110,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 			}
 			
-			if (passwordkeyed.equals(stored) && !(passwordkeyed.equals(""))) {
+			if (passwordkeyed.equals(stored) && !(passwordkeyed.isEmpty())) {
 			//	event.getChannel().sendMessage(passwordStore()).queue();
 				stored.replaceAll(".*", "");
 				stored += generatedString;
@@ -123,7 +123,7 @@ public class ServerCommands extends ListenerAdapter {
 			    	.sendMessage("Your new password is: " + stored).queue();  
 			}
 			else if (!(passwordkeyed.equals(stored))) {
-				event.getChannel().sendMessage("Incorrect password.").queue();
+				event.getChannel().sendMessage("Incorrect password." + stored).queue();
 			}
 			
 			if (stored.isEmpty()) {
