@@ -111,19 +111,18 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (passwordkeyed.equals(stored) && !(passwordkeyed.isEmpty())) {
-				//stored.replaceAll(".*", "");
+			//	stored.replaceAll(".*", "");
+			//	stored += generatedString;
 	
-				event.getChannel().sendMessage("test" + stored).queue();
+				event.getChannel().sendMessage("Stored: " + stored).queue();
 				event.getChannel().sendMessage("Check your DMs!").queue();
-				
-				stored += generatedString;
 				
 				User user1 = event.getMessage().getAuthor();
 			    user1.openPrivateChannel().complete()
 			    	.sendMessage("Your new password is: " + stored).queue();  
 			}
 				if (!(passwordkeyed.equals(stored))) {
-				event.getChannel().sendMessage("Incorrect password." + stored).queue();
+				event.getChannel().sendMessage("Incorrect password. Stored: " + stored).queue();
 			}
 			
 				if (stored.isEmpty()) {
