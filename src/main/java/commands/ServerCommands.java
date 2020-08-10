@@ -89,7 +89,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
-			if (id == "" && idlong == event.getMessage().getAuthor().getIdLong()) {
+			if (stored == "" || idlong == event.getMessage().getAuthor().getIdLong()) {
 				stored += generatedString;
 				User user = event.getMessage().getAuthor();
 				user.openPrivateChannel().complete()
