@@ -102,6 +102,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//set password command		
 		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {	
+			event.getChannel().sendMessage("Stored: " + stored).queue();
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			
 			for (int i = 0; i < chararr.length; i++) {
