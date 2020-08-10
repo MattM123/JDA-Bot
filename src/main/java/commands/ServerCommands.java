@@ -57,7 +57,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 	public String passwordGen() {	
 		String generatedString = RandomStringUtils.random(15, true, true);
-		stored += "<" + generatedString + ">";
+		stored += generatedString;
 		
 		return generatedString;
 	}
@@ -68,7 +68,7 @@ public class ServerCommands extends ListenerAdapter {
 	}
 	
 	public void clearPassword() {
-		stored.replaceAll("\\<.*?\\>", "");
+		stored.replaceAll(".*", "");
 	}
 	
 
@@ -116,7 +116,6 @@ public class ServerCommands extends ListenerAdapter {
 			
 			if (passwordkeyed.equals(passwordStore()) && !(passwordkeyed.equals(""))) {
 				clearPassword();
-				stored.replaceAll("<.*?>", "");
 				event.getChannel().sendMessage(passwordStore()).queue();
 				passwordGen();	
 				
