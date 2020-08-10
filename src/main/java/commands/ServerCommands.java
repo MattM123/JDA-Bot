@@ -116,7 +116,7 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("test" + stored).queue();
 				event.getChannel().sendMessage("Check your DMs!").queue();
 				
-				stored += generatedString;
+				//stored += generatedString;
 				
 				User user1 = event.getMessage().getAuthor();
 			    user1.openPrivateChannel().complete()
