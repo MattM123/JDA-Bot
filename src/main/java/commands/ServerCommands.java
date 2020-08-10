@@ -74,7 +74,7 @@ public class ServerCommands extends ListenerAdapter {
 		long idlong = Long.parseLong(id);		
 		
 		String generatedString = RandomStringUtils.random(15, true, true);
-		StringBuffer stored;
+		StringBuffer stored = new StringBuffer("");
 		String namebuilder = "";
 		String rankbuilder = "";
 		String passwordkeyed = "";
@@ -111,7 +111,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 			}
 			
-			if (passwordkeyed.equals(stored) && !(passwordkeyed.isEmpty())) {
+			if (passwordkeyed.equals(stored.toString()) && !(passwordkeyed.isEmpty())) {
 				stored.replace(0, 14, generatedString);
 	
 				event.getChannel().sendMessage("Stored: " + stored).queue();
@@ -121,11 +121,11 @@ public class ServerCommands extends ListenerAdapter {
 			    user1.openPrivateChannel().complete()
 			    	.sendMessage("Your new password is: " + stored).queue();  
 			}
-				if (!(passwordkeyed.equals(stored))) {
+				if (!(passwordkeyed.equals(stored.toString()))) {
 				event.getChannel().sendMessage("Incorrect password. Stored: " + stored).queue();
 			}
 			
-				if (stored.isEmpty()) {
+				if (stored.toString().isEmpty()) {
 				event.getChannel().sendMessage("Please use !passwordgen to generate an initial password.").queue();
 			}
 		}
