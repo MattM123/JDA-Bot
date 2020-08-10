@@ -111,12 +111,12 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (passwordkeyed.equals(stored) && !(passwordkeyed.isEmpty())) {
-				stored.replaceAll(".*", "");
+				//stored.replaceAll(".*", "");
 	
 				event.getChannel().sendMessage("test" + stored).queue();
 				event.getChannel().sendMessage("Check your DMs!").queue();
 				
-				//stored += generatedString;
+				stored += generatedString;
 				
 				User user1 = event.getMessage().getAuthor();
 			    user1.openPrivateChannel().complete()
