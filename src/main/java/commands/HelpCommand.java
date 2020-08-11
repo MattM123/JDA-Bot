@@ -20,7 +20,7 @@ public class HelpCommand extends ListenerAdapter {
 		embed.addField("!server stop", "Requires permissions to stop the server.", false);
 		embed.addField("!server restart", "Requires permissions to restart the server.", false);
 		embed.addField("!console <command>", "Requires permissions to send server console commands", false);
-		embed.addField("!server status", "Shows the server status", false);
+		embed.addField("!server status", "Shows the server status of the Iowa/Nebraska build server", false);
 		embed.addField("!map", "Shows the current map of Midwest states that are being built", false);
 
 		if (event.getMessage().getContentRaw().equals("!commands")) {
