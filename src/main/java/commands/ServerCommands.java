@@ -74,7 +74,7 @@ public class ServerCommands extends ListenerAdapter {
 		long idlong = Long.parseLong(id);		
 		
 		String generatedString = RandomStringUtils.random(15, true, true);
-		StringBuffer stored = new StringBuffer(generatedString);
+		StringBuilder stored = new StringBuilder(15);
 		String namebuilder = "";
 		String rankbuilder = "";
 		String passwordkeyed = "";
@@ -90,7 +90,7 @@ public class ServerCommands extends ListenerAdapter {
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
 			if (stored.toString().isEmpty() == true || idlong == event.getMessage().getAuthor().getIdLong()) {
-				//stored.replace(0, 14, generatedString);
+				stored.replace(0, 14, generatedString);
 				User user = event.getMessage().getAuthor();
 				user.openPrivateChannel().complete()
 		    		.sendMessage("you new password is: " + stored + ". You can change your password in the future with !setpassword <currentpassword>.").queue();
@@ -111,7 +111,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (passwordkeyed.equals(stored.toString()) && !(passwordkeyed.isEmpty())) {
-			//	stored.replace(0, 14, generatedString);
+				stored.replace(0, 14, generatedString);
 	
 				event.getChannel().sendMessage("Stored: " + stored).queue();
 				event.getChannel().sendMessage("Check your DMs!").queue();
