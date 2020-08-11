@@ -133,6 +133,7 @@ public class ServerCommands extends ListenerAdapter {
 		//server status command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server status")) {
 			event.getChannel().sendMessage(embed.build()).queue();	
+			event.getChannel().sendMessage(stored).queue();
 		}
 		
 		//server restart command
