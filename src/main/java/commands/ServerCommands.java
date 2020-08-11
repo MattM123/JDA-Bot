@@ -112,6 +112,10 @@ public class ServerCommands extends ListenerAdapter {
 				}
 			}
 			
+			if (!(passwordkeyed.equals(this.stored.toString()))) {
+			event.getChannel().sendMessage("Incorrect password. this.stored: " + this.stored).queue();
+		}
+			
 			if (passwordkeyed.equals(this.stored.toString()) && !(passwordkeyed.isEmpty())) {
 				this.stored.replace(0, 14, generatedString);
 	
@@ -120,9 +124,6 @@ public class ServerCommands extends ListenerAdapter {
 				User user1 = event.getMessage().getAuthor();
 			    user1.openPrivateChannel().complete()
 			    	.sendMessage("Your new password is: " + this.stored).queue();  
-			}
-				if (!(passwordkeyed.equals(this.stored.toString()))) {
-				event.getChannel().sendMessage("Incorrect password. this.stored: " + this.stored).queue();
 			}
 			
 				if (this.stored.toString().isEmpty()) {
