@@ -94,40 +94,8 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
 	
-		//set command perms
-		if (event.getMessage().getContentRaw().startsWith("!setperms")) {
-			String perm = "";
-			String pass = "";
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
-			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
-				if (chararr[9] == ' ') {
-					perm += event.getMessage().getContentRaw().substring(10, 28);
-				}
-				else {
-					event.getChannel().sendMessage("Invalid syntax.").queue();
-					break;
-				}
-				
-				if (chararr[29] == ' ') {
-					pass += event.getMessage().getContentRaw().substring(30, 45);
-				}
-				
-				else {
-					event.getChannel().sendMessage("Invalid syntax.").queue();
-					break;
-				}			
-			}
-			
-			
-			if (pass.equals(this.stored.toString())) {
-				id.replace(".*", perm);
-				event.getChannel().sendMessage("Permissions set.").queue();
-			}
-			
-			else {
-				event.getChannel().sendMessage("Wrong password.").queue();
-			}
-		}
+	
+		/*
 		//set api key
 		if (event.getMessage().getContentRaw().startsWith("!apikey") && idlong == event.getMessage().getAuthor().getIdLong()) {
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
@@ -174,7 +142,40 @@ public class ServerCommands extends ListenerAdapter {
 			apikey.replace(".*", idstore);
 			event.getChannel().sendMessage("Server ID changed.").queue();
 		}
+		*/
 		
+		//set command perms
+		if (event.getMessage().getContentRaw().startsWith("!setperms")) {
+			String perm = "";
+			String pass = "";
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
+				if (chararr[9] == ' ') {
+					perm += event.getMessage().getContentRaw().substring(10, 28);
+				}
+				else {
+					event.getChannel().sendMessage("Invalid syntax.").queue();
+					break;
+				}
+				
+				if (chararr[29] == ' ') {
+					pass += event.getMessage().getContentRaw().substring(30, 45);
+				}
+				
+				else {
+					event.getChannel().sendMessage("Invalid syntax.").queue();
+					break;
+				}			
+			}
+			if (pass.equals(this.stored.toString())) {
+				id.replace(".*", perm);
+				event.getChannel().sendMessage("Permissions set.").queue();
+			}
+			
+			else {
+				event.getChannel().sendMessage("Wrong password.").queue();
+			}
+		}
 		
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
