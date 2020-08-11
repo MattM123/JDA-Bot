@@ -23,7 +23,7 @@ public class ServerCommands extends ListenerAdapter {
 	private static UserServer server = api.getServersController().getServer(serverID);
 	//ef773a66
 	
-	private StringBuilder perms = new StringBuilder(18);
+	//private StringBuilder perms = new StringBuilder(18);
 	private StringBuilder stored = new StringBuilder(15);
 
 	public static String serverName() {
@@ -80,7 +80,9 @@ public class ServerCommands extends ListenerAdapter {
 	//	String id = perms.toString();
 		String id = "387330197420113930";
 		//387330197420113930
-		long idlong = Long.parseLong(perms.toString());		
+		
+		//long idlong = Long.parseLong(perms.toString());	
+		long idlong = Long.parseLong(id);
 		
 		String generatedString = RandomStringUtils.random(15, true, true);
 		String namebuilder = "";
@@ -169,7 +171,7 @@ public class ServerCommands extends ListenerAdapter {
 				}			
 			}
 			if (pass.equals(this.stored.toString())) {
-				perms.replace(0, 17, perm);
+				//perms.replace(0, 17, perm);
 				event.getChannel().sendMessage("Permissions set.").queue();
 			}
 			
@@ -233,7 +235,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//server restart command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart")) {	
-			if (event.getAuthor().getId() == id) {
+			if (event.getAuthor().getId() == id) { // || event.getAuthor().getId() == perms.toString()) {
 				event.getChannel().sendMessage("Server Restarting...").queue();
 				server.restart();
 		}	
@@ -244,7 +246,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//server start command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server start")) {
-			if (serverStatus() == "ONLINE" && event.getAuthor().getId() == id) {
+			if (serverStatus() == "ONLINE" && event.getAuthor().getId() == id) { // || event.getAuthor().getId() == perms.toString()) {
 				event.getChannel().sendMessage("Server already running!").queue();
 			}
 			
@@ -260,7 +262,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//server stop command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server stop")) {
-			if (serverStatus() == "OFFLINE" && event.getAuthor().getId() == id) {
+			if (serverStatus() == "OFFLINE" && event.getAuthor().getId() == id) { // || event.getAuthor().getId() == perms.toString()) {
 				event.getChannel().sendMessage("Server already stopped!").queue();
 			}
 			
@@ -279,7 +281,7 @@ public class ServerCommands extends ListenerAdapter {
 			if (event.getMessage().getContentRaw().contains("parent") 
 					&& event.getMessage().getContentRaw().contains("add") 
 					&& event.getMessage().getContentRaw().contains("user")) { //contains parent/add/user
-				if (event.getAuthor().getIdLong() == idlong) { //id check
+				if (event.getAuthor().getIdLong() == idlong) {// || event.getAuthor().getId() == perms.toString()) { //id check
 					server.sendCommand(event.getMessage().getContentRaw().substring(8));
 					
 					char[] arr = event.getMessage().getContentRaw().toCharArray();
