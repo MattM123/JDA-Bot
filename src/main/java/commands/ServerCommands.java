@@ -77,7 +77,7 @@ public class ServerCommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		
-		//String id = "387330197420113930";
+		String id = perms.toString();
 		//387330197420113930
 		long idlong = Long.parseLong(perms.toString());		
 		
@@ -225,12 +225,14 @@ public class ServerCommands extends ListenerAdapter {
 			if (apikey.isEmpty() || serverID.isEmpty()) {
 				event.getChannel().sendMessage("Set the api key and server ID with !apikey <apikey> and !serverid <serverID> first!").queue();
 			}
-			event.getChannel().sendMessage(embed.build()).queue();	
+			else {
+				event.getChannel().sendMessage(embed.build()).queue();
+			}	
 		}
 		
 		//server restart command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart")) {	
-			if (event.getAuthor().getIdLong() == idlong) {
+			if (event.getAuthor().getId() == id) {
 				event.getChannel().sendMessage("Server Restarting...").queue();
 				server.restart();
 		}	
@@ -241,7 +243,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//server start command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server start")) {
-			if (serverStatus() == "ONLINE" && event.getAuthor().getIdLong() == idlong) {
+			if (serverStatus() == "ONLINE" && event.getAuthor().getId() == id) {
 				event.getChannel().sendMessage("Server already running!").queue();
 			}
 			
@@ -257,7 +259,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//server stop command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server stop")) {
-			if (serverStatus() == "OFFLINE" && event.getAuthor().getIdLong() == idlong) {
+			if (serverStatus() == "OFFLINE" && event.getAuthor().getId() == id) {
 				event.getChannel().sendMessage("Server already stopped!").queue();
 			}
 			
