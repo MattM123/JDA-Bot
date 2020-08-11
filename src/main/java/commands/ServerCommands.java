@@ -115,7 +115,6 @@ public class ServerCommands extends ListenerAdapter {
 			if (passwordkeyed.equals(this.stored.toString()) && !(passwordkeyed.isEmpty())) {
 				this.stored.replace(0, 14, generatedString);
 	
-				event.getChannel().sendMessage("this.stored: " + this.stored).queue();
 				event.getChannel().sendMessage("Check your DMs!").queue();
 				
 				User user1 = event.getMessage().getAuthor();
