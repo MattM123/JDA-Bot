@@ -181,7 +181,7 @@ public class ServerCommands extends ListenerAdapter {
 		    		.sendMessage("Your new password is: " + this.stored + ". You can change your password in the future with !setpassword <currentpassword>.").queue();
 			}
 			else {
-				event.getChannel().sendMessage("You do not have permission to generate a new password or an initial password has already been set.").queue();
+				event.getChannel().sendMessage("An initial password has already been set.").queue();
 			}
 		}
 		
