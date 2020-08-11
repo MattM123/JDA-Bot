@@ -90,9 +90,8 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
-			if (this.stored.toString().isEmpty() == true || idlong == event.getMessage().getAuthor().getIdLong()) {
+			if (this.stored.toString().isEmpty() == true && idlong == event.getMessage().getAuthor().getIdLong()) {
 				this.stored.replace(0, 14, generatedString);
-				event.getChannel().sendMessage("Stored = " + this.stored).queue();
 				User user = event.getMessage().getAuthor();
 				user.openPrivateChannel().complete()
 		    		.sendMessage("Your new password is: " + this.stored + ". You can change your password in the future with !setpassword <currentpassword>.").queue();
@@ -113,7 +112,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (!(passwordkeyed.equals(this.stored.toString()))) {
-			event.getChannel().sendMessage("Incorrect password. this.stored: " + this.stored).queue();
+			event.getChannel().sendMessage("Incorrect password.").queue();
 		}
 			
 			if (passwordkeyed.equals(this.stored.toString()) && !(passwordkeyed.isEmpty())) {
