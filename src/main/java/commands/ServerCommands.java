@@ -23,7 +23,7 @@ public class ServerCommands extends ListenerAdapter {
 	private static UserServer server = api.getServersController().getServer(serverID);
 	//ef773a66
 	
-
+	private StringBuilder perms = new StringBuilder(18);
 	private StringBuilder stored = new StringBuilder(15);
 
 	public static String serverName() {
@@ -77,9 +77,9 @@ public class ServerCommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		
-		String id = "387330197420113930";
+		//String id = "387330197420113930";
 		//387330197420113930
-		long idlong = Long.parseLong(id);		
+		long idlong = Long.parseLong(perms.toString());		
 		
 		String generatedString = RandomStringUtils.random(15, true, true);
 		String namebuilder = "";
@@ -168,7 +168,7 @@ public class ServerCommands extends ListenerAdapter {
 				}			
 			}
 			if (pass.equals(this.stored.toString())) {
-				id.replace(".*", perm);
+				perms.replace(0, 17, perm);
 				event.getChannel().sendMessage("Permissions set.").queue();
 			}
 			
@@ -230,7 +230,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//server restart command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart")) {	
-			if (event.getAuthor().getId() == id) {
+			if (event.getAuthor().getIdLong() == idlong) {
 				event.getChannel().sendMessage("Server Restarting...").queue();
 				server.restart();
 		}	
@@ -241,7 +241,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//server start command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server start")) {
-			if (serverStatus() == "ONLINE" && event.getAuthor().getId() == id) {
+			if (serverStatus() == "ONLINE" && event.getAuthor().getIdLong() == idlong) {
 				event.getChannel().sendMessage("Server already running!").queue();
 			}
 			
@@ -257,7 +257,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//server stop command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server stop")) {
-			if (serverStatus() == "OFFLINE" && event.getAuthor().getId() == id) {
+			if (serverStatus() == "OFFLINE" && event.getAuthor().getIdLong() == idlong) {
 				event.getChannel().sendMessage("Server already stopped!").queue();
 			}
 			
