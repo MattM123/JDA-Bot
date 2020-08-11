@@ -90,7 +90,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
-			event.getChannel().sendMessage(this.stored);
+			event.getChannel().sendMessage("Stored = " + this.stored);
 			if (this.stored.isEmpty() == true || idlong == event.getMessage().getAuthor().getIdLong()) {
 				this.stored.replace(".*", generatedString);
 				User user = event.getMessage().getAuthor();
