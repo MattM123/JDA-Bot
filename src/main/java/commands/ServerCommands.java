@@ -18,7 +18,7 @@ public class ServerCommands extends ListenerAdapter {
 
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
 	private static UserServer server = api.getServersController().getServer("ef773a66");
-	private String stored = "";
+	private StringBuilder stored = new StringBuilder(15);
 
 	public static String serverName() {
 		return server.getName();
@@ -90,8 +90,8 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
-			if (this.stored.isEmpty() == true || idlong == event.getMessage().getAuthor().getIdLong()) {
-				this.stored.replace(".*", generatedString);
+			if (this.stored.toString().isEmpty() == true || idlong == event.getMessage().getAuthor().getIdLong()) {
+				this.stored.replace(0, 14, generatedString);
 				event.getChannel().sendMessage("Stored = " + this.stored).queue();
 				User user = event.getMessage().getAuthor();
 				user.openPrivateChannel().complete()
@@ -112,8 +112,8 @@ public class ServerCommands extends ListenerAdapter {
 				}
 			}
 			
-			if (passwordkeyed.equals(this.stored) && !(passwordkeyed.isEmpty())) {
-				this.stored.replace(".*", generatedString);
+			if (passwordkeyed.equals(this.stored.toString()) && !(passwordkeyed.isEmpty())) {
+				this.stored.replace(0, 14, generatedString);
 	
 				event.getChannel().sendMessage("this.stored: " + this.stored).queue();
 				event.getChannel().sendMessage("Check your DMs!").queue();
@@ -122,11 +122,11 @@ public class ServerCommands extends ListenerAdapter {
 			    user1.openPrivateChannel().complete()
 			    	.sendMessage("Your new password is: " + this.stored).queue();  
 			}
-				if (!(passwordkeyed.equals(this.stored))) {
+				if (!(passwordkeyed.equals(this.stored.toString()))) {
 				event.getChannel().sendMessage("Incorrect password. this.stored: " + this.stored).queue();
 			}
 			
-				if (this.stored.isEmpty()) {
+				if (this.stored.toString().isEmpty()) {
 				event.getChannel().sendMessage("Please use !passwordgen to generate an initial password.").queue();
 			}
 		}
