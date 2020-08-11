@@ -16,8 +16,14 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class ServerCommands extends ListenerAdapter {
 
-	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
-	private static UserServer server = api.getServersController().getServer("ef773a66");
+	private static String apikey = "";
+	private static String serverID = "";
+	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);
+	//NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens
+	private static UserServer server = api.getServersController().getServer(serverID);
+	//ef773a66
+	
+
 	private StringBuilder stored = new StringBuilder(15);
 
 	public static String serverName() {
@@ -72,10 +78,10 @@ public class ServerCommands extends ListenerAdapter {
 		super.onGuildMessageReceived(event);
 		
 		String id = "387330197420113930";
+		//387330197420113930
 		long idlong = Long.parseLong(id);		
 		
 		String generatedString = RandomStringUtils.random(15, true, true);
-	//	StringBuilder this.stored = new StringBuilder(15);
 		String namebuilder = "";
 		String rankbuilder = "";
 		String passwordkeyed = "";
@@ -88,16 +94,94 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
 	
+		//set command perms
+		if (event.getMessage().getContentRaw().startsWith("!setperms")) {
+			String perm = "";
+			String pass = "";
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
+				if (chararr[9] == ' ') {
+					perm += event.getMessage().getContentRaw().substring(10, 28);
+				}
+				else {
+					event.getChannel().sendMessage("Invalid syntax.").queue();
+					break;
+				}
+				
+				if (chararr[29] == ' ') {
+					pass += event.getMessage().getContentRaw().substring(30, 45);
+				}
+				
+				else {
+					event.getChannel().sendMessage("Invalid syntax.").queue();
+					break;
+				}			
+			}
+			
+			
+			if (pass.equals(this.stored.toString())) {
+				id.replace(".*", perm);
+				event.getChannel().sendMessage("Permissions set.").queue();
+			}
+			
+			else {
+				event.getChannel().sendMessage("Wrong password.").queue();
+			}
+		}
+		//set api key
+		if (event.getMessage().getContentRaw().startsWith("!apikey") && idlong == event.getMessage().getAuthor().getIdLong()) {
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
+				if (chararr[i] == ' ') {
+					apikey += event.getMessage().getContentRaw().substring(7);
+				}
+			}
+		}
+		//change api key
+		if (event.getMessage().getContentRaw().startsWith("!changekey") && idlong == event.getMessage().getAuthor().getIdLong()) {
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			String apistore = "";
+			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
+				if (chararr[i] == ' ') {
+					apistore += event.getMessage().getContentRaw().substring(11);
+				}
+			}
+			apikey.replace(".*", apistore);
+		}
+		
+		//set server ID
+		if (event.getMessage().getContentRaw().startsWith("!serverid") && idlong == event.getMessage().getAuthor().getIdLong()) {
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
+				if (chararr[i] == ' ') {
+					serverID += event.getMessage().getContentRaw().substring(10);
+				}
+			}
+		}
+		
+		//change server ID
+		if (event.getMessage().getContentRaw().startsWith("!changeid") && idlong == event.getMessage().getAuthor().getIdLong()) {
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			String idstore = "";
+			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
+				if (chararr[i] == ' ') {
+					idstore += event.getMessage().getContentRaw().substring(10);
+				}
+			}
+			apikey.replace(".*", idstore);
+		}
+		
+		
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
-			if (this.stored.toString().isEmpty() == true && idlong == event.getMessage().getAuthor().getIdLong()) {
+			if (this.stored.toString().isEmpty() == true) {
 				this.stored.replace(0, 14, generatedString);
 				User user = event.getMessage().getAuthor();
 				user.openPrivateChannel().complete()
 		    		.sendMessage("Your new password is: " + this.stored + ". You can change your password in the future with !setpassword <currentpassword>.").queue();
 			}
 			else {
-				event.getChannel().sendMessage("You do not have permission to generate a new password  and/or an initial password has already been set.").queue();
+				event.getChannel().sendMessage("You do not have permission to generate a new password or an initial password has already been set.").queue();
 			}
 		}
 		
@@ -130,6 +214,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}
 		
+	
 		//server status command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server status")) {
 			event.getChannel().sendMessage(embed.build()).queue();	
