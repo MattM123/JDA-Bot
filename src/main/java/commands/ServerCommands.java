@@ -136,6 +136,7 @@ public class ServerCommands extends ListenerAdapter {
 					apikey += event.getMessage().getContentRaw().substring(7);
 				}
 			}
+			event.getChannel().sendMessage("API key set.").queue();
 		}
 		//change api key
 		if (event.getMessage().getContentRaw().startsWith("!changekey") && idlong == event.getMessage().getAuthor().getIdLong()) {
@@ -147,6 +148,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 			}
 			apikey.replace(".*", apistore);
+			event.getChannel().sendMessage("API key changed.").queue();
 		}
 		
 		//set server ID
@@ -157,6 +159,7 @@ public class ServerCommands extends ListenerAdapter {
 					serverID += event.getMessage().getContentRaw().substring(10);
 				}
 			}
+			event.getChannel().sendMessage("Server ID set.").queue();
 		}
 		
 		//change server ID
@@ -169,6 +172,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 			}
 			apikey.replace(".*", idstore);
+			event.getChannel().sendMessage("Server ID changed.").queue();
 		}
 		
 		
@@ -217,6 +221,9 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//server status command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server status")) {
+			if (apikey.isEmpty() || serverID.isEmpty()) {
+				event.getChannel().sendMessage("Set the api key and server ID with !apikey <apikey> and !serverid <serverID> first!").queue();
+			}
 			event.getChannel().sendMessage(embed.build()).queue();	
 		}
 		
