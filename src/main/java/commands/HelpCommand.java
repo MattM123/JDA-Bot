@@ -23,7 +23,7 @@ public class HelpCommand extends ListenerAdapter {
 		embed.addField("!server status", "Shows the server status", false);
 		embed.addField("!map", "Shows the current map of Midwest states that are being built", false);
 
-		if (event.getMessage().getContentRaw().equals("!bothelp")) {
+		if (event.getMessage().getContentRaw().equals("!commands")) {
 			event.getChannel().sendMessage(embed.build()).queue();
 		}
 	}
