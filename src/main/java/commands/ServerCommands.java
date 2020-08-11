@@ -90,9 +90,9 @@ public class ServerCommands extends ListenerAdapter {
 	
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
-			event.getChannel().sendMessage("Stored = " + this.stored).queue();
 			if (this.stored.isEmpty() == true || idlong == event.getMessage().getAuthor().getIdLong()) {
 				this.stored.replace(".*", generatedString);
+				event.getChannel().sendMessage("Stored = " + this.stored).queue();
 				User user = event.getMessage().getAuthor();
 				user.openPrivateChannel().complete()
 		    		.sendMessage("Your new password is: " + this.stored + ". You can change your password in the future with !setpassword <currentpassword>.").queue();
