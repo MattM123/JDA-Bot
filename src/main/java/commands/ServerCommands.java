@@ -77,7 +77,8 @@ public class ServerCommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		
-		String id = perms.toString();
+	//	String id = perms.toString();
+		String id = "387330197420113930";
 		//387330197420113930
 		long idlong = Long.parseLong(perms.toString());		
 		
