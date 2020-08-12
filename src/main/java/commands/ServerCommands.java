@@ -234,6 +234,7 @@ public class ServerCommands extends ListenerAdapter {
 					&& event.getMessage().getContentRaw().contains("add") 
 					&& event.getMessage().getContentRaw().contains("user")) { //contains lp/parent/add/user
 		
+						server.sendCommand(event.getMessage().getContentRaw().substring(25));
 						char[] arr = event.getMessage().getContentRaw().toCharArray();
 					
 						for (int i = 17; i < arr.length; i++) {
@@ -252,7 +253,7 @@ public class ServerCommands extends ListenerAdapter {
 								rankbuilder = event.getMessage().getContentRaw().substring(i + 4);
 							}
 						}
-					server.sendCommand(event.getMessage().getContentRaw().substring(25));
+				
 					event.getChannel().sendMessage("Server rank updated to " + rankbuilder + " for " + namebuilder).queue();
 				}//contains lp/parent/add/user
 				else {
