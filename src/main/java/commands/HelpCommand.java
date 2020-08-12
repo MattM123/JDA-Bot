@@ -31,16 +31,16 @@ public class HelpCommand extends ListenerAdapter {
 		embed.addField("!measure", "Shows a short tutorial on how to measure in Google Earth Pro, similar to the BTE Support Bot command", false);
 		embed.addField("!tp", "Shows a short tutorial on how to teleport using Google Maps, similar to the BTE Support Bot command", false);
 
+		EmbedBuilder measure = new EmbedBuilder();
+		measure.setThumbnail("https://thumbs.gfycat.com/AdolescentWindingCentipede-mobile.mp4");
+		
 		//help command
-		if (event.getMessage().getContentRaw().equals("!commands")) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!commands")) {
 			event.getChannel().sendMessage(embed.build()).queue();
 		}
 		
 		//BTE Support measure command
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {
-			EmbedBuilder measure = new EmbedBuilder();
-			measure.setThumbnail("https://thumbs.gfycat.com/AdolescentWindingCentipede-mobile.mp4");
-			
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {	
 			event.getChannel().sendMessage(measure.build());
 			
 		//			InputStream input;
