@@ -224,18 +224,9 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//console commands
 		if (event.getMessage().getContentRaw().startsWith("!console")) { //!console
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String passwordkeyed = "";
 			
-			for (int i = 0; i < chararr.length; i++) {
-				if (event.getMessage().getContentRaw().charAt(i - 2) == 'e' 
-					&& event.getMessage().getContentRaw().charAt(i - 3) == 'l'
-					&& event.getMessage().getContentRaw().charAt(i - 4) == 'o'
-					&& event.getMessage().getContentRaw().charAt(i - 5) == 's'
-					&& event.getMessage().getContentRaw().charAt(i - 6) == 'n') {
-					passwordkeyed = event.getMessage().getContentRaw().substring(9, 23);
-				}
-			}
+			passwordkeyed = event.getMessage().getContentRaw().substring(9, 23);
 			
 			if (passwordkeyed.equals(this.stored.toString())) { //password check
 				if (event.getMessage().getContentRaw().contains("parent") 
