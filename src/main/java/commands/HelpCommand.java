@@ -1,7 +1,12 @@
 package commands;
 
 import java.awt.Color;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -33,7 +38,26 @@ public class HelpCommand extends ListenerAdapter {
 		
 		//BTE Support measure command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {
-			event.getChannel().sendFile( new File("https://thumbs.gfycat.com/AdolescentWindingCentipede-mobile.mp4")).queue();
+			EmbedBuilder measure = new EmbedBuilder();
+			measure.setThumbnail("https://thumbs.gfycat.com/AdolescentWindingCentipede-mobile.mp4");
+			
+			event.getChannel().sendMessage(measure.build());
+			
+		//			InputStream input;
+		//	BufferedInputStream buff;
+			
+		//	try {
+		//		input = new URL("https://thumbs.gfycat.com/AdolescentWindingCentipede-mobile.mp4").openStream();
+		//		buff = new BufferedInputStream(input);
+		//		File file = new File("measure");
+				
+		//	} catch (MalformedURLException e) {
+		//		e.printStackTrace();
+		//	} catch (IOException e) {
+		//		e.printStackTrace();
+		//	}
+			
+			//event.getChannel().sendFile()).queue();
 		}
 		
 		//BTE Support tp command
