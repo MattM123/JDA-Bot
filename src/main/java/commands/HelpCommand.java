@@ -2,7 +2,12 @@ package commands;
 
 import java.awt.Color;
 import java.io.File;
+import java.time.OffsetDateTime;
+import java.util.List;
+
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.EmbedType;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -35,7 +40,12 @@ public class HelpCommand extends ListenerAdapter {
 		
 		//BTE Support measure command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {	
-			event.getChannel().sendFile(new File ("C:\\Users\\mattm\\OneDrive\\Desktop\\Projects\\measure.mp4")).queue();
+			
+			MessageEmbed measure = new MessageEmbed("https://i.gyazo.com/d58446cec35cc504bb36b749346041a9.mp4", "Measure Tutorial",
+					null, EmbedType.VIDEO, null, 10, null, new MessageEmbed.Provider("Gyazo", "www.gyazo.com"), null,
+					new MessageEmbed.VideoInfo("https://i.gyazo.com/d58446cec35cc504bb36b749346041a9.mp4", 720, 390), null, null, null);
+			
+			event.getChannel().sendMessage(measure).queue();
 		}
 		
 		//BTE Support tp command
