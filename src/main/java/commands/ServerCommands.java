@@ -228,8 +228,12 @@ public class ServerCommands extends ListenerAdapter {
 			String passwordkeyed = "";
 			
 			for (int i = 0; i < chararr.length; i++) {
-				if (chararr[i] == ' ') {
-					passwordkeyed += event.getMessage().getContentRaw().substring(9, 23);
+				if (event.getMessage().getContentRaw().charAt(i - 2) == 'e' 
+					&& event.getMessage().getContentRaw().charAt(i - 3) == 'l'
+					&& event.getMessage().getContentRaw().charAt(i - 4) == 'o'
+					&& event.getMessage().getContentRaw().charAt(i - 5) == 's'
+					&& event.getMessage().getContentRaw().charAt(i - 6) == 'n') {
+					passwordkeyed = event.getMessage().getContentRaw().substring(9, 23);
 				}
 			}
 			
@@ -246,7 +250,7 @@ public class ServerCommands extends ListenerAdapter {
 							if (event.getMessage().getContentRaw().charAt(i - 2) == 'r'
 								&& event.getMessage().getContentRaw().charAt(i - 3) == 'e'
 								&& event.getMessage().getContentRaw().charAt(i - 4) == 's'
-								&& event.getMessage().getContentRaw().charAt(i - 3) == 'u') {
+								&& event.getMessage().getContentRaw().charAt(i - 5) == 'u') {
 								namebuilder = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().charAt(i), ' ');
 							}
 						}
