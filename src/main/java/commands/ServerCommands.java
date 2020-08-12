@@ -145,7 +145,7 @@ public class ServerCommands extends ListenerAdapter {
 			apikey.replace(".*", idstore);
 			event.getChannel().sendMessage("Server ID changed.").queue();
 		}
-		*/
+		
 		
 		//set command perms
 		if (event.getMessage().getContentRaw().startsWith("!setperms")) {
@@ -179,7 +179,7 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Wrong password.").queue();
 			}
 		}
-		
+		*/
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
 			if (this.stored.toString().isEmpty() == true) {
