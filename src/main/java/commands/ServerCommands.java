@@ -151,7 +151,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		//server restart command
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!restart")) {	
+		if (event.getMessage().getContentRaw().startsWith("!restart")) {	
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String passwordkeyed = "";
 			
@@ -171,7 +171,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 	
 		//server start command
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!start")) {
+		if (event.getMessage().getContentRaw().startsWith("!start")) {
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String passwordkeyed = "";
 			
@@ -197,7 +197,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		//server stop command
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!stop")) {
+		if (event.getMessage().getContentRaw().startsWith("!stop")) {
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String passwordkeyed = "";
 			
