@@ -41,7 +41,7 @@ public class HelpCommand extends ListenerAdapter {
 		
 		//BTE Support measure command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {	
-			event.getChannel().sendFile(new File ("/JDABot/src/main/java/commands/measure.gif")).queue();
+			event.getChannel().sendFile(new File ("C:\\Users\\mattm\\OneDrive\\Desktop\\Projects\\measure.gif")).queue();
 		}
 		
 		//BTE Support tp command
