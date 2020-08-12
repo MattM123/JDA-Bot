@@ -23,6 +23,8 @@ public class HelpCommand extends ListenerAdapter {
 		embed.addField("!console <password> <command>", "Sends server console commands", false);
 		embed.addField("!server status", "Shows the server status of the Iowa/Nebraska build server", false);
 		embed.addField("!map", "Shows the current map of Midwest states that are being built", false);
+		embed.addField("!measure", "Shows a short tutorial on how to measure in Google Earth Pro, similar to the BTE Support Bot command", false);
+		embed.addField("!tp", "Shows a short tutorial on how to teleport using Google Maps, similar to the BTE Support Bot command", false);
 
 		//help command
 		if (event.getMessage().getContentRaw().equals("!commands")) {
