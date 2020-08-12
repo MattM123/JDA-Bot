@@ -23,7 +23,7 @@ public class ServerCommands extends ListenerAdapter {
 	private static UserServer server = api.getServersController().getServer(serverID);
 	//ef773a66
 	
-	private StringBuilder userpass = new StringBuilder(15);
+	//private StringBuilder perms = new StringBuilder(18);
 	private StringBuilder stored = new StringBuilder(15);
 
 	public static String serverName() {
@@ -227,9 +227,9 @@ public class ServerCommands extends ListenerAdapter {
 			String passwordkeyed = "";
 			
 			passwordkeyed = event.getMessage().getContentRaw().substring(9, 24);
-			userpass.replace(0, 14, passwordkeyed);
+			event.getChannel().sendMessage(passwordkeyed).queue();
 			
-			if (userpass.toString().equals(this.stored.toString())) { //password check
+			if (passwordkeyed.equals(this.stored.toString())) { //password check
 				if (event.getMessage().getContentRaw().contains("parent") 
 					&& event.getMessage().getContentRaw().contains("lp")
 					&& event.getMessage().getContentRaw().contains("add") 
@@ -259,7 +259,7 @@ public class ServerCommands extends ListenerAdapter {
 				}//contains lp/parent/add/user
 				else {
 					server.sendCommand(event.getMessage().getContentRaw().substring(25));
-					event.getChannel().sendMessage("Incorrect password.").queue();
+					event.getChannel().sendMessage("Console command issued.").queue();
 					}
 			}//password check
 			else {
