@@ -227,7 +227,6 @@ public class ServerCommands extends ListenerAdapter {
 			String passwordkeyed = "";
 			
 			passwordkeyed = event.getMessage().getContentRaw().substring(9, 24);
-			event.getChannel().sendMessage(passwordkeyed).queue();
 			
 			if (passwordkeyed.equals(this.stored.toString())) { //password check
 				if (event.getMessage().getContentRaw().contains("parent") 
@@ -235,7 +234,7 @@ public class ServerCommands extends ListenerAdapter {
 					&& event.getMessage().getContentRaw().contains("add") 
 					&& event.getMessage().getContentRaw().contains("user")) { //contains lp/parent/add/user
 		
-						server.sendCommand(event.getMessage().getContentRaw().substring(8));
+						server.sendCommand(event.getMessage().getContentRaw().substring(25));
 						char[] arr = event.getMessage().getContentRaw().toCharArray();
 					
 						for (int i = 17; i < arr.length; i++) {
