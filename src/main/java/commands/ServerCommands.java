@@ -78,16 +78,15 @@ public class ServerCommands extends ListenerAdapter {
 		super.onGuildMessageReceived(event);
 		
 	//	String id = perms.toString();
-		String id = "387330197420113930";
+	//	String id = "387330197420113930";
 		//387330197420113930
 		
 		//long idlong = Long.parseLong(perms.toString());	
-		long idlong = Long.parseLong(id);
+	//	long idlong = Long.parseLong(id);
 		
 		String generatedString = RandomStringUtils.random(15, true, true);
 		String namebuilder = "";
 		String rankbuilder = "";
-		String passwordkeyed = "";
 		
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setTitle("Nebraska/Iowa Build Server Status").setColor(Color.blue);
@@ -96,90 +95,7 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("CPU Usage: ", cpuUsage(), false);
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
-	
-	
-		/*
-		//set api key
-		if (event.getMessage().getContentRaw().startsWith("!apikey") && idlong == event.getMessage().getAuthor().getIdLong()) {
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
-			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
-				if (chararr[i] == ' ') {
-					apikey += event.getMessage().getContentRaw().substring(7);
-				}
-			}
-			event.getChannel().sendMessage("API key set.").queue();
-		}
-		//change api key
-		if (event.getMessage().getContentRaw().startsWith("!changekey") && idlong == event.getMessage().getAuthor().getIdLong()) {
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
-			String apistore = "";
-			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
-				if (chararr[i] == ' ') {
-					apistore += event.getMessage().getContentRaw().substring(11);
-				}
-			}
-			apikey.replace(".*", apistore);
-			event.getChannel().sendMessage("API key changed.").queue();
-		}
 		
-		//set server ID
-		if (event.getMessage().getContentRaw().startsWith("!serverid") && idlong == event.getMessage().getAuthor().getIdLong()) {
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
-			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
-				if (chararr[i] == ' ') {
-					serverID += event.getMessage().getContentRaw().substring(10);
-				}
-			}
-			event.getChannel().sendMessage("Server ID set.").queue();
-		}
-		
-		//change server ID
-		if (event.getMessage().getContentRaw().startsWith("!changeid") && idlong == event.getMessage().getAuthor().getIdLong()) {
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
-			String idstore = "";
-			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
-				if (chararr[i] == ' ') {
-					idstore += event.getMessage().getContentRaw().substring(10);
-				}
-			}
-			apikey.replace(".*", idstore);
-			event.getChannel().sendMessage("Server ID changed.").queue();
-		}
-		
-		
-		//set command perms
-		if (event.getMessage().getContentRaw().startsWith("!setperms")) {
-			String perm = "";
-			String pass = "";
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
-			for (int i = 0; i < event.getMessage().getContentRaw().length(); i++) {
-				if (chararr[9] == ' ') {
-					perm += event.getMessage().getContentRaw().substring(10, 28);
-				}
-				else {
-					event.getChannel().sendMessage("Invalid syntax.").queue();
-					break;
-				}
-				
-				if (chararr[29] == ' ') {
-					pass += event.getMessage().getContentRaw().substring(30, 45);
-				}
-				
-				else {
-					event.getChannel().sendMessage("Invalid syntax.").queue();
-					break;
-				}			
-			}
-			if (pass.equals(this.stored.toString())) {
-				//perms.replace(0, 17, perm);
-				event.getChannel().sendMessage("Permissions set.").queue();
-			}
-			
-			else {
-				event.getChannel().sendMessage("Wrong password.").queue();
-			}
-		}
-		*/
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
 			if (this.stored.toString().isEmpty() == true) {
@@ -196,6 +112,7 @@ public class ServerCommands extends ListenerAdapter {
 		//set password command		
 		if (event.getMessage().getContentRaw().startsWith("!setpassword")) {	
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			String passwordkeyed = "";
 			
 			for (int i = 0; i < chararr.length; i++) {
 				if (chararr[i] == ' ') {
@@ -234,84 +151,123 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		//server restart command
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart")) {	
-			if (event.getAuthor().getId() == id) { // || event.getAuthor().getId() == perms.toString()) {
-				event.getChannel().sendMessage("Server Restarting...").queue();
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!restart")) {	
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			String passwordkeyed = "";
+			
+			for (int i = 0; i < chararr.length; i++) {
+				if (chararr[i] == ' ') {
+					passwordkeyed += event.getMessage().getContentRaw().substring(9);
+				}
+			}
+				
+			if (passwordkeyed.equals(this.stored.toString())) {	
 				server.restart();
-		}	
+				event.getChannel().sendMessage("Server Restarting...").queue();
+			}	
 			else {
-				event.getChannel().sendMessage("You do not have permission to alter the server state.").queue();
+				event.getChannel().sendMessage("Incorrect password.").queue();
 			}
 		}
 	
 		//server start command
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server start")) {
-			if (serverStatus() == "ONLINE" && event.getAuthor().getId() == id) { // || event.getAuthor().getId() == perms.toString()) {
-				event.getChannel().sendMessage("Server already running!").queue();
-			}
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!start")) {
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			String passwordkeyed = "";
 			
-			else if (serverStatus() == "OFFLINE" && event.getAuthor().getIdLong() == idlong) {
-				server.start();
-				event.getChannel().sendMessage("Server Starting...").queue();
+			for (int i = 0; i < chararr.length; i++) {
+				if (chararr[i] == ' ') {
+					passwordkeyed += event.getMessage().getContentRaw().substring(7);
+				}
+			}
+			if (passwordkeyed.equals(this.stored.toString())) {
+				if (serverStatus().equals("ONLINE")) { 
+					event.getChannel().sendMessage("Server already running!").queue();
+				}
+			
+				else if (serverStatus().equals("OFFLINE")) {
+					server.start();
+					event.getChannel().sendMessage("Server Starting...").queue();
+				}
 			}
 			
 			else {
-				event.getChannel().sendMessage("You do not have permission to alter the server state.").queue();
-			}
+				event.getChannel().sendMessage("Incorrect password.").queue();
+			}	
 		}
 		
 		//server stop command
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server stop")) {
-			if (serverStatus() == "OFFLINE" && event.getAuthor().getId() == id) { // || event.getAuthor().getId() == perms.toString()) {
-				event.getChannel().sendMessage("Server already stopped!").queue();
-			}
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!stop")) {
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			String passwordkeyed = "";
 			
-			else if (serverStatus() == "ONLINE" && event.getAuthor().getIdLong() == idlong) {
-				server.stop();
-				event.getChannel().sendMessage("Server Stopping...").queue();
+			for (int i = 0; i < chararr.length; i++) {
+				if (chararr[i] == ' ') {
+					passwordkeyed += event.getMessage().getContentRaw().substring(6);
+				}
 			}
+			if (passwordkeyed.equals(this.stored.toString())) {
+				if (serverStatus().equals("OFFLINE")) {
+					event.getChannel().sendMessage("Server already stopped!").queue();
+				}
 			
+				else if (serverStatus().equals("ONLINE")) {
+					server.stop();
+					event.getChannel().sendMessage("Server Stopping...").queue();
+				}
+			}
+		
 			else {
-				event.getChannel().sendMessage("You do not have permission to alter the server state.").queue();
+				event.getChannel().sendMessage("Incorrect password.").queue();
 			}
 		}
 		
 		//console commands
 		if (event.getMessage().getContentRaw().startsWith("!console")) { //!console
-			if (event.getMessage().getContentRaw().contains("parent") 
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			String passwordkeyed = "";
+			
+			for (int i = 0; i < chararr.length; i++) {
+				if (chararr[i] == ' ') {
+					passwordkeyed += event.getMessage().getContentRaw().substring(9, 23);
+				}
+			}
+			
+			if (passwordkeyed.equals(this.stored.toString())) { //password check
+				if (event.getMessage().getContentRaw().contains("parent") 
+					&& event.getMessage().getContentRaw().contains("lp")
 					&& event.getMessage().getContentRaw().contains("add") 
-					&& event.getMessage().getContentRaw().contains("user")) { //contains parent/add/user
-				if (event.getAuthor().getIdLong() == idlong) {// || event.getAuthor().getId() == perms.toString()) { //id check
-					server.sendCommand(event.getMessage().getContentRaw().substring(8));
+					&& event.getMessage().getContentRaw().contains("user")) { //contains lp/parent/add/user
+		
+						server.sendCommand(event.getMessage().getContentRaw().substring(8));
+						char[] arr = event.getMessage().getContentRaw().toCharArray();
 					
-					char[] arr = event.getMessage().getContentRaw().toCharArray();
+						for (int i = 17; i < arr.length; i++) {
+							if (event.getMessage().getContentRaw().charAt(i - 2) == 'r'
+								&& event.getMessage().getContentRaw().charAt(i - 3) == 'e'
+								&& event.getMessage().getContentRaw().charAt(i - 4) == 's'
+								&& event.getMessage().getContentRaw().charAt(i - 3) == 'u') {
+								namebuilder = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().charAt(i), ' ');
+							}
+						}
 					
-					for (int i = 17; i < arr.length; i++) {
-						if (event.getMessage().getContentRaw().charAt(i) == ' ') {
-							break;
+						for (int i = 0; i < arr.length; i++) {
+							if (event.getMessage().getContentRaw().charAt(i) == 'a'
+								&& event.getMessage().getContentRaw().charAt(i + 1) == 'd'
+								&& event.getMessage().getContentRaw().charAt(i + 2) == 'd') {
+								rankbuilder = event.getMessage().getContentRaw().substring(i + 4);
+							}
 						}
-						else {
-							namebuilder += event.getMessage().getContentRaw().charAt(i);
-						}
-					}
-					
-					for (int i = 0; i < arr.length; i++) {
-						if (event.getMessage().getContentRaw().charAt(i) == 'a'
-							&& event.getMessage().getContentRaw().charAt(i + 1) == 'd'
-							&& event.getMessage().getContentRaw().charAt(i + 2) == 'd') {
-							rankbuilder = event.getMessage().getContentRaw().substring(i + 4);
-						}
-					}
 					
 					event.getChannel().sendMessage("Server rank updated to " + rankbuilder + " for " + namebuilder).queue();
-				}//id check
+				}//contains lp/parent/add/user
 				else {
-					event.getChannel().sendMessage("You do not have permission to send console commands.").queue();
+					server.sendCommand(event.getMessage().getContentRaw().substring(25));
+					event.getChannel().sendMessage("Incorrect password.").queue();
 					}
-			}//contains parent/add/user
+			}//password check
 			else {
-				server.sendCommand(event.getMessage().getContentRaw().substring(8));
-				event.getChannel().sendMessage("Console command issued.").queue();
+				event.getChannel().sendMessage("Incorrect password.").queue();
 			}
 		}//!console
 	}
