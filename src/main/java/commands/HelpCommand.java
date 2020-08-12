@@ -2,9 +2,6 @@ package commands;
 
 import java.awt.Color;
 import java.io.File;
-import java.time.OffsetDateTime;
-import java.util.List;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.EmbedType;
 import net.dv8tion.jda.api.entities.MessageEmbed;
