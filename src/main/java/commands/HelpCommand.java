@@ -1,6 +1,7 @@
 package commands;
 
 import java.awt.Color;
+import java.io.File;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -23,8 +24,19 @@ public class HelpCommand extends ListenerAdapter {
 		embed.addField("!server status", "Shows the server status of the Iowa/Nebraska build server", false);
 		embed.addField("!map", "Shows the current map of Midwest states that are being built", false);
 
+		//help command
 		if (event.getMessage().getContentRaw().equals("!commands")) {
 			event.getChannel().sendMessage(embed.build()).queue();
+		}
+		
+		//BTE Support measure command
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {
+			event.getChannel().sendFile( new File("https://thumbs.gfycat.com/AdolescentWindingCentipede-mobile.mp4")).queue();
+		}
+		
+		//BTE Support tp command
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!tp")) {
+			event.getChannel().sendFile(new File("https://thumbs.gfycat.com/AdolescentWindingCentipede-mobile.mp4")).queue();
 		}
 	}
 }
