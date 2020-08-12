@@ -1,13 +1,7 @@
 package commands;
 
 import java.awt.Color;
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -41,7 +35,7 @@ public class HelpCommand extends ListenerAdapter {
 		
 		//BTE Support measure command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {	
-			event.getChannel().sendFile(new File ("C:\\Users\\mattm\\OneDrive\\Desktop\\Projects\\measure.gif")).queue();
+			event.getChannel().sendFile(new File ("C:\\Users\\mattm\\OneDrive\\Desktop\\Projects\\measure.mp4")).queue();
 		}
 		
 		//BTE Support tp command
