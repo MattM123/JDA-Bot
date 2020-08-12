@@ -242,7 +242,7 @@ public class ServerCommands extends ListenerAdapter {
 								&& event.getMessage().getContentRaw().charAt(i - 3) == 'e'
 								&& event.getMessage().getContentRaw().charAt(i - 4) == 's'
 								&& event.getMessage().getContentRaw().charAt(i - 5) == 'u') {
-								namebuilder = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().charAt(i), event.getMessage().getContentRaw().indexOf(' '));
+								namebuilder = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().charAt(i), ' ');
 							}
 						}
 					
