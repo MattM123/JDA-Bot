@@ -227,6 +227,7 @@ public class ServerCommands extends ListenerAdapter {
 			String passwordkeyed = "";
 			
 			passwordkeyed = event.getMessage().getContentRaw().substring(9, 24);
+			event.getChannel().sendMessage(passwordkeyed).queue();
 			
 			if (passwordkeyed.equals(this.stored.toString())) { //password check
 				if (event.getMessage().getContentRaw().contains("parent") 
