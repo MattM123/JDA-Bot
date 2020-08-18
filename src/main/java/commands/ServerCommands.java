@@ -152,7 +152,9 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Console command issued.").queue();
 			}
 		}//!console
+		
 	}
+	
 }
 			
 		
