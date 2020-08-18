@@ -34,7 +34,7 @@ public class HelpCommands extends ListenerAdapter {
 			
 			InputStream file = null;
 			try {
-				file = new URL("https://i.gyazo.com/d58446cec35cc504bb36b749346041a9.mp4").openStream();
+				file = new URL("https://gyazo.com/d58446cec35cc504bb36b749346041a9").openStream();
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
