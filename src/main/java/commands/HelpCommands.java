@@ -23,15 +23,9 @@ public class HelpCommands extends ListenerAdapter {
 			event.getChannel().sendMessage(embed.build()).queue();
 		}
 		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {
-		
-			EmbedBuilder measure = new EmbedBuilder();
-			measure.setColor(Color.blue);
-			
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {	
 			File file = new File("/JDABot/src/main/java/commands/measurecommand.mp4");
-			measure.setImage("attachment://measurecommand.mp4");
-			    
-			event.getChannel().sendFile(file, "measurecommand.mp4").embed(measure.build()).queue();
+			event.getChannel().sendFile(file, "measurecommand.mp4").queue();
 	
 		}		
 	}
