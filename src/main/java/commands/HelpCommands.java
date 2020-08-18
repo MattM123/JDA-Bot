@@ -25,8 +25,11 @@ public class HelpCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {
-			File file = new File("/JDABot/src/main/java/commands/measurecommand.mp4");			
-			event.getChannel().sendFile(file);
+			File file = new File("measurecommand.mp4");
+			EmbedBuilder measure = new EmbedBuilder();
+			measure.setImage("attachment://measurecommand.ext");
+			
+			event.getChannel().sendFile(file).embed(embed.build()).queue();
 
 		}
 		
