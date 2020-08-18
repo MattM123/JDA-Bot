@@ -1,11 +1,7 @@
 package commands;
 
 import java.awt.Color;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
+import java.io.File;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -28,39 +24,15 @@ public class HelpCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {
-		/*	
+		
 			EmbedBuilder measure = new EmbedBuilder();
 			measure.setColor(Color.blue);
 			
-			InputStream file = null;
-			try {
-				file = new URL("https://gyazo.com/d58446cec35cc504bb36b749346041a9").openStream();
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			File file = new File("/JDABot/src/main/java/commands/measurecommand.mp4");
 			measure.setImage("attachment://measurecommand.mp4");
 			    
 			event.getChannel().sendFile(file, "measurecommand.mp4").embed(measure.build()).queue();
-*/
-		
-			 EmbedBuilder em = new EmbedBuilder();
-			 InputStream file = null;
-			try {
-				file = new URL("https://http.cat/500").openStream();
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			 embed.setImage("attachment://cat.png") // we specify this in sendFile as "cat.png"
-			      .setDescription("This is a cute cat :3");
-			 event.getChannel().sendFile(file, "cat.png").embed(em.build()).queue();
-			 
-			
+	
 		}		
 	}
 }
