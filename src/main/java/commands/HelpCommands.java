@@ -34,11 +34,11 @@ public class HelpCommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {
 			EmbedBuilder measure = new EmbedBuilder();
 			measure.setColor(Color.blue);
-			File file = new File("/JDABot/src/main/java/commands/measure.gif");
+			//File file = new File("/JDABot/src/main/java/commands/measure.gif");
 			    
-			 measure.setImage("attachment://measure.gif");
-			 event.getChannel().sendFile(file, "measure.gif").embed(embed.build()).queue();
-			 
+			measure.setImage("https://i.gyazo.com/thumb/1200/d58446cec35cc504bb36b749346041a9-gif.gif");
+		//	event.getChannel().sendFile(file, "measure.gif").embed(embed.build()).queue();
+			event.getChannel().sendMessage(measure.build()).queue();
 
 			 
 			
