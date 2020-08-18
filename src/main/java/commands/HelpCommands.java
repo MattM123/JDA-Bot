@@ -28,7 +28,7 @@ public class HelpCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {
-
+		/*	
 			EmbedBuilder measure = new EmbedBuilder();
 			measure.setColor(Color.blue);
 			
@@ -43,7 +43,24 @@ public class HelpCommands extends ListenerAdapter {
 			measure.setImage("attachment://measurecommand.mp4");
 			    
 			event.getChannel().sendFile(file, "measurecommand.mp4").embed(measure.build()).queue();
-
+*/
+		
+			 EmbedBuilder em = new EmbedBuilder();
+			 InputStream file = null;
+			try {
+				file = new URL("https://http.cat/500").openStream();
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 embed.setImage("attachment://cat.png") // we specify this in sendFile as "cat.png"
+			      .setDescription("This is a cute cat :3");
+			 event.getChannel().sendFile(file, "cat.png").embed(em.build()).queue();
+			 
+			
 		}		
 	}
 }
