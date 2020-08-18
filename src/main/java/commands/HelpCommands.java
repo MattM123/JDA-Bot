@@ -1,5 +1,6 @@
 package commands;
 
+import java.awt.Color;
 import java.io.File;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -13,6 +14,8 @@ public class HelpCommands extends ListenerAdapter {
 		super.onGuildMessageReceived(event);
 		
 		EmbedBuilder embed = new EmbedBuilder();
+		embed.setColor(Color.blue);
+		embed.setTitle("Command Information");
 		embed.addField("!server status", "Shows the server status and resource usage.", false);
 		embed.addField("!map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		
