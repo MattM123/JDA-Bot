@@ -29,20 +29,20 @@ public class HelpCommands extends ListenerAdapter {
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {
 		
-		//	EmbedBuilder measure = new EmbedBuilder();
-		//	measure.setColor(Color.blue);
+			EmbedBuilder measure = new EmbedBuilder();
+			measure.setColor(Color.blue);
 			
-			InputStream file = null;
-			try {
-				file = new URL("https://gyazo.com/d58446cec35cc504bb36b749346041a9").openStream();
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-	//		measure.setImage("attachment://measurecommand.mp4");
+			//InputStream file = null;
+		//	try {
+		//		file = new URL("https://gyazo.com/d58446cec35cc504bb36b749346041a9").openStream();
+		//	} catch (MalformedURLException e) {
+		//		e.printStackTrace();
+		////	} catch (IOException e) {
+		//		e.printStackTrace();
+		//	}
+			measure.setImage("https://gyazo.com/d58446cec35cc504bb36b749346041a9");
 			    
-			event.getChannel().sendFile(file, "measurecommand.mp4").queue();
+			event.getChannel().sendMessage(measure.build()).queue();
 
 			 
 			
