@@ -1,6 +1,7 @@
 package commands;
 
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -31,12 +32,13 @@ public class HelpCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {
-		
-			MessageEmbed measure = new MessageEmbed("https://gyazo.com/d58446cec35cc504bb36b749346041a9",
-					"Measuring Tutorial", null, EmbedType.VIDEO, null, 10, null,
-					new MessageEmbed.Provider(null, "www.gyazo.com"), null, null, null, null,null);
+			EmbedBuilder measure = new EmbedBuilder();
+			measure.setColor(Color.blue);
+			File file = new File("/JDABot/src/main/java/commands/measure.gif");
 			    
-			event.getChannel().sendMessage(measure).queue();
+			 measure.setImage("attachment://measure.gif");
+			 event.getChannel().sendFile(file, "measure.gif").embed(embed.build()).queue();
+			 
 
 			 
 			
