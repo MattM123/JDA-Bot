@@ -29,7 +29,7 @@ public class HelpCommands extends ListenerAdapter {
 			File file = new File("measurecommand.mp4");
 			measure.setImage("attachment://measurecommand.mp4");
 			
-			event.getChannel().sendFile(file).embed(embed.build()).queue();
+			event.getChannel().sendFile(file).embed(measure.build()).queue();
 
 		}		
 	}
