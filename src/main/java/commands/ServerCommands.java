@@ -2,15 +2,12 @@ package commands;
 
 import java.awt.Color;
 
-import org.apache.commons.lang.RandomStringUtils;
-
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
 import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -19,11 +16,7 @@ public class ServerCommands extends ListenerAdapter {
 	private static String apikey = "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens";
 	private static String serverID = "ef773a66";
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);
-	//NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens
 	private static UserServer server = api.getServersController().getServer(serverID);
-	//ef773a66
-	
-	//private StringBuilder perms = new StringBuilder(18);
 	private StringBuilder stored = new StringBuilder(15);
 
 	public static String serverName() {
@@ -77,14 +70,10 @@ public class ServerCommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		
-	//	String id = perms.toString();
-	//	String id = "387330197420113930";
-		//387330197420113930
+		String id = "387330197420113930";
+		long idlong = Long.parseLong(id.toString());	
 		
-		//long idlong = Long.parseLong(perms.toString());	
-	//	long idlong = Long.parseLong(id);
-		
-		String generatedString = RandomStringUtils.random(15, true, true);
+//		String generatedString = RandomStringUtils.random(15, true, true);
 		String namebuilder = "";
 		String rankbuilder = "";
 		
@@ -96,6 +85,7 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
 		
+		/*
 		//password generator
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!passwordgen")) {
 			if (this.stored.toString().isEmpty() == true) {
@@ -139,48 +129,44 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}
 		
-	
+	*/
 		//server status command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server status")) {
-			if (apikey.isEmpty() || serverID.isEmpty()) {
-				event.getChannel().sendMessage("Set the api key and server ID with !apikey <apikey> and !serverid <serverID> first!").queue();
-			}
-			else {
 				event.getChannel().sendMessage(embed.build()).queue();
-			}	
 		}
 		
 		//server restart command
-		if (event.getMessage().getContentRaw().startsWith("!restart")) {	
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
-			String passwordkeyed = "";
+		if (event.getMessage().getContentRaw().startsWith("!restart") && event.getAuthor().getIdLong() == idlong) {	
+		//	char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			//String passwordkeyed = "";
 			
-			for (int i = 0; i < chararr.length; i++) {
-				if (chararr[i] == ' ') {
-					passwordkeyed += event.getMessage().getContentRaw().substring(9);
-				}
-			}
+			//for (int i = 0; i < chararr.length; i++) {
+			//	if (chararr[i] == ' ') {
+			//		passwordkeyed += event.getMessage().getContentRaw().substring(9);
+				//}
+		//	}
 				
-			if (passwordkeyed.equals(this.stored.toString())) {	
+		//	if (passwordkeyed.equals(this.stored.toString())) {	
 				server.restart();
 				event.getChannel().sendMessage("Server Restarting...").queue();
 			}	
 			else {
-				event.getChannel().sendMessage("Incorrect password.").queue();
+				event.getChannel().sendMessage("Invalid permissions").queue();
 			}
-		}
+			
+		
 	
 		//server start command
-		if (event.getMessage().getContentRaw().startsWith("!start")) {
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
-			String passwordkeyed = "";
+		if (event.getMessage().getContentRaw().startsWith("!start") && event.getAuthor().getIdLong() == idlong) {
+	//		char[] chararr = event.getMessage().getContentRaw().toCharArray();
+		//	String passwordkeyed = "";
 			
-			for (int i = 0; i < chararr.length; i++) {
-				if (chararr[i] == ' ') {
-					passwordkeyed += event.getMessage().getContentRaw().substring(7);
-				}
-			}
-			if (passwordkeyed.equals(this.stored.toString())) {
+		//	for (int i = 0; i < chararr.length; i++) {
+		//		if (chararr[i] == ' ') {
+		//			passwordkeyed += event.getMessage().getContentRaw().substring(7);
+		//		}
+		//	}
+		//	if (passwordkeyed.equals(this.stored.toString())) {
 				if (serverStatus().equals("ONLINE")) { 
 					event.getChannel().sendMessage("Server already running!").queue();
 				}
@@ -192,21 +178,21 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			else {
-				event.getChannel().sendMessage("Incorrect password.").queue();
+				event.getChannel().sendMessage("Invalid permissions.").queue();
 			}	
-		}
+		
 		
 		//server stop command
-		if (event.getMessage().getContentRaw().startsWith("!stop")) {
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
-			String passwordkeyed = "";
+		if (event.getMessage().getContentRaw().startsWith("!stop") && event.getAuthor().getIdLong() == idlong) {
+	//		char[] chararr = event.getMessage().getContentRaw().toCharArray();
+	//		String passwordkeyed = "";
 			
-			for (int i = 0; i < chararr.length; i++) {
-				if (chararr[i] == ' ') {
-					passwordkeyed += event.getMessage().getContentRaw().substring(6);
-				}
-			}
-			if (passwordkeyed.equals(this.stored.toString())) {
+	//		for (int i = 0; i < chararr.length; i++) {
+		//		if (chararr[i] == ' ') {
+		//			passwordkeyed += event.getMessage().getContentRaw().substring(6);
+		//		}
+		//	}
+		//	if (passwordkeyed.equals(this.stored.toString())) {
 				if (serverStatus().equals("OFFLINE")) {
 					event.getChannel().sendMessage("Server already stopped!").queue();
 				}
@@ -218,17 +204,17 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		
 			else {
-				event.getChannel().sendMessage("Incorrect password.").queue();
+				event.getChannel().sendMessage("Invalid permsissions.").queue();
 			}
-		}
+		
 		
 		//console commands
 		if (event.getMessage().getContentRaw().startsWith("!console")) { //!console
-			String passwordkeyed = "";
+		//	String passwordkeyed = "";
 			
-			passwordkeyed = event.getMessage().getContentRaw().substring(9, 24);
+	//		passwordkeyed = event.getMessage().getContentRaw().substring(9, 24);
 			
-			if (passwordkeyed.equals(this.stored.toString())) { //password check
+			if (event.getAuthor().getIdLong() == idlong) { //id check
 				if (event.getMessage().getContentRaw().contains("parent") 
 					&& event.getMessage().getContentRaw().contains("lp")
 					&& event.getMessage().getContentRaw().contains("add") 
@@ -260,9 +246,9 @@ public class ServerCommands extends ListenerAdapter {
 					server.sendCommand(event.getMessage().getContentRaw().substring(25));
 					event.getChannel().sendMessage("Console command issued.").queue();
 					}
-			}//password check
+			}//id check
 			else {
-				event.getChannel().sendMessage("Incorrect password.").queue();
+				event.getChannel().sendMessage("Invalid permissions.").queue();
 			}
 		}//!console
 		
