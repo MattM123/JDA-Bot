@@ -182,12 +182,11 @@ public class ServerCommands extends ListenerAdapter {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				
-				hour--;
-				minute--;
-				second--;
-				//event.getChannel().editMessageById(event.getMessageId(), String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second)).queue();
-				
+				event.getChannel().sendMessage(String.valueOf(hour--) + ":" + String.valueOf(minute--) + ":" + String.valueOf(second--)).queue();
+		//		hour--;
+		//		minute--;
+		//		second--;
+			
 				if ( hour > -1) {
 					if (minute == -1) {
 						minute = 59;
