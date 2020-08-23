@@ -186,7 +186,7 @@ public class ServerCommands extends ListenerAdapter {
 				hour--;
 				minute--;
 				second--;
-				event.getChannel().editMessageById(event.getMessageId(), String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second)).queue();
+				//event.getChannel().editMessageById(event.getMessageId(), String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second)).queue();
 				
 				if ( hour > -1) {
 					if (minute == -1) {
