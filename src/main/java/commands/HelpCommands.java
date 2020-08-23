@@ -17,7 +17,7 @@ public class HelpCommands extends ListenerAdapter {
 		embed.addField("!server status", "Shows the server status and resource usage.", false);
 		embed.addField("!map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		embed.addField("!measure", "Measure tutorial derived from the BTE Support Bot", false);
-		embed.addField("----------------------------", "" , false);
+		embed.addField("-----------------------------------------------------------------------------", "" , false);
 		embed.addField("!iowa", "Requires permissions to update rank for Iowa Builder", false);
 		embed.addField("!nebraska", "Requires permissions to update rank for Nebraska Builder", false);
 		embed.addField("!start", "Requires permissions to start the server", false);
