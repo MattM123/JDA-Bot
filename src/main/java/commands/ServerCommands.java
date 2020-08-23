@@ -132,7 +132,7 @@ public class ServerCommands extends ListenerAdapter {
 					namebuilder += chararr[i];
 				}
 				
-				server.sendCommand("lp user " + namebuilder + "parent add builder");
+				server.sendCommand("lp user " + namebuilder + " parent add builder");
 				event.getChannel().sendMessage("Rank updated to Nebraska Builder for user" + namebuilder).queue();
 			}
 			else {
@@ -150,7 +150,7 @@ public class ServerCommands extends ListenerAdapter {
 					namebuilder += chararr[i];
 				}
 				
-				server.sendCommand("lp user " + namebuilder + "parent add iowa-builder");
+				server.sendCommand("lp user " + namebuilder + " parent add iowa-builder");
 				event.getChannel().sendMessage("Rank updated to Iowa Builder for user" + namebuilder).queue();
 			}
 			else {
