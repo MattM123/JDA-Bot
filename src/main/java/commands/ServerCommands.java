@@ -1,6 +1,7 @@
 package commands;
 
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
 
 import com.stanjg.ptero4j.PteroUserAPI;
@@ -162,6 +163,7 @@ public class ServerCommands extends ListenerAdapter {
 		//countdown
 		if (event.getMessage().getContentRaw().startsWith("!countdown")) {
 			String timebuilder = "";
+		//	SimpleDateFormat format = new SimpleDateFormat("HH:MM:SS");
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			
 			for (int i = 11; i < chararr.length; i++) {
@@ -172,8 +174,9 @@ public class ServerCommands extends ListenerAdapter {
 			int minute = Integer.parseInt(timebuilder.substring(3, 4));
 			int second = Integer.parseInt(timebuilder.substring(6, 7));
 			
+			event.getChannel().sendMessage(timebuilder).queue();
+			
 			for (int i = 0; i < 172800; i++ ) {
-				
 				try {
 					TimeUnit.SECONDS.sleep(1);
 				} catch (InterruptedException e) {
@@ -195,7 +198,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				else
 				{
-				event.getChannel().sendMessage("Countdown complete!");
+				event.getChannel().sendMessage("Countdown complete!").queue();
 				}
 			}
 			
