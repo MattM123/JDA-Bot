@@ -10,6 +10,7 @@ import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -184,7 +185,7 @@ public class ServerCommands extends ListenerAdapter {
 				hour--;
 				minute--;
 				second--;
-				event.getMessage().editMessage(String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second)).queue();
+				event.getMessage().editMessage((CharSequence) new MessageBuilder(String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second))).queue();
 				
 				if ( hour > -1) {
 					if (minute == -1) {
@@ -193,7 +194,7 @@ public class ServerCommands extends ListenerAdapter {
 					if (second == -1) {
 						second = 59;
 					}
-					event.getMessage().editMessage(String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second)).queue();
+					
 				}
 				else
 				{
