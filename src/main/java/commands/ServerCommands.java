@@ -1,6 +1,8 @@
 package commands;
 
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
 
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
@@ -158,6 +160,44 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}
 		
+		//countdown
+		if (event.getMessage().getContentRaw().startsWith("!countdown")) {
+			String timebuilder = "";
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			
+			for (int i = 11; i < chararr.length; i++) {
+				timebuilder += chararr[i];
+			}
+			
+			int hour = Integer.parseInt(timebuilder.substring(0, 1));
+			int minute = Integer.parseInt(timebuilder.substring(3, 4));
+			int second = Integer.parseInt(timebuilder.substring(6, 7));
+			
+			for (int i = 0; i < 172800; i++ ) {
+				
+				try {
+					TimeUnit.SECONDS.sleep(1);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				hour--;
+				minute--;
+				second--;
+				
+				if (hour == 13) {
+					hour = 1;
+				}				
+				if (minute == 60) {
+					minute = 1;
+				}				
+				if (second == 60) {
+					second = 1;
+				}
+				event.getMessage().editMessage(String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second));
+			}
+			
+		}
 	}
 	
 }
