@@ -174,8 +174,6 @@ public class ServerCommands extends ListenerAdapter {
 			int minute = Integer.parseInt(timebuilder.substring(3, 4));
 			int second = Integer.parseInt(timebuilder.substring(6, 7));
 			
-			event.getChannel().sendMessage(timebuilder).queue();
-			
 			for (int i = 0; i < 172800; i++ ) {
 				try {
 					TimeUnit.SECONDS.sleep(1);
@@ -186,6 +184,7 @@ public class ServerCommands extends ListenerAdapter {
 				hour--;
 				minute--;
 				second--;
+				event.getMessage().editMessage(String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second)).queue();
 				
 				if ( hour > -1) {
 					if (minute == -1) {
@@ -200,9 +199,8 @@ public class ServerCommands extends ListenerAdapter {
 				{
 					break;
 				}
-				event.getChannel().sendMessage("Countdown complete!").queue();
 			}
-			
+			event.getChannel().sendMessage("Countdown complete!").queue();
 		}
 	}
 	
