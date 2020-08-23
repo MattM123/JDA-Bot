@@ -171,7 +171,7 @@ public class ServerCommands extends ListenerAdapter {
 			for (int i = 11; i < chararr.length; i++) {
 				timebuilder += chararr[i];
 			}
-			
+			event.getChannel().sendMessage(timebuilder).queue();
 			int hour = Integer.parseInt(timebuilder.substring(0, 1));
 			int minute = Integer.parseInt(timebuilder.substring(3, 4));
 			int second = Integer.parseInt(timebuilder.substring(6, 7));
@@ -182,25 +182,45 @@ public class ServerCommands extends ListenerAdapter {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				event.getChannel().sendMessage(String.valueOf(hour--) + ":" + String.valueOf(minute--) + ":" + String.valueOf(second--)).queue();
-		//		hour--;
-		//		minute--;
-		//		second--;
-			
-				if ( hour > -1) {
-					if (minute == -1) {
-						minute = 59;
-					}				
-					if (second == -1) {
-						second = 59;
-					}			
-				}
-				else
-				{
+				
+				// 0 0 0
+				if (hour == 0 && minute == 0 && second == 0) {
+					event.getMessage().editMessage("00:00:00");
+					event.getChannel().sendMessage("Countdown complete!").queue();
 					break;
 				}
+				// 0 1 1
+				else if (hour == 0 && minute > 0 && second > 0) {
+					minute--;
+					second--;
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second);
+				}
+				//0 1 0
+				else if (hour == 0 && minute > 0 && second == 0) {
+					minute--;
+					second = 59;
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second);
+				}
+				//1 0 0 
+				else if (hour > 0 && minute == 0 && second == 0) {
+					second = 59;
+					minute = 59;
+					hour--;
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second);
+				}
+				//0 0 1 //1 0 1 //1 1 1 
+				else if ((hour == 0 && minute == 0 && second > 0) || (hour > 0 && minute == 0 && second > 0) || (hour > 0 && minute > 0 && second > 0)) {
+					second--;
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second);
+				}
+		
+				//1 1 0
+				else if (hour > 0 && minute > 0 && second == 0) {
+					minute--;
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second);
+				}
+				
 			}
-			event.getChannel().sendMessage("Countdown complete!").queue();
 		}
 	}
 	
