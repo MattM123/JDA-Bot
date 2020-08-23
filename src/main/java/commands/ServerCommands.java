@@ -11,6 +11,7 @@ import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -175,7 +176,6 @@ public class ServerCommands extends ListenerAdapter {
 			int minute = Integer.parseInt(timebuilder.substring(3, 4));
 			int second = Integer.parseInt(timebuilder.substring(6, 7));
 			
-			event.getChannel().sendMessage((CharSequence) event.getMessage().editMessage((CharSequence) new MessageBuilder(String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second)))).queue();
 			for (int i = 0; i < 172800; i++ ) {
 				try {
 					TimeUnit.SECONDS.sleep(1);
@@ -186,7 +186,7 @@ public class ServerCommands extends ListenerAdapter {
 				hour--;
 				minute--;
 				second--;
-				event.getChannel().sendMessage((CharSequence) event.getMessage().editMessage((CharSequence) new MessageBuilder(String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second)))).queue();
+				event.getChannel().editMessageById(event.getMessageId(), String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second)).queue();
 				
 				if ( hour > -1) {
 					if (minute == -1) {
