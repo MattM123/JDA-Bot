@@ -171,7 +171,7 @@ public class ServerCommands extends ListenerAdapter {
 			for (int i = 11; i < chararr.length; i++) {
 				timebuilder += chararr[i];
 			}
-			event.getChannel().sendMessage(timebuilder).queue();
+		//	event.getChannel().sendMessage(timebuilder).queue();
 			int hour = Integer.parseInt(timebuilder.substring(0, 1));
 			int minute = Integer.parseInt(timebuilder.substring(3, 4));
 			int second = Integer.parseInt(timebuilder.substring(6, 7));
@@ -193,31 +193,31 @@ public class ServerCommands extends ListenerAdapter {
 				else if (hour == 0 && minute > 0 && second > 0) {
 					minute--;
 					second--;
-					event.getMessage().editMessage(hour + ":" + minute + ":" + second);
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();;
 				}
 				//0 1 0
 				else if (hour == 0 && minute > 0 && second == 0) {
 					minute--;
 					second = 59;
-					event.getMessage().editMessage(hour + ":" + minute + ":" + second);
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();;
 				}
 				//1 0 0 
 				else if (hour > 0 && minute == 0 && second == 0) {
 					second = 59;
 					minute = 59;
 					hour--;
-					event.getMessage().editMessage(hour + ":" + minute + ":" + second);
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();;
 				}
 				//0 0 1 //1 0 1 //1 1 1 
 				else if ((hour == 0 && minute == 0 && second > 0) || (hour > 0 && minute == 0 && second > 0) || (hour > 0 && minute > 0 && second > 0)) {
 					second--;
-					event.getMessage().editMessage(hour + ":" + minute + ":" + second);
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();
 				}
 		
 				//1 1 0
 				else if (hour > 0 && minute > 0 && second == 0) {
 					minute--;
-					event.getMessage().editMessage(hour + ":" + minute + ":" + second);
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();
 				}
 				
 			}
