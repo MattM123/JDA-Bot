@@ -52,19 +52,6 @@ public class ServerCommands extends ListenerAdapter {
 		ServerUsage s = server.getServerUsage();
 		return s.getMemoryUsage() + "/" + server.getLimits().getMemory() + "MB";
 	}
-	
-//	public String passwordGen() {	
-//		String generatedString = RandomStringUtils.random(15, true, true);
-//		this.stored += generatedString;
-		
-//		return generatedString;
-//	}
-	
-	
-//	public String passwordStore() {
-//		return this.stored.substring(1, 15);
-//	}
-	
 
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -72,10 +59,6 @@ public class ServerCommands extends ListenerAdapter {
 		
 		String id = "387330197420113930";
 		long idlong = Long.parseLong(id.toString());	
-		
-//		String generatedString = RandomStringUtils.random(15, true, true);
-		String namebuilder = "";
-		String rankbuilder = "";
 		
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setTitle("Nebraska/Iowa Build Server Status").setColor(Color.blue);
@@ -139,46 +122,35 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}
 		
-		
-		//console commands
-		if (event.getMessage().getContentRaw().startsWith("!console")) { //!console
-			if (event.getAuthor().getIdLong() == idlong) { //id check
-				if (event.getMessage().getContentRaw().contains("parent") 
-					&& event.getMessage().getContentRaw().contains("lp")
-					&& event.getMessage().getContentRaw().contains("add") 
-					&& event.getMessage().getContentRaw().contains("user")) { //contains lp/parent/add/user
-		
-						server.sendCommand(event.getMessage().getContentRaw().substring(25));
-						char[] arr = event.getMessage().getContentRaw().toCharArray();
-					
-						for (int i = 17; i < arr.length; i++) {
-							if (event.getMessage().getContentRaw().charAt(i - 2) == 'r'
-								&& event.getMessage().getContentRaw().charAt(i - 3) == 'e'
-								&& event.getMessage().getContentRaw().charAt(i - 4) == 's'
-								&& event.getMessage().getContentRaw().charAt(i - 5) == 'u') {
-								namebuilder = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().charAt(i), ' ');
-							}
-						}
-					
-						for (int i = 0; i < arr.length; i++) {
-							if (event.getMessage().getContentRaw().charAt(i) == 'a'
-								&& event.getMessage().getContentRaw().charAt(i + 1) == 'd'
-								&& event.getMessage().getContentRaw().charAt(i + 2) == 'd') {
-								rankbuilder = event.getMessage().getContentRaw().substring(i + 4);
-							}
-						}
+		//Nebraska builder assign
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!nebraska")) {
+			if (event.getMessage().getAuthor().getIdLong() == idlong) {
+				char[] chararr = event.getMessage().getContentRaw().toCharArray();
+				String namebuilder = "";
+			
+				for (int i = 9; i < chararr.length; i++) {
+					namebuilder += chararr[i];
+				}
 				
-					event.getChannel().sendMessage("Server rank updated to " + rankbuilder + " for " + namebuilder).queue();
-				}//contains lp/parent/add/user
-				else {
-					server.sendCommand(event.getMessage().getContentRaw().substring(25));
-					event.getChannel().sendMessage("Console command issued.").queue();
-					}
-			}//id check
-			else {
-				event.getChannel().sendMessage("Invalid permissions.").queue();
+				server.sendCommand("lp user " + namebuilder + "parent add builder");
+				event.getChannel().sendMessage("Rank updated to Nebraska Builder for user" + namebuilder).queue();
 			}
-		}//!console
+		}
+		
+		//Iowa builder assign
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!iowa")) {
+			if (event.getMessage().getAuthor().getIdLong() == idlong) {
+				char[] chararr = event.getMessage().getContentRaw().toCharArray();
+				String namebuilder = "";
+			
+				for (int i = 5; i < chararr.length; i++) {
+					namebuilder += chararr[i];
+				}
+				
+				server.sendCommand("lp user " + namebuilder + "parent add iowa-builder");
+				event.getChannel().sendMessage("Rank updated to Iowa Builder for user" + namebuilder).queue();
+			}
+		}
 		
 	}
 	
