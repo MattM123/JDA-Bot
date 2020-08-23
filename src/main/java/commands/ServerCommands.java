@@ -133,7 +133,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				
 				server.sendCommand("lp user " + namebuilder + " parent add builder");
-				event.getChannel().sendMessage("Rank updated to Nebraska Builder for user" + namebuilder).queue();
+				event.getChannel().sendMessage("Rank updated to Nebraska Builder for user " + namebuilder).queue();
 			}
 			else {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
@@ -151,7 +151,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				
 				server.sendCommand("lp user " + namebuilder + " parent add iowa-builder");
-				event.getChannel().sendMessage("Rank updated to Iowa Builder for user" + namebuilder).queue();
+				event.getChannel().sendMessage("Rank updated to Iowa Builder for user " + namebuilder).queue();
 			}
 			else {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
