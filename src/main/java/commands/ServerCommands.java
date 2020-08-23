@@ -1,7 +1,6 @@
 package commands;
 
 import java.awt.Color;
-import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
 
 import com.stanjg.ptero4j.PteroUserAPI;
@@ -185,16 +184,19 @@ public class ServerCommands extends ListenerAdapter {
 				minute--;
 				second--;
 				
-				if (hour == 13) {
-					hour = 1;
-				}				
-				if (minute == 60) {
-					minute = 1;
-				}				
-				if (second == 60) {
-					second = 1;
+				if ( hour > -1) {
+					if (minute == -1) {
+						minute = 59;
+					}				
+					if (second == -1) {
+						second = 59;
+					}
+					event.getMessage().editMessage(String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second)).queue();
 				}
-				event.getMessage().editMessage(String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second));
+				else
+				{
+				event.getChannel().sendMessage("Countdown complete!");
+				}
 			}
 			
 		}
