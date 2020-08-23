@@ -198,8 +198,9 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				else
 				{
-				event.getChannel().sendMessage("Countdown complete!").queue();
+					break;
 				}
+				event.getChannel().sendMessage("Countdown complete!").queue();
 			}
 			
 		}
