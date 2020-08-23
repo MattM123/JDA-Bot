@@ -175,6 +175,7 @@ public class ServerCommands extends ListenerAdapter {
 			int minute = Integer.parseInt(timebuilder.substring(3, 4));
 			int second = Integer.parseInt(timebuilder.substring(6, 7));
 			
+			event.getChannel().sendMessage((CharSequence) event.getMessage().editMessage((CharSequence) new MessageBuilder(String.valueOf(hour) + ":" + String.valueOf(minute) + ":" + String.valueOf(second)))).queue();
 			for (int i = 0; i < 172800; i++ ) {
 				try {
 					TimeUnit.SECONDS.sleep(1);
