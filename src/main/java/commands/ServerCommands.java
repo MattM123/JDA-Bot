@@ -123,7 +123,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		//Nebraska builder assign
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!nebraska")) {
+		if (event.getMessage().getContentRaw().startsWith("!nebraska")) {
 			if (event.getMessage().getAuthor().getIdLong() == idlong) {
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
@@ -141,7 +141,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		//Iowa builder assign
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!iowa")) {
+		if (event.getMessage().getContentRaw().startsWith("!iowa")) {
 			if (event.getMessage().getAuthor().getIdLong() == idlong) {
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
