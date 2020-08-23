@@ -18,8 +18,8 @@ public class HelpCommands extends ListenerAdapter {
 		embed.addField("!map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		embed.addField("!measure", "Measure tutorial derived from the BTE Support Bot", false);
 		embed.addField("-----------------------------------------------------------------------------", "" , false);
-		embed.addField("!iowa", "Requires permissions to update rank for Iowa Builder", false);
-		embed.addField("!nebraska", "Requires permissions to update rank for Nebraska Builder", false);
+		embed.addField("!iowa <minecraft username>", "Requires permissions to assign 'Iowa Builder' rank", false);
+		embed.addField("!nebraska <minecraft username>", "Requires permissions to assign 'Nebraska Builder' rank", false);
 		embed.addField("!start", "Requires permissions to start the server", false);
 		embed.addField("!stop", "Requires permissions to stop the server", false);
 		embed.addField("!restart", "Requires permissions to restart the server", false);
