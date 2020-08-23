@@ -128,7 +128,7 @@ public class ServerCommands extends ListenerAdapter {
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
 			
-				for (int i = 9; i < chararr.length; i++) {
+				for (int i = 10; i < chararr.length; i++) {
 					namebuilder += chararr[i];
 				}
 				
@@ -146,7 +146,7 @@ public class ServerCommands extends ListenerAdapter {
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
 			
-				for (int i = 5; i < chararr.length; i++) {
+				for (int i = 6; i < chararr.length; i++) {
 					namebuilder += chararr[i];
 				}
 				
