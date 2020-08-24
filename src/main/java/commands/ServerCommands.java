@@ -1,7 +1,6 @@
 package commands;
 
 import java.awt.Color;
-import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
 
 import com.stanjg.ptero4j.PteroUserAPI;
@@ -10,15 +9,13 @@ import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class ServerCommands extends ListenerAdapter {
 
 	private static String apikey = "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens";
-	private static String serverID = "ef773a66";
+	private static String serverID = "8f401af5";
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);
 	private static UserServer server = api.getServersController().getServer(serverID);
 	//private StringBuilder stored = new StringBuilder(15);
