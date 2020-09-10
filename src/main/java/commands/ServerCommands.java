@@ -1,6 +1,7 @@
 package commands;
 
 import java.awt.Color;
+import java.util.concurrent.TimeUnit;
 
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
@@ -13,12 +14,13 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class ServerCommands extends ListenerAdapter {
 
-	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens");
-	private static UserServer server = api.getServersController().getServer("ef773a66");
-	
+	private static String apikey = "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens";
+	private static String serverID = "8f401af5";
+	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);
+	private static UserServer server = api.getServersController().getServer(serverID);
+
 	public static String serverName() {
-		String name = server.getName();
-		return name;
+		return server.getName();
 	}
 	
 	public static String serverStatus() {
@@ -43,7 +45,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 	public static String diskUsage() {
 		ServerUsage s = server.getServerUsage();
-		return s.getDiskUsage() + "/" + server.getLimits().getDisk() + "MB";
+		return s.getDiskUsage() + "/unlimited";
 	}
 	
 	public static String memoryUsage() {
@@ -51,15 +53,12 @@ public class ServerCommands extends ListenerAdapter {
 		return s.getMemoryUsage() + "/" + server.getLimits().getMemory() + "MB";
 	}
 
-	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
+		
 		String id = "387330197420113930";
-		long idlong = Long.parseLong(id);
-		String namebuilder = "";
-		String rankbuilder = "";
-
+		long idlong = Long.parseLong(id.toString());	
 		
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setTitle("Nebraska/Iowa Build Server Status").setColor(Color.blue);
@@ -68,91 +67,159 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("CPU Usage: ", cpuUsage(), false);
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Ussage: ", memoryUsage(), false);
-	
 		
+	
+		//server status command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server status")) {
-			event.getChannel().sendMessage(embed.build()).queue();	
+				event.getChannel().sendMessage(embed.build()).queue();
 		}
 		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server restart")) {	
-			if (event.getAuthor().getIdLong() == idlong) {
-				event.getChannel().sendMessage("Server Restarting...").queue();
+		//server restart command
+		if (event.getMessage().getContentRaw().startsWith("!restart")) {
+			if (event.getAuthor().getIdLong() == idlong) {	
 				server.restart();
-		}	
+				event.getChannel().sendMessage("Server Restarting...").queue();
+			}	
 			else {
-				event.getChannel().sendMessage("You do not have permission to alter the server state!").queue();
+				event.getChannel().sendMessage("Invalid permissions.").queue();
 			}
 		}
+			
+		
 	
-		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server start")) {
-			if (serverStatus() == "ONLINE" && event.getAuthor().getIdLong() == idlong) {
-				event.getChannel().sendMessage("Server already running!").queue();
-			}
-			
-			else if (serverStatus() == "OFFLINE" && event.getAuthor().getIdLong() == idlong) {
-				server.start();
-				event.getChannel().sendMessage("Server Starting...").queue();
-			}
-			
-			else {
-				event.getChannel().sendMessage("You do not have permission to alter the server state.").queue();
-			}
-		}
-		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server stop")) {
-			if (serverStatus() == "OFFLINE" && event.getAuthor().getIdLong() == idlong) {
-				event.getChannel().sendMessage("Server already stopped!").queue();
-			}
-			
-			else if (serverStatus() == "ONLINE" && event.getAuthor().getIdLong() == idlong) {
-				server.stop();
-				event.getChannel().sendMessage("Server Stopping...").queue();
-			}
-			
-			else {
-				event.getChannel().sendMessage("You do not have permission to alter the server state.").queue();
-			}
-		}
-		
-		if (event.getMessage().getContentRaw().startsWith("!console")) { //!console
-			if (event.getMessage().getContentRaw().contains("parent") 
-					&& event.getMessage().getContentRaw().contains("add") 
-					&& event.getMessage().getContentRaw().contains("user")) { //contains parent/add/user
-				if (event.getAuthor().getIdLong() == idlong) { //id check
-					server.sendCommand(event.getMessage().getContentRaw().substring(8));
-					
-					char[] arr = event.getMessage().getContentRaw().toCharArray();
-					
-					for (int i = 17; i < arr.length; i++) {
-						if (event.getMessage().getContentRaw().charAt(i) == ' ') {
-							break;
-						}
-						else {
-							namebuilder += event.getMessage().getContentRaw().charAt(i);
-						}
-					}
-					
-					for (int i = 0; i < arr.length; i++) {
-						if (event.getMessage().getContentRaw().charAt(i) == 'a'
-							&& event.getMessage().getContentRaw().charAt(i + 1) == 'd'
-							&& event.getMessage().getContentRaw().charAt(i + 2) == 'd') {
-							rankbuilder = event.getMessage().getContentRaw().substring(i + 4);
-						}
-					}
-					
-					event.getChannel().sendMessage("Server rank updated to " + rankbuilder + " for " + namebuilder).queue();
-				}//id check
+		//server start command
+		if (event.getMessage().getContentRaw().startsWith("!start")) {
+			if (event.getAuthor().getIdLong() == idlong) {
+				if (serverStatus().equals("ONLINE")) { 
+					event.getChannel().sendMessage("Server already running!").queue();
+				}
 				else {
-					event.getChannel().sendMessage("You do not have permission to send console commands.").queue();
-					}
-			}//contains parent/add/user
-			else {
-				server.sendCommand(event.getMessage().getContentRaw().substring(8));
-				event.getChannel().sendMessage("Console command issued.").queue();
+					server.start();
+					event.getChannel().sendMessage("Server Starting...").queue();
+				}
 			}
-		}//!console
+			
+			else {
+				event.getChannel().sendMessage("Invalid permissions.").queue();
+			}
+		}
+		
+		
+		//server stop command
+		if (event.getMessage().getContentRaw().startsWith("!stop")) {
+			if (event.getAuthor().getIdLong() == idlong) {
+				if (serverStatus().equals("OFFLINE")) {
+					event.getChannel().sendMessage("Server already stopped!").queue();
+				}
+				else {
+					server.stop();
+					event.getChannel().sendMessage("Server Stopping...").queue();
+				}
+			}
+				
+			else {
+				event.getChannel().sendMessage("Invalid permsissions.").queue();
+			}
+		}
+		
+		//Nebraska builder assign
+		if (event.getMessage().getContentRaw().startsWith("!nebraska")) {
+			if (event.getMessage().getAuthor().getIdLong() == idlong) {
+				char[] chararr = event.getMessage().getContentRaw().toCharArray();
+				String namebuilder = "";
+			
+				for (int i = 10; i < chararr.length; i++) {
+					namebuilder += chararr[i];
+				}
+				
+				server.sendCommand("lp user " + namebuilder + " parent add builder");
+				event.getChannel().sendMessage("Rank updated to Nebraska Builder for user " + namebuilder).queue();
+			}
+			else {
+				event.getChannel().sendMessage("Invalid permissions.").queue();
+			}
+		}
+		
+		//Iowa builder assign
+		if (event.getMessage().getContentRaw().startsWith("!iowa")) {
+			if (event.getMessage().getAuthor().getIdLong() == idlong) {
+				char[] chararr = event.getMessage().getContentRaw().toCharArray();
+				String namebuilder = "";
+			
+				for (int i = 6; i < chararr.length; i++) {
+					namebuilder += chararr[i];
+				}
+				
+				server.sendCommand("lp user " + namebuilder + " parent add iowa-builder");
+				event.getChannel().sendMessage("Rank updated to Iowa Builder for user " + namebuilder).queue();
+			}
+			else {
+				event.getChannel().sendMessage("Invalid permissions.").queue();
+			}
+		}
+		
+		//countdown
+		if (event.getMessage().getContentRaw().startsWith("!countdown")) {
+			String timebuilder = "";
+		//	SimpleDateFormat format = new SimpleDateFormat("HH:MM:SS");
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			
+			for (int i = 11; i < chararr.length; i++) {
+				timebuilder += chararr[i];
+			}
+		//	event.getChannel().sendMessage(timebuilder).queue();
+			int hour = Integer.parseInt(timebuilder.substring(0, 1));
+			int minute = Integer.parseInt(timebuilder.substring(3, 4));
+			int second = Integer.parseInt(timebuilder.substring(6, 7));
+			
+			for (int i = 0; i < 172800; i++ ) {
+				try {
+					TimeUnit.SECONDS.sleep(1);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				// 0 0 0
+				if (hour == 0 && minute == 0 && second == 0) {
+					event.getMessage().editMessage("00:00:00");
+					event.getChannel().sendMessage("Countdown complete!").queue();
+					break;
+				}
+				// 0 1 1
+				else if (hour == 0 && minute > 0 && second > 0) {
+					minute--;
+					second--;
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();;
+				}
+				//0 1 0
+				else if (hour == 0 && minute > 0 && second == 0) {
+					minute--;
+					second = 59;
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();;
+				}
+				//1 0 0 
+				else if (hour > 0 && minute == 0 && second == 0) {
+					second = 59;
+					minute = 59;
+					hour--;
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();;
+				}
+				//0 0 1 //1 0 1 //1 1 1 
+				else if ((hour == 0 && minute == 0 && second > 0) || (hour > 0 && minute == 0 && second > 0) || (hour > 0 && minute > 0 && second > 0)) {
+					second--;
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();
+				}
+		
+				//1 1 0
+				else if (hour > 0 && minute > 0 && second == 0) {
+					minute--;
+					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();
+				}
+				
+			}
+		}
 	}
+	
 }
 			
 		
