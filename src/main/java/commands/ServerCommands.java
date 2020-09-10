@@ -18,6 +18,10 @@ public class ServerCommands extends ListenerAdapter {
 	private static String serverID = "8f401af5";
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);
 	private static UserServer server = api.getServersController().getServer(serverID);
+<<<<<<< HEAD
+=======
+	//private StringBuilder stored = new StringBuilder(15);
+>>>>>>> 7b6d8b3c9ec244cfef920342dd7a4cb13cbb703e
 
 	public static String serverName() {
 		return server.getName();
@@ -222,7 +226,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 }
 			
-		
+
 
 			
 
