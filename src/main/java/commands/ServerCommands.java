@@ -67,7 +67,7 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Server Status: ", serverStatus(), false);
 		embed.addField("CPU Usage: ", cpuUsage(), false);
 		embed.addField("Disk Usage: ", diskUsage(), false);
-		embed.addField("Memory Ussage: ", memoryUsage(), false);
+		embed.addField("Memory Usage: ", memoryUsage(), false);
 		
 	
 		//server status command
