@@ -171,7 +171,7 @@ public class ServerCommands extends ListenerAdapter {
 					namebuilder += chararr[i];
 				}
 				
-				server.sendCommand("lp user " + namebuilder + " parent add iowa-builder");
+				server.sendCommand("lp user " + namebuilder + " parent add applicants");
 				event.getChannel().sendMessage("Rank updated to 'Application In Progress' for user " + namebuilder).queue();
 			}
 			else {
