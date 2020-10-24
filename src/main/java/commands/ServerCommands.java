@@ -3,6 +3,7 @@ package commands;
 import java.awt.Color;
 import java.util.concurrent.TimeUnit;
 
+import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
 import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
@@ -16,7 +17,8 @@ public class ServerCommands extends ListenerAdapter {
 
 	private static String apikey = "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens";
 	private static String serverID = "8f401af5";
-	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);
+	
+	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
 	private static UserServer server = api.getServersController().getServer(serverID);
 
 
@@ -159,68 +161,25 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}
 		
-		//countdown
-		if (event.getMessage().getContentRaw().startsWith("!countdown")) {
-			String timebuilder = "";
-		//	SimpleDateFormat format = new SimpleDateFormat("HH:MM:SS");
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+		//Applicant builder assign
+		if (event.getMessage().getContentRaw().startsWith("!applicant")) {
+			if (event.getMessage().getAuthor().getIdLong() == idlong) {
+				char[] chararr = event.getMessage().getContentRaw().toCharArray();
+				String namebuilder = "";
 			
-			for (int i = 11; i < chararr.length; i++) {
-				timebuilder += chararr[i];
+				for (int i = 11; i < chararr.length; i++) {
+					namebuilder += chararr[i];
+				}
+				
+				server.sendCommand("lp user " + namebuilder + " parent add iowa-builder");
+				event.getChannel().sendMessage("Rank updated to 'Application In Progress' for user " + namebuilder).queue();
 			}
-		//	event.getChannel().sendMessage(timebuilder).queue();
-			int hour = Integer.parseInt(timebuilder.substring(0, 1));
-			int minute = Integer.parseInt(timebuilder.substring(3, 4));
-			int second = Integer.parseInt(timebuilder.substring(6, 7));
-			
-			for (int i = 0; i < 172800; i++ ) {
-				try {
-					TimeUnit.SECONDS.sleep(1);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				
-				// 0 0 0
-				if (hour == 0 && minute == 0 && second == 0) {
-					event.getMessage().editMessage("00:00:00");
-					event.getChannel().sendMessage("Countdown complete!").queue();
-					break;
-				}
-				// 0 1 1
-				else if (hour == 0 && minute > 0 && second > 0) {
-					minute--;
-					second--;
-					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();;
-				}
-				//0 1 0
-				else if (hour == 0 && minute > 0 && second == 0) {
-					minute--;
-					second = 59;
-					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();;
-				}
-				//1 0 0 
-				else if (hour > 0 && minute == 0 && second == 0) {
-					second = 59;
-					minute = 59;
-					hour--;
-					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();;
-				}
-				//0 0 1 //1 0 1 //1 1 1 
-				else if ((hour == 0 && minute == 0 && second > 0) || (hour > 0 && minute == 0 && second > 0) || (hour > 0 && minute > 0 && second > 0)) {
-					second--;
-					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();
-				}
-		
-				//1 1 0
-				else if (hour > 0 && minute > 0 && second == 0) {
-					minute--;
-					event.getMessage().editMessage(hour + ":" + minute + ":" + second).queue();
-				}
-				
+			else {
+				event.getChannel().sendMessage("Invalid permissions.").queue();
 			}
 		}
-	}
-	
+		
+	}	
 }
 			
 
