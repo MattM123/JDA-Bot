@@ -1,9 +1,6 @@
 package commands;
 
 import java.awt.Color;
-import java.util.concurrent.TimeUnit;
-
-import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
 import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
@@ -155,6 +152,24 @@ public class ServerCommands extends ListenerAdapter {
 				
 				server.sendCommand("lp user " + namebuilder + " parent add iowa-builder");
 				event.getChannel().sendMessage("Rank updated to Iowa Builder for user " + namebuilder).queue();
+			}
+			else {
+				event.getChannel().sendMessage("Invalid permissions.").queue();
+			}
+		}
+		
+		//Kansas builder assign
+		if (event.getMessage().getContentRaw().startsWith("!kansas")) {
+			if (event.getMessage().getAuthor().getIdLong() == idlong) {
+				char[] chararr = event.getMessage().getContentRaw().toCharArray();
+				String namebuilder = "";
+			
+				for (int i = 8; i < chararr.length; i++) {
+					namebuilder += chararr[i];
+				}
+				
+				server.sendCommand("lp user " + namebuilder + " parent add kansas-builder");
+				event.getChannel().sendMessage("Rank updated to Kansas Builder for user " + namebuilder).queue();
 			}
 			else {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
