@@ -40,17 +40,17 @@ public class ServerCommands extends ListenerAdapter {
 	
 	public static String cpuUsage() {
 		ServerUsage s = server.getServerUsage();
-		return s.getCpuUsage() + "/" + server.getLimits().getCpu() + "%";
+		return s.getCpuUsage() + "/" + "100%";
 	}
 	
 	public static String diskUsage() {
 		ServerUsage s = server.getServerUsage();
-		return s.getDiskUsage() + "/unlimited";
+		return s.getDiskUsage() + "MB/unlimited";
 	}
 	
 	public static String memoryUsage() {
 		ServerUsage s = server.getServerUsage();
-		return s.getMemoryUsage() + "/" + server.getLimits().getMemory() + "MB";
+		return s.getMemoryUsage() + "MB/" + server.getLimits().getMemory() + "MB";
 	}
 
 	@Override
