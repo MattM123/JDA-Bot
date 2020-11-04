@@ -175,7 +175,24 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
 			}
 		}
-		
+
+		//missouri builder assign
+		if (event.getMessage().getContentRaw().startsWith("!missouri")) {
+			if (event.getMessage().getAuthor().getIdLong() == idlong) {
+				char[] chararr = event.getMessage().getContentRaw().toCharArray();
+				String namebuilder = "";
+			
+				for (int i = 10; i < chararr.length; i++) {
+					namebuilder += chararr[i];
+				}
+				
+				server.sendCommand("lp user " + namebuilder + " parent add missouri-builder");
+				event.getChannel().sendMessage("Rank updated to Missouri Builder for user " + namebuilder).queue();
+			}
+			else {
+				event.getChannel().sendMessage("Invalid permissions.").queue();
+			}
+		}
 		//Applicant builder assign
 		if (event.getMessage().getContentRaw().startsWith("!applicant")) {
 			if (event.getMessage().getAuthor().getIdLong() == idlong) {
@@ -187,7 +204,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				
 				server.sendCommand("lp user " + namebuilder + " parent add applicants");
-				event.getChannel().sendMessage("Rank updated to 'Application In Progress' for user " + namebuilder).queue();
+				event.getChannel().sendMessage("Rank updated to Application In Progress for user " + namebuilder).queue();
 			}
 			else {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
