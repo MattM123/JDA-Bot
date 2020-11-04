@@ -1,13 +1,9 @@
 package commands;
 
 import java.awt.Color;
-import java.util.Map;
-
-import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
 import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
-import com.stanjg.ptero4j.entities.panel.admin.Server;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
