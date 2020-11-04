@@ -1,13 +1,11 @@
 package commands;
 
 import java.awt.Color;
-import java.util.Collection;
 import java.util.Map;
 
 import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
-import com.stanjg.ptero4j.entities.objects.server.ServerContainer;
 import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
 import com.stanjg.ptero4j.entities.panel.admin.Server;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
@@ -36,7 +34,7 @@ public class ServerCommands extends ListenerAdapter {
 	//		str += arr[i];
 	//	}
 
-		return String.valueOf(str);
+		return "String Map Size: " + String.valueOf(str);
 	}
 
 	public static String serverName() {
