@@ -1,9 +1,13 @@
 package commands;
 
 import java.awt.Color;
+
+import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
+import com.stanjg.ptero4j.entities.objects.server.ServerContainer;
 import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
+import com.stanjg.ptero4j.entities.panel.admin.Server;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -17,7 +21,15 @@ public class ServerCommands extends ListenerAdapter {
 	
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
 	private static UserServer server = api.getServersController().getServer(serverID);
+	
+	private static PteroAdminAPI adminAPI = new PteroAdminAPI("https://witherpanel.com/", apikey);
+	private static Server admin = (Server) adminAPI.getServersController().getServers(serverID);
 
+	public static String testcontainer() {
+		String test = admin.getContainer().toString();
+		return test;
+		
+	}
 
 	public static String serverName() {
 		return server.getName();
@@ -209,6 +221,10 @@ public class ServerCommands extends ListenerAdapter {
 			else {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
 			}
+		}
+		
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
+			event.getChannel().sendMessage(testcontainer()).queue();
 		}
 		
 	}	
