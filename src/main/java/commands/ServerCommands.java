@@ -86,6 +86,9 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Usage: ", memoryUsage(), false);
 		
+		EmbedBuilder log = new EmbedBuilder();
+		log.addField("size", getLog(), false);
+		
 	
 		//server status command
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server status")) {
@@ -230,7 +233,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
-			event.getChannel().sendMessage(getLog()).queue();
+			event.getChannel().sendMessage(log.build()).queue();
 		}
 		
 	}	
