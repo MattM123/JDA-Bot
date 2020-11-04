@@ -1,6 +1,8 @@
 package commands;
 
 import java.awt.Color;
+import java.util.Collection;
+import java.util.Map;
 
 import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.PteroUserAPI;
@@ -25,9 +27,10 @@ public class ServerCommands extends ListenerAdapter {
 	private static PteroAdminAPI adminAPI = new PteroAdminAPI("https://witherpanel.com/", apikey);
 	private static Server admin = (Server) adminAPI.getServersController().getServers(serverID);
 
-	public static ServerContainer testcontainer() {
-		ServerContainer test = admin.getContainer();
-		return test;
+	public static Collection<String> testcontainer() {
+		Map<String, String> test = admin.getContainer().getEnvironmentVariables();
+
+		return test.values();
 		
 	}
 
