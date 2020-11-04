@@ -25,8 +25,8 @@ public class ServerCommands extends ListenerAdapter {
 	private static PteroAdminAPI adminAPI = new PteroAdminAPI("https://witherpanel.com/", apikey);
 	private static Server admin = (Server) adminAPI.getServersController().getServers(serverID);
 
-	public static String testcontainer() {
-		String test = admin.getContainer().toString();
+	public static ServerContainer testcontainer() {
+		ServerContainer test = admin.getContainer();
 		return test;
 		
 	}
@@ -224,7 +224,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
-			event.getChannel().sendMessage(testcontainer()).queue();
+			event.getChannel().sendMessage((CharSequence) testcontainer()).queue();
 		}
 		
 	}	
