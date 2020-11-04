@@ -27,11 +27,16 @@ public class ServerCommands extends ListenerAdapter {
 	private static PteroAdminAPI adminAPI = new PteroAdminAPI("https://witherpanel.com/", apikey);
 	private static Server admin = (Server) adminAPI.getServersController().getServers(serverID);
 
-	public static Collection<String> testcontainer() {
-		Map<String, String> test = admin.getContainer().getEnvironmentVariables();
-
-		return test.values();
+	public static String getLog() {
 		
+		Map<String, String> test = admin.getContainer().getEnvironmentVariables();
+		String str = "";
+		String[] arr = (String[]) test.values().toArray();
+		for (int i = 0; i < test.values().size(); i++) {
+			str += arr[i];
+		}
+
+		return str;
 	}
 
 	public static String serverName() {
@@ -227,7 +232,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
-			event.getChannel().sendMessage((CharSequence) testcontainer()).queue();
+			event.getChannel().sendMessage(getLog()).queue();
 		}
 		
 	}	
