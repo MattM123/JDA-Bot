@@ -30,13 +30,13 @@ public class ServerCommands extends ListenerAdapter {
 	public static String getLog() {
 		
 		Map<String, String> test = admin.getContainer().getEnvironmentVariables();
-		String str = "";
-		String[] arr = (String[]) test.values().toArray();
-		for (int i = 0; i < test.values().size(); i++) {
-			str += arr[i];
-		}
+		int str = test.values().size();
+		//String[] arr = (String[]) test.values().toArray();
+	//	for (int i = 0; i < test.values().size(); i++) {
+	//		str += arr[i];
+	//	}
 
-		return str;
+		return String.valueOf(str);
 	}
 
 	public static String serverName() {
