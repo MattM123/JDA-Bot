@@ -9,14 +9,14 @@ import commands.ServerCommands;
 
 public class Bot {	
 
-	//private Activity a;
+
 	public static void main (String[] args) {
 		
 		String token = "NzMyMjkwMTUzNjg2NDk5MzY4.XxinCA.00eQw8ZSdMq1chDG1v_KpQKTPKU";	
 		try {
 			JDA jda = JDABuilder.createDefault(token).build();
 			
-			jda.getPresence().setActivity(Activity.playing("https://i.imgur.com/0B6Isbo.png"));
+		//	jda.getPresence().setActivity(Activity.playing("https://i.imgur.com/0B6Isbo.png"));
 			jda.addEventListener(new MapCommand());
 			jda.addEventListener(new ServerCommands());
 			jda.addEventListener(new HelpCommands());
@@ -24,6 +24,5 @@ public class Bot {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 }
