@@ -210,6 +210,25 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
 			}
 		}
+		
+		//illinois builder assign
+		if (event.getMessage().getContentRaw().startsWith("!illinois")) {
+			if (event.getMessage().getAuthor().getIdLong() == idlong) {
+				char[] chararr = event.getMessage().getContentRaw().toCharArray();
+				String namebuilder = "";
+			
+				for (int i = 10; i < chararr.length; i++) {
+					namebuilder += chararr[i];
+				}
+				
+				server.sendCommand("lp user " + namebuilder + " parent add illinois-builder");
+				event.getChannel().sendMessage("Rank updated to Illinois Builder for user " + namebuilder).queue();
+			}
+			else {
+				event.getChannel().sendMessage("Invalid permissions.").queue();
+			}
+		}
+		
 		//Applicant builder assign
 		if (event.getMessage().getContentRaw().startsWith("!applicant")) {
 			if (event.getMessage().getAuthor().getIdLong() == idlong) {

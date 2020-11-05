@@ -22,6 +22,7 @@ public class HelpCommands extends ListenerAdapter {
 		embed.addField("!nebraska <minecraft username>", "Requires permissions to assign 'Nebraska Builder' rank", false);
 		embed.addField("!kansas <minecraft username>", "Requires permissions to assign 'Kansas Builder' rank", false);
 		embed.addField("!missouri <minecraft username>", "Requires permissions to assign 'Missouri Builder' rank", false);
+		embed.addField("!illinois <minecraft username>", "Requires permissions to assign 'Illinois Builder' rank", false);
 		embed.addField("!applicant <minecraft username>", "Requires permissions to assign 'ApplicationInProgress' rank", false);
 		embed.addField("!start", "Requires permissions to start the server", false);
 		embed.addField("!stop", "Requires permissions to stop the server", false);
