@@ -9,6 +9,7 @@ import commands.ServerCommands;
 
 public class Bot {	
 
+	//private Activity a;
 	public static void main (String[] args) {
 		
 		String token = "NzMyMjkwMTUzNjg2NDk5MzY4.XxinCA.00eQw8ZSdMq1chDG1v_KpQKTPKU";	
