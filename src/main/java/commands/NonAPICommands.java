@@ -59,6 +59,7 @@ public class NonAPICommands extends ListenerAdapter {
 			event.getChannel().sendMessage(embed.build()).queue();
 		}
 		
+		//chunk conversion to region file
 		if (event.getMessage().getContentRaw().startsWith("!regcon")) {
 			String Xbuilder = "";
 			String Zbuilder = "";
