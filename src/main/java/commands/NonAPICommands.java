@@ -73,6 +73,7 @@ public class NonAPICommands extends ListenerAdapter {
 					for (int j = (i + 1); j < chararr.length; j++) {
 						Zbuilder += chararr[j];
 					}
+					break;
 				}
 				else {
 					Xbuilder += chararr[i];
