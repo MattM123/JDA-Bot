@@ -1,12 +1,22 @@
 package commands;
 
 import java.awt.Color;
+import java.text.DecimalFormat;
+
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class HelpCommands extends ListenerAdapter {
+public class NonAPICommands extends ListenerAdapter {
 
+	public static String regionXZ(double x, double z) {
+		x = (int) (Math.floor(x / 32));
+		z = (int) (Math.floor(z / 32));
+		DecimalFormat f = new DecimalFormat("#.#");
+		
+		return "r." + f.format(x) + "." + f.format(z) + ".mca"; 
+	}
+	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
@@ -28,6 +38,12 @@ public class HelpCommands extends ListenerAdapter {
 		embed.addField("!stop", "Requires permissions to stop the server", false);
 		embed.addField("!restart", "Requires permissions to restart the server", false);
 		
+		EmbedBuilder embed1 = new EmbedBuilder();
+		embed1.setTitle("BTE Midwest Map");
+		embed1.setColor(Color.blue);
+		embed1.setImage("https://i.imgur.com/meaamm7.png");
+		embed1.setFooter("Made by: MN Admin | Mr Jew");
+		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!commands")) {
 			event.getChannel().sendMessage(embed.build()).queue();
 		}
@@ -36,10 +52,29 @@ public class HelpCommands extends ListenerAdapter {
 			EmbedBuilder measure = new EmbedBuilder();
 			measure.setColor(Color.blue);
 			measure.setImage("https://i.gyazo.com/thumb/1200/d58446cec35cc504bb36b749346041a9-gif.gif");
-			event.getChannel().sendMessage(measure.build()).queue();
-
-			 
+			event.getChannel().sendMessage(measure.build()).queue();	
+		}
+		
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!map")) {
+			event.getChannel().sendMessage(embed.build()).queue();
+		}
+		
+		if (event.getMessage().getContentRaw().startsWith("!regcon")) {
+			String Xbuilder = "";
+			String Zbuilder = "";
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			
-		}		
+			for (int i = 8; i < chararr.length; i++) {
+				if (chararr[i] == ' ') {
+					for (int j = (i + 1); j < chararr.length; j++) {
+						Zbuilder += chararr[j];
+					}
+				}
+				else {
+					Xbuilder += chararr[i];
+				}
+			}
+			event.getChannel().sendMessage(regionXZ(Double.parseDouble(Xbuilder), Double.parseDouble(Zbuilder))).queue();
+		}
 	}
 }
