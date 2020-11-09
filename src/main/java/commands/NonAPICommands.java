@@ -44,10 +44,12 @@ public class NonAPICommands extends ListenerAdapter {
 		embed1.setImage("https://i.imgur.com/meaamm7.png");
 		embed1.setFooter("Made by: MN Admin | Mr Jew");
 		
+		//returns list of commands used by bot
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!commands")) {
 			event.getChannel().sendMessage(embed.build()).queue();
 		}
 		
+		//returns measure gif from BTE bot
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {
 			EmbedBuilder measure = new EmbedBuilder();
 			measure.setColor(Color.blue);
@@ -55,6 +57,7 @@ public class NonAPICommands extends ListenerAdapter {
 			event.getChannel().sendMessage(measure.build()).queue();	
 		}
 		
+		//returns map image of states
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!map")) {
 			event.getChannel().sendMessage(embed.build()).queue();
 		}
@@ -75,6 +78,7 @@ public class NonAPICommands extends ListenerAdapter {
 					Xbuilder += chararr[i];
 				}
 			}
+			event.getChannel().sendMessage(Xbuilder).queue();
 			event.getChannel().sendMessage(regionXZ(Double.parseDouble(Xbuilder), Double.parseDouble(Zbuilder))).queue();
 		}
 	}
