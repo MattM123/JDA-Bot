@@ -27,6 +27,7 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.addField("!server status", "Shows the server status and resource usage.", false);
 		embed.addField("!map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		embed.addField("!measure", "Measure tutorial derived from the BTE Support Bot", false);
+		embed.addField("!regcon", "Converts in-game coordinates to region file format", false);
 		embed.addField("---------Permissions Required---------", "" , false);
 		embed.addField("!iowa <minecraft username>", "Requires permissions to assign 'Iowa Builder' rank", false);
 		embed.addField("!nebraska <minecraft username>", "Requires permissions to assign 'Nebraska Builder' rank", false);
@@ -79,8 +80,6 @@ public class NonAPICommands extends ListenerAdapter {
 					Xbuilder += chararr[i];
 				}
 			}
-			event.getChannel().sendMessage(Xbuilder).queue();
-			event.getChannel().sendMessage(Zbuilder).queue();
 			event.getChannel().sendMessage(regionXZ(Double.parseDouble(Xbuilder), Double.parseDouble(Zbuilder))).queue();
 		}
 	}
