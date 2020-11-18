@@ -44,7 +44,7 @@ public class NonAPICommands extends ListenerAdapter {
 	}
 	
 	public static String download() {
-		String test = "test";
+		String str = "";
 
 		try {
 			InputStream input = new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream();
@@ -57,20 +57,20 @@ public class NonAPICommands extends ListenerAdapter {
 		
 			 }	
 			 parser.close();
-
+			 str = records.get(0);
 				
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			str = "File Not Found";
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		 return test;
+		 return str;
 	}
 	
 	@Override
@@ -143,7 +143,7 @@ public class NonAPICommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!app status")) {
 	//		Guild guild = event.getGuild(); //gets guild
 			event.getChannel().sendMessage(download()).queue();
-			event.getChannel().sendMessage(records.get(0)).queue();	
+			
 			
 		//	String users[]; //array to store name list
 
