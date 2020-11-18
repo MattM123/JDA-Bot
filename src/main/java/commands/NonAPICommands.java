@@ -54,8 +54,9 @@ public class NonAPICommands extends ListenerAdapter {
 		    while((count = bufferedInputStream.read(b1)) != -1) {
 	
 		        System.out.println("b1:"+b1+">>"+count+ ">> KB downloaded:"+ new File("/JDABot/src/main/java/commands/CSV.txt").length()/1024);
-		        stream.write(b1, 0, count);
+		        stream.write(b1);
 		    }
+		    stream.close();
 				
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
