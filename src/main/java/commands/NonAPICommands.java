@@ -3,6 +3,8 @@ package commands;
 import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,17 +41,44 @@ public class NonAPICommands extends ListenerAdapter {
 	}
 	
 	public static void download() {
-		String fileName = "/JDABot/src/main/java/commands/CSV";
-		String url = "https://buildtheearth.net/buildteams/36/users/csv";
-	    try (InputStream in = URI.create(url).toURL().openStream()) {
-	        Files.copy(in, Paths.get(fileName));
-	    } catch (MalformedURLException e) {
+		URL url;
+		try {
+			url = new 
+			URL("https://buildtheearth.net/buildteams/36/users/csv");
+			BufferedInputStream bufferedInputStream = new  BufferedInputStream(url.openStream());
+		    FileOutputStream stream = new FileOutputStream("/JDABot/src/main/java/commands/CSV.txt");
+
+
+		    int count=0;
+		    byte[] b1 = new byte[100];
+
+		    while((count = bufferedInputStream.read(b1)) != -1) {
+	
+		        System.out.println("b1:"+b1+">>"+count+ ">> KB downloaded:"+ new File("/JDABot/src/main/java/commands/CSV.txt").length()/1024);
+		        stream.write(b1, 0, count);
+		    }
+				
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+				    BufferedInputStream bufferedInputStream = new  BufferedInputStream(url.openStream());
+				    FileOutputStream stream = new FileOutputStream("/JDABot/src/main/java/commands/CSV.txt");
+
+
+				    int count=0;
+				    byte[] b1 = new byte[100];
+
+				    while((count = bufferedInputStream.read(b1)) != -1) {
+				        System.out.println("b1:"+b1+">>"+count+ ">> KB downloaded:"+ new File("/home/sachin/Desktop/test.mkv").length()/1024);
+				        stream.write(b1, 0, count);
+				    }
 	}
 	
 	@Override
