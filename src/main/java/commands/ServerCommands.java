@@ -72,6 +72,7 @@ public class ServerCommands extends ListenerAdapter {
 		super.onGuildMessageReceived(event);
 		
 		String id = "387330197420113930";
+		String userID[] = {"387330197420113930", "97867804463599616", "195196317071310848", "657036933083561995"};
 		long idlong = Long.parseLong(id.toString());	
 		
 		EmbedBuilder embed = new EmbedBuilder();
@@ -81,9 +82,6 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("CPU Usage: ", cpuUsage(), false);
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Usage: ", memoryUsage(), false);
-		
-	//	EmbedBuilder log = new EmbedBuilder();
-	//	log.addField("size", getLog(), false);
 		
 	
 		//server status command
@@ -141,7 +139,9 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//Nebraska builder assign
 		if (event.getMessage().getContentRaw().startsWith("!nebraska")) {
-			if (event.getMessage().getAuthor().getIdLong() == idlong) {
+			if (event.getMessage().getAuthor().getId() == userID[0] || event.getMessage().getAuthor().getId() == userID[1] ||
+					event.getMessage().getAuthor().getId() == userID[2] || event.getMessage().getAuthor().getId() == userID[3]) {
+				
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
 			
@@ -159,7 +159,9 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//Iowa builder assign
 		if (event.getMessage().getContentRaw().startsWith("!iowa")) {
-			if (event.getMessage().getAuthor().getIdLong() == idlong) {
+			if (event.getMessage().getAuthor().getId() == userID[0] || event.getMessage().getAuthor().getId() == userID[1] ||
+					event.getMessage().getAuthor().getId() == userID[2] || event.getMessage().getAuthor().getId() == userID[3]) {
+				
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
 			
@@ -177,7 +179,9 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//Kansas builder assign
 		if (event.getMessage().getContentRaw().startsWith("!kansas")) {
-			if (event.getMessage().getAuthor().getIdLong() == idlong) {
+			if (event.getMessage().getAuthor().getId() == userID[0] || event.getMessage().getAuthor().getId() == userID[1] ||
+					event.getMessage().getAuthor().getId() == userID[2] || event.getMessage().getAuthor().getId() == userID[3]) {
+				
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
 			
@@ -195,7 +199,9 @@ public class ServerCommands extends ListenerAdapter {
 
 		//missouri builder assign
 		if (event.getMessage().getContentRaw().startsWith("!missouri")) {
-			if (event.getMessage().getAuthor().getIdLong() == idlong) {
+			if (event.getMessage().getAuthor().getId() == userID[0] || event.getMessage().getAuthor().getId() == userID[1] ||
+					event.getMessage().getAuthor().getId() == userID[2] || event.getMessage().getAuthor().getId() == userID[3]) {
+				
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
 			
@@ -213,7 +219,9 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//illinois builder assign
 		if (event.getMessage().getContentRaw().startsWith("!illinois")) {
-			if (event.getMessage().getAuthor().getIdLong() == idlong) {
+			if (event.getMessage().getAuthor().getId() == userID[0] || event.getMessage().getAuthor().getId() == userID[1] ||
+					event.getMessage().getAuthor().getId() == userID[2] || event.getMessage().getAuthor().getId() == userID[3]) {
+				
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
 			
@@ -231,7 +239,9 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//Applicant builder assign
 		if (event.getMessage().getContentRaw().startsWith("!applicant")) {
-			if (event.getMessage().getAuthor().getIdLong() == idlong) {
+			if (event.getMessage().getAuthor().getId() == userID[0] || event.getMessage().getAuthor().getId() == userID[1] ||
+					event.getMessage().getAuthor().getId() == userID[2] || event.getMessage().getAuthor().getId() == userID[3]) {
+				
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
 			
@@ -245,12 +255,7 @@ public class ServerCommands extends ListenerAdapter {
 			else {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
 			}
-		}
-		
-	//	if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
-	//		event.getChannel().sendMessage(log.build()).queue();
-	//	}
-		
+		}	
 	}	
 }
 			
