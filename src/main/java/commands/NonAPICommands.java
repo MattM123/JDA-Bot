@@ -5,10 +5,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.Scanner;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -98,25 +100,31 @@ public class NonAPICommands extends ListenerAdapter {
 		//checks is user is part of team and assigns Midwest Builder role if they are
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!app status")) {
 			Guild guild = event.getGuild(); //gets guild
-			event.getChannel().sendMessage(event.getAuthor().getName()).queue();
+		//	event.getChannel().sendMessage(event.getAuthor().getName()).queue();
 			
 			String users[]; //array to store name list
 		
 			try {   //gets CSV data and stores in users array
 							
 				InputStream input = new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream();
-				Reader reader = new InputStreamReader(input, "UTF-8");
+				Scanner scan = new Scanner(input);
+				String line = scan.nextLine();
+				PrintWriter write = new PrintWriter("CSV.txt");
+				//Reader reader = new InputStreamReader(input, "UTF-8");
+				while (scan.nextLine() != null) {
+					write.append(scan.nextLine());
+				}
 				
-				CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT.withDelimiter(','));
-				users = (String[]) csv.getRecords().toArray();
-				csv.close();
+				
+			//	users = (String[]) csv.getRecords().toArray();
+			//	csv.close();
 				
 		//		event.getChannel().sendMessage(users[5]).queue();
 		//		event.getChannel().sendMessage("test").queue();
-				
+		/*		
 			int k = 0;
 			for (int i = 0; i < users.length; i++) {  //assignes role if user is in list
-				if (users[i] == event.getAuthor().getName()) {
+				if (users[i].contains(event.getAuthor().getName())) {
 					event.getChannel().sendMessage("You've been accepted! Go to #role-menu to select your state.").queue();
 					guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById("735991952931160104"));
 					k = 1;
@@ -124,9 +132,11 @@ public class NonAPICommands extends ListenerAdapter {
 				}
 				
 			}
+			
 			if (k == 0) { //if user is not in list, k = 0
 				event.getChannel().sendMessage("Looks like your application hasn't been looked yet at or you weren't accepted :(").queue();
 			}
+			*/
 				
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
