@@ -129,6 +129,7 @@ public class NonAPICommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Looks like your application hasn't been looked yet at or you weren't accepted :(").queue();
 			}
 			event.getChannel().sendMessage(users[5]).queue();
+			event.getChannel().sendMessage("test").queue();
 				
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
