@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.text.DecimalFormat;
@@ -107,18 +108,22 @@ public class NonAPICommands extends ListenerAdapter {
 		//	event.getChannel().sendMessage(event.getAuthor().getName()).queue();
 			
 		//	String users[]; //array to store name list
+			URL url;
 			try {
-				InputStream input = new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream();
-				BufferedInputStream inputStream = new BufferedInputStream(input);
-					  FileOutputStream fileOS = new FileOutputStream("CSV.txt");
-					    byte data[] = new byte[1024];
-					    int byteContent;
-					    while ((byteContent = inputStream.read(data, 0, 1024)) != -1) {
-					        fileOS.write(data, 0, byteContent);
-					    }
-					} catch (IOException e) {
-					    // handles IO exceptions
-					}
+				url = new URL("https://buildtheearth.net/buildteams/36/users/csv");
+				URLConnection connection = url.openConnection();
+				InputStream is = connection.getInputStream();
+				
+				event.getChannel().sendMessage(connection.getContentType()).queue();
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// .. then download the file
 		//	try {   //gets CSV data and stores in users array
 		//		URL website = new URL("https://buildtheearth.net/buildteams/36/users/csv");
 		//		ReadableByteChannel rbc = Channels.newChannel(website.openStream());
