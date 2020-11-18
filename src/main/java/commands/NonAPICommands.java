@@ -20,10 +20,12 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -31,6 +33,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class NonAPICommands extends ListenerAdapter {
+	private static ArrayList<String> records;
 
 	public static String regionXZ(double x, double z) {
 		x = (int) (Math.floor(x / 32));
@@ -40,23 +43,20 @@ public class NonAPICommands extends ListenerAdapter {
 		return "r." + f.format(x) + "." + f.format(z) + ".mca"; 
 	}
 	
-	public static void download() {
-	URL url;
+	public static String download() {
+		String str = "";
 		try {
-			url = new URL("https://buildtheearth.net/buildteams/36/users/csv");
-			BufferedInputStream bufferedInputStream = new  BufferedInputStream(url.openStream());
-		    FileOutputStream stream = new FileOutputStream("/JDABot/src/main/java/commands/CSV.txt");
+			InputStream input = new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream();
+			Reader reader = new InputStreamReader(input, "UTF-8");
+			
+			CSVParser parser = new CSVParser(reader, CSVFormat.DEFAULT.withDelimiter(','));
+			
+			 for (CSVRecord csvRecord : parser) {
+			     records.add(csvRecord.toString());
+			     str = "Record added";
+			 }	
+			 parser.close();
 
-
-		    int count=0;
-		    byte[] b1 = new byte[100];
-
-		    while((count = bufferedInputStream.read(b1)) != -1) {
-	
-		        System.out.println("b1:"+b1+">>"+count+ ">> KB downloaded:"+ new File("/JDABot/src/main/java/commands/CSV.txt").length()/1024);
-		        stream.write(b1);
-		    }
-		    stream.close();
 				
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -69,7 +69,7 @@ public class NonAPICommands extends ListenerAdapter {
 			e.printStackTrace();
 		}
 
-
+		 return str;
 	}
 	
 	@Override
@@ -142,7 +142,7 @@ public class NonAPICommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!app status")) {
 			Guild guild = event.getGuild(); //gets guild
 			download();
-	
+			event.getChannel().sendMessage(records.get(0)).queue();	
 			
 		//	String users[]; //array to store name list
 
