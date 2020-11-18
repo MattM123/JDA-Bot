@@ -126,9 +126,9 @@ public class NonAPICommands extends ListenerAdapter {
 				
 			}
 			if (k == 0) { //if user is not in list, k = 0
-				event.getChannel().sendMessage("Looks like your application hasn't been looked at or you weren't accepted :(").queue();
+				event.getChannel().sendMessage("Looks like your application hasn't been looked yet at or you weren't accepted :(").queue();
 			}
-	
+			event.getChannel().sendMessage(users[5]).queue();
 				
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
