@@ -114,7 +114,7 @@ public class NonAPICommands extends ListenerAdapter {
 				while (scan.nextLine() != null) {
 					write.append(line);
 				}
-				event.getChannel().sendMessage(line);
+				event.getChannel().sendMessage(line).queue();
 				
 			//	users = (String[]) csv.getRecords().toArray();
 			//	csv.close();
