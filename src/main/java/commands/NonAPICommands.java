@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -60,14 +61,23 @@ public class NonAPICommands extends ListenerAdapter {
 			 str = records.get(0);
 				
 		} catch (MalformedURLException e) {
-			str = "Malformed URL";
-			e.printStackTrace();
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e.printStackTrace(pw);
+			str = "Malformed URL\n" + sw.toString();
+
 		} catch (FileNotFoundException e) {
-			str = "File Not Found";
-			e.printStackTrace();
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e.printStackTrace(pw);
+			str = "File Not Found\n" + sw.toString();
+			
 		} catch (IOException e) {
-			str = "IO Exception";
-			e.printStackTrace();
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e.printStackTrace(pw);
+			str = "IO Exception\n" + sw.toString();
+		
 		}
 
 		 return str;
