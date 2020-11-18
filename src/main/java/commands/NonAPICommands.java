@@ -44,7 +44,7 @@ public class NonAPICommands extends ListenerAdapter {
 	}
 	
 	public static String download() {
-		String str = "";
+
 		try {
 			InputStream input = new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream();
 			Reader reader = new InputStreamReader(input, "UTF-8");
@@ -53,7 +53,7 @@ public class NonAPICommands extends ListenerAdapter {
 			
 			 for (CSVRecord csvRecord : parser) {
 			     records.add(csvRecord.toString());
-			     str = "Record added";
+		
 			 }	
 			 parser.close();
 
@@ -69,7 +69,7 @@ public class NonAPICommands extends ListenerAdapter {
 			e.printStackTrace();
 		}
 
-		 return str;
+		 return records.get(0);
 	}
 	
 	@Override
@@ -141,7 +141,7 @@ public class NonAPICommands extends ListenerAdapter {
 		//checks is user is part of team and assigns Midwest Builder role if they are
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!app status")) {
 			Guild guild = event.getGuild(); //gets guild
-			download();
+			event.getChannel().sendMessage(download()).queue();
 			event.getChannel().sendMessage(records.get(0)).queue();	
 			
 		//	String users[]; //array to store name list
