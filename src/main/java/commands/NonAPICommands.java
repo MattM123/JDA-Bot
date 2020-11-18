@@ -140,7 +140,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		//checks is user is part of team and assigns Midwest Builder role if they are
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!app status")) {
-			Guild guild = event.getGuild(); //gets guild
+	//		Guild guild = event.getGuild(); //gets guild
 			event.getChannel().sendMessage(download()).queue();
 			event.getChannel().sendMessage(records.get(0)).queue();	
 			
