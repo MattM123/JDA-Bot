@@ -1,6 +1,7 @@
 package commands;
 
 import java.awt.Color;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -105,13 +106,22 @@ public class NonAPICommands extends ListenerAdapter {
 			Guild guild = event.getGuild(); //gets guild
 		//	event.getChannel().sendMessage(event.getAuthor().getName()).queue();
 			
-			String users[]; //array to store name list
-		
-			try {   //gets CSV data and stores in users array
-				URL website = new URL("https://buildtheearth.net/buildteams/36/users/csv.csv");
-				ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-				FileOutputStream fos = new FileOutputStream("CSV.txt");
-				fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+		//	String users[]; //array to store name list
+			try (BufferedInputStream inputStream = new BufferedInputStream(new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream());
+					  FileOutputStream fileOS = new FileOutputStream("CSV.txt")) {
+					    byte data[] = new byte[1024];
+					    int byteContent;
+					    while ((byteContent = inputStream.read(data, 0, 1024)) != -1) {
+					        fileOS.write(data, 0, byteContent);
+					    }
+					} catch (IOException e) {
+					    // handles IO exceptions
+					}
+		//	try {   //gets CSV data and stores in users array
+		//		URL website = new URL("https://buildtheearth.net/buildteams/36/users/csv");
+		//		ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+		//		FileOutputStream fos = new FileOutputStream("CSV.txt");
+		//		fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 				
 			
 				
@@ -148,11 +158,11 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 			*/
 				
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	//		} catch (MalformedURLException e) {
+	//			e.printStackTrace();
+	//		} catch (IOException e) {
+	//			e.printStackTrace();
+	//		}
 		}
 	}
 }
