@@ -112,9 +112,9 @@ public class NonAPICommands extends ListenerAdapter {
 				PrintWriter write = new PrintWriter("CSV.txt");
 				//Reader reader = new InputStreamReader(input, "UTF-8");
 				while (scan.nextLine() != null) {
-					write.append(scan.nextLine());
+					write.append(line);
 				}
-				
+				event.getChannel().sendMessage(line);
 				
 			//	users = (String[]) csv.getRecords().toArray();
 			//	csv.close();
