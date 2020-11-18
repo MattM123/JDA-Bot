@@ -69,16 +69,27 @@ public class NonAPICommands extends ListenerAdapter {
 			e.printStackTrace();
 		}
 				    BufferedInputStream bufferedInputStream = new  BufferedInputStream(url.openStream());
-				    FileOutputStream stream = new FileOutputStream("/JDABot/src/main/java/commands/CSV.txt");
+				    FileOutputStream stream;
+				    
+					try {
+						stream = new FileOutputStream("/JDABot/src/main/java/commands/CSV.txt");
+					    int count=0;
+					    byte[] b1 = new byte[100];
+
+					    while((count = bufferedInputStream.read(b1)) != -1) {
+					        System.out.println("b1:"+b1+">>"+count+ ">> KB downloaded:"+ new File("/home/sachin/Desktop/test.mkv").length()/1024);
+					        stream.write(b1, 0, count);
+					    }
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
 
-				    int count=0;
-				    byte[] b1 = new byte[100];
 
-				    while((count = bufferedInputStream.read(b1)) != -1) {
-				        System.out.println("b1:"+b1+">>"+count+ ">> KB downloaded:"+ new File("/home/sachin/Desktop/test.mkv").length()/1024);
-				        stream.write(b1, 0, count);
-				    }
 	}
 	
 	@Override
