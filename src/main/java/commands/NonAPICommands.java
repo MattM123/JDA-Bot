@@ -44,7 +44,7 @@ public class NonAPICommands extends ListenerAdapter {
 	}
 	
 	public static String download() {
-		String str = "";
+		String str = "unassigned string";
 
 		try {
 			InputStream input = new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream();
@@ -60,13 +60,13 @@ public class NonAPICommands extends ListenerAdapter {
 			 str = records.get(0);
 				
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
+			str = "Malformed URL";
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
 			str = "File Not Found";
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			str = "IO Exception";
 			e.printStackTrace();
 		}
 
