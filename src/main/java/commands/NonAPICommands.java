@@ -95,6 +95,7 @@ public class NonAPICommands extends ListenerAdapter {
 			event.getChannel().sendMessage(regionXZ(Double.parseDouble(Xbuilder), Double.parseDouble(Zbuilder))).queue();
 		}
 		
+		//checks is user is part of team and assigns Midwest Builder role if they are
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!app status")) {
 			char chararr[] = event.getMessage().getContentRaw().toCharArray(); //converts message to char arr
 			Guild guild = event.getGuild(); //gets guild
@@ -108,12 +109,16 @@ public class NonAPICommands extends ListenerAdapter {
 		
 			try {   //gets CSV data and stores in users array
 				
+				
 				InputStream input = new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream();
 				Reader reader = new InputStreamReader(input, "UTF-8");
 				
 				CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT.withDelimiter(','));
 				users = (String[]) csv.getRecords().toArray();
 				csv.close();
+				
+				event.getChannel().sendMessage(users[5]).queue();
+				event.getChannel().sendMessage("test").queue();
 				
 			int k = 0;
 			for (int i = 0; i < users.length; i++) {  //assignes role if user is in list
@@ -128,8 +133,6 @@ public class NonAPICommands extends ListenerAdapter {
 			if (k == 0) { //if user is not in list, k = 0
 				event.getChannel().sendMessage("Looks like your application hasn't been looked yet at or you weren't accepted :(").queue();
 			}
-			event.getChannel().sendMessage(users[5]).queue();
-			event.getChannel().sendMessage("test").queue();
 				
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
