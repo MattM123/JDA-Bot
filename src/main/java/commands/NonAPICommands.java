@@ -107,8 +107,10 @@ public class NonAPICommands extends ListenerAdapter {
 		//	event.getChannel().sendMessage(event.getAuthor().getName()).queue();
 			
 		//	String users[]; //array to store name list
-			try (BufferedInputStream inputStream = new BufferedInputStream(new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream());
-					  FileOutputStream fileOS = new FileOutputStream("CSV.txt")) {
+			try {
+				InputStream input = new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream();
+				BufferedInputStream inputStream = new BufferedInputStream(input);
+					  FileOutputStream fileOS = new FileOutputStream("CSV.txt");
 					    byte data[] = new byte[1024];
 					    int byteContent;
 					    while ((byteContent = inputStream.read(data, 0, 1024)) != -1) {
