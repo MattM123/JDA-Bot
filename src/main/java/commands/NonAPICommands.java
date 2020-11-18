@@ -35,6 +35,24 @@ public class NonAPICommands extends ListenerAdapter {
 		return "r." + f.format(x) + "." + f.format(z) + ".mca"; 
 	}
 	
+	public String checkUser() {
+		URL url;
+		String str = "";
+		try {
+			url = new URL("https://buildtheearth.net/buildteams/36/users/csv");
+			URLConnection connection = url.openConnection();
+			InputStream is = connection.getInputStream();
+			
+			str = connection.getContentType();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return str;
+	}
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -105,23 +123,10 @@ public class NonAPICommands extends ListenerAdapter {
 		//checks is user is part of team and assigns Midwest Builder role if they are
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!app status")) {
 			Guild guild = event.getGuild(); //gets guild
-		//	event.getChannel().sendMessage(event.getAuthor().getName()).queue();
+			event.getChannel().sendMessage(checkUser()).queue();
 			
 		//	String users[]; //array to store name list
-			URL url;
-			try {
-				url = new URL("https://buildtheearth.net/buildteams/36/users/csv");
-				URLConnection connection = url.openConnection();
-				InputStream is = connection.getInputStream();
-				
-				event.getChannel().sendMessage(connection.getContentType()).queue();
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
 			
 			// .. then download the file
 		//	try {   //gets CSV data and stores in users array
