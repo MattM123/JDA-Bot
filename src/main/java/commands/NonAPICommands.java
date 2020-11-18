@@ -10,10 +10,13 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
@@ -35,23 +38,12 @@ public class NonAPICommands extends ListenerAdapter {
 		return "r." + f.format(x) + "." + f.format(z) + ".mca"; 
 	}
 	
-	public String checkUser() {
-		URL url;
-		String str = "";
-		try {
-			url = new URL("https://buildtheearth.net/buildteams/36/users/csv");
-			URLConnection connection = url.openConnection();
-			InputStream is = connection.getInputStream();
-			
-			str = connection.getContentType();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return str;
+	public static void download() throws Exception {
+		String fileName = "/JDABot/src/main/java/commands/CSV";
+		String url = "https://buildtheearth.net/buildteams/36/users/csv";
+	    try (InputStream in = URI.create(url).toURL().openStream()) {
+	        Files.copy(in, Paths.get(fileName));
+	    }
 	}
 	
 	@Override
@@ -123,7 +115,12 @@ public class NonAPICommands extends ListenerAdapter {
 		//checks is user is part of team and assigns Midwest Builder role if they are
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!app status")) {
 			Guild guild = event.getGuild(); //gets guild
-			event.getChannel().sendMessage(checkUser()).queue();
+			try {
+				download();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		//	String users[]; //array to store name list
 
