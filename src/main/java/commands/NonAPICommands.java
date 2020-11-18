@@ -1,9 +1,20 @@
 package commands;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -16,6 +27,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		return "r." + f.format(x) + "." + f.format(z) + ".mca"; 
 	}
+	
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -81,6 +93,48 @@ public class NonAPICommands extends ListenerAdapter {
 				}
 			}
 			event.getChannel().sendMessage(regionXZ(Double.parseDouble(Xbuilder), Double.parseDouble(Zbuilder))).queue();
+		}
+		
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!app status")) {
+			char chararr[] = event.getMessage().getContentRaw().toCharArray(); //converts message to char arr
+			Guild guild = event.getGuild(); //gets guild
+			String discordNameBuilder = "";  //string to store discord name
+			
+			for (int i = 12; i < chararr.length; i++) {  //populates discrdnamebuilder
+				discordNameBuilder += chararr[i];
+			}
+			
+			String users[]; //array to store name list
+		
+			try {   //gets CSV data and stores in users array
+				
+				InputStream input = new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream();
+				Reader reader = new InputStreamReader(input, "UTF-8");
+				
+				CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT.withDelimiter(','));
+				users = (String[]) csv.getRecords().toArray();
+				csv.close();
+				
+			int k = 0;
+			for (int i = 0; i < users.length; i++) {  //assignes role if user is in list
+				if (users[i] == event.getAuthor().getName()) {
+					event.getChannel().sendMessage("You've been accepted! Go to #role-menu to select your state.").queue();
+					guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById("735991952931160104"));
+					k = 1;
+					break;
+				}
+				
+			}
+			if (k == 0) { //if user is not in list, k = 0
+				event.getChannel().sendMessage("Looks like your application hasn't been looked at or you weren't accepted :(").queue();
+			}
+	
+				
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

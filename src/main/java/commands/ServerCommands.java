@@ -18,20 +18,8 @@ public class ServerCommands extends ListenerAdapter {
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
 	private static UserServer server = api.getServersController().getServer(serverID);
 	
-//	private static PteroAdminAPI adminAPI = new PteroAdminAPI("https://witherpanel.com/", apikey);
-//	private static Server admin = (Server) adminAPI.getServersController().getServers(serverID);
 
-	//public static String getLog() {
-	//	
-	//	Map<String, String> test = admin.getContainer().getEnvironmentVariables();
-	//	int str = test.size();
-		//String[] arr = (String[]) test.values().toArray();
-	//	for (int i = 0; i < test.values().size(); i++) {
-	//		str += arr[i];
-	//	}
 
-	//	return "String Map Size: " + String.valueOf(str);
-//	}
 
 	public static String serverName() {
 		return server.getName();
