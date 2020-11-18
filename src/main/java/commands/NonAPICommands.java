@@ -97,19 +97,13 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		//checks is user is part of team and assigns Midwest Builder role if they are
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!app status")) {
-			char chararr[] = event.getMessage().getContentRaw().toCharArray(); //converts message to char arr
 			Guild guild = event.getGuild(); //gets guild
-			String discordNameBuilder = "";  //string to store discord name
-			
-			for (int i = 12; i < chararr.length; i++) {  //populates discrdnamebuilder
-				discordNameBuilder += chararr[i];
-			}
+			event.getChannel().sendMessage(event.getAuthor().getName()).queue();
 			
 			String users[]; //array to store name list
 		
 			try {   //gets CSV data and stores in users array
-				
-				
+							
 				InputStream input = new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream();
 				Reader reader = new InputStreamReader(input, "UTF-8");
 				
@@ -117,8 +111,8 @@ public class NonAPICommands extends ListenerAdapter {
 				users = (String[]) csv.getRecords().toArray();
 				csv.close();
 				
-				event.getChannel().sendMessage(users[5]).queue();
-				event.getChannel().sendMessage("test").queue();
+		//		event.getChannel().sendMessage(users[5]).queue();
+		//		event.getChannel().sendMessage("test").queue();
 				
 			int k = 0;
 			for (int i = 0; i < users.length; i++) {  //assignes role if user is in list
