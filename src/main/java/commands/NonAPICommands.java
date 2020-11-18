@@ -44,6 +44,7 @@ public class NonAPICommands extends ListenerAdapter {
 	}
 	
 	public static String download() {
+		String test = "test";
 
 		try {
 			InputStream input = new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream();
@@ -69,7 +70,7 @@ public class NonAPICommands extends ListenerAdapter {
 			e.printStackTrace();
 		}
 
-		 return records.get(0);
+		 return test;
 	}
 	
 	@Override
