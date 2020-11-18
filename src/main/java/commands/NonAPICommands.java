@@ -38,12 +38,18 @@ public class NonAPICommands extends ListenerAdapter {
 		return "r." + f.format(x) + "." + f.format(z) + ".mca"; 
 	}
 	
-	public static void download() throws Exception {
+	public static void download() {
 		String fileName = "/JDABot/src/main/java/commands/CSV";
 		String url = "https://buildtheearth.net/buildteams/36/users/csv";
 	    try (InputStream in = URI.create(url).toURL().openStream()) {
 	        Files.copy(in, Paths.get(fileName));
-	    }
+	    } catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -115,12 +121,8 @@ public class NonAPICommands extends ListenerAdapter {
 		//checks is user is part of team and assigns Midwest Builder role if they are
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!app status")) {
 			Guild guild = event.getGuild(); //gets guild
-			try {
-				download();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			download();
+	
 			
 		//	String users[]; //array to store name list
 
