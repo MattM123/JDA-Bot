@@ -3,12 +3,14 @@ package commands;
 import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringWriter;
@@ -61,22 +63,21 @@ public class NonAPICommands extends ListenerAdapter {
 			 str = records.get(0);
 				
 		} catch (MalformedURLException e) {
-			StringWriter sw = new StringWriter();
-			PrintWriter pw = new PrintWriter(sw);
-			e.printStackTrace(pw);
-			str = "Malformed URL\n" + sw.toString();
-
+			 ByteArrayOutputStream out = new ByteArrayOutputStream(); 
+			    e.printStackTrace(new PrintStream(out));
+			    str = new String(out.toByteArray());
+			
 		} catch (FileNotFoundException e) {
-			StringWriter sw = new StringWriter();
-			PrintWriter pw = new PrintWriter(sw);
-			e.printStackTrace(pw);
-			str = "File Not Found\n" + sw.toString();
+			 ByteArrayOutputStream out = new ByteArrayOutputStream(); 
+			    e.printStackTrace(new PrintStream(out));
+			     str = new String(out.toByteArray());
+		//	str = "File Not Found\n" + sw.toString();
 			
 		} catch (IOException e) {
-			StringWriter sw = new StringWriter();
-			PrintWriter pw = new PrintWriter(sw);
-			e.printStackTrace(pw);
-			str = "IO Exception\n" + sw.toString();
+			 ByteArrayOutputStream out = new ByteArrayOutputStream(); 
+			    e.printStackTrace(new PrintStream(out));
+			     str = new String(out.toByteArray());
+		//	str = "IO Exception\n" + sw.toString();
 		
 		}
 
