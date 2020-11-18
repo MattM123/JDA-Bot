@@ -108,7 +108,7 @@ public class NonAPICommands extends ListenerAdapter {
 			String users[]; //array to store name list
 		
 			try {   //gets CSV data and stores in users array
-				URL website = new URL("https://buildtheearth.net/buildteams/36/users/csv");
+				URL website = new URL("https://buildtheearth.net/buildteams/36/users/csv.csv");
 				ReadableByteChannel rbc = Channels.newChannel(website.openStream());
 				FileOutputStream fos = new FileOutputStream("CSV.txt");
 				fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
