@@ -48,6 +48,9 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	public static String download() {
 		String str = "unassigned string";
+		String urlException = "unassigned urlE";
+		String IO = "unassigned IO";
+		String noFile = "unassigned no file";
 
 		try {
 			InputStream input = new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream();
@@ -63,25 +66,17 @@ public class NonAPICommands extends ListenerAdapter {
 			 str = records.get(0);
 				
 		} catch (MalformedURLException e) {
-			 ByteArrayOutputStream out = new ByteArrayOutputStream(); 
-			    e.printStackTrace(new PrintStream(out));
-			    str = new String(out.toByteArray());
+			urlException = "Malformed URL";
 			
 		} catch (FileNotFoundException e) {
-			 ByteArrayOutputStream out = new ByteArrayOutputStream(); 
-			    e.printStackTrace(new PrintStream(out));
-			     str = new String(out.toByteArray());
-		//	str = "File Not Found\n" + sw.toString();
+			noFile = "File Not Found";
 			
 		} catch (IOException e) {
-			 ByteArrayOutputStream out = new ByteArrayOutputStream(); 
-			    e.printStackTrace(new PrintStream(out));
-			     str = new String(out.toByteArray());
-		//	str = "IO Exception\n" + sw.toString();
-		
+			IO = "IO Exception";
 		}
-
-		 return str;
+		String arr[] = {noFile, urlException, IO, str};
+		
+		 return "Exceptions: " + arr[0] + arr[1] + arr[3] + " str: " + str;
 	}
 	
 	@Override
