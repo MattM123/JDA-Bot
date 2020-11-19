@@ -76,7 +76,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		String arr[] = {noFile, urlException, IO, str};
 		
-		 return "Exceptions: " + arr[0] + arr[1] + arr[3] + " str: " + str;
+		 return "Exceptions: " + arr[0] + " " + arr[1] + " " + arr[3] + " str: " + str;
 	}
 	
 	@Override
