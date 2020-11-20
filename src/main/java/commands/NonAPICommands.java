@@ -1,42 +1,28 @@
 package commands;
 
 import java.awt.Color;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.io.Reader;
-import java.io.StringWriter;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
-import java.net.URLConnection;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class NonAPICommands extends ListenerAdapter {
 	private static ArrayList<String> records;
+	private Logger logger = LoggerFactory.getLogger(NonAPICommands.class);
 
 	public static String regionXZ(double x, double z) {
 		x = (int) (Math.floor(x / 32));
@@ -48,11 +34,11 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	public static String download() {
 		String str = "unassigned string";
+		
 
 		try {
 			InputStream input = new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream();
 			Reader reader = new InputStreamReader(input, "UTF-8");
-			
 			CSVParser parser = new CSVParser(reader, CSVFormat.DEFAULT.withDelimiter(','));
 			
 			 for (CSVRecord csvRecord : parser) {
@@ -64,6 +50,7 @@ public class NonAPICommands extends ListenerAdapter {
 				
 		} catch (MalformedURLException e) {
 			str = "Malformed URL";
+			
 			
 		} catch (FileNotFoundException e) {
 			str = "File Not Found";
