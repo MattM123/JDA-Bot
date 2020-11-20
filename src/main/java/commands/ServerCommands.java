@@ -139,7 +139,7 @@ public class ServerCommands extends ListenerAdapter {
 					namebuilder += chararr[i];
 				}
 				
-				server.sendCommand("lp user " + namebuilder + " parent add builder");
+				server.sendCommand("lp user " + namebuilder + " parent add nebraska-builder");
 				event.getChannel().sendMessage("Rank updated to Nebraska Builder for user " + namebuilder).queue();
 			}
 			else {

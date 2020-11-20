@@ -13,16 +13,13 @@ import java.util.ArrayList;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class NonAPICommands extends ListenerAdapter {
 	private static ArrayList<String> records;
-	private Logger logger = LoggerFactory.getLogger(NonAPICommands.class);
+//	private Logger logger = LoggerFactory.getLogger(NonAPICommands.class);
 
 	public static String regionXZ(double x, double z) {
 		x = (int) (Math.floor(x / 32));
