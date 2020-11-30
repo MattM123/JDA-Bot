@@ -275,7 +275,8 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
 			}
 		}
-		String out = "a";
+		long a;
+		String out = "";
 		String line;
 		BufferedReader in; 
 		StringBuilder total = new StringBuilder();
@@ -287,7 +288,8 @@ public class ServerCommands extends ListenerAdapter {
 			conn.addRequestProperty("Host", "buildtheearth.net");
 			conn.addRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
 			conn.addRequestProperty("Accept", "application/json");
-			out = conn.getContent().toString();
+			long a = conn.getContentLengthLong();
+			
 			
 			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			while ((line = in.readLine()) != null) {
@@ -303,7 +305,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("!test"));
-			event.getChannel().sendMessage(out).queue();
+			event.getChannel().sendMessage(out + a).queue();
 		
 	}	
 }
