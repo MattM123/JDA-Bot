@@ -280,13 +280,14 @@ public class ServerCommands extends ListenerAdapter {
 		BufferedReader in; 
 		StringBuilder total = new StringBuilder();
 		URL url;
-		HttpsURLConnection conn;
+		HttpsURLConnection conn = null;
 		try {
 			url = new URL("https://buildtheearth.net/api/v1/members");
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.addRequestProperty("Host", "buildtheearth.net");
 			conn.addRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
 			conn.addRequestProperty("Accept", "application/json");
+			
 			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			while ((line = in.readLine()) != null) {
 				total.append(line);
@@ -301,7 +302,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("!test"));
-			event.getChannel().sendMessage(total.toString()).queue();
+			event.getChannel().sendMessage(conn.getErrorStream().toString()).queue();
 		
 	}	
 }
