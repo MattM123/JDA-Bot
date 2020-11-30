@@ -275,6 +275,8 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
 			}
 		}
+		
+		/*
 		long a = 0;
 		String out = "";
 		String line;
@@ -306,8 +308,9 @@ public class ServerCommands extends ListenerAdapter {
 		
 		if (event.getMessage().getContentRaw().equals("!test"));
 			event.getChannel().sendMessage(out + a).queue();
-		
+	*/	
 	}	
+	
 }
 			
 
