@@ -299,7 +299,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test"));
-			event.getChannel().sendMessage(total).queue();
+			event.getChannel().sendMessage("String:" + total).queue();
 		
 	}	
 }
