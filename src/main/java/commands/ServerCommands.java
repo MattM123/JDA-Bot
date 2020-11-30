@@ -276,7 +276,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}
 		
-		/*
+		
 		long a = 0;
 		String out = "";
 		String line;
@@ -306,9 +306,10 @@ public class ServerCommands extends ListenerAdapter {
 			e.printStackTrace();
 		}
 		
-		if (event.getMessage().getContentRaw().equals("!test"));
-			event.getChannel().sendMessage(out + a).queue();
-	*/	
+		if (event.getMessage().getContentRaw().equals("!test")) {
+			event.getChannel().sendMessage(total).queue();
+		}
+	
 	}	
 	
 }
