@@ -275,6 +275,7 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
 			}
 		}
+		
 		String line;
 		BufferedReader in; 
 		StringBuilder total = new StringBuilder();
@@ -299,7 +300,7 @@ public class ServerCommands extends ListenerAdapter {
 			e.printStackTrace();
 		}
 		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test"));
+		if (event.getMessage().getContentRaw().equals("!test"));
 			event.getChannel().sendMessage("String:" + total.toString()).queue();
 		
 	}	
