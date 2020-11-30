@@ -1,6 +1,14 @@
 package commands;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
+
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
 import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
@@ -59,6 +67,7 @@ public class ServerCommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		
+		//6d83c36acd1bb7301e64749b46ebddc2e3b64a67
 		String id = "387330197420113930";
 		Long userID[] = {Long.parseLong("387330197420113930"), Long.parseLong("97867804463599616"),
 				Long.parseLong("195196317071310848"), Long.parseLong("657036933083561995")};
@@ -265,7 +274,33 @@ public class ServerCommands extends ListenerAdapter {
 			else {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
 			}
-		}	
+		}
+		String line;
+		BufferedReader in; 
+		StringBuilder total = new StringBuilder();
+		URL url;
+		try {
+			url = new URL("https://buildtheearth.net/api/v1/members");
+			HttpsURLConnection conn = (HttpsURLConnection)url.openConnection();
+			conn.addRequestProperty("Host", "buildtheearth.net");
+			conn.addRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+			conn.addRequestProperty("Accept", "application/json");
+			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			while ((line = in.readLine()) != null) {
+				total.append(line);
+			}
+			in.close();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test"));
+			event.getChannel().sendMessage(total).queue();
+		
 	}	
 }
 			
