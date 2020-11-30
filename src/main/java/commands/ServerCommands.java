@@ -301,7 +301,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("!test"));
-			event.getChannel().sendMessage("String:" + total.toString()).queue();
+			event.getChannel().sendMessage(total.toString()).queue();
 		
 	}	
 }
