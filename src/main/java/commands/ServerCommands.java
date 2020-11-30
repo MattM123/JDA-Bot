@@ -281,7 +281,7 @@ public class ServerCommands extends ListenerAdapter {
 		String out = "";
 		String line;
 		BufferedReader in; 
-		String total = "";
+		StringBuilder total = new StringBuilder();
 		URL url;
 		HttpsURLConnection conn = null;
 		try {
@@ -293,9 +293,10 @@ public class ServerCommands extends ListenerAdapter {
 			a = conn.getContentLengthLong();
 			
 			
+			
 			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			while ((line = in.readLine()) != null) {
-				total += line;
+				total.append(line);
 			}
 			in.close();
 		} catch (MalformedURLException e) {
@@ -307,7 +308,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("!test")) {
-			event.getChannel().sendMessage("output: " + total).queue();
+			event.getChannel().sendMessage("output: " + total.toString()).queue();
 		}
 	
 	}	
