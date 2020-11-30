@@ -281,7 +281,7 @@ public class ServerCommands extends ListenerAdapter {
 		String out = "";
 		String line;
 		BufferedReader in; 
-		StringBuilder total = new StringBuilder();
+		String total = "";
 		URL url;
 		HttpsURLConnection conn = null;
 		try {
@@ -295,7 +295,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			while ((line = in.readLine()) != null) {
-				total.append(line);
+				total += line;
 			}
 			in.close();
 		} catch (MalformedURLException e) {
