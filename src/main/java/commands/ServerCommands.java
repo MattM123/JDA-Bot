@@ -288,7 +288,7 @@ public class ServerCommands extends ListenerAdapter {
 			conn.addRequestProperty("Host", "buildtheearth.net");
 			conn.addRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
 			conn.addRequestProperty("Accept", "application/json");
-			long a = conn.getContentLengthLong();
+			a = conn.getContentLengthLong();
 			
 			
 			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
