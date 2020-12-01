@@ -67,6 +67,8 @@ public class NonAPICommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {
 			EmbedBuilder measure = new EmbedBuilder();
 			measure.setColor(Color.blue);
+			measure.setTitle("Google Earth Pro Measuring Tutotrial");
+			measure.setFooter("Gif totally not stolen from the Build The Earth bot");
 			measure.setImage("https://i.gyazo.com/thumb/1200/d58446cec35cc504bb36b749346041a9-gif.gif");
 			event.getChannel().sendMessage(measure.build()).queue();	
 		}
