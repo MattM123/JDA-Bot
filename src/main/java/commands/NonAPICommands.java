@@ -29,35 +29,6 @@ public class NonAPICommands extends ListenerAdapter {
 		return "r." + f.format(x) + "." + f.format(z) + ".mca"; 
 	}
 	
-	public static String download() {
-		String str = "unassigned string";
-		
-
-		try {
-			InputStream input = new URL("https://buildtheearth.net/buildteams/36/users/csv").openStream();
-			Reader reader = new InputStreamReader(input, "UTF-8");
-			CSVParser parser = new CSVParser(reader, CSVFormat.DEFAULT.withDelimiter(','));
-			
-			 for (CSVRecord csvRecord : parser) {
-			     records.add(csvRecord.toString());
-		
-			 }	
-			 parser.close();
-			 str = records.get(0);
-				
-		} catch (MalformedURLException e) {
-			str = "Malformed URL";
-			
-			
-		} catch (FileNotFoundException e) {
-			str = "File Not Found";
-			
-		} catch (IOException e) {
-			str = "IO Exception";
-		}
-		
-		return str; //sdfgdsfg
-	}
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -102,7 +73,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		//returns map image of states
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!map")) {
-			event.getChannel().sendMessage(embed.build()).queue();
+			event.getChannel().sendMessage(embed1.build()).queue();
 		}
 		
 		//chunk conversion to region file
