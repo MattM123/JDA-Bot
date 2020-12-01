@@ -256,6 +256,26 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}
 		
+		//minnesota builder assign
+		if (event.getMessage().getContentRaw().startsWith("!minnesota")) {
+			if (event.getMessage().getAuthor().getIdLong()== userID[0] || event.getMessage().getAuthor().getIdLong() == userID[1] ||
+					event.getMessage().getAuthor().getIdLong() == userID[2] || event.getMessage().getAuthor().getIdLong() == userID[3]) {
+				
+				char[] chararr = event.getMessage().getContentRaw().toCharArray();
+				String namebuilder = "";
+			
+				for (int i = 11; i < chararr.length; i++) {
+					namebuilder += chararr[i];
+				}
+				
+				server.sendCommand("lp user " + namebuilder + " parent add minnesota-builder");
+				event.getChannel().sendMessage("Rank updated to Minnesota Builder for user " + namebuilder).queue();
+			}
+			else {
+				event.getChannel().sendMessage("Invalid permissions.").queue();
+			}
+		}
+		
 		//Applicant builder assign
 		if (event.getMessage().getContentRaw().startsWith("!applicant")) {
 			if (event.getMessage().getAuthor().getIdLong()== userID[0] || event.getMessage().getAuthor().getIdLong() == userID[1] ||
