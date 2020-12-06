@@ -338,8 +338,8 @@ public class ServerCommands extends ListenerAdapter {
 					String stack = ExceptionUtils.getStackTrace(e);
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
-				logger.debug(total.toString());
-				event.getChannel().sendMessage("output: " + total.toString()).queue();
+				
+				event.getChannel().sendMessage("output: " + total.toString().substring(0, 2000)).queue();
 		}
 	
 	}	
