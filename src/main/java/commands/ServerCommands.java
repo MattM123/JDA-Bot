@@ -305,15 +305,9 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		
-	
-			
-		
-			
-		
 		
 		if (event.getMessage().getContentRaw().equals("!test")) {
-			
-			long a = 0;
+		//	long a = 0;
 			//	String out = "";
 				String line;
 				BufferedReader in; 
@@ -337,12 +331,11 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					in.close();
 				} catch (MalformedURLException e) {
-					event.getChannel().sendMessage("Malformed URL").queue();
-					e.printStackTrace();
+					String stack = ExceptionUtils.getStackTrace(e);
+					event.getChannel().sendMessage("Length: " + stack.length()).queue();
+					event.getChannel().sendMessage(stack.subSequence(0, 1500)).complete();
 				} catch (IOException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
-					
-					
 					event.getChannel().sendMessage("Length: " + stack.length()).queue();
 					event.getChannel().sendMessage(stack.subSequence(0, 1500)).complete();
 				}
