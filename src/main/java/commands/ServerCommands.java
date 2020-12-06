@@ -341,7 +341,7 @@ public class ServerCommands extends ListenerAdapter {
 				} catch (IOException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
 					
-					
+					event.getChannel().sendMessage("IO Exception");
 					event.getChannel().sendMessage(stack).queue();
 				}
 				
