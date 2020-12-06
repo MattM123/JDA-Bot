@@ -331,7 +331,6 @@ public class ServerCommands extends ListenerAdapter {
 					
 					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 					while ((line = in.readLine()) != null) {
-						event.getChannel().sendMessage("line: " + line).queue();;
 						total += line;
 					}
 					in.close();
@@ -345,11 +344,10 @@ public class ServerCommands extends ListenerAdapter {
 					String g = sw.toString();
 					MessageBuilder mes = new MessageBuilder(sw.toString());
 					
-					event.getChannel().sendMessage(mes.build()).queue();
-					
-					
-					event.getChannel().sendMessage("output: " + total + "  Length: " + a).queue();
-			}
+					event.getChannel().sendMessage("Stack Trace: " + mes.build()).queue();
+				}
+				
+				event.getChannel().sendMessage("output: " + total + "  Length: " + a).queue();
 		}
 	
 	}	
