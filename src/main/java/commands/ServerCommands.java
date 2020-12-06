@@ -318,9 +318,9 @@ public class ServerCommands extends ListenerAdapter {
 		
 					url = new URL("https://buildtheearth.net/api/v1/ping");
 					conn = (HttpsURLConnection) url.openConnection();
-					conn.setRequestProperty(conn.getHeaderField("Host"),"buildtheearth.net");
-					conn.setRequestProperty(conn.getHeaderField("Authorization"), "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-					conn.setRequestProperty(conn.getHeaderField("Accept"), "application/json");
+					conn.setRequestProperty("Host","buildtheearth.net");
+					conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+					conn.setRequestProperty("Accept", "application/json");
 					conn.setRequestMethod("GET");
 					
 					
