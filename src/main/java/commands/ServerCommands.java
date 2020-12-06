@@ -332,10 +332,10 @@ public class ServerCommands extends ListenerAdapter {
 					in.close();
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1500)).complete();
+					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				} catch (IOException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1500)).complete();
+					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
 				event.getChannel().sendMessage("output: " + total.toString()).queue();
