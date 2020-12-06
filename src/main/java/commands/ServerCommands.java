@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -339,16 +340,18 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
-				//Extracting discordID from JSON array
+				//Extracting discordIDs from JSON array and making a long array for them
+				ArrayList<Long> ids = new ArrayList<Long>();
 				JSONObject obj = null;
 				for (int i = 0; i < jarray.length(); i++) {
 					obj = obj.getJSONObject(jarray.getString(i));
 					if (obj.has("discordId")) {
-						JSONObject printobj = (JSONObject) obj.get("discordId");
-						event.getChannel().sendMessage(printobj.toString()).complete();
+						ids.add(jarray.getLong(i));
+						
 					}
 				}
 				event.getChannel().sendMessage(String.valueOf(code)).queue();
+				event.getChannel().sendMessage(String.valueOf(ids.get(1)));
 		}
 	
 	}	
