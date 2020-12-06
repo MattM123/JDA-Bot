@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -329,13 +330,27 @@ public class ServerCommands extends ListenerAdapter {
 					conn.addRequestProperty(conn.getHeaderField("Accept"), "application/json");
 					conn.setRequestMethod("GET");
 					
-					
-					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-					while ((line = in.readLine()) != null) {
-						event.getChannel().sendMessage("Line: " + line).queue();
-						total.append(line);
+					Reader streamReader = null;
+
+					if (conn.getResponseCode() > 299) {
+						in = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+						while ((line = in.readLine()) != null) {
+							event.getChannel().sendMessage("Line: " + line).queue();
+							total.append(line);
+						}
+						in.close();
+					} else {
+						in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+						while ((line = in.readLine()) != null) {
+							event.getChannel().sendMessage("Line: " + line).queue();
+							total.append(line);
+						}
+						in.close();
 					}
-					in.close();
+					
+				
+					
+					
 				} catch (MalformedURLException e) {
 					event.getChannel().sendMessage("Malformed URL").queue();
 					e.printStackTrace();
