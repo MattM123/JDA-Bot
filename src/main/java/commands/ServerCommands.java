@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,6 +17,9 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
 import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
@@ -34,7 +35,7 @@ public class ServerCommands extends ListenerAdapter {
 
 	private static String apikey = "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens";
 	private static String serverID = "8f401af5";
-	private Logger logger = LoggerFactory.getLogger(ServerCommands.class);
+//	private Logger logger = LoggerFactory.getLogger(ServerCommands.class);
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
 	private static UserServer server = api.getServersController().getServer(serverID);
 	
@@ -331,16 +332,16 @@ public class ServerCommands extends ListenerAdapter {
 					
 					event.getChannel().sendMessage(String.valueOf(conn.getResponseCode())).queue();
 					
-					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-					if ((line = in.readLine()) != null) {
-						json.append(line);
-					}
-					in.close();
+				//	in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				//	if ((line = in.readLine()) != null) {
+				//		json.append(line);
+				//	}
+				//	in.close();
 					
-					//JSONObject jobj = new JSONObject(conn.getInputStream());
-					//JSONArray jarray = jobj.getJSONArray("members");
+					JSONObject jobj = new JSONObject(conn.getInputStream());
+					JSONArray jarray = jobj.getJSONArray("members");
 					
-					event.getChannel().sendMessage("JSONObject: " + json.toString().substring(0, 500)).queue();
+					event.getChannel().sendMessage(jarray.toString().substring(0, 500)).queue();
 					
 					
 				} catch (MalformedURLException e) {
