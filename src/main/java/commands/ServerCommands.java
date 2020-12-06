@@ -323,10 +323,11 @@ public class ServerCommands extends ListenerAdapter {
 				try {
 					url = new URL("https://buildtheearth.net/api/v1/members");
 					conn = (HttpsURLConnection) url.openConnection();
-					conn.addRequestProperty("Host", "buildtheearth.net");
-					conn.addRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-					conn.addRequestProperty("Accept", "application/json");
+					conn.addRequestProperty(conn.getHeaderField("Host"),"buildtheearth.net");
+					conn.addRequestProperty(conn.getHeaderField("Authorization"), "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+					conn.addRequestProperty(conn.getHeaderField("Accept"), "application/json");
 					conn.setRequestMethod("GET");
+					
 					a = conn.getContentLengthLong();
 					
 					
