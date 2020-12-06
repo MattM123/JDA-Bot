@@ -343,7 +343,8 @@ public class ServerCommands extends ListenerAdapter {
 					String stack = ExceptionUtils.getStackTrace(e);
 					MessageBuilder mes = new MessageBuilder(stack);
 					
-					event.getChannel().sendMessage("Length: " + mes.length()).queue();
+					
+					event.getChannel().sendMessage("Length: " + stack.length()).queue();
 					event.getChannel().sendMessage(mes.build()).complete();
 				}
 				
