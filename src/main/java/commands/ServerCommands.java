@@ -340,12 +340,13 @@ public class ServerCommands extends ListenerAdapter {
 					e.printStackTrace();
 				} catch (IOException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
+					MessageBuilder mes = new MessageBuilder(stack);
 					
-					event.getChannel().sendMessage("IO Exception");
-					event.getChannel().sendMessage(stack).queue();
+					event.getChannel().sendMessage("Length: " + mes.length()).queue();
+					event.getChannel().sendMessage(mes.build()).complete();
 				}
 				
-				event.getChannel().sendMessage("output: " + total + "  Length: " + a).queue();
+				event.getChannel().sendMessage("output: " + total).queue();
 		}
 	
 	}	
