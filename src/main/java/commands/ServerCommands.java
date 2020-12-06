@@ -318,7 +318,7 @@ public class ServerCommands extends ListenerAdapter {
 			//	JSONArray jarray = null;
 				try {
 					//BTE API Authentication
-					url = new URL("https://buildtheearth.net/api/v1/members");
+					url = new URL("https://buildtheearth.net/api/v1/ping");
 					conn = (HttpsURLConnection) url.openConnection();
 					conn.setRequestProperty("Host","buildtheearth.net");
 					conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
