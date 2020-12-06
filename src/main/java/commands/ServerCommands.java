@@ -314,6 +314,7 @@ public class ServerCommands extends ListenerAdapter {
 				StringBuilder total = new StringBuilder();
 				URL url;
 				HttpsURLConnection conn = null;
+				JSONArray jarray = null;
 				try {
 					//BTE API Authentication
 					url = new URL("https://buildtheearth.net/api/v1/members");
@@ -324,12 +325,10 @@ public class ServerCommands extends ListenerAdapter {
 					conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
 					conn.setRequestMethod("GET");
 					
-					//Reading JSON from request
-					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-					while ((line = in.readLine()) != null) {
-						total.append(line);
-					}
-					in.close();
+					//Storing JSON from request into a JSON Array
+					jarray = new JSONArray(conn.getInputStream());
+					
+
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
@@ -337,9 +336,9 @@ public class ServerCommands extends ListenerAdapter {
 					String stack = ExceptionUtils.getStackTrace(e);
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
-				//Parsing JSON to a JSONArray
+				
+				//Extracting discordID from JSON array
 				JSONObject obj = null;
-				JSONArray jarray = new JSONArray(total.toString());
 				for (int i = 0; i < jarray.length(); i++) {
 					obj = obj.getJSONObject(jarray.getString(i));
 					if (obj.has("discordId")) {
