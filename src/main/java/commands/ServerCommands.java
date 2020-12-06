@@ -316,15 +316,15 @@ public class ServerCommands extends ListenerAdapter {
 			
 			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			while ((line = in.readLine()) != null) {
-				event.getChannel().sendMessage("line: " + line);
+				event.getChannel().sendMessage("line: " + line).queue();;
 				total += line;
 			}
 			in.close();
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
+			event.getChannel().sendMessage("Malfirmed URL").queue();
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			event.getChannel().sendMessage("IO Exception").queue();
 			e.printStackTrace();
 		}
 		
