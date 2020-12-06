@@ -338,7 +338,7 @@ public class ServerCommands extends ListenerAdapter {
 					in.close();
 					
 					JSONObject jobj = new JSONObject(conn.getInputStream());
-					JSONArray jarray = jobj.getJSONArray("discordId");
+					JSONArray jarray = jobj.getJSONArray(" \"members\" ");
 					
 					event.getChannel().sendMessage("JSONObject: " + jarray.toString().substring(0, 500)).queue();
 					
