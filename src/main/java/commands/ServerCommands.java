@@ -328,9 +328,10 @@ public class ServerCommands extends ListenerAdapter {
 					conn.setRequestMethod("GET");
 					
 					//Storing JSON from request into a JSON Array
-					event.getChannel().sendMessage(String.valueOf(conn.getResponseCode())).queue();
+					
 					
 					jarray = new JSONArray(conn.getInputStream());
+					event.getChannel().sendMessage(String.valueOf(conn.getResponseCode())).queue();
 
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
@@ -349,7 +350,7 @@ public class ServerCommands extends ListenerAdapter {
 		//				ids.add(jarray.getLong(i));	
 		//			}
 		//		}
-				event.getChannel().sendMessage("Code: " + String.valueOf(code)).queue();
+				
 		//		event.getChannel().sendMessage(String.valueOf(ids.get(1)));
 		}
 	
