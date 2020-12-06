@@ -30,7 +30,7 @@ public class ServerCommands extends ListenerAdapter {
 
 	private static String apikey = "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens";
 	private static String serverID = "8f401af5";
-	//private Logger logger = LoggerFactory.getLogger(ServerCommands.class);
+	private Logger logger = LoggerFactory.getLogger(ServerCommands.class);
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
 	private static UserServer server = api.getServersController().getServer(serverID);
 	
@@ -338,7 +338,7 @@ public class ServerCommands extends ListenerAdapter {
 					String stack = ExceptionUtils.getStackTrace(e);
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
-				
+				logger.debug(total.toString());
 				event.getChannel().sendMessage("output: " + total.toString()).queue();
 		}
 	
