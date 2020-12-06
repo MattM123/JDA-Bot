@@ -340,18 +340,17 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
-				//Extracting discordIDs from JSON array and making a long array for them
-				ArrayList<Long> ids = new ArrayList<Long>();
-				JSONObject obj = null;
-				for (int i = 0; i < jarray.length(); i++) {
-					obj = obj.getJSONObject(jarray.getString(i));
-					if (obj.has("discordId")) {
-						ids.add(jarray.getLong(i));
-						
-					}
-				}
+				//Extracting discordIDs from JSON array and making a long arraylist for them
+		//		ArrayList<Long> ids = new ArrayList<Long>();
+		//		JSONObject obj = null;
+		//		for (int i = 0; i < jarray.length(); i++) {
+		//			obj = obj.getJSONObject(jarray.getString(i));
+		//			if (obj.has("discordId")) {
+		//				ids.add(jarray.getLong(i));	
+		//			}
+		//		}
 				event.getChannel().sendMessage(String.valueOf(code)).queue();
-				event.getChannel().sendMessage(String.valueOf(ids.get(1)));
+		//		event.getChannel().sendMessage(String.valueOf(ids.get(1)));
 		}
 	
 	}	
