@@ -312,7 +312,7 @@ public class ServerCommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equals("!test")) {
 				String line;
 				BufferedReader in; 
-				StringBuilder total = new StringBuilder();
+				StringBuilder json = new StringBuilder();
 				URL url;
 				HttpsURLConnection conn = null;
 				JSONArray jarray = null;
@@ -329,8 +329,14 @@ public class ServerCommands extends ListenerAdapter {
 					//Storing JSON from request into a JSON Array
 					
 					
-					jarray = new JSONArray(conn.getInputStream());
-					event.getChannel().sendMessage(jarray.getString(2));
+					
+					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+					if ((line = in.readLine()) != null) {
+						json.append(line);
+					}
+					in.close();
+					
+					event.getChannel().sendMessage(json.subSequence(0, 1000));
 					event.getChannel().sendMessage(String.valueOf(conn.getResponseCode())).queue();
 
 				} catch (MalformedURLException e) {
