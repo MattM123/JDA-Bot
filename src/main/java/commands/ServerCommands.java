@@ -335,14 +335,14 @@ public class ServerCommands extends ListenerAdapter {
 					if (conn.getResponseCode() > 299) {
 						in = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 						while ((line = in.readLine()) != null) {
-							event.getChannel().sendMessage("Line: " + line).queue();
+							//event.getChannel().sendMessage("Line: " + line).queue();
 							total.append(line);
 						}
 						in.close();
 					} else {
 						in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 						while ((line = in.readLine()) != null) {
-							event.getChannel().sendMessage("Line: " + line).queue();
+							//event.getChannel().sendMessage("Line: " + line).queue();
 							total.append(line);
 						}
 						in.close();
@@ -362,7 +362,7 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1500)).complete();
 				}
 				
-				event.getChannel().sendMessage("output: " + total.toString()).queue();
+				event.getChannel().sendMessage("output: " + total).queue();
 		}
 	
 	}	
