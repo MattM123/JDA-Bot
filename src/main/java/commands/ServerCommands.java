@@ -345,7 +345,7 @@ public class ServerCommands extends ListenerAdapter {
 				for (int i = 0; i < jarray.length(); i++) {
 					obj = obj.getJSONObject(jarray.getString(i));
 					JSONObject printobj = (JSONObject) obj.get("discordId");
-					event.getChannel().sendMessage(printobj.toString()).queue();
+					event.getChannel().sendMessage(printobj.toString()).complete();
 					
 				}
 				event.getChannel().sendMessage("Output Above").queue();
