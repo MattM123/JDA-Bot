@@ -298,7 +298,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		
 		long a = 0;
-		String out = "";
+	//	String out = "";
 		String line;
 		BufferedReader in; 
 		StringBuilder total = new StringBuilder();
@@ -328,7 +328,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("!test")) {
-			event.getChannel().sendMessage("output: " + total.toString()).queue();
+			event.getChannel().sendMessage("output: " + total + "  Length: " + a).queue();
 		}
 	
 	}	
