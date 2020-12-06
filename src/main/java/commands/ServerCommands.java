@@ -12,6 +12,8 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -327,7 +329,6 @@ public class ServerCommands extends ListenerAdapter {
 					
 					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 					while ((line = in.readLine()) != null) {
-					//	event.getChannel().sendMessage("Line: " + line).queue();
 						total.append(line);
 					}
 					in.close();
@@ -339,6 +340,14 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
+				JSONObject obj = null;
+				JSONArray jarray = new JSONArray(total.toString());
+				for (int i = 0; i < jarray.length(); i++) {
+					obj = obj.getJSONObject(jarray.getString(i));
+					JSONObject printobj = (JSONObject) obj.get("discordId");
+					event.getChannel().sendMessage(printobj.toString());
+					
+				}
 				event.getChannel().sendMessage("output: " + total.toString().substring(0, 1000)).queue();
 		}
 	
