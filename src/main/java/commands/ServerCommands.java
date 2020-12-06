@@ -349,7 +349,7 @@ public class ServerCommands extends ListenerAdapter {
 		//				ids.add(jarray.getLong(i));	
 		//			}
 		//		}
-				event.getChannel().sendMessage(String.valueOf(code)).queue();
+				event.getChannel().sendMessage("Code: " + String.valueOf(code)).queue();
 		//		event.getChannel().sendMessage(String.valueOf(ids.get(1)));
 		}
 	
