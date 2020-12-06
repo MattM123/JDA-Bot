@@ -316,7 +316,7 @@ public class ServerCommands extends ListenerAdapter {
 				HttpsURLConnection conn = null;
 				try {
 		
-					url = new URL("https://buildtheearth.net/api/v1/members");
+					url = new URL("https://buildtheearth.net/api/v1/ping");
 					conn = (HttpsURLConnection) url.openConnection();
 					conn.setRequestProperty(conn.getHeaderField("Host"),"buildtheearth.net");
 					conn.setRequestProperty(conn.getHeaderField("Authorization"), "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
@@ -332,11 +332,9 @@ public class ServerCommands extends ListenerAdapter {
 					in.close();
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage("Length: " + stack.length()).queue();
 					event.getChannel().sendMessage(stack.subSequence(0, 1500)).complete();
 				} catch (IOException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage("Length: " + stack.length()).queue();
 					event.getChannel().sendMessage(stack.subSequence(0, 1500)).complete();
 				}
 				
