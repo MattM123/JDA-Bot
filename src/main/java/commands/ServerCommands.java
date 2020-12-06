@@ -340,9 +340,9 @@ public class ServerCommands extends ListenerAdapter {
 					e.printStackTrace();
 				} catch (IOException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
-					MessageBuilder mes = new MessageBuilder(stack);
 					
-					event.getChannel().sendMessage("stack trace: " + stack).queue();
+					
+					event.getChannel().sendMessage(stack).queue();
 				}
 				
 				event.getChannel().sendMessage("output: " + total + "  Length: " + a).queue();
