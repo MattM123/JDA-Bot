@@ -345,7 +345,7 @@ public class ServerCommands extends ListenerAdapter {
 					
 					
 					event.getChannel().sendMessage("Length: " + stack.length()).queue();
-					event.getChannel().sendMessage(mes.build()).complete();
+					event.getChannel().sendMessage(stack.subSequence(0, 2000)).complete();
 				}
 				
 				event.getChannel().sendMessage("output: " + total).queue();
