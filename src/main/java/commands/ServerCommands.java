@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.Reader;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -325,32 +324,18 @@ public class ServerCommands extends ListenerAdapter {
 		
 					url = new URL("https://buildtheearth.net/api/v1/members");
 					conn = (HttpsURLConnection) url.openConnection();
-					conn.addRequestProperty(conn.getHeaderField("Host"),"buildtheearth.net");
-					conn.addRequestProperty(conn.getHeaderField("Authorization"), "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-					conn.addRequestProperty(conn.getHeaderField("Accept"), "application/json");
+					conn.setRequestProperty("Host","buildtheearth.net");
+					conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+					conn.setRequestProperty("Accept", "application/json");
 					conn.setRequestMethod("GET");
 					
-					Reader streamReader = null;
-
-					if (conn.getResponseCode() > 299) {
-						in = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-						while ((line = in.readLine()) != null) {
-							//event.getChannel().sendMessage("Line: " + line).queue();
-							total.append(line);
-						}
-						in.close();
-					} else {
-						in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-						while ((line = in.readLine()) != null) {
-							//event.getChannel().sendMessage("Line: " + line).queue();
-							total.append(line);
-						}
-						in.close();
+					
+					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+					while ((line = in.readLine()) != null) {
+						event.getChannel().sendMessage("Line: " + line).queue();
+						total.append(line);
 					}
-					
-				
-					
-					
+					in.close();
 				} catch (MalformedURLException e) {
 					event.getChannel().sendMessage("Malformed URL").queue();
 					e.printStackTrace();
@@ -362,7 +347,7 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1500)).complete();
 				}
 				
-				event.getChannel().sendMessage("output: " + total).queue();
+				event.getChannel().sendMessage("output: " + total.toString()).queue();
 		}
 	
 	}	
