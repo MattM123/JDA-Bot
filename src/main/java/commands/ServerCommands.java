@@ -4,10 +4,15 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
@@ -22,7 +27,7 @@ public class ServerCommands extends ListenerAdapter {
 
 	private static String apikey = "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens";
 	private static String serverID = "8f401af5";
-	
+	private Logger logger = LoggerFactory.getLogger(ServerCommands.class);
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
 	private static UserServer server = api.getServersController().getServer(serverID);
 	
@@ -324,8 +329,14 @@ public class ServerCommands extends ListenerAdapter {
 			event.getChannel().sendMessage("Malfirmed URL").queue();
 			e.printStackTrace();
 		} catch (IOException e) {
-			event.getChannel().sendMessage("IO Exception").queue();
-			e.printStackTrace();
+
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			event.getChannel().sendMessage(sw.toString()).queue();
+			
+			
+		
+			
 		}
 		
 		if (event.getMessage().getContentRaw().equals("!test")) {
