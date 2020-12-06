@@ -328,9 +328,9 @@ public class ServerCommands extends ListenerAdapter {
 					conn.setRequestMethod("GET");
 					
 					//Storing JSON from request into a JSON Array
+					event.getChannel().sendMessage(String.valueOf(conn.getResponseCode())).queue();
 					
 					jarray = new JSONArray(conn.getInputStream());
-					code = conn.getResponseCode();
 
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
