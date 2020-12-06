@@ -332,7 +332,8 @@ public class ServerCommands extends ListenerAdapter {
 
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);
-			event.getChannel().sendMessage("Stack Trace: " + sw.toString()).queue();
+			String g = sw.toString();
+			event.getChannel().sendMessage("Stack Trace: " + g).queue();
 			
 			
 		
