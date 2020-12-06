@@ -23,11 +23,12 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+
 public class ServerCommands extends ListenerAdapter {
 
 	private static String apikey = "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens";
 	private static String serverID = "8f401af5";
-	private Logger logger = LoggerFactory.getLogger(ServerCommands.class);
+	//private Logger logger = LoggerFactory.getLogger(ServerCommands.class);
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
 	private static UserServer server = api.getServersController().getServer(serverID);
 	
@@ -302,46 +303,50 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		
-		long a = 0;
-	//	String out = "";
-		String line;
-		BufferedReader in; 
-		String total = "";
-		URL url;
-		HttpsURLConnection conn = null;
-		try {
-			url = new URL("https://buildtheearth.net/api/v1/members");
-			conn = (HttpsURLConnection) url.openConnection();
-			conn.addRequestProperty("Host", "buildtheearth.net");
-			conn.addRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-			conn.addRequestProperty("Accept", "application/json");
-			a = conn.getContentLengthLong();
-			
-			
-			
-			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			while ((line = in.readLine()) != null) {
-				event.getChannel().sendMessage("line: " + line).queue();;
-				total += line;
-			}
-			in.close();
-		} catch (MalformedURLException e) {
-			event.getChannel().sendMessage("Malfirmed URL").queue();
-			e.printStackTrace();
-		} catch (IOException e) {
-
-			StringWriter sw = new StringWriter();
-			PrintWriter pw = new PrintWriter(sw);
-			String g = sw.toString();
-			event.getChannel().sendMessage("Stack Trace: " + g).queue();
-			
+	
 			
 		
 			
-		}
+		
 		
 		if (event.getMessage().getContentRaw().equals("!test")) {
-			event.getChannel().sendMessage("output: " + total + "  Length: " + a).queue();
+			
+			long a = 0;
+			//	String out = "";
+				String line;
+				BufferedReader in; 
+				String total = "";
+				URL url;
+				HttpsURLConnection conn = null;
+				try {
+					url = new URL("https://buildtheearth.net/api/v1/members");
+					conn = (HttpsURLConnection) url.openConnection();
+					conn.addRequestProperty("Host", "buildtheearth.net");
+					conn.addRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+					conn.addRequestProperty("Accept", "application/json");
+					a = conn.getContentLengthLong();
+					
+					
+					
+					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+					while ((line = in.readLine()) != null) {
+						event.getChannel().sendMessage("line: " + line).queue();;
+						total += line;
+					}
+					in.close();
+				} catch (MalformedURLException e) {
+					event.getChannel().sendMessage("Malformed URL").queue();
+					e.printStackTrace();
+				} catch (IOException e) {
+
+					StringWriter sw = new StringWriter();
+					PrintWriter pw = new PrintWriter(sw);
+					String g = sw.toString();
+					event.getChannel().sendMessage("Stack Trace: " + g).queue();
+					
+					
+					event.getChannel().sendMessage("output: " + total + "  Length: " + a).queue();
+			}
 		}
 	
 	}	
