@@ -321,15 +321,12 @@ public class ServerCommands extends ListenerAdapter {
 				URL url;
 				HttpsURLConnection conn = null;
 				try {
+					conn.setRequestMethod("GET");
 					url = new URL("https://buildtheearth.net/api/v1/members");
 					conn = (HttpsURLConnection) url.openConnection();
 					conn.addRequestProperty(conn.getHeaderField("Host"),"buildtheearth.net");
 					conn.addRequestProperty(conn.getHeaderField("Authorization"), "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-					conn.addRequestProperty(conn.getHeaderField("Accept"), "application/json");
-					conn.setRequestMethod("GET");
-					
-					a = conn.getContentLengthLong();
-					
+					conn.addRequestProperty(conn.getHeaderField("Content-Type"), "application/json");
 					
 					
 					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -343,7 +340,6 @@ public class ServerCommands extends ListenerAdapter {
 					e.printStackTrace();
 				} catch (IOException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
-				//	MessageBuilder mes = new MessageBuilder(stack);
 					
 					
 					event.getChannel().sendMessage("Length: " + stack.length()).queue();
