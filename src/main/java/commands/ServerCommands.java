@@ -339,7 +339,7 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
-				event.getChannel().sendMessage("output: " + total.toString().substring(0, 2000)).queue();
+				event.getChannel().sendMessage("output: " + total.toString().substring(0, 1000)).queue();
 		}
 	
 	}	
