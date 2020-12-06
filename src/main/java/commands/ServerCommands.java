@@ -315,6 +315,7 @@ public class ServerCommands extends ListenerAdapter {
 				URL url;
 				HttpsURLConnection conn = null;
 				JSONArray jarray = null;
+				int code = 0;
 				try {
 					//BTE API Authentication
 					url = new URL("https://buildtheearth.net/api/v1/members");
@@ -326,8 +327,9 @@ public class ServerCommands extends ListenerAdapter {
 					conn.setRequestMethod("GET");
 					
 					//Storing JSON from request into a JSON Array
-					jarray = new JSONArray(conn.getInputStream());
 					
+					jarray = new JSONArray(conn.getInputStream());
+					code = conn.getResponseCode();
 
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
@@ -346,12 +348,7 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage(printobj.toString()).complete();
 					}
 				}
-				try {
-					event.getChannel().sendMessage(String.valueOf(conn.getResponseCode())).queue();
-				} catch (IOException e) {
-					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-				}
+				event.getChannel().sendMessage(String.valueOf(code)).queue();
 		}
 	
 	}	
