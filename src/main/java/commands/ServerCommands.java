@@ -323,9 +323,9 @@ public class ServerCommands extends ListenerAdapter {
 				try {
 					url = new URL("https://buildtheearth.net/api/v1/members");
 					conn = (HttpsURLConnection) url.openConnection();
-					conn.addRequestProperty("Host:", "buildtheearth.net");
-					conn.addRequestProperty("Authorization:", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-					conn.addRequestProperty("Accept:", "application/json");
+					conn.addRequestProperty("Host", "buildtheearth.net");
+					conn.addRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+					conn.addRequestProperty("Accept", "application/json");
 					conn.setRequestMethod("GET");
 					a = conn.getContentLengthLong();
 					
@@ -346,7 +346,7 @@ public class ServerCommands extends ListenerAdapter {
 					
 					
 					event.getChannel().sendMessage("Length: " + stack.length()).queue();
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+					event.getChannel().sendMessage(stack.subSequence(0, 1500)).complete();
 				}
 				
 				event.getChannel().sendMessage("output: " + total.toString()).queue();
