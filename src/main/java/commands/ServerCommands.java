@@ -14,6 +14,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -348,7 +349,11 @@ public class ServerCommands extends ListenerAdapter {
 				} catch (IOException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+				} catch (JSONException e) {
+					String stack = ExceptionUtils.getStackTrace(e);
+					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
+				
 				
 				//Extracting discordIDs from JSON array and making a long arraylist for them
 		//		ArrayList<Long> ids = new ArrayList<Long>();
