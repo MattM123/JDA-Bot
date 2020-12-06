@@ -11,6 +11,7 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -338,11 +339,8 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage("Malformed URL").queue();
 					e.printStackTrace();
 				} catch (IOException e) {
-
-					StringWriter sw = new StringWriter();
-					PrintWriter pw = new PrintWriter(sw);
-					String g = sw.toString();
-					MessageBuilder mes = new MessageBuilder(sw.toString());
+					String stack = ExceptionUtils.getStackTrace(e);
+					MessageBuilder mes = new MessageBuilder(stack);
 					
 					event.getChannel().sendMessage("Stack Trace: " + mes.build()).queue();
 				}
