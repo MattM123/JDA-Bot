@@ -316,6 +316,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			while ((line = in.readLine()) != null) {
+				event.getChannel().sendMessage("line: " + line);
 				total += line;
 			}
 			in.close();
