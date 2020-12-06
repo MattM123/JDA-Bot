@@ -18,7 +18,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class NonAPICommands extends ListenerAdapter {
-	private static ArrayList<String> records;
+//	private static ArrayList<String> records;
 //	private Logger logger = LoggerFactory.getLogger(NonAPICommands.class);
 
 	public static String regionXZ(double x, double z) {
