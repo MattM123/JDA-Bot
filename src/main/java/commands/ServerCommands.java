@@ -336,7 +336,7 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					in.close();
 					
-					event.getChannel().sendMessage("Json: " + json.subSequence(0, 500));
+					event.getChannel().sendMessage("Json: " + json.subSequence(0, 500)).queue();
 					event.getChannel().sendMessage(String.valueOf(conn.getResponseCode())).queue();
 
 				} catch (MalformedURLException e) {
