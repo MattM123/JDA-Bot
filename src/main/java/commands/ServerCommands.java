@@ -346,7 +346,12 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage(printobj.toString()).complete();
 					}
 				}
-				event.getChannel().sendMessage("Output Above").queue();
+				try {
+					event.getChannel().sendMessage(String.valueOf(conn.getResponseCode())).queue();
+				} catch (IOException e) {
+					String stack = ExceptionUtils.getStackTrace(e);
+					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+				}
 		}
 	
 	}	
