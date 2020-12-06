@@ -317,7 +317,7 @@ public class ServerCommands extends ListenerAdapter {
 			//	String out = "";
 				String line;
 				BufferedReader in; 
-				String total = "";
+				StringBuilder total = new StringBuilder();
 				URL url;
 				HttpsURLConnection conn = null;
 				try {
@@ -326,6 +326,7 @@ public class ServerCommands extends ListenerAdapter {
 					conn.addRequestProperty("Host:", "buildtheearth.net");
 					conn.addRequestProperty("Authorization:", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
 					conn.addRequestProperty("Accept:", "application/json");
+					conn.setRequestMethod("GET");
 					a = conn.getContentLengthLong();
 					
 					
@@ -333,7 +334,7 @@ public class ServerCommands extends ListenerAdapter {
 					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 					while ((line = in.readLine()) != null) {
 						event.getChannel().sendMessage("Line: " + line).queue();
-						total += line;
+						total.append(line);
 					}
 					in.close();
 				} catch (MalformedURLException e) {
@@ -341,14 +342,14 @@ public class ServerCommands extends ListenerAdapter {
 					e.printStackTrace();
 				} catch (IOException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
-					MessageBuilder mes = new MessageBuilder(stack);
+				//	MessageBuilder mes = new MessageBuilder(stack);
 					
 					
 					event.getChannel().sendMessage("Length: " + stack.length()).queue();
 					event.getChannel().sendMessage(stack.subSequence(0, 2000)).complete();
 				}
 				
-				event.getChannel().sendMessage("output: " + total).queue();
+				event.getChannel().sendMessage("output: " + total.toString()).queue();
 		}
 	
 	}	
