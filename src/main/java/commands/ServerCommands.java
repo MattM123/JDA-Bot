@@ -309,15 +309,13 @@ public class ServerCommands extends ListenerAdapter {
 		
 		
 		if (event.getMessage().getContentRaw().equals("!test")) {
-		//	long a = 0;
-			//	String out = "";
 				String line;
 				BufferedReader in; 
 				StringBuilder total = new StringBuilder();
 				URL url;
 				HttpsURLConnection conn = null;
 				try {
-		
+					//BTE API Authentication
 					url = new URL("https://buildtheearth.net/api/v1/members");
 					conn = (HttpsURLConnection) url.openConnection();
 					conn.setRequestProperty("Host","buildtheearth.net");
@@ -326,7 +324,7 @@ public class ServerCommands extends ListenerAdapter {
 					conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
 					conn.setRequestMethod("GET");
 					
-					
+					//Reading JSON from request
 					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 					while ((line = in.readLine()) != null) {
 						total.append(line);
@@ -339,14 +337,15 @@ public class ServerCommands extends ListenerAdapter {
 					String stack = ExceptionUtils.getStackTrace(e);
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
-				
+				//Parsing JSON to a JSONArray
 				JSONObject obj = null;
 				JSONArray jarray = new JSONArray(total.toString());
 				for (int i = 0; i < jarray.length(); i++) {
 					obj = obj.getJSONObject(jarray.getString(i));
-					JSONObject printobj = (JSONObject) obj.get("discordId");
-					event.getChannel().sendMessage(printobj.toString()).complete();
-					
+					if (obj.has("discordId")) {
+						JSONObject printobj = (JSONObject) obj.get("discordId");
+						event.getChannel().sendMessage(printobj.toString()).complete();
+					}
 				}
 				event.getChannel().sendMessage("Output Above").queue();
 		}
