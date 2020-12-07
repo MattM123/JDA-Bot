@@ -332,17 +332,17 @@ public class ServerCommands extends ListenerAdapter {
 					
 					event.getChannel().sendMessage(String.valueOf(conn.getResponseCode())).queue();
 					
-				//	in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				//	if ((line = in.readLine()) != null) {
-				//		json.append(line);
-				//	}
-				//	in.close();
+					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+					if ((line = in.readLine()) != null) {
+						json.append(line);
+					}
+					in.close();
 					
-					JSONObject jobj = new JSONObject(conn.getInputStream());
+					JSONObject jobj = new JSONObject(json);
 				//	JSONArray jarray = jobj.getJSONArray("members");
 					
 					
-					event.getChannel().sendMessage("String: " + jobj.toString().substring(0, 500)).queue();
+					event.getChannel().sendMessage("String: " + jobj.toString().substring(0, 500)).complete();
 					
 					
 				} catch (MalformedURLException e) {
