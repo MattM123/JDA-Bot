@@ -342,7 +342,7 @@ public class ServerCommands extends ListenerAdapter {
 				//	JSONArray jarray = jobj.getJSONArray("members");
 					
 					
-					event.getChannel().sendMessage(jobj.getJSONObject("discordId").toString().substring(0, 500)).queue();
+					event.getChannel().sendMessage(jobj.getJSONObject("members").toString().substring(0, 500)).queue();
 					
 					
 				} catch (MalformedURLException e) {
