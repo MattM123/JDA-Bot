@@ -357,7 +357,7 @@ public class ServerCommands extends ListenerAdapter {
 						ids.add(jarray.get(i).getAsLong());
 					}
 					
-					event.getChannel().sendMessage(jarray.get(0).toString()).queue();
+					event.getChannel().sendMessage(jarray.get(0).toString().subSequence(0, 10)).queue();
 					
 					
 				} catch (MalformedURLException e) {
