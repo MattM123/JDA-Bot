@@ -10,7 +10,7 @@ public class Bot {
 
 	public static void main (String[] args) {
 		
-		String token = "NzMyMjkwMTUzNjg2NDk5MzY4.XxinCA.00eQw8ZSdMq1chDG1v_KpQKTPKU";	
+		String token = "NzMyMjkwMTUzNjg2NDk5MzY4.XwycWQ.AHOlF_0KI7GeFj4-Oyxu2-_3gpM";	
 		try {
 			JDA jda = JDABuilder.createDefault(token).build();
 			

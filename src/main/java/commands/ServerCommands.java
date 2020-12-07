@@ -37,7 +37,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class ServerCommands extends ListenerAdapter {
 
-	private static String apikey = "NzMyMjkwMTUzNjg2NDk5MzY4.XwycWQ.AHOlF_0KI7GeFj4-Oyxu2-_3gpM";
+	private static String apikey = "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens";
 	private static String serverID = "8f401af5";
 //	private Logger logger = LoggerFactory.getLogger(ServerCommands.class);
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
