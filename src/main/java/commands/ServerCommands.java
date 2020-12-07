@@ -352,10 +352,10 @@ public class ServerCommands extends ListenerAdapter {
 					
 					//storing discordIds into an ArrayList of Longs
 					
-					//ArrayList<Long> ids = new ArrayList<Long>();
-					//for (int i = 0; i < jarray.size(); i++) {
-						//ids.add(jarray.get("discordId"));
-					//}
+					ArrayList<Long> ids = new ArrayList<Long>();
+					for (int i = 0; i < jarray.size(); i++) {
+						ids.add(jobj.getLong("discordId"));
+					}
 					
 					event.getChannel().sendMessage(jobj.get("discordId").toString().subSequence(0, 500)).queue();
 					
