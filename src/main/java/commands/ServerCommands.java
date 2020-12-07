@@ -357,7 +357,7 @@ public class ServerCommands extends ListenerAdapter {
 						ids.add(jobj.getLong("discordId"));
 					}
 					
-					event.getChannel().sendMessage(jobj.get("discordId").toString().subSequence(0, 500)).queue();
+					event.getChannel().sendMessage(ids.get(0).toString()).queue();
 					
 					
 				} catch (MalformedURLException e) {
