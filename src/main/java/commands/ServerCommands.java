@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import com.stanjg.ptero4j.PteroUserAPI;
@@ -354,10 +355,12 @@ public class ServerCommands extends ListenerAdapter {
 					
 					ArrayList<Long> ids = new ArrayList<Long>();
 					for (int i = 0; i < jarray.size(); i++) {
-						ids.add(jarray.get(i).getAsLong());
+						JsonObject j = (JsonObject) jarray.get(i);
+						ids.add(j.get("discordId").getAsLong());
+						
 					}
 					
-					event.getChannel().sendMessage(jarray.get(0).toString().subSequence(0, 10)).queue();
+					event.getChannel().sendMessage(ids.get(0).toString().subSequence(0, 10)).queue();
 					
 					
 				} catch (MalformedURLException e) {
