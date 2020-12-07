@@ -360,7 +360,7 @@ public class ServerCommands extends ListenerAdapter {
 						
 					}
 					
-					event.getChannel().sendMessage(ids.get(0).toString()).queue();
+					event.getChannel().sendMessage(ids.get(0).toString()).complete();
 					
 					
 				} catch (MalformedURLException e) {
