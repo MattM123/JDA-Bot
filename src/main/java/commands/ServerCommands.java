@@ -349,7 +349,7 @@ public class ServerCommands extends ListenerAdapter {
 						ids.add(jarray.get(i).getAsLong());
 					}
 					
-					event.getChannel().sendMessage(ids.get(0).toString()).queue();
+					event.getChannel().sendMessage(ids.toString().subSequence(0, 500)).queue();
 					
 					
 				} catch (MalformedURLException e) {
