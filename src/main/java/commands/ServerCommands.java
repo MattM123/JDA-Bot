@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
@@ -338,11 +339,11 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					in.close();
 					
-					JsonParser parse;
 					JsonElement ele = JsonParser.parseString(json.toString());
+					JsonArray jarray = ele.getAsJsonArray();
 					
 					
-					event.getChannel().sendMessage(ele.toString().subSequence(0, 500)).queue();
+					event.getChannel().sendMessage(jarray.toString().subSequence(0, 500)).queue();
 					
 					
 				} catch (MalformedURLException e) {
