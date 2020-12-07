@@ -338,12 +338,11 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					in.close();
 					
-					JSONObject jobj = new JSONObject(json);
-					JSONArray jarray = new JSONArray();
-					jobj.toJSONArray(jarray);
+					JsonParser parse;
+					JsonElement ele = JsonParser.parseString(json.toString());
 					
 					
-					event.getChannel().sendMessage("String: " + jarray.get(0)).queue();
+					event.getChannel().sendMessage(ele.getAsString()).queue();
 					
 					
 				} catch (MalformedURLException e) {
