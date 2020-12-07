@@ -14,6 +14,8 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -342,14 +344,20 @@ public class ServerCommands extends ListenerAdapter {
 					JsonElement ele = JsonParser.parseString(json.toString());
 					JsonArray jarray = ele.getAsJsonObject().getAsJsonArray("members");
 					
+					//parsing JSON Array
+					
+					JSONParser parser = new JSONParser();
+					JSONObject jobj = (JSONObject) parser.parse(json.toString());
+					
+					
 					//storing discordIds into an ArrayList of Longs
 					
-					ArrayList<Long> ids = new ArrayList<Long>();
-					for (int i = 0; i < jarray.size(); i++) {
-						ids.add(jarray.get(i).getAsLong());
-					}
+					//ArrayList<Long> ids = new ArrayList<Long>();
+					//for (int i = 0; i < jarray.size(); i++) {
+						//ids.add(jarray.get("discordId"));
+					//}
 					
-					event.getChannel().sendMessage(ids.toString().subSequence(0, 500)).queue();
+					event.getChannel().sendMessage(jobj.get("discordId").toString().subSequence(0, 500)).queue();
 					
 					
 				} catch (MalformedURLException e) {
@@ -359,6 +367,9 @@ public class ServerCommands extends ListenerAdapter {
 					String stack = ExceptionUtils.getStackTrace(e);
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				} catch (JSONException e) {
+					String stack = ExceptionUtils.getStackTrace(e);
+					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+				} catch (ParseException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
