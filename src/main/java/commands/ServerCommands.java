@@ -354,10 +354,10 @@ public class ServerCommands extends ListenerAdapter {
 					
 					ArrayList<Long> ids = new ArrayList<Long>();
 					for (int i = 0; i < jarray.size(); i++) {
-						ids.add(jobj.getLong("discordId"));
+						ids.add(jarray.get(i).getAsLong());
 					}
 					
-					event.getChannel().sendMessage(jobj.get("discordId").toString()).queue();
+					event.getChannel().sendMessage(jarray.get(0).toString()).queue();
 					
 					
 				} catch (MalformedURLException e) {
