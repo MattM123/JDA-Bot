@@ -338,7 +338,7 @@ public class ServerCommands extends ListenerAdapter {
 				//	}
 				//	in.close();
 					
-					JSONObject jobj = new JSONObject(conn.getInputStream());
+					JSONArray jobj = new JSONArray(conn.getInputStream());
 				//	JSONArray jarray = jobj.getJSONArray("members");
 					
 					event.getChannel().sendMessage(jobj.toString().substring(0, 500)).queue();
