@@ -342,8 +342,14 @@ public class ServerCommands extends ListenerAdapter {
 					JsonElement ele = JsonParser.parseString(json.toString());
 					JsonArray jarray = ele.getAsJsonObject().getAsJsonArray("members");
 					
+					//storing discordIds into an ArrayList of Longs
 					
-					event.getChannel().sendMessage("string " + jarray.toString().substring(0, 500)).queue();
+					ArrayList<Long> ids = new ArrayList<Long>();
+					for (int i = 0; i < jarray.size(); i++) {
+						ids.add(jarray.get(i).getAsLong());
+					}
+					
+					event.getChannel().sendMessage(ids.get(0).toString()).queue();
 					
 					
 				} catch (MalformedURLException e) {
