@@ -350,7 +350,10 @@ public class ServerCommands extends ListenerAdapter {
 					
 					//Storing JSON from request into a JSON Array
 					
-					event.getChannel().sendMessage(String.valueOf(conn.getResponseCode())).queue();
+					if (conn.getResponseCode() > 200) {
+						event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
+					}
+					
 					
 					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 					if ((line = in.readLine()) != null) {
@@ -383,11 +386,12 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				
 				//If user ID exists in array, give builder role
-				Role builder = guild.getRoleById(Long.parseLong("735991952931160104"));
+				Member member = event.getMember();
+				
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {
 					if (event.getAuthor().getIdLong() == ids.get(i)) {
-						guild.addRoleToMember(event.getAuthor().getIdLong(), builder);
+						guild.addRoleToMember(member, guild.getRoleById(Long.parseLong("735991952931160104")));
 						event.getChannel().sendMessage("You now have builder Role!").queue();
 						temp = 1;
 						break;
