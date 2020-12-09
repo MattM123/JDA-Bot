@@ -34,6 +34,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -382,14 +383,17 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				
 				//If user ID exists in array, give builder role
+				Role builder = guild.getRoleById(Long.parseLong("735991952931160104"));
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {
 					if (event.getAuthor().getIdLong() == ids.get(i)) {
-						guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(Long.parseLong("735991952931160104")));
+						guild.addRoleToMember(event.getAuthor().getIdLong(), builder);
 						event.getChannel().sendMessage("You now have builder Role!").queue();
 						temp = 1;
+						break;
 					}
 				}
+				
 				if (temp == 0) {
 					event.getChannel().sendMessage("Looks like you're not on the team or we havn't gotten to your application yet. If this is wrong, then ping mattress#1852").queue();
 				}
@@ -402,7 +406,7 @@ public class ServerCommands extends ListenerAdapter {
 				ArrayList<Member> illinois = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995095773609986")));
 				ArrayList<Member> missouri = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995115113414656")));
 				ArrayList<Member> minnesota = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995196738633819")));
-				event.getChannel().sendMessage("breakpoint3");
+	
 				if (temp == 1) {
 					if (kansas.contains(guild.getMember(event.getAuthor()))) {
 						server.sendCommand("lp user " + MCusername + " parent add kansas-builder");
