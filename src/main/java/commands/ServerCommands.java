@@ -387,17 +387,17 @@ public class ServerCommands extends ListenerAdapter {
 				
 				//If user ID exists in array, give builder role
 				
-				ArrayList<Member> builder = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735991952931160104")));
-				event.getChannel().sendMessage("Member: " + builder.get(0).getId()).queue();
+				
+				ArrayList<Role> roles = (ArrayList<Role>) event.getMember().getRoles();
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {
-					if (event.getAuthor().getIdLong() == ids.get(i) && !builder.contains(event.getMember())) {
+					if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
 						guild.addRoleToMember(event.getMember(), guild.getRoleById(Long.parseLong("735991952931160104")));
 						event.getChannel().sendMessage("You now have builder Role!").queue();
 						temp = 1;
 						break;
 					}		
-					else if (builder.contains(event.getMember())) {
+					else if (roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
 						event.getChannel().sendMessage("You already have builder role! Assigning server rank.");
 						temp = 1;
 						break;
