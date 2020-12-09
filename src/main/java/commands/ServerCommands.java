@@ -389,7 +389,7 @@ public class ServerCommands extends ListenerAdapter {
 				
 			
 				List<Role> roles = (List<Role>) event.getMember().getRoles();
-
+				event.getChannel().sendMessage("breakpoint1").queue();
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {	
 					if (roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
@@ -405,7 +405,7 @@ public class ServerCommands extends ListenerAdapter {
 						break;
 					}
 				}
-				
+				event.getChannel().sendMessage("breakpoint2").queue();
 				//if user has state role, assign corresponding minecraft server rank
 	
 				if (temp == 1) {
