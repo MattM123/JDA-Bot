@@ -327,6 +327,7 @@ public class ServerCommands extends ListenerAdapter {
 			for (int i = 6; i < chararr.length; i++) {
 				MCusername += chararr[i];
 			}
+			event.getChannel().sendMessage(MCusername);
 			
 				Guild guild = event.getGuild();
 				String line;
