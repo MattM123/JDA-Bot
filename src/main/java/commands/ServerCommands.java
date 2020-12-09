@@ -321,6 +321,7 @@ public class ServerCommands extends ListenerAdapter {
 				StringBuilder json = new StringBuilder();
 				URL url;
 				HttpsURLConnection conn = null;
+				JsonArray jarray = null;
 				
 				try {
 					//BTE API Authentication
@@ -343,7 +344,7 @@ public class ServerCommands extends ListenerAdapter {
 					in.close();
 					
 					JsonElement ele = JsonParser.parseString(json.toString());
-					JsonArray jarray = ele.getAsJsonObject().getAsJsonArray("members");
+					jarray = ele.getAsJsonObject().getAsJsonArray("members");
 					
 					//parsing JSON Array
 					
@@ -361,7 +362,7 @@ public class ServerCommands extends ListenerAdapter {
 						
 				//	}
 
-					event.getChannel().sendMessage(jarray.get(0).toString()).queue();
+					
 					
 					
 				} catch (MalformedURLException e) {
@@ -378,6 +379,8 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
+				
+				event.getChannel().sendMessage(jarray.get(0).getAsString()).queue();
 				
 				//Extracting discordIDs from JSON array and making a long arraylist for them
 		//		ArrayList<Long> ids = new ArrayList<Long>();
