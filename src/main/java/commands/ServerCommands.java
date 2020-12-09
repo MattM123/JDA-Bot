@@ -397,11 +397,7 @@ public class ServerCommands extends ListenerAdapter {
 						break;
 					}
 				}
-				
-				if (temp == 0) {
-					event.getChannel().sendMessage("Looks like you're not on the team or we havn't gotten to your application yet. If this is wrong, then ping mattress#1852").queue();
-				}
-				
+
 				//if user has state role, assign corresponding minecraft server rank
 				
 				ArrayList<Member> iowa = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995164493086720")));
@@ -439,6 +435,10 @@ public class ServerCommands extends ListenerAdapter {
 					else {
 						event.getChannel().sendMessage("Looks like you don't have a state role. Go to #role-menu to select one and run the command again.");
 					}
+				}
+				
+				else if (temp == 0) {
+					event.getChannel().sendMessage("Looks like you're not on the team or we havn't gotten to your application yet. If this is wrong, then ping mattress#1852").queue();
 				}
 		}
 	
