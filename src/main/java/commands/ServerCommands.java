@@ -391,17 +391,19 @@ public class ServerCommands extends ListenerAdapter {
 				List<Role> roles = (List<Role>) event.getMember().getRoles();
 
 				int temp = 0;
-				for (int i = 0; i < ids.size(); i++) {
-					
-					for (int j = 0; j < roles.size(); j++) {
-						if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
-							guild.addRoleToMember(event.getMember(), guild.getRoleById(Long.parseLong("735991952931160104")));
-							event.getChannel().sendMessage("You now have builder Role!").queue();
-							temp = 1;
-							break;
-						}
+				for (int i = 0; i < ids.size(); i++) {	
+					if (roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
+						break;
+					}
+								
+					else if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
+						guild.addRoleToMember(event.getMember(), guild.getRoleById(Long.parseLong("735991952931160104")));
+						event.getChannel().sendMessage("You now have builder Role!").queue();
+						temp = 1;
+						break;
 					}
 				}
+				
 					
 				if (roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
 					event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
