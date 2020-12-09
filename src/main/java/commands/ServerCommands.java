@@ -389,10 +389,10 @@ public class ServerCommands extends ListenerAdapter {
 				
 			
 				List<Role> roles = (List<Role>) event.getMember().getRoles();
-				event.getChannel().sendMessage("breakpoint1").queue();
-				event.getChannel().sendMessage(roles.get(0).getName()).queue();
+
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {
+					
 					for (int j = 0; j < roles.size(); j++) {
 						if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
 							guild.addRoleToMember(event.getMember(), guild.getRoleById(Long.parseLong("735991952931160104")));
@@ -400,14 +400,16 @@ public class ServerCommands extends ListenerAdapter {
 							temp = 1;
 							break;
 						}
-							
-						else if (roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
-							event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
-							temp = 1;
-							break;
-						}
-					}
+	
 				}
+				}
+					
+				if (roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
+					event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
+					temp = 1;
+			
+				}
+				
 				event.getChannel().sendMessage("breakpoint2").queue();
 				//if user has state role, assign corresponding minecraft server rank
 				
