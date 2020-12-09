@@ -381,7 +381,6 @@ public class ServerCommands extends ListenerAdapter {
 					ids.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
 				}
 				
-				event.getChannel().sendMessage("breakpoint1");
 				//If user ID exists in array, give builder role
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {
@@ -391,7 +390,10 @@ public class ServerCommands extends ListenerAdapter {
 						temp = 1;
 					}
 				}
-				event.getChannel().sendMessage("breakpoint2");
+				if (temp == 0) {
+					event.getChannel().sendMessage("Looks like you're not on the team or we havn't gotten to your application yet. If this is wrong, then ping mattress#1852").queue();
+				}
+				
 				//if user has state role, assign corresponding minecraft server rank
 				
 				ArrayList<Member> iowa = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995164493086720")));
