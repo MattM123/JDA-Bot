@@ -1,6 +1,7 @@
 package commands;
 
 import java.awt.Color;
+import java.awt.List;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -31,6 +32,8 @@ import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -315,7 +318,17 @@ public class ServerCommands extends ListenerAdapter {
 		
 		
 		
-		if (event.getMessage().getContentRaw().equals("!test")) {
+		if (event.getMessage().getContentRaw().equals("!link")) {
+			
+			//Parses minecraft username for later use
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			String MCusername = "";
+		
+			for (int i = 6; i < chararr.length; i++) {
+				MCusername += chararr[i];
+			}
+			
+				Guild guild = event.getGuild();
 				String line;
 				BufferedReader in; 
 				StringBuilder json = new StringBuilder();
@@ -360,13 +373,68 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
+				//Creation of arraylist with user IDs
+				
 				ArrayList<Long> ids = new ArrayList<Long>();
 				for (int i = 0; i < jarray.size(); i++) {
 					ids.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
 				}
 				
+				//If user ID exists in array, give builder role
+				int temp = 0;
+				for (int i = 0; i < ids.size(); i++) {
+					if (event.getAuthor().getIdLong() == ids.get(i)) {
+						guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(Long.parseLong("735991952931160104")));
+						event.getChannel().sendMessage("You now have builder Role!").queue();
+						temp = 1;
+					}
+					else {
+						event.getChannel().sendMessage("Looks like you're not on the team or we havn't gotten to your application yet. If this is wrong, then ping mattress#1852").queue();
+					}
+				}
+				
+				//if user has state role, assign corresponding minecraft server rank
+				
+				ArrayList<Member> iowa = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995164493086720")));
+				ArrayList<Member> kansas = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995176165834756")));
+				ArrayList<Member> nebraska = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995136978321541")));
+				ArrayList<Member> illinois = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995095773609986")));
+				ArrayList<Member> missouri = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995115113414656")));
+				ArrayList<Member> minnesota = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995196738633819")));
 
-				event.getChannel().sendMessage(ids.get(5).toString()).queue();
+				if (temp == 1) {
+					if (kansas.contains(guild.getMember(event.getAuthor()))) {
+						server.sendCommand("lp user " + MCusername + " parent add kansas-builder");
+						event.getChannel().sendMessage("Minecraft server rank updated to Kansas Builder for user " + MCusername).queue();
+						}
+					else if (iowa.contains(guild.getMember(event.getAuthor()))) {
+						server.sendCommand("lp user " + MCusername + " parent add iowa-builder");
+						event.getChannel().sendMessage("Minecraft server rank updated to Iowa Builder for user " + MCusername).queue();
+						}
+					else if (nebraska.contains(guild.getMember(event.getAuthor()))) {
+						server.sendCommand("lp user " + MCusername + " parent add nebraska-builder");
+						event.getChannel().sendMessage("Minecraft server rank updated to Nebraska Builder for user " + MCusername).queue();
+						}
+					else if (illinois.contains(guild.getMember(event.getAuthor()))) {
+						server.sendCommand("lp user " + MCusername + " parent add illinois-builder");
+						event.getChannel().sendMessage("Minecraft server rank updated to Illinois Builder for user " + MCusername).queue();
+						}
+					else if (missouri.contains(guild.getMember(event.getAuthor()))) {
+						server.sendCommand("lp user " + MCusername + " parent add missouri-builder");
+						event.getChannel().sendMessage("Minecraft server rank updated to Missouri Builder for user " + MCusername).queue();
+						}
+					else if (minnesota.contains(guild.getMember(event.getAuthor()))) {
+						server.sendCommand("lp user " + MCusername + " parent add minnesota-builder");
+						event.getChannel().sendMessage("Minecraft server rank updated to Minnesota Builder for user " + MCusername).queue();
+						}
+					else {
+						event.getChannel().sendMessage("Looks like you don't have a state role. Go to #role-menu to select one and run the command again.");
+					}
+				}
+				
+				
+				
+			//	event.getChannel().sendMessage(ids.get(5).toString()).queue();
 
 				
 				//Extracting discordIDs from JSON array and making a long arraylist for them
