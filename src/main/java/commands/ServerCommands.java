@@ -318,7 +318,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		
 		
-		if (event.getMessage().getContentRaw().equals("!link")) {
+		if (event.getMessage().getContentRaw().startsWith("!link")) {
 			
 			//Parses minecraft username for later use
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
