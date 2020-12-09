@@ -363,7 +363,7 @@ public class ServerCommands extends ListenerAdapter {
 				//	}
 
 					
-					event.getChannel().sendMessage(jarray.get(0).getAsString()).queue();
+					event.getChannel().sendMessage(jarray.get(0).getAsString().subSequence(0, 500)).queue();
 					
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
@@ -377,7 +377,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				
 				
-				event.getChannel().sendMessage(jarray.get(0).toString()).queue();
+				event.getChannel().sendMessage(jarray.get(0).toString().subSequence(0, 500)).queue();
 				
 				//Extracting discordIDs from JSON array and making a long arraylist for them
 		//		ArrayList<Long> ids = new ArrayList<Long>();
