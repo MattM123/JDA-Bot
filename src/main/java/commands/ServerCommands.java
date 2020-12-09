@@ -390,23 +390,19 @@ public class ServerCommands extends ListenerAdapter {
 				ArrayList<Member> builder = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735991952931160104")));
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {
-					//if (builder.contains(event.getMember())) {
-					for (int j = 0; j < builder.size(); j++) {
-						if (builder.get(i) == event.getMember()) {
-							event.getChannel().sendMessage("You already have builder role! Assigning server rank.");
-							temp = 1;
-							break;
-						}
-					}
-						
-					if (event.getAuthor().getIdLong() == ids.get(i)) {
+					if (event.getAuthor().getIdLong() == ids.get(i) && !builder.contains(event.getMember())) {
 						guild.addRoleToMember(event.getMember(), guild.getRoleById(Long.parseLong("735991952931160104")));
 						event.getChannel().sendMessage("You now have builder Role!").queue();
 						temp = 1;
 						break;
 					}		
+					else if (builder.contains(event.getMember())) {
+						event.getChannel().sendMessage("You already have builder role! Assigning server rank.");
+						temp = 1;
+						break;
+					}
 				}
-				
+
 				//if user has state role, assign corresponding minecraft server rank
 				
 				ArrayList<Member> iowa = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995164493086720")));
