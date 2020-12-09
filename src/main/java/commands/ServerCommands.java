@@ -390,8 +390,9 @@ public class ServerCommands extends ListenerAdapter {
 				ArrayList<Member> builder = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735991952931160104")));
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {
-					if (builder.contains(guild.getMember(event.getAuthor()))) {
+					if (builder.contains(event.getMember())) {
 						event.getChannel().sendMessage("You already have builder role! Assigning server rank.");
+						temp = 1;
 						break;
 					}
 					
@@ -400,8 +401,7 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage("You now have builder Role!").queue();
 						temp = 1;
 						break;
-					}
-					
+					}		
 				}
 
 				//if user has state role, assign corresponding minecraft server rank
@@ -414,27 +414,27 @@ public class ServerCommands extends ListenerAdapter {
 				ArrayList<Member> minnesota = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995196738633819")));
 	
 				if (temp == 1) {
-					if (kansas.contains(guild.getMember(event.getAuthor()))) {
+					if (kansas.contains(event.getMember())) {
 						server.sendCommand("lp user " + MCusername + " parent add kansas-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Kansas Builder for user " + MCusername).queue();
 						}
-					else if (iowa.contains(guild.getMember(event.getAuthor()))) {
+					else if (iowa.contains(event.getMember())) {
 						server.sendCommand("lp user " + MCusername + " parent add iowa-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Iowa Builder for user " + MCusername).queue();
 						}
-					else if (nebraska.contains(guild.getMember(event.getAuthor()))) {
+					else if (nebraska.contains(event.getMember())) {
 						server.sendCommand("lp user " + MCusername + " parent add nebraska-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Nebraska Builder for user " + MCusername).queue();
 						}
-					else if (illinois.contains(guild.getMember(event.getAuthor()))) {
+					else if (illinois.contains(event.getMember())) {
 						server.sendCommand("lp user " + MCusername + " parent add illinois-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Illinois Builder for user " + MCusername).queue();
 						}
-					else if (missouri.contains(guild.getMember(event.getAuthor()))) {
+					else if (missouri.contains(event.getMember())) {
 						server.sendCommand("lp user " + MCusername + " parent add missouri-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Missouri Builder for user " + MCusername).queue();
 						}
-					else if (minnesota.contains(guild.getMember(event.getAuthor()))) {
+					else if (minnesota.contains(event.getMember())) {
 						server.sendCommand("lp user " + MCusername + " parent add minnesota-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Minnesota Builder for user " + MCusername).queue();
 						}
