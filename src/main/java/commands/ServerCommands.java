@@ -354,14 +354,14 @@ public class ServerCommands extends ListenerAdapter {
 					//storing discordIds into an ArrayList of Longs
 					
 				//	ArrayList<Long> ids = new ArrayList<Long>();
-					String k = "sdgfg";
-					for (int i = 0; i < jarray.size(); i++) {
-						k += jarray.get(i).toString();
+				//	String k = "sdgfg";
+					//for (int i = 0; i < jarray.size(); i++) {
+						//k += jarray.get(i).toString();
 						//ids.add(j.get("discordId").getAsLong());
 						
-					}
+				//	}
 
-					event.getChannel().sendMessage("K: " + k).queue();
+					event.getChannel().sendMessage(jarray.get(0).toString()).queue();
 					
 					
 				} catch (MalformedURLException e) {
