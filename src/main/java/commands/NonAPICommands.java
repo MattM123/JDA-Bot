@@ -41,6 +41,7 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.addField("!map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		embed.addField("!measure", "Measure tutorial derived from the BTE Support Bot", false);
 		embed.addField("!regcon <Xcoord> <Zcoord>", "Converts in-game coordinates to region file format", false);
+		embed.addField("!link <minecraft username", "Automatically assigns build perms and Builder role if you are on the team", false);
 		embed.addField("---------Permissions Required---------", "" , false);
 		embed.addField("!iowa <minecraft username>", "Requires permissions to assign 'Iowa Builder' rank", false);
 		embed.addField("!nebraska <minecraft username>", "Requires permissions to assign 'Nebraska Builder' rank", false);

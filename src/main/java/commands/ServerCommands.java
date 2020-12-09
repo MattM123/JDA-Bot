@@ -388,7 +388,7 @@ public class ServerCommands extends ListenerAdapter {
 				//If user ID exists in array and builder rank is not already assigned, give builder role
 				
 			
-				List<Role> roles = (List<Role>) event.getMember().getRoles();
+				List<Role> roles = event.getMember().getRoles();
 			
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {	
