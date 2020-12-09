@@ -400,8 +400,7 @@ public class ServerCommands extends ListenerAdapter {
 							temp = 1;
 							break;
 						}
-	
-				}
+					}
 				}
 					
 				if (roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
@@ -410,15 +409,14 @@ public class ServerCommands extends ListenerAdapter {
 			
 				}
 				
-				event.getChannel().sendMessage("breakpoint2").queue();
 				//if user has state role, assign corresponding minecraft server rank
 				
-				ArrayList<Member> iowa = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995164493086720")));
-				ArrayList<Member> kansas = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995176165834756")));
-				ArrayList<Member> nebraska = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995136978321541")));
-				ArrayList<Member> illinois = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995095773609986")));
-				ArrayList<Member> missouri = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995115113414656")));
-				ArrayList<Member> minnesota = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995196738633819")));
+				List<Member> iowa = (List<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995164493086720")));
+				List<Member> kansas = (List<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995176165834756")));
+				List<Member> nebraska = (List<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995136978321541")));
+				List<Member> illinois = (List<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995095773609986")));
+				List<Member> missouri = (List<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995115113414656")));
+				List<Member> minnesota = (List<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995196738633819")));
 	
 				if (temp == 1) {
 					if (kansas.contains(event.getMember())) {
