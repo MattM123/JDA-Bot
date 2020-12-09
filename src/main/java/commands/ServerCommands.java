@@ -385,7 +385,7 @@ public class ServerCommands extends ListenerAdapter {
 					ids.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
 				}
 				
-				//If user ID exists in array, give builder role
+				//If user ID exists in array and build rank is not already assigned, give builder role
 				
 			
 				List<Role> roles = (List<Role>) event.getMember().getRoles();
@@ -399,7 +399,7 @@ public class ServerCommands extends ListenerAdapter {
 					}
 								
 					else if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
-						guild.addRoleToMember(event.getMember(), guild.getRoleById(Long.parseLong("735991952931160104")));
+						roles.add(guild.getRoleById(Long.parseLong("735991952931160104")));
 						event.getChannel().sendMessage("You now have builder Role!").queue();
 						temp = 1;
 						break;
