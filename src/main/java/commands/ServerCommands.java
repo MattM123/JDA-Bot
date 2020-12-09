@@ -390,6 +390,7 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("breakpoint1").queue();
 				
 				ArrayList<Role> roles = (ArrayList<Role>) event.getMember().getRoles();
+				event.getChannel().sendMessage(roles.get(0).getName()).queue();
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {
 					if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
