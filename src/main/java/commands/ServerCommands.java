@@ -348,8 +348,8 @@ public class ServerCommands extends ListenerAdapter {
 					
 					//parsing JSON Array
 					
-					JSONParser parser = new JSONParser();
-					JSONObject jobj = (JSONObject) parser.parse(json.toString());
+				//	JSONParser parser = new JSONParser();
+				//	JSONObject jobj = (JSONObject) parser.parse(json.toString());
 					
 					
 					//storing discordIds into an ArrayList of Longs
@@ -363,7 +363,7 @@ public class ServerCommands extends ListenerAdapter {
 				//	}
 
 					
-					
+					event.getChannel().sendMessage("test1").queue();
 					
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
@@ -372,9 +372,6 @@ public class ServerCommands extends ListenerAdapter {
 					String stack = ExceptionUtils.getStackTrace(e);
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				} catch (JSONException e) {
-					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-				} catch (ParseException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
