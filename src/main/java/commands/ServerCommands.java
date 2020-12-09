@@ -380,6 +380,7 @@ public class ServerCommands extends ListenerAdapter {
 					ids.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
 				}
 				
+				event.getChannel().sendMessage("breakpoint1");
 				//If user ID exists in array, give builder role
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {
@@ -392,7 +393,7 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage("Looks like you're not on the team or we havn't gotten to your application yet. If this is wrong, then ping mattress#1852").queue();
 					}
 				}
-				
+				event.getChannel().sendMessage("breakpoint2");
 				//if user has state role, assign corresponding minecraft server rank
 				
 				ArrayList<Member> iowa = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995164493086720")));
@@ -401,7 +402,7 @@ public class ServerCommands extends ListenerAdapter {
 				ArrayList<Member> illinois = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995095773609986")));
 				ArrayList<Member> missouri = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995115113414656")));
 				ArrayList<Member> minnesota = (ArrayList<Member>) guild.getMembersWithRoles(guild.getRoleById(Long.parseLong("735995196738633819")));
-
+				event.getChannel().sendMessage("breakpoint3");
 				if (temp == 1) {
 					if (kansas.contains(guild.getMember(event.getAuthor()))) {
 						server.sendCommand("lp user " + MCusername + " parent add kansas-builder");
