@@ -356,13 +356,12 @@ public class ServerCommands extends ListenerAdapter {
 				//	ArrayList<Long> ids = new ArrayList<Long>();
 					String k = "sdgfg";
 					for (int i = 0; i < jarray.size(); i++) {
-						JsonObject j = (JsonObject) jarray.get(i);
+						k += jarray.get(i).toString();
 						//ids.add(j.get("discordId").getAsLong());
-						k += j.get("discordId").toString();	
+						
 					}
-					
-					
-					event.getChannel().sendMessage(k).queue();
+
+					event.getChannel().sendMessage("K: " + k).queue();
 					
 					
 				} catch (MalformedURLException e) {
