@@ -393,6 +393,8 @@ public class ServerCommands extends ListenerAdapter {
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {	
 					if (roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
+						event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
+						temp = 1;
 						break;
 					}
 								
@@ -402,13 +404,6 @@ public class ServerCommands extends ListenerAdapter {
 						temp = 1;
 						break;
 					}
-				}
-				
-					
-				if (roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
-					event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
-					temp = 1;
-			
 				}
 				
 				//if user has state role, assign corresponding minecraft server rank
