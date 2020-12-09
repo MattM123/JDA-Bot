@@ -362,7 +362,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				
 				
-				event.getChannel().sendMessage(jarray.toString().substring(0, 500)).queue();
+				event.getChannel().sendMessage(jarray.get(0).toString()).queue();
 				
 				//Extracting discordIDs from JSON array and making a long arraylist for them
 		//		ArrayList<Long> ids = new ArrayList<Long>();
