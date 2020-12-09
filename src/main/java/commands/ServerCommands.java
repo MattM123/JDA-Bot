@@ -157,106 +157,6 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}
 		
-		//Nebraska builder assign
-		if (event.getMessage().getContentRaw().startsWith("!nebraska")) {
-			if (event.getMessage().getAuthor().getIdLong()== userID[0] || event.getMessage().getAuthor().getIdLong() == userID[1] ||
-					event.getMessage().getAuthor().getIdLong() == userID[2] || event.getMessage().getAuthor().getIdLong() == userID[3]) {
-				
-				char[] chararr = event.getMessage().getContentRaw().toCharArray();
-				String namebuilder = "";
-			
-				for (int i = 10; i < chararr.length; i++) {
-					namebuilder += chararr[i];
-				}
-				
-				server.sendCommand("lp user " + namebuilder + " parent add nebraska-builder");
-				event.getChannel().sendMessage("Rank updated to Nebraska Builder for user " + namebuilder).queue();
-			}
-			else {
-				event.getChannel().sendMessage("Invalid permissions.").queue();
-			}
-		}
-		
-		//Iowa builder assign
-		if (event.getMessage().getContentRaw().startsWith("!iowa")) {
-			if (event.getMessage().getAuthor().getIdLong()== userID[0] || event.getMessage().getAuthor().getIdLong() == userID[1] ||
-					event.getMessage().getAuthor().getIdLong() == userID[2] || event.getMessage().getAuthor().getIdLong() == userID[3]) {
-				
-				char[] chararr = event.getMessage().getContentRaw().toCharArray();
-				String namebuilder = "";
-			
-				for (int i = 6; i < chararr.length; i++) {
-					namebuilder += chararr[i];
-				}
-				
-				server.sendCommand("lp user " + namebuilder + " parent add iowa-builder");
-				event.getChannel().sendMessage("Rank updated to Iowa Builder for user " + namebuilder).queue();
-			}
-			else {
-				event.getChannel().sendMessage("Invalid permissions.").queue();
-			}
-		}
-		
-		//Kansas builder assign
-		if (event.getMessage().getContentRaw().startsWith("!kansas")) {
-			if (event.getMessage().getAuthor().getIdLong()== userID[0] || event.getMessage().getAuthor().getIdLong() == userID[1] ||
-					event.getMessage().getAuthor().getIdLong() == userID[2] || event.getMessage().getAuthor().getIdLong() == userID[3]) {
-				
-				char[] chararr = event.getMessage().getContentRaw().toCharArray();
-				String namebuilder = "";
-			
-				for (int i = 8; i < chararr.length; i++) {
-					namebuilder += chararr[i];
-				}
-				
-				server.sendCommand("lp user " + namebuilder + " parent add kansas-builder");
-				event.getChannel().sendMessage("Rank updated to Kansas Builder for user " + namebuilder).queue();
-			}
-			else {
-				event.getChannel().sendMessage("Invalid permissions.").queue();
-			}
-		}
-
-		//missouri builder assign
-		if (event.getMessage().getContentRaw().startsWith("!missouri")) {
-			if (event.getMessage().getAuthor().getIdLong()== userID[0] || event.getMessage().getAuthor().getIdLong() == userID[1] ||
-					event.getMessage().getAuthor().getIdLong() == userID[2] || event.getMessage().getAuthor().getIdLong() == userID[3]) {
-				
-				char[] chararr = event.getMessage().getContentRaw().toCharArray();
-				String namebuilder = "";
-			
-				for (int i = 10; i < chararr.length; i++) {
-					namebuilder += chararr[i];
-				}
-				
-				server.sendCommand("lp user " + namebuilder + " parent add missouri-builder");
-				event.getChannel().sendMessage("Rank updated to Missouri Builder for user " + namebuilder).queue();
-			}
-			else {
-				event.getChannel().sendMessage("Invalid permissions.").queue();
-			}
-		}
-		
-		//illinois builder assign
-		if (event.getMessage().getContentRaw().startsWith("!illinois")) {
-			if (event.getMessage().getAuthor().getIdLong()== userID[0] || event.getMessage().getAuthor().getIdLong() == userID[1] ||
-					event.getMessage().getAuthor().getIdLong() == userID[2] || event.getMessage().getAuthor().getIdLong() == userID[3]) {
-				
-				char[] chararr = event.getMessage().getContentRaw().toCharArray();
-				String namebuilder = "";
-			
-				for (int i = 10; i < chararr.length; i++) {
-					namebuilder += chararr[i];
-				}
-				
-				server.sendCommand("lp user " + namebuilder + " parent add illinois-builder");
-				event.getChannel().sendMessage("Rank updated to Illinois Builder for user " + namebuilder).queue();
-			}
-			else {
-				event.getChannel().sendMessage("Invalid permissions.").queue();
-			}
-		}
-		
 		//event builder assign
 		if (event.getMessage().getContentRaw().startsWith("!event")) {
 			if (event.getMessage().getAuthor().getIdLong()== userID[0] || event.getMessage().getAuthor().getIdLong() == userID[1] ||
@@ -271,26 +171,6 @@ public class ServerCommands extends ListenerAdapter {
 				
 				server.sendCommand("lp user " + namebuilder + " parent add event-builder");
 				event.getChannel().sendMessage("Rank updated to Event Builder for user " + namebuilder).queue();
-			}
-			else {
-				event.getChannel().sendMessage("Invalid permissions.").queue();
-			}
-		}
-		
-		//minnesota builder assign
-		if (event.getMessage().getContentRaw().startsWith("!minnesota")) {
-			if (event.getMessage().getAuthor().getIdLong()== userID[0] || event.getMessage().getAuthor().getIdLong() == userID[1] ||
-					event.getMessage().getAuthor().getIdLong() == userID[2] || event.getMessage().getAuthor().getIdLong() == userID[3]) {
-				
-				char[] chararr = event.getMessage().getContentRaw().toCharArray();
-				String namebuilder = "";
-			
-				for (int i = 11; i < chararr.length; i++) {
-					namebuilder += chararr[i];
-				}
-				
-				server.sendCommand("lp user " + namebuilder + " parent add minnesota-builder");
-				event.getChannel().sendMessage("Rank updated to Minnesota Builder for user " + namebuilder).queue();
 			}
 			else {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
@@ -338,8 +218,9 @@ public class ServerCommands extends ListenerAdapter {
 				HttpsURLConnection conn = null;
 				JsonArray jarray = null;
 				
+				//BTE API Authentication
+				
 				try {
-					//BTE API Authentication
 					url = new URL("https://buildtheearth.net/api/v1/members");
 					conn = (HttpsURLConnection) url.openConnection();
 					conn.setRequestProperty("Host","buildtheearth.net");
@@ -348,10 +229,16 @@ public class ServerCommands extends ListenerAdapter {
 					conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
 					conn.setRequestMethod("GET");
 					
-					//Storing JSON from request into a JSON Array
+					//Storing JSON from request into a JSON Array. Prints error code and error stream if encountered.
 					
 					if (conn.getResponseCode() > 200) {
 						event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
+						in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+						while ((line = in.readLine()) != null) {
+							json.append(line);
+						}
+						in.close();
+						event.getChannel().sendMessage(json.toString()).queue();
 					}
 					
 					
@@ -439,7 +326,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				
 				else if (temp == 0) {
-					event.getChannel().sendMessage("Looks like you're not on the team or we havn't gotten to your application yet. If this is wrong, then ping mattress#1852").queue();
+					event.getChannel().sendMessage("Looks like you're not on the team or we haven't gotten to your application yet. If this is wrong, then ping mattress#1852").queue();
 				}
 		}
 	
