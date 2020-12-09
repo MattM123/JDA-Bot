@@ -387,7 +387,7 @@ public class ServerCommands extends ListenerAdapter {
 				
 				//If user ID exists in array, give builder role
 				
-				
+				event.getChannel().sendMessage("breakpoint1").queue();
 				ArrayList<Role> roles = (ArrayList<Role>) event.getMember().getRoles();
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {
@@ -398,7 +398,7 @@ public class ServerCommands extends ListenerAdapter {
 						break;
 					}		
 					else if (roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
-						event.getChannel().sendMessage("You already have builder role! Assigning server rank.");
+						event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
 						temp = 1;
 						break;
 					}
@@ -439,7 +439,7 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage("Minecraft server rank updated to Minnesota Builder for user " + MCusername).queue();
 						}
 					else {
-						event.getChannel().sendMessage("Looks like you don't have a state role. Go to #role-menu to select one and run the command again.");
+						event.getChannel().sendMessage("Looks like you don't have a state role. Go to #role-menu to select one and run the command again.").queue();
 					}
 				}
 				
