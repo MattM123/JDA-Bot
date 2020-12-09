@@ -1,13 +1,13 @@
 package commands;
 
 import java.awt.Color;
-import java.awt.List;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -388,21 +388,24 @@ public class ServerCommands extends ListenerAdapter {
 				//If user ID exists in array, give builder role
 				
 			
-				ArrayList<Role> roles = (ArrayList<Role>) event.getMember().getRoles();
+				List<Role> roles = (List<Role>) event.getMember().getRoles();
 				event.getChannel().sendMessage("breakpoint1").queue();
 				event.getChannel().sendMessage(roles.get(0).getName()).queue();
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {
-					if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
-						guild.addRoleToMember(event.getMember(), guild.getRoleById(Long.parseLong("735991952931160104")));
-						event.getChannel().sendMessage("You now have builder Role!").queue();
-						temp = 1;
-						break;
-					}		
-					else if (roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
-						event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
-						temp = 1;
-						break;
+					for (int j = 0; j < roles.size(); j++) {
+						if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
+							guild.addRoleToMember(event.getMember(), guild.getRoleById(Long.parseLong("735991952931160104")));
+							event.getChannel().sendMessage("You now have builder Role!").queue();
+							temp = 1;
+							break;
+						}
+							
+						else if (roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
+							event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
+							temp = 1;
+							break;
+						}
 					}
 				}
 				event.getChannel().sendMessage("breakpoint2").queue();
