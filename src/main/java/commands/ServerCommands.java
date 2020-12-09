@@ -357,11 +357,19 @@ public class ServerCommands extends ListenerAdapter {
 					for (int i = 0; i < jarray.size(); i++) {
 						JsonObject j = (JsonObject) jarray.get(i);
 						ids.add(j.get("discordId").getAsLong());
+						boolean g = j.has("discordId");
+						if (g == true) {
+							event.getChannel().sendMessage("true").queue();
+						}
+						else {
+							event.getChannel().sendMessage("false").queue();
+						}
+						
 						
 					}
 					
 					
-					event.getChannel().sendMessage("sdf: ").queue();
+					event.getChannel().sendMessage("test").queue();
 					
 					
 				} catch (MalformedURLException e) {
