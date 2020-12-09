@@ -88,10 +88,10 @@ public class ServerCommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		
-		//6d83c36acd1bb7301e64749b46ebddc2e3b64a67
+		
 		String id = "387330197420113930";
-		Long userID[] = {Long.parseLong("387330197420113930"), Long.parseLong("97867804463599616"),
-				Long.parseLong("195196317071310848"), Long.parseLong("657036933083561995")};
+		Long userID[] = {387330197420113930L, 97867804463599616L,
+				195196317071310848L, 657036933083561995L};
 		
 		long idlong = Long.parseLong(id.toString());	
 		
@@ -389,52 +389,52 @@ public class ServerCommands extends ListenerAdapter {
 				
 			
 				List<Role> roles = (List<Role>) event.getMember().getRoles();
-				event.getChannel().sendMessage("breakpoint1").queue();
+			
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {	
-					if (roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
+					if (roles.contains(guild.getRoleById(735991952931160104L))) {
 						event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
 						temp = 1;
 						break;
 					}
 								
 					else if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
-						guild.addRoleToMember(event.getMember(), guild.getRoleById(Long.parseLong("735991952931160104")));
+						guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 						event.getChannel().sendMessage("You now have builder Role!").queue();
 						temp = 1;
 						break;
 					}
 				}
-				event.getChannel().sendMessage("breakpoint2").queue();
+
 				//if user has state role, assign corresponding minecraft server rank
 	
 				if (temp == 1) {
-					if (roles.contains(guild.getRoleById(Long.parseLong("735995176165834756")))) {
+					if (roles.contains(guild.getRoleById(735995176165834756L))) {
 						server.sendCommand("lp user " + MCusername + " parent add kansas-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Kansas Builder for user " + MCusername).queue();
 						}
-					else if (roles.contains(guild.getRoleById(Long.parseLong("735995164493086720")))) {
+					else if (roles.contains(guild.getRoleById(735995164493086720L))) {
 						server.sendCommand("lp user " + MCusername + " parent add iowa-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Iowa Builder for user " + MCusername).queue();
 						}
-					else if (roles.contains(guild.getRoleById(Long.parseLong("735995136978321541")))) {
+					else if (roles.contains(guild.getRoleById(735995136978321541L))) {
 						server.sendCommand("lp user " + MCusername + " parent add nebraska-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Nebraska Builder for user " + MCusername).queue();
 						}
-					else if (roles.contains(guild.getRoleById(Long.parseLong("735995095773609986")))) {
+					else if (roles.contains(guild.getRoleById(735995095773609986L))) {
 						server.sendCommand("lp user " + MCusername + " parent add illinois-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Illinois Builder for user " + MCusername).queue();
 						}
-					else if (roles.contains(guild.getRoleById(Long.parseLong("735995115113414656")))) {
+					else if (roles.contains(guild.getRoleById(735995115113414656L))) {
 						server.sendCommand("lp user " + MCusername + " parent add missouri-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Missouri Builder for user " + MCusername).queue();
 						}
-					else if (roles.contains(guild.getRoleById(Long.parseLong("735995196738633819")))) {
+					else if (roles.contains(guild.getRoleById(735995196738633819L))) {
 						server.sendCommand("lp user " + MCusername + " parent add minnesota-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Minnesota Builder for user " + MCusername).queue();
 						}
 					else {
-						event.getChannel().sendMessage("Looks like you don't have a state role. Go to #role-menu to select one and run the command again.").queue();
+						event.getChannel().sendMessage("Looks like you don't have a state role. Go to #role-menu to select one and run the command again to get server build perms.").queue();
 					}
 				}
 				
