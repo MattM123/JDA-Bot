@@ -387,9 +387,9 @@ public class ServerCommands extends ListenerAdapter {
 				
 				//If user ID exists in array, give builder role
 				
-				event.getChannel().sendMessage("breakpoint1").queue();
-				
+			
 				ArrayList<Role> roles = (ArrayList<Role>) event.getMember().getRoles();
+				event.getChannel().sendMessage("breakpoint1").queue();
 				event.getChannel().sendMessage(roles.get(0).getName()).queue();
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {
