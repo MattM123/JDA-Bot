@@ -390,9 +390,6 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage("You now have builder Role!").queue();
 						temp = 1;
 					}
-					else {
-						event.getChannel().sendMessage("Looks like you're not on the team or we havn't gotten to your application yet. If this is wrong, then ping mattress#1852").queue();
-					}
 				}
 				event.getChannel().sendMessage("breakpoint2");
 				//if user has state role, assign corresponding minecraft server rank
