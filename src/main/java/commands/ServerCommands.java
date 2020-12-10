@@ -248,7 +248,7 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					in.close();
 					
-					//parsing JSON Array
+					//parsing JSON Element to JSON Array
 					
 					JsonElement ele = JsonParser.parseString(json.toString());
 					jarray = ele.getAsJsonObject().getAsJsonArray("members");
@@ -265,15 +265,14 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
-				//Creation of arraylist with user IDs
+				//Creation of arraylist with user IDs from API request
 				
 				ArrayList<Long> ids = new ArrayList<Long>();
 				for (int i = 0; i < jarray.size(); i++) {
 					ids.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
 				}
 				
-				//If user ID exists in array and builder rank is not already assigned, give builder role
-				
+				//If user ID exists in array and builder role is not already assigned, give builder role
 			
 				List<Role> roles = event.getMember().getRoles();
 			
@@ -293,7 +292,7 @@ public class ServerCommands extends ListenerAdapter {
 					}
 				}
 
-				//if user has state role, assign corresponding minecraft server rank
+				//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
 	
 				if (temp == 1) {
 					if (roles.contains(guild.getRoleById(735995176165834756L))) {
@@ -324,6 +323,8 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage("Looks like you don't have a state role. Go to #role-menu to select one and run the command again to get server build perms.").queue();
 					}
 				}
+				
+				//if user is not on the team at all, print this
 				
 				else if (temp == 0) {
 					event.getChannel().sendMessage("Looks like you're not on the team or we haven't gotten to your application yet. If this is wrong, then ping mattress#1852").queue();

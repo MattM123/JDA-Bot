@@ -96,7 +96,8 @@ public class NonAPICommands extends ListenerAdapter {
 					Xbuilder += chararr[i];
 				}
 			}
-			event.getChannel().sendMessage(regionXZ(Double.parseDouble(Xbuilder), Double.parseDouble(Zbuilder))).queue();
+			event.getChannel().sendMessage("X: " + Xbuilder).queue();
+			event.getChannel().sendMessage("Y: " + Zbuilder).queue();
 		}
 	}
 }
