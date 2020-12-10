@@ -26,7 +26,7 @@ public class NonAPICommands extends ListenerAdapter {
 		z = (int) (Math.floor(z / 32));
 		DecimalFormat f = new DecimalFormat("#.#");
 		
-		return "r." + f.format(x) + "." + f.format(z) + ".mca"; 
+		return "X: " + String.valueOf(x) + " Z: " + String.valueOf(z); 
 	}
 	
 	
@@ -96,8 +96,8 @@ public class NonAPICommands extends ListenerAdapter {
 					Xbuilder += chararr[i];
 				}
 			}
-			event.getChannel().sendMessage("X: " + Xbuilder).queue();
-			event.getChannel().sendMessage("Y: " + Zbuilder).queue();
+			event.getChannel().sendMessage(regionXZ(Double.parseDouble(Xbuilder), Double.parseDouble(Zbuilder))).queue();
+
 		}
 	}
 }
