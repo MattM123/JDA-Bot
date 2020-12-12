@@ -13,7 +13,7 @@ public class NonAPICommands extends ListenerAdapter {
 		x = (int) (Math.floor(x / 32));
 		z = (int) (Math.floor(z / 32));
 		
-		return "X: " + String.valueOf(x) + " Z: " + String.valueOf(z); 
+		return String.valueOf(x) + "." + String.valueOf(z) + ".3dr/mca/2dr"; 
 	}
 	
 	
@@ -78,7 +78,7 @@ public class NonAPICommands extends ListenerAdapter {
 					Xbuilder += chararr[i];
 				}
 			}
-			event.getChannel().sendMessage(regionXZ(Double.parseDouble(Xbuilder), Double.parseDouble(Zbuilder))).queue();
+			event.getChannel().sendMessage("Your file should look something like this: " + regionXZ(Double.parseDouble(Xbuilder), Double.parseDouble(Zbuilder))).queue();
 
 		}
 	}
