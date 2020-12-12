@@ -1,18 +1,6 @@
 package commands;
 
 import java.awt.Color;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -24,7 +12,6 @@ public class NonAPICommands extends ListenerAdapter {
 	public static String regionXZ(double x, double z) {
 		x = (int) (Math.floor(x / 32));
 		z = (int) (Math.floor(z / 32));
-		DecimalFormat f = new DecimalFormat("#.#");
 		
 		return "X: " + String.valueOf(x) + " Z: " + String.valueOf(z); 
 	}
@@ -43,11 +30,6 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.addField("!regcon <Xcoord> <Zcoord>", "Converts in-game coordinates to region file format", false);
 		embed.addField("!link <minecraft username>", "Automatically assigns build perms and Builder role if you are on the team", false);
 		embed.addField("---------Permissions Required---------", "" , false);
-		embed.addField("!iowa <minecraft username>", "Requires permissions to assign 'Iowa Builder' rank", false);
-		embed.addField("!nebraska <minecraft username>", "Requires permissions to assign 'Nebraska Builder' rank", false);
-		embed.addField("!kansas <minecraft username>", "Requires permissions to assign 'Kansas Builder' rank", false);
-		embed.addField("!missouri <minecraft username>", "Requires permissions to assign 'Missouri Builder' rank", false);
-		embed.addField("!illinois <minecraft username>", "Requires permissions to assign 'Illinois Builder' rank", false);
 		embed.addField("!applicant <minecraft username>", "Requires permissions to assign 'ApplicationInProgress' rank", false);
 		embed.addField("!start", "Requires permissions to start the server", false);
 		embed.addField("!stop", "Requires permissions to stop the server", false);
