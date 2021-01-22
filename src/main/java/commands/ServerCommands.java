@@ -23,6 +23,8 @@ import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.GuildChannel;
+import net.dv8tion.jda.api.entities.Invite.Channel;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -76,7 +78,7 @@ public class ServerCommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		
-		
+		Guild guild = event.getGuild();
 		String id = "387330197420113930";
 		Long userID[] = {387330197420113930L, 97867804463599616L,
 				195196317071310848L, 657036933083561995L};
@@ -184,9 +186,8 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
 			}
 		}
-		
-		
-		
+
+		//give build perms based on presence on build team
 		if (event.getMessage().getContentRaw().startsWith("!link")) {
 			
 			//Parses minecraft username for later use
@@ -198,7 +199,6 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			event.getChannel().sendMessage(MCusername);
 			
-				Guild guild = event.getGuild();
 				String line;
 				BufferedReader in; 
 				StringBuilder json = new StringBuilder();
@@ -317,6 +317,11 @@ public class ServerCommands extends ListenerAdapter {
 				else if (temp == 0) {
 					event.getChannel().sendMessage("Looks like you're not on the team or we haven't gotten to your application yet. If this is wrong, then ping mattress#1852").queue();
 				}
+		}
+		
+		GuildChannel console = guild.getGuildChannelById("802232830129995847");
+		if (event.getChannel().equals(console)) {
+			server.sendCommand(event.getMessage().getContentRaw());
 		}
 	
 	}	
