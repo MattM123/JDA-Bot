@@ -320,7 +320,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		GuildChannel console = guild.getGuildChannelById("802232830129995847");
-		if (event.getChannel().equals(console)) {
+		if (event.getChannel().equals(console) && event.getAuthor().isBot() == false) {
 			server.sendCommand(event.getMessage().getContentRaw());
 		}
 	
