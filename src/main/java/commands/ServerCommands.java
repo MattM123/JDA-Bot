@@ -356,7 +356,7 @@ public class ServerCommands extends ListenerAdapter {
 					//parsing JSON Element to JSON Array
 					
 					JsonElement ele = JsonParser.parseString(json.toString());
-					jarray = ele.getAsJsonObject().getAsJsonArray("applications");
+					jarray = ele.getAsJsonObject().getAsJsonArray("applications").getAsJsonObject().getAsJsonArray("answers");
 					
 					
 				} catch (MalformedURLException e) {
