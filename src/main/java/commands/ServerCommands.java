@@ -23,8 +23,6 @@ import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.GuildChannel;
-import net.dv8tion.jda.api.entities.Invite.Channel;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -274,7 +272,7 @@ public class ServerCommands extends ListenerAdapter {
 								
 					else if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
 						guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
-						event.getChannel().sendMessage("You now have builder Role!").queue();
+						event.getChannel().sendMessage("You now have Builder role!").queue();
 						temp = 1;
 						break;
 					}
@@ -316,59 +314,66 @@ public class ServerCommands extends ListenerAdapter {
 				
 				else if (temp == 0) {
 					event.getChannel().sendMessage("Looks like you're not on the team or we haven't gotten to your application yet. If this is wrong, then ping mattress#1852").queue();
-				}
+				}	
+			}
+		
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
+
+				String line;
+				BufferedReader in; 
+				StringBuilder json = new StringBuilder();
+				URL url;
+				HttpsURLConnection conn = null;
+				JsonArray jarray = null;
+			try {
+				url = new URL("https://buildtheearth.net/api/v1/applications/" + event.getAuthor().getId());
+				conn = (HttpsURLConnection) url.openConnection();
+				conn.setRequestProperty("Host","buildtheearth.net");
+				conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+				conn.setRequestProperty("Accept", "application/json");
+				conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
+				conn.setRequestMethod("GET");
 				
-			if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
-				try {
-					url = new URL("https://buildtheearth.net/api/v1/applications/" + event.getAuthor().getId());
-					conn = (HttpsURLConnection) url.openConnection();
-					conn.setRequestProperty("Host","buildtheearth.net");
-					conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-					conn.setRequestProperty("Accept", "application/json");
-					conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
-					conn.setRequestMethod("GET");
-					
-					//Storing JSON from request into a JSON Array. Prints error code and error stream if encountered.
-					
-					if (conn.getResponseCode() > 200) {
-						event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
-						in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-						while ((line = in.readLine()) != null) {
-							json.append(line);
-						}
-						in.close();
-						event.getChannel().sendMessage(json.toString()).queue();
-					}
-					
-					
+				//Storing JSON from request into a JSON Array. Prints error code and error stream if encountered.
+				
+				if (conn.getResponseCode() > 200) {
+					event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
 					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-					if ((line = in.readLine()) != null) {
+					while ((line = in.readLine()) != null) {
 						json.append(line);
 					}
 					in.close();
-					
-					//parsing JSON Element to JSON Array
 					event.getChannel().sendMessage(json.toString()).queue();
-					
-					JsonElement ele = JsonParser.parseString(json.toString());
-					jarray = ele.getAsJsonObject().getAsJsonArray("applications");
-					
-					
-				} catch (MalformedURLException e) {
-					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-				} catch (IOException e) {
-					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-				} catch (JSONException e) {
-					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
-				event.getChannel().sendMessage(jarray.toString()).queue();
 				
-		}
-		}
+				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				if ((line = in.readLine()) != null) {
+					json.append(line);
+				}
+				in.close();
+				
+				//parsing JSON Element to JSON Array
+				event.getChannel().sendMessage(json.toString()).queue();
+				
+				JsonElement ele = JsonParser.parseString(json.toString());
+				jarray = ele.getAsJsonObject().getAsJsonArray("applications");
+				
+				
+			} catch (MalformedURLException e) {
+				String stack = ExceptionUtils.getStackTrace(e);
+				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+			} catch (IOException e) {
+				String stack = ExceptionUtils.getStackTrace(e);
+				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+			} catch (JSONException e) {
+				String stack = ExceptionUtils.getStackTrace(e);
+				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+			}
+			
+			event.getChannel().sendMessage(jarray.toString()).queue();
+			
+	}
 	}	
 	
 }
