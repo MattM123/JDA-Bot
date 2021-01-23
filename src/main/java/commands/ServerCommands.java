@@ -325,55 +325,54 @@ public class ServerCommands extends ListenerAdapter {
 				URL url;
 				HttpsURLConnection conn = null;
 				JsonArray jarray = null;
-			try {
-				url = new URL("https://buildtheearth.net/api/v1/applications/" + "593781164297420813");//event.getAuthor().getId());
-				conn = (HttpsURLConnection) url.openConnection();
-				conn.setRequestProperty("Host","buildtheearth.net");
-				conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-				conn.setRequestProperty("Accept", "application/json");
-				conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
-				conn.setRequestMethod("GET");
-				
-				//Storing JSON from request into a JSON Array. Prints error code and error stream if encountered.
-				
-				if (conn.getResponseCode() > 200) {
-					event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
+				try {
+					url = new URL("https://buildtheearth.net/api/v1/applications/" + "593781164297420813");//event.getAuthor().getId());
+					conn = (HttpsURLConnection) url.openConnection();
+					conn.setRequestProperty("Host","buildtheearth.net");
+					conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+					conn.setRequestProperty("Accept", "application/json");
+					conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
+					conn.setRequestMethod("GET");
+					
+					//Storing JSON from request into a JSON Array. Prints error code and error stream if encountered.
+					
+					if (conn.getResponseCode() > 200) {
+						event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
+						in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+						while ((line = in.readLine()) != null) {
+							json.append(line);
+						}
+						in.close();
+						event.getChannel().sendMessage(json.toString()).queue();
+					}
+					
+					
 					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-					while ((line = in.readLine()) != null) {
+					if ((line = in.readLine()) != null) {
 						json.append(line);
 					}
 					in.close();
-					event.getChannel().sendMessage(json.toString()).queue();
+					
+					//parsing JSON Element to JSON Array
+					
+					JsonElement ele = JsonParser.parseString(json.toString());
+					jarray = ele.getAsJsonObject().getAsJsonArray("applications");
+					
+					
+				} catch (MalformedURLException e) {
+					String stack = ExceptionUtils.getStackTrace(e);
+					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+				} catch (IOException e) {
+					String stack = ExceptionUtils.getStackTrace(e);
+					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+				} catch (JSONException e) {
+					String stack = ExceptionUtils.getStackTrace(e);
+					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
+				event.getChannel().sendMessage(jarray.toString()).queue();
 				
-				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				if ((line = in.readLine()) != null) {
-					json.append(line);
-				}
-				in.close();
-				
-				//parsing JSON Element to JSON Array
-				event.getChannel().sendMessage(json.toString()).queue();
-				
-				JsonElement ele = JsonParser.parseString(json.toString());
-				jarray = ele.getAsJsonObject().getAsJsonArray("applications");
-				
-				
-			} catch (MalformedURLException e) {
-				String stack = ExceptionUtils.getStackTrace(e);
-				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-			} catch (IOException e) {
-				String stack = ExceptionUtils.getStackTrace(e);
-				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-			} catch (JSONException e) {
-				String stack = ExceptionUtils.getStackTrace(e);
-				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-			}
-			
-			event.getChannel().sendMessage(jarray.toString()).queue();
-			
-	}
+		}
 	}	
 	
 }
