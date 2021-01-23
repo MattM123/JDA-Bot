@@ -328,9 +328,6 @@ public class ServerCommands extends ListenerAdapter {
 					conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
 					conn.setRequestMethod("GET");
 					
-					event.getChannel().sendMessage(url.toString()).queue();
-					
-					
 					//Storing JSON from request into a JSON Array. Prints error code and error stream if encountered.
 					
 					if (conn.getResponseCode() > 200) {
@@ -351,9 +348,11 @@ public class ServerCommands extends ListenerAdapter {
 					in.close();
 					
 					//parsing JSON Element to JSON Array
+					event.getChannel().sendMessage(json.toString()).queue();
 					
 					JsonElement ele = JsonParser.parseString(json.toString());
 					jarray = ele.getAsJsonObject().getAsJsonArray("applications");
+					
 					
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
