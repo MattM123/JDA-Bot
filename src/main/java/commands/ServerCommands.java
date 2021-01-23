@@ -357,7 +357,7 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage(json.toString()).queue();
 				
 				JsonElement ele = JsonParser.parseString(json.toString());
-				jarray = ele.getAsJsonObject().getAsJsonArray("applications").getAsJsonObject().getAsJsonArray("asnwers");
+				jarray = ele.getAsJsonObject().getAsJsonArray("asnwers");
 				
 				
 			} catch (MalformedURLException e) {
