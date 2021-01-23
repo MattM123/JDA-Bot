@@ -318,7 +318,7 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage("Looks like you're not on the team or we haven't gotten to your application yet. If this is wrong, then ping mattress#1852").queue();
 				}
 				
-			if (event.getMessage().getContentRaw().equalsIgnoreCase("test!")) {
+			if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
 				try {
 					url = new URL("https://buildtheearth.net/api/v1/applications/" + event.getAuthor().getId());
 					conn = (HttpsURLConnection) url.openConnection();
@@ -351,7 +351,7 @@ public class ServerCommands extends ListenerAdapter {
 					
 					JsonElement ele = JsonParser.parseString(json.toString());
 					jarray = ele.getAsJsonObject().getAsJsonArray("applications");
-					
+					event.getChannel().sendMessage(url.toString()).queue();
 					
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
