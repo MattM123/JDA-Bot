@@ -394,7 +394,7 @@ public class ServerCommands extends ListenerAdapter {
 		if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
 			if (event.getMessage().getContentRaw().contains("Cube is corrupted!") && (event.getMessage().getContentRaw().contains("Cube will be regenerated")
 				&& (event.getMessage().getContentRaw().contains("ERROR")))); {
-				server.sendCommand("say A corrupted area has been loaded but it is being regenerated.");
+				server.sendCommand("say A corrupted area has been loaded in but it is being regenerated.");
 			}
 			if (event.getMessage().getContentRaw().contains("Could not load cube in") && (event.getMessage().getContentRaw().contains("ERROR"))) {
 				server.sendCommand("say A corrupted area has failed to regenerate.");
