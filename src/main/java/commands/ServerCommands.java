@@ -393,8 +393,9 @@ public class ServerCommands extends ListenerAdapter {
 		TextChannel console = event.getGuild().getTextChannelById(802232830129995847L);
 		long latestMessage = console.getLatestMessageIdLong();
 		RestAction<Message> latest = console.retrieveMessageById(latestMessage);
-			
-		event.getChannel().sendMessage(latest.toString()).queue();
+		
+		TextChannel serverchat = event.getGuild().getTextChannelById(780648117111488532L);
+		serverchat.sendMessage(latest.toString()).queue();
 			
 			
 	//	if (latest.toString().contains("Cube is corrupted!") && (event.getMessage().getContentRaw().contains("Cube will be regenerated"))) {
