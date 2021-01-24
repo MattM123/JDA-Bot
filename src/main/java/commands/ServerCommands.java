@@ -25,9 +25,12 @@ import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.RestAction;
 
 
 public class ServerCommands extends ListenerAdapter {
@@ -360,7 +363,7 @@ public class ServerCommands extends ListenerAdapter {
 					//parsing JSON Element to JSON Array
 					
 					JsonElement ele = JsonParser.parseString(json.toString());
-					jarray = ele.getAsJsonObject().getAsJsonArray("applications").getAsJsonObject().getAsJsonArray();
+					jarray = ele.getAsJsonObject().getAsJsonArray("applications");
 					
 			//		Gson gson = new Gson();
 			//		Item[] itemArray = gson.fromJson(jarray, Item[].class);  
@@ -384,6 +387,21 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage(jarray.toString()).queue();
 				
 		}
+		
+			//Getting latest message from console
+		
+		TextChannel console = event.getGuild().getTextChannelById(802232830129995847L);
+		long latestMessage = console.getLatestMessageIdLong();
+		RestAction<Message> latest = console.retrieveMessageById(latestMessage);
+			
+		event.getChannel().sendMessage(latest.toString());
+			
+			
+	//	if (latest.toString().contains("Cube is corrupted!") && (event.getMessage().getContentRaw().contains("Cube will be regenerated"))) {
+	//		TextChannel serverchat = event.getGuild().getTextChannelById(780648117111488532L);
+		//	serverchat.sendMessage("A currupted chunk was loaded in but it is being regenerated");
+			
+	//	}
 	}	
 	
 }
