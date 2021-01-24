@@ -360,7 +360,7 @@ public class ServerCommands extends ListenerAdapter {
 					//parsing JSON Element to JSON Array
 					
 					JsonElement ele = JsonParser.parseString(json.toString());
-					jarray = ele.getAsJsonObject().getAsJsonArray("applications").getAsJsonObject().getAsJsonArray("answers");
+					jarray = ele.getAsJsonObject().getAsJsonArray("applications").getAsJsonObject().getAsJsonArray("id");
 					
 			//		Gson gson = new Gson();
 			//		Item[] itemArray = gson.fromJson(jarray, Item[].class);  
