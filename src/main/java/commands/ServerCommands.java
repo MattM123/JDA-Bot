@@ -389,12 +389,14 @@ public class ServerCommands extends ListenerAdapter {
 				
 		}
 		
-			//Getting latest message from console
+		//reads server console and sends server message when corrupted areas have been encountered
 		
-	//	Channel console = (Channel) event.getGuild().getTextChannelById(802232830129995847L);
 		if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
 			if (event.getMessage().getContentRaw().contains("Cube is corrupted!") && (event.getMessage().getContentRaw().contains("Cube will be regenerated"))) {
-				server.sendCommand("say A corrupted cube has been loaded in but it is being regenerated");
+				server.sendCommand("say A corrupted area has been loaded but it is being regenerated.");
+			}
+			if (event.getMessage().getContentRaw().contains("Could not load cube in")) {
+				server.sendCommand("say A corrupted area has failed to regenerate.");
 			}
 		}
 	//	long latestMessage = event.getChannel();
