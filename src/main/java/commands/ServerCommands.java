@@ -360,14 +360,14 @@ public class ServerCommands extends ListenerAdapter {
 					//parsing JSON Element to JSON Array
 					
 					JsonElement ele = JsonParser.parseString(json.toString());
-					jarray = ele.getAsJsonObject().getAsJsonArray("applications");
+					jarray = ele.getAsJsonObject().getAsJsonArray("applications").getAsJsonObject().getAsJsonArray("answers");
 					
-					Gson gson = new Gson();
-					Item[] itemArray = gson.fromJson(jarray, Item[].class);  
+			//		Gson gson = new Gson();
+			//		Item[] itemArray = gson.fromJson(jarray, Item[].class);  
 					 
-					for(Item item : itemArray) {
-					    event.getChannel().sendMessage(item.toString());
-					}
+			//		for(Item item : itemArray) {
+			//		    event.getChannel().sendMessage(item.toString());
+			//		}
 					
 					
 				} catch (MalformedURLException e) {
@@ -381,7 +381,7 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
-			//	event.getChannel().sendMessage(jarray.toString()).queue();
+				event.getChannel().sendMessage(jarray.toString()).queue();
 				
 		}
 	}	
