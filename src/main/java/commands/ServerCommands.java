@@ -394,7 +394,7 @@ public class ServerCommands extends ListenerAdapter {
 		long latestMessage = console.getLatestMessageIdLong();
 		RestAction<Message> latest = console.retrieveMessageById(latestMessage);
 			
-		event.getChannel().sendMessage(latest.toString());
+		event.getChannel().sendMessage(latest.toString()).queue();
 			
 			
 	//	if (latest.toString().contains("Cube is corrupted!") && (event.getMessage().getContentRaw().contains("Cube will be regenerated"))) {
