@@ -13,6 +13,8 @@ import javax.net.ssl.HttpsURLConnection;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.json.JSONException;
+
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -317,6 +319,8 @@ public class ServerCommands extends ListenerAdapter {
 				}	
 			}
 		
+		//BTE API Authentication, applications endpoint
+		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
 
 				String line;
@@ -356,7 +360,14 @@ public class ServerCommands extends ListenerAdapter {
 					//parsing JSON Element to JSON Array
 					
 					JsonElement ele = JsonParser.parseString(json.toString());
-					jarray = ele.getAsJsonObject().getAsJsonArray("applications").getAsJsonObject().getAsJsonArray("answers");
+					jarray = ele.getAsJsonObject().getAsJsonArray("applications");
+					
+					Gson gson = new Gson();
+					Item[] itemArray = gson.fromJson(jarray, Item[].class);  
+					 
+					for(Item item : itemArray) {
+					    event.getChannel().sendMessage(item.toString());
+					}
 					
 					
 				} catch (MalformedURLException e) {
@@ -370,7 +381,7 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
-				event.getChannel().sendMessage(jarray.toString()).queue();
+			//	event.getChannel().sendMessage(jarray.toString()).queue();
 				
 		}
 	}	
