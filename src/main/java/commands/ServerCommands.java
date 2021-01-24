@@ -394,7 +394,7 @@ public class ServerCommands extends ListenerAdapter {
 	//	Channel console = (Channel) event.getGuild().getTextChannelById(802232830129995847L);
 		if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
 			if (event.getMessage().getContentRaw().contains("Cube is corrupted!") && (event.getMessage().getContentRaw().contains("Cube will be regenerated"))) {
-				event.getChannel().sendMessage("A corrupted cube has been loaded in but it is being regenerated");
+				event.getChannel().sendMessage("say A corrupted cube has been loaded in but it is being regenerated");
 			}
 		}
 	//	long latestMessage = event.getChannel();
