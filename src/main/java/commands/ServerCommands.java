@@ -67,8 +67,11 @@ public class ServerCommands extends ListenerAdapter {
 	
 	public static String diskUsage() {
 		ServerUsage s = server.getServerUsage();
+		String GB = (s.getDiskUsage() / 1024 ) + "GB/";
+		String MB = s.getDiskUsage() + "MB/";
+		String KB = (s.getDiskUsage() * 1024) + "KB";
 	//	NumberFormat format = null;
-		return (s.getDiskUsage() / 1024 ) + "GB/" + s.getDiskUsage() + "MB/" + (s.getDiskUsage() * 1024) + "KB";
+		return  GB + MB + KB;
 	}
 	
 	public static String memoryUsage() {
@@ -81,11 +84,10 @@ public class ServerCommands extends ListenerAdapter {
 		super.onGuildMessageReceived(event);
 		
 		Guild guild = event.getGuild();
-		String id = "387330197420113930";
 		Long userID[] = {387330197420113930L, 97867804463599616L,
 				195196317071310848L, 657036933083561995L};
 		
-		long idlong = Long.parseLong(id.toString());	
+		
 		
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setTitle("Nebraska/Iowa Build Server Status").setColor(Color.blue);
