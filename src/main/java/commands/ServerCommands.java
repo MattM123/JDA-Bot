@@ -329,7 +329,6 @@ public class ServerCommands extends ListenerAdapter {
 				for (int i = 0; i < ids.size(); i++) {	
 					if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equals(usernameAppliedWith))) {
 						event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
-						event.getChannel().sendMessage("Applied With: " + usernameAppliedWith + ", Ran Command With: " + MCusername).queue();
 						temp = 1;
 						break;
 					}
@@ -342,7 +341,6 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					else if (MCusername != usernameAppliedWith) {
 						event.getChannel().sendMessage("The username you applied with and the one you used to run this command do not match.").queue();
-						event.getChannel().sendMessage("Applied With: " + usernameAppliedWith + ", Ran Command With: " + MCusername).queue();
 						break;
 					}
 				}
