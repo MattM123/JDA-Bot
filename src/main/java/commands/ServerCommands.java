@@ -388,7 +388,7 @@ public class ServerCommands extends ListenerAdapter {
 					String stack = ExceptionUtils.getStackTrace(e);
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}	
-				event.getChannel().sendMessage(json.subSequence(0, 2000)).queue();
+				event.getChannel().sendMessage(json.toString().subSequence(0, 2000)).queue();
 		}
 		
 		//reads server console and sends server message when corrupted areas have been encountered
