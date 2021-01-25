@@ -198,7 +198,7 @@ public class ServerCommands extends ListenerAdapter {
 				MCusername += chararr[i];
 			}
 			
-			event.getChannel().sendMessage("|" + MCusername + "|");
+			event.getChannel().sendMessage("|" + MCusername + "|").queue();
 			
 			//Authentication to application to retrieve the username they applied with
 			
