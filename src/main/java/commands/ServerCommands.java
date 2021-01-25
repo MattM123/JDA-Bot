@@ -209,7 +209,7 @@ public class ServerCommands extends ListenerAdapter {
 			String usernameAppliedWith = null;
 			
 			try {
-				url = new URL("https://buildtheearth.net/api/v1/applications/" + "268230555890483200");//event.getAuthor().getId());
+				url = new URL("https://buildtheearth.net/api/v1/applications/" + event.getAuthor().getId());
 				conn = (HttpsURLConnection) url.openConnection();
 				conn.setRequestProperty("Host","buildtheearth.net");
 				conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
