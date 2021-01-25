@@ -256,7 +256,9 @@ public class ServerCommands extends ListenerAdapter {
 			} catch (JSONException e) {
 				String stack = ExceptionUtils.getStackTrace(e);
 				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-			}	
+			}
+		
+			event.getChannel().sendMessage("breakpoint").queue();
 			
 			//Authenticating to members endpoint to check if user is on team
 			
