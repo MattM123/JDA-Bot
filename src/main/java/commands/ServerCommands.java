@@ -362,7 +362,7 @@ public class ServerCommands extends ListenerAdapter {
 					//JSON Deserialization
 					
 					JsonElement ele = JsonParser.parseString(json.toString());
-					jarray = ele.getAsJsonObject().getAsJsonArray("applications");
+					jarray = ele.getAsJsonObject().getAsJsonArray();
 					
 					Gson gson = new Gson();
 					ApplicationInfo applicationArray = gson.fromJson(jarray.toString(), ApplicationInfo.class);  
@@ -376,6 +376,8 @@ public class ServerCommands extends ListenerAdapter {
 					else {
 						event.getChannel().sendMessage(answers.get(0).getAnswer().subSequence(0, 1500)).queue();
 					}
+					
+					event.getChannel().sendMessage(ele.toString().subSequence(0, 2000)).queue();
 					
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
