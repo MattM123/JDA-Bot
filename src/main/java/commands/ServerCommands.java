@@ -246,7 +246,7 @@ public class ServerCommands extends ListenerAdapter {
 				answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
 				usernameAppliedWith = answers.get(4).getAnswer();
 				
-			in.close();
+			
 				
 			} catch (MalformedURLException e) {
 				String stack = ExceptionUtils.getStackTrace(e);
