@@ -25,13 +25,9 @@ import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Invite.Channel;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.requests.RestAction;
 
 
 public class ServerCommands extends ListenerAdapter {
@@ -387,10 +383,10 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				
 					if (answers.get(0).getAnswer() == null) {
-						event.getChannel().sendMessage("NULL");
+						event.getChannel().sendMessage("NULL").queue();
 					}
 					else {
-						event.getChannel().sendMessage(answers.get(0).getAnswer().subSequence(0, 1500));
+						event.getChannel().sendMessage(answers.get(0).getAnswer().subSequence(0, 1500)).queue();
 					}
 				
 		}
