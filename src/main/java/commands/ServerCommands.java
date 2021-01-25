@@ -386,7 +386,12 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
-					event.getChannel().sendMessage(answers.get(0).getAnswer().substring(0, 1999)).queue();
+					if (answers.get(0).getAnswer() == null) {
+						event.getChannel().sendMessage("NULL");
+					}
+					else {
+						event.getChannel().sendMessage(answers.get(0).getAnswer().subSequence(0, 1500));
+					}
 				
 		}
 		
