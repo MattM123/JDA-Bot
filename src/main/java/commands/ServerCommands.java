@@ -242,29 +242,16 @@ public class ServerCommands extends ListenerAdapter {
 				//retrieving username from application answers
 				
 				answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
-				usernameAppliedWith = answers.get(4).getAnswer();
-
-				
-			} catch (MalformedURLException e) {
-				String stack = ExceptionUtils.getStackTrace(e);
-				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-			} catch (IOException e) {
-				String stack = ExceptionUtils.getStackTrace(e);
-				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-			} catch (JSONException e) {
-				String stack = ExceptionUtils.getStackTrace(e);
-				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-			}	
-	
+				usernameAppliedWith = answers.get(4).getAnswer();	
 			
+				//Authenticating to members enpoint to check if user is a member of team
+				
 				String line2;
 				BufferedReader in2; 
 				StringBuilder json2 = new StringBuilder();
 				URL url2;
 				HttpsURLConnection conn2 = null;
 				JsonArray jarray = null;
-				
-				//BTE API Authentication, member and applications endpoint
 				
 				try {
 					url2 = new URL("https://buildtheearth.net/api/v1/members");
