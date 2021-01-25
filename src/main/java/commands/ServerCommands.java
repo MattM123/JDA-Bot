@@ -209,7 +209,7 @@ public class ServerCommands extends ListenerAdapter {
 			String usernameAppliedWith = null;
 			
 			try {
-				url = new URL("https://buildtheearth.net/api/v1/applications/" + "268230555890483200");//event.getAuthor().getId());
+				url = new URL("https://buildtheearth.net/api/v1/applications/" + event.getAuthor().getId());
 				conn = (HttpsURLConnection) url.openConnection();
 				conn.setRequestProperty("Host","buildtheearth.net");
 				conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
@@ -246,7 +246,6 @@ public class ServerCommands extends ListenerAdapter {
 				answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
 				usernameAppliedWith = answers.get(4).getAnswer();
 				
-			event.getChannel().sendMessage("breakpoint0").queue();
 				
 			} catch (MalformedURLException e) {
 				String stack = ExceptionUtils.getStackTrace(e);
@@ -259,7 +258,6 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 			}
 			
-			event.getChannel().sendMessage("breakpoint1").queue();
 			//Authenticating to members endpoint to check if user is on team
 			
 				String line2;
@@ -270,7 +268,7 @@ public class ServerCommands extends ListenerAdapter {
 				JsonArray jarray = null;
 				
 				//BTE API Authentication, member and applications endpoint
-				event.getChannel().sendMessage("breakpoint2").queue();
+			
 				try {
 					url2 = new URL("https://buildtheearth.net/api/v1/members");
 					conn2 = (HttpsURLConnection) url2.openConnection();
@@ -303,7 +301,6 @@ public class ServerCommands extends ListenerAdapter {
 					
 					JsonElement ele = JsonParser.parseString(json2.toString());
 					jarray = ele.getAsJsonObject().getAsJsonArray("members");
-					event.getChannel().sendMessage("breakpoint3").queue();
 					
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
