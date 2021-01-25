@@ -97,7 +97,9 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Usage: ", memoryUsage(), false);
 		
-		
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
+			event.getChannel().sendMessage(embed.build()).queue();
+		}
 		//event builder assign
 		if (event.getMessage().getContentRaw().startsWith("!event")) {
 			if (event.getMessage().getAuthor().getIdLong()== userID[0] || event.getMessage().getAuthor().getIdLong() == userID[1] ||
