@@ -259,6 +259,7 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 			}
 			
+			event.getChannel().sendMessage("breakpoint1");
 			//Authenticating to members endpoint to check if user is on team
 			
 				String line2;
@@ -269,7 +270,7 @@ public class ServerCommands extends ListenerAdapter {
 				JsonArray jarray = null;
 				
 				//BTE API Authentication, member and applications endpoint
-				
+				event.getChannel().sendMessage("breakpoint2");
 				try {
 					url2 = new URL("https://buildtheearth.net/api/v1/members");
 					conn2 = (HttpsURLConnection) url2.openConnection();
@@ -302,7 +303,7 @@ public class ServerCommands extends ListenerAdapter {
 					
 					JsonElement ele = JsonParser.parseString(json.toString());
 					jarray = ele.getAsJsonObject().getAsJsonArray("members");
-					
+					event.getChannel().sendMessage("breakpoint3");
 					in2.close();
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
