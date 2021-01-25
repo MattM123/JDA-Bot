@@ -70,8 +70,8 @@ public class ServerCommands extends ListenerAdapter {
 		String GB = (s.getDiskUsage() / 1024 ) + "GB/";
 		String MB = s.getDiskUsage() + "MB/";
 		String KB = (s.getDiskUsage() * 1024) + "KB";
-	//	NumberFormat format = null;
-		return  GB + MB + KB;
+		NumberFormat format = NumberFormat.getInstance();
+		return  GB + MB + format.format(KB);
 	}
 	
 	public static String memoryUsage() {

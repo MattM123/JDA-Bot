@@ -24,13 +24,14 @@ public class NonAPICommands extends ListenerAdapter {
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setColor(Color.blue);
 		embed.setTitle("Command Information");
-		embed.addField("!server status", "Shows the server status and resource usage.", false);
+		embed.addField("!server", "Shows the server status and resource usage.", false);
 		embed.addField("!map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		embed.addField("!measure", "Measure tutorial derived from the BTE Support Bot", false);
 		embed.addField("!regcon <Xcoord> <Zcoord>", "Converts in-game coordinates to region file format", false);
 		embed.addField("!link <minecraft username>", "Automatically assigns build perms and Builder role if you are on the team", false);
 		embed.addField("---------Permissions Required---------", "" , false);
 		embed.addField("!applicant <minecraft username>", "Requires permissions to assign 'ApplicationInProgress' rank", false);
+		embed.addField("!event <minecraft username>", "Requires permissions to assign 'Event' rank", false);
 		
 		EmbedBuilder embed1 = new EmbedBuilder();
 		embed1.setTitle("BTE Midwest Map");
