@@ -361,17 +361,18 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					in.close();
 					
-					//parsing JSON Element to JSON Array
+					//JSON Deserialization
 					
 					JsonElement ele = JsonParser.parseString(json.toString());
 					jarray = ele.getAsJsonObject().getAsJsonArray("applications");
 					
-			//		Gson gson = new Gson();
-			//		Item[] itemArray = gson.fromJson(jarray, Item[].class);  
+					Gson gson = new Gson();
+					ApplicationInfo applicationArray = gson.fromJson(jarray.toString(), ApplicationInfo.class);  
 					 
-			//		for(Item item : itemArray) {
-			//		    event.getChannel().sendMessage(item.toString());
-			//		}
+					//
+					
+					ArrayList<AnswerInfo> answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
+					event.getChannel().sendMessage(answers.get(0).getAnswer()).queue();
 					
 					
 				} catch (MalformedURLException e) {
@@ -400,18 +401,6 @@ public class ServerCommands extends ListenerAdapter {
 				server.sendCommand("say A corrupted area has failed to regenerate.");
 			}
 		}
-	//	long latestMessage = event.getChannel();
-	//	RestAction<Message> latest = console.retrieveMessageById(latestMessage);
-		
-	//	TextChannel serverchat = event.getGuild().getTextChannelById(780648117111488532L);
-	//	serverchat.sendMessage(latest.).queue();
-			
-			
-	//	
-	//		TextChannel serverchat = event.getGuild().getTextChannelById(780648117111488532L);
-		//	serverchat.sendMessage("A currupted chunk was loaded in but it is being regenerated");
-			
-	//	}
 	}	
 	
 }
