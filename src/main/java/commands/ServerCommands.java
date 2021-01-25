@@ -361,29 +361,22 @@ public class ServerCommands extends ListenerAdapter {
 					
 					//JSON Deserialization
 					
-					JsonElement ele = JsonParser.parseString(json.toString());
-					String jstring = ele.getAsJsonObject().toString();
+		//			JsonElement ele = JsonParser.parseString(json.toString());
+			//		String jstring = ele.getAsJsonObject().toString();
 					
 					Gson gson = new Gson();
-					ApplicationInfo applicationArray = gson.fromJson(jstring, ApplicationInfo.class);  
+					ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
 					 
 					//retrieving username from application answers
 					
 					answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
-				//	if (answers.get(0).getAnswer() == null) {
-				//		event.getChannel().sendMessage("NULL").queue();
-				//	}
-				//	else {
-				//		event.getChannel().sendMessage(answers.get(0).getAnswer().subSequence(0, 1500)).queue();
-				//	}
-					if (json.toString().isEmpty()) {
-						event.getChannel().sendMessage("Emypty String").queue();
+					if (answers.get(0).getAnswer() == null) {
+						event.getChannel().sendMessage("NULL").queue();
 					}
 					else {
-						event.getChannel().sendMessage("Full String").queue();
-						event.getChannel().sendMessage(String.valueOf(json.toString().length())).queue();
-						event.getChannel().sendMessage(json.toString().subSequence(0, 2000)).queue();
+						event.getChannel().sendMessage(answers.get(0).getAnswer()).queue();
 					}
+
 					
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
