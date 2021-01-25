@@ -198,6 +198,8 @@ public class ServerCommands extends ListenerAdapter {
 				MCusername += chararr[i];
 			}
 			
+			//Authentication to application to retrieve the username they applied with
+			
 			String line;
 			BufferedReader in; 
 			StringBuilder json = new StringBuilder();
@@ -215,7 +217,7 @@ public class ServerCommands extends ListenerAdapter {
 				conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
 				conn.setRequestMethod("GET");
 				
-				//Storing JSON from request into a JSON Array. Prints error code and error stream if encountered.
+				//Storing JSON from request into string. Prints error code and error stream if encountered.
 				
 				if (conn.getResponseCode() > 200) {
 					event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
@@ -242,16 +244,30 @@ public class ServerCommands extends ListenerAdapter {
 				//retrieving username from application answers
 				
 				answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
-				usernameAppliedWith = answers.get(4).getAnswer();	
-			
-				//Authenticating to members enpoint to check if user is a member of team
+				usernameAppliedWith = answers.get(4).getAnswer();
+
 				
+			} catch (MalformedURLException e) {
+				String stack = ExceptionUtils.getStackTrace(e);
+				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+			} catch (IOException e) {
+				String stack = ExceptionUtils.getStackTrace(e);
+				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+			} catch (JSONException e) {
+				String stack = ExceptionUtils.getStackTrace(e);
+				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+			}	
+			
+			//Authenticating to members endpoint to check if user is on team
+			
 				String line2;
 				BufferedReader in2; 
 				StringBuilder json2 = new StringBuilder();
 				URL url2;
 				HttpsURLConnection conn2 = null;
 				JsonArray jarray = null;
+				
+				//BTE API Authentication, member and applications endpoint
 				
 				try {
 					url2 = new URL("https://buildtheearth.net/api/v1/members");
