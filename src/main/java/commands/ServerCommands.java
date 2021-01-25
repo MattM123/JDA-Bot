@@ -333,6 +333,8 @@ public class ServerCommands extends ListenerAdapter {
 				URL url;
 				HttpsURLConnection conn = null;
 				JsonArray jarray = null;
+				ArrayList<AnswerInfo> answers = null;
+				
 				try {
 					url = new URL("https://buildtheearth.net/api/v1/applications/" + "268230555890483200");//event.getAuthor().getId());
 					conn = (HttpsURLConnection) url.openConnection();
@@ -369,11 +371,9 @@ public class ServerCommands extends ListenerAdapter {
 					Gson gson = new Gson();
 					ApplicationInfo applicationArray = gson.fromJson(jarray.toString(), ApplicationInfo.class);  
 					 
-					//
+					//retrieving username from application answers
 					
-					ArrayList<AnswerInfo> answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
-					event.getChannel().sendMessage(answers.get(0).getAnswer()).queue();
-					
+					answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
 					
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
@@ -386,7 +386,7 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
-				event.getChannel().sendMessage(jarray.toString()).queue();
+				event.getChannel().sendMessage(answers.get(0).getAnswer()).queue();
 				
 		}
 		
