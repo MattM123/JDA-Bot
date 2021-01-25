@@ -377,7 +377,6 @@ public class ServerCommands extends ListenerAdapter {
 				//		event.getChannel().sendMessage(answers.get(0).getAnswer().subSequence(0, 1500)).queue();
 				//	}
 					
-					event.getChannel().sendMessage(json.subSequence(0, 2000)).queue();
 					
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
@@ -389,6 +388,7 @@ public class ServerCommands extends ListenerAdapter {
 					String stack = ExceptionUtils.getStackTrace(e);
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}	
+				event.getChannel().sendMessage(json.subSequence(0, 2000)).queue();
 		}
 		
 		//reads server console and sends server message when corrupted areas have been encountered
