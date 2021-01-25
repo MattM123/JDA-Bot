@@ -31,9 +31,6 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.addField("!link <minecraft username>", "Automatically assigns build perms and Builder role if you are on the team", false);
 		embed.addField("---------Permissions Required---------", "" , false);
 		embed.addField("!applicant <minecraft username>", "Requires permissions to assign 'ApplicationInProgress' rank", false);
-		embed.addField("!start", "Requires permissions to start the server", false);
-		embed.addField("!stop", "Requires permissions to stop the server", false);
-		embed.addField("!restart", "Requires permissions to restart the server", false);
 		
 		EmbedBuilder embed1 = new EmbedBuilder();
 		embed1.setTitle("BTE Midwest Map");

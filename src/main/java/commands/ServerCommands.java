@@ -67,7 +67,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 	public static String diskUsage() {
 		ServerUsage s = server.getServerUsage();
-		NumberFormat format = null;
+	//	NumberFormat format = null;
 		return (s.getDiskUsage() / 1024 ) + "GB/" + s.getDiskUsage() + "MB/" + (s.getDiskUsage() * 1024) + "KB";
 	}
 	
