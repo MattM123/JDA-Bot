@@ -386,9 +386,8 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 				
-				for (int i = 0; i < answers.size(); i++) {
-					event.getChannel().sendMessage(answers.get(i).getAnswer().substring(0, 2000)).queue();
-				}
+					event.getChannel().sendMessage(answers.get(0).getAnswer().substring(0, 1999)).queue();
+				
 		}
 		
 		//reads server console and sends server message when corrupted areas have been encountered
