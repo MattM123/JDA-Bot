@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +67,8 @@ public class ServerCommands extends ListenerAdapter {
 	
 	public static String diskUsage() {
 		ServerUsage s = server.getServerUsage();
-		return s.getDiskUsage() + "MB/unlimited";
+		NumberFormat format = null;
+		return (s.getDiskUsage() / 1024 ) + "GB/" + s.getDiskUsage() + "MB/" + (s.getDiskUsage() * 1024) + "KB";
 	}
 	
 	public static String memoryUsage() {
@@ -93,59 +95,6 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Usage: ", memoryUsage(), false);
 		
-	
-		//server status command
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server status")) {
-				event.getChannel().sendMessage(embed.build()).queue();
-		}
-		
-		//server restart command
-		if (event.getMessage().getContentRaw().startsWith("!restart")) {
-			if (event.getAuthor().getIdLong() == idlong) {	
-				server.restart();
-				event.getChannel().sendMessage("Server Restarting...").queue();
-			}	
-			else {
-				event.getChannel().sendMessage("Invalid permissions.").queue();
-			}
-		}
-			
-		
-	
-		//server start command
-		if (event.getMessage().getContentRaw().startsWith("!start")) {
-			if (event.getAuthor().getIdLong() == idlong) {
-				if (serverStatus().equals("ONLINE")) { 
-					event.getChannel().sendMessage("Server already running!").queue();
-				}
-				else {
-					server.start();
-					event.getChannel().sendMessage("Server Starting...").queue();
-				}
-			}
-			
-			else {
-				event.getChannel().sendMessage("Invalid permissions.").queue();
-			}
-		}
-		
-		
-		//server stop command
-		if (event.getMessage().getContentRaw().startsWith("!stop")) {
-			if (event.getAuthor().getIdLong() == idlong) {
-				if (serverStatus().equals("OFFLINE")) {
-					event.getChannel().sendMessage("Server already stopped!").queue();
-				}
-				else {
-					server.stop();
-					event.getChannel().sendMessage("Server Stopping...").queue();
-				}
-			}
-				
-			else {
-				event.getChannel().sendMessage("Invalid permsissions.").queue();
-			}
-		}
 		
 		//event builder assign
 		if (event.getMessage().getContentRaw().startsWith("!event")) {
