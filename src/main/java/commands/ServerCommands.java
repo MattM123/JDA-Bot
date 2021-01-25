@@ -374,7 +374,7 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage("NULL").queue();
 					}
 					else {
-						event.getChannel().sendMessage(answers.get(0).getAnswer()).queue();
+						event.getChannel().sendMessage(answers.get(4).getAnswer()).queue();
 					}
 
 					
