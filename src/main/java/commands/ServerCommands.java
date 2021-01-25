@@ -245,7 +245,8 @@ public class ServerCommands extends ListenerAdapter {
 				
 				answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
 				usernameAppliedWith = answers.get(4).getAnswer();
-
+				
+			in.close();
 				
 			} catch (MalformedURLException e) {
 				String stack = ExceptionUtils.getStackTrace(e);
@@ -257,8 +258,6 @@ public class ServerCommands extends ListenerAdapter {
 				String stack = ExceptionUtils.getStackTrace(e);
 				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 			}
-		
-			event.getChannel().sendMessage("breakpoint").queue();
 			
 			//Authenticating to members endpoint to check if user is on team
 			
@@ -304,7 +303,7 @@ public class ServerCommands extends ListenerAdapter {
 					JsonElement ele = JsonParser.parseString(json.toString());
 					jarray = ele.getAsJsonObject().getAsJsonArray("members");
 					
-					
+					in2.close();
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
@@ -385,7 +384,7 @@ public class ServerCommands extends ListenerAdapter {
 				
 				else if (temp == 0) {
 					event.getChannel().sendMessage("Looks like you're not on the team or your username was invalid. If this is wrong, then ping mattress#1852").queue();
-				}	
+				}
 			}
 		
 		//BTE API Authentication, applications endpoint
