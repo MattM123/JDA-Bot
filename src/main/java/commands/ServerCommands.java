@@ -198,8 +198,6 @@ public class ServerCommands extends ListenerAdapter {
 				MCusername += chararr[i];
 			}
 			
-			event.getChannel().sendMessage("|" + MCusername + "|").queue();
-			
 			//Authentication to application to retrieve the username they applied with
 			
 			String line;
@@ -329,14 +327,14 @@ public class ServerCommands extends ListenerAdapter {
 			
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {	
-					if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername == usernameAppliedWith)) {
+					if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equals(usernameAppliedWith))) {
 						event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
 						event.getChannel().sendMessage("Applied With: " + usernameAppliedWith + ", Ran Command With: " + MCusername).queue();
 						temp = 1;
 						break;
 					}
 								
-					else if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) && (MCusername == usernameAppliedWith)) {
+					else if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) && (MCusername.equals(usernameAppliedWith))) {
 						guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 						event.getChannel().sendMessage("You now have Builder role!").queue();
 						temp = 1;
