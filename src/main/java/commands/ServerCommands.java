@@ -197,44 +197,102 @@ public class ServerCommands extends ListenerAdapter {
 			for (int i = 6; i < chararr.length; i++) {
 				MCusername += chararr[i];
 			}
-			event.getChannel().sendMessage(MCusername);
 			
-				String line;
-				BufferedReader in; 
-				StringBuilder json = new StringBuilder();
-				URL url;
-				HttpsURLConnection conn = null;
-				JsonArray jarray = null;
+			String line;
+			BufferedReader in; 
+			StringBuilder json = new StringBuilder();
+			URL url;
+			HttpsURLConnection conn = null;
+			ArrayList<AnswerInfo> answers = null;
+			String usernameAppliedWith = null;
+			
+			try {
+				url = new URL("https://buildtheearth.net/api/v1/applications/" + "268230555890483200");//event.getAuthor().getId());
+				conn = (HttpsURLConnection) url.openConnection();
+				conn.setRequestProperty("Host","buildtheearth.net");
+				conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+				conn.setRequestProperty("Accept", "application/json");
+				conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
+				conn.setRequestMethod("GET");
 				
-				//BTE API Authentication, member endpoint
+				//Storing JSON from request into a JSON Array. Prints error code and error stream if encountered.
 				
-				try {
-					url = new URL("https://buildtheearth.net/api/v1/members");
-					conn = (HttpsURLConnection) url.openConnection();
-					conn.setRequestProperty("Host","buildtheearth.net");
-					conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-					conn.setRequestProperty("Accept", "application/json");
-					conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
-					conn.setRequestMethod("GET");
-					
-					//Storing JSON from request into a JSON Array. Prints error code and error stream if encountered.
-					
-					if (conn.getResponseCode() > 200) {
-						event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
-						in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-						while ((line = in.readLine()) != null) {
-							json.append(line);
-						}
-						in.close();
-						event.getChannel().sendMessage(json.toString()).queue();
-					}
-					
-					
+				if (conn.getResponseCode() > 200) {
+					event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
 					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-					if ((line = in.readLine()) != null) {
+					while ((line = in.readLine()) != null) {
 						json.append(line);
 					}
 					in.close();
+					event.getChannel().sendMessage(json.toString()).queue();
+				}
+				
+				
+				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				if ((line = in.readLine()) != null) {
+					json.append(line);
+				}
+				in.close();
+				
+				//JSON Deserialization
+				
+				Gson gson = new Gson();
+				ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
+				 
+				//retrieving username from application answers
+				
+				answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
+				usernameAppliedWith = answers.get(4).getAnswer();
+
+				
+			} catch (MalformedURLException e) {
+				String stack = ExceptionUtils.getStackTrace(e);
+				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+			} catch (IOException e) {
+				String stack = ExceptionUtils.getStackTrace(e);
+				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+			} catch (JSONException e) {
+				String stack = ExceptionUtils.getStackTrace(e);
+				event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+			}	
+	
+			
+				String line2;
+				BufferedReader in2; 
+				StringBuilder json2 = new StringBuilder();
+				URL url2;
+				HttpsURLConnection conn2 = null;
+				JsonArray jarray = null;
+				
+				//BTE API Authentication, member and applications endpoint
+				
+				try {
+					url2 = new URL("https://buildtheearth.net/api/v1/members");
+					conn2 = (HttpsURLConnection) url2.openConnection();
+					conn2.setRequestProperty("Host","buildtheearth.net");
+					conn2.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+					conn2.setRequestProperty("Accept", "application/json");
+					conn2.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
+					conn2.setRequestMethod("GET");
+					
+					//Storing JSON from request into a JSON Array. Prints error code and error stream if encountered.
+					
+					if (conn2.getResponseCode() > 200) {
+						event.getChannel().sendMessage("Error Code: " + String.valueOf(conn2.getResponseCode())).queue();
+						in2 = new BufferedReader(new InputStreamReader(conn2.getInputStream()));
+						while ((line2 = in2.readLine()) != null) {
+							json2.append(line2);
+						}
+						in2.close();
+						event.getChannel().sendMessage(json2.toString()).queue();
+					}
+					
+					
+					in2 = new BufferedReader(new InputStreamReader(conn2.getInputStream()));
+					if ((line2 = in2.readLine()) != null) {
+						json.append(line2);
+					}
+					in2.close();
 					
 					//parsing JSON Element to JSON Array
 					
@@ -259,23 +317,29 @@ public class ServerCommands extends ListenerAdapter {
 				for (int i = 0; i < jarray.size(); i++) {
 					ids.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
 				}
-				
+					
 				//If user ID exists in array and builder role is not already assigned, give builder role
 			
 				List<Role> roles = event.getMember().getRoles();
 			
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {	
-					if (roles.contains(guild.getRoleById(735991952931160104L))) {
+					if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername == usernameAppliedWith)) {
 						event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
+						event.getChannel().sendMessage("Applied With: " + usernameAppliedWith + ", Ran Command With: " + MCusername).queue();
 						temp = 1;
 						break;
 					}
 								
-					else if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104")))) {
+					else if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) && (MCusername == usernameAppliedWith)) {
 						guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 						event.getChannel().sendMessage("You now have Builder role!").queue();
 						temp = 1;
+						break;
+					}
+					else if (MCusername != usernameAppliedWith) {
+						event.getChannel().sendMessage("The username you applied with and the one you used to run this command do not match.").queue();
+						event.getChannel().sendMessage("Applied With: " + usernameAppliedWith + ", Ran Command With: " + MCusername).queue();
 						break;
 					}
 				}
@@ -315,80 +379,15 @@ public class ServerCommands extends ListenerAdapter {
 				//if user is not on the team at all, print this
 				
 				else if (temp == 0) {
-					event.getChannel().sendMessage("Looks like you're not on the team or we haven't gotten to your application yet. If this is wrong, then ping mattress#1852").queue();
+					event.getChannel().sendMessage("Looks like you're not on the team or your username was invalid. If this is wrong, then ping mattress#1852").queue();
 				}	
 			}
 		
 		//BTE API Authentication, applications endpoint
 		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
+	//	if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
 
-				String line;
-				BufferedReader in; 
-				StringBuilder json = new StringBuilder();
-				URL url;
-				HttpsURLConnection conn = null;
-				JsonArray jarray = null;
-				ArrayList<AnswerInfo> answers = null;
-				
-				try {
-					url = new URL("https://buildtheearth.net/api/v1/applications/" + "268230555890483200");//event.getAuthor().getId());
-					conn = (HttpsURLConnection) url.openConnection();
-					conn.setRequestProperty("Host","buildtheearth.net");
-					conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-					conn.setRequestProperty("Accept", "application/json");
-					conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
-					conn.setRequestMethod("GET");
-					
-					//Storing JSON from request into a JSON Array. Prints error code and error stream if encountered.
-					
-					if (conn.getResponseCode() > 200) {
-						event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
-						in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-						while ((line = in.readLine()) != null) {
-							json.append(line);
-						}
-						in.close();
-						event.getChannel().sendMessage(json.toString()).queue();
-					}
-					
-					
-					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-					if ((line = in.readLine()) != null) {
-						json.append(line);
-					}
-					in.close();
-					
-					//JSON Deserialization
-					
-		//			JsonElement ele = JsonParser.parseString(json.toString());
-			//		String jstring = ele.getAsJsonObject().toString();
-					
-					Gson gson = new Gson();
-					ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
-					 
-					//retrieving username from application answers
-					
-					answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
-					if (answers.get(0).getAnswer() == null) {
-						event.getChannel().sendMessage("NULL").queue();
-					}
-					else {
-						event.getChannel().sendMessage(answers.get(4).getAnswer()).queue();
-					}
 
-					
-				} catch (MalformedURLException e) {
-					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-				} catch (IOException e) {
-					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-				} catch (JSONException e) {
-					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-				}	
-		}
 		
 		//reads server console and sends server message when corrupted areas have been encountered
 		
