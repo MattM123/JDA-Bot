@@ -295,13 +295,13 @@ public class ServerCommands extends ListenerAdapter {
 					
 					in2 = new BufferedReader(new InputStreamReader(conn2.getInputStream()));
 					if ((line2 = in2.readLine()) != null) {
-						json.append(line2);
+						json2.append(line2);
 					}
 					in2.close();
 					
 					//parsing JSON Element to JSON Array
 					
-					JsonElement ele = JsonParser.parseString(json.toString());
+					JsonElement ele = JsonParser.parseString(json2.toString());
 					jarray = ele.getAsJsonObject().getAsJsonArray("members");
 					event.getChannel().sendMessage("breakpoint3").queue();
 					
