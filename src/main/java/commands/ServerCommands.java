@@ -370,6 +370,12 @@ public class ServerCommands extends ListenerAdapter {
 					//retrieving username from application answers
 					
 					answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
+					if (answers.get(0).getAnswer() == null) {
+						event.getChannel().sendMessage("NULL").queue();
+					}
+					else {
+						event.getChannel().sendMessage(answers.get(0).getAnswer().subSequence(0, 1500)).queue();
+					}
 					
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
@@ -380,15 +386,7 @@ public class ServerCommands extends ListenerAdapter {
 				} catch (JSONException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-				}
-				
-					if (answers.get(0).getAnswer() == null) {
-						event.getChannel().sendMessage("NULL").queue();
-					}
-					else {
-						event.getChannel().sendMessage(answers.get(0).getAnswer().subSequence(0, 1500)).queue();
-					}
-				
+				}	
 		}
 		
 		//reads server console and sends server message when corrupted areas have been encountered
