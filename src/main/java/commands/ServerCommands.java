@@ -307,7 +307,7 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage("Minecraft server rank updated to Kansas Builder for user " + MCusername).queue();
 						if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
 							if (event.getMessage().getContentRaw().contains("A user for") && (event.getMessage().getContentRaw().contains("could not be found"))) {
-								event.getChannel().sendMessage("Rank failed to assigned, user UUID could not be found in server cache").queue();
+								event.getChannel().sendMessage("Rank failed to assign, user UUID could not be found in server cache").queue();
 							}
 						}
 						}
@@ -316,7 +316,7 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage("Minecraft server rank updated to Iowa Builder for user " + MCusername).queue();
 						if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
 							if (event.getMessage().getContentRaw().contains("A user for") && (event.getMessage().getContentRaw().contains("could not be found"))) {
-								event.getChannel().sendMessage("Rank failed to assigned, user UUID could not be found in server cache").queue();
+								event.getChannel().sendMessage("Rank failed to assign, user UUID could not be found in server cache").queue();
 							}
 						}
 						}
@@ -325,7 +325,7 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage("Minecraft server rank updated to Nebraska Builder for user " + MCusername).queue();
 						if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
 							if (event.getMessage().getContentRaw().contains("A user for") && (event.getMessage().getContentRaw().contains("could not be found"))) {
-								event.getChannel().sendMessage("Rank failed to assigned, user UUID could not be found in server cache").queue();
+								event.getChannel().sendMessage("Rank failed to assign, user UUID could not be found in server cache").queue();
 							}
 						}
 						}
@@ -334,7 +334,7 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage("Minecraft server rank updated to Illinois Builder for user " + MCusername).queue();
 						if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
 							if (event.getMessage().getContentRaw().contains("A user for") && (event.getMessage().getContentRaw().contains("could not be found"))) {
-								event.getChannel().sendMessage("Rank failed to assigned, user UUID could not be found in server cache").queue();
+								event.getChannel().sendMessage("Rank failed to assign, user UUID could not be found in server cache").queue();
 							}
 						}
 						}
@@ -343,7 +343,7 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage("Minecraft server rank updated to Missouri Builder for user " + MCusername).queue();
 						if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
 							if (event.getMessage().getContentRaw().contains("A user for") && (event.getMessage().getContentRaw().contains("could not be found"))) {
-								event.getChannel().sendMessage("Rank failed to assigned, user UUID could not be found in server cache").queue();
+								event.getChannel().sendMessage("Rank failed to assign, user UUID could not be found in server cache").queue();
 							}
 						}
 						}
@@ -352,7 +352,7 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage("Minecraft server rank updated to Minnesota Builder for user " + MCusername).queue();
 						if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
 							if (event.getMessage().getContentRaw().contains("A user for") && (event.getMessage().getContentRaw().contains("could not be found"))) {
-								event.getChannel().sendMessage("Rank failed to assigned, user UUID could not be found in server cache").queue();
+								event.getChannel().sendMessage("Rank failed to assign, user UUID could not be found in server cache").queue();
 							}
 						}
 						}
