@@ -295,6 +295,7 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					else if (MCusername != usernameAppliedWith) {
 						event.getChannel().sendMessage("The username you applied with and the one you used to run this command do not match.").queue();
+						event.getChannel().sendMessage("Command run with:" + MCusername + " | Applied with: " + usernameAppliedWith).queue();
 						break;
 					}
 				}
