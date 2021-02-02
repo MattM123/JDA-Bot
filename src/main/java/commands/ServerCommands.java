@@ -281,7 +281,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 				int temp = 0;
 				for (int i = 0; i < ids.size(); i++) {	
-					if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equals(usernameAppliedWith))) {
+					if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameAppliedWith))) {
 						event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
 						temp = 1;
 						break;
