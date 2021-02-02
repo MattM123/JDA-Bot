@@ -287,7 +287,7 @@ public class ServerCommands extends ListenerAdapter {
 						break;
 					}
 								
-					else if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) && (MCusername.equals(usernameAppliedWith))) {
+					else if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) && (MCusername.equalsIgnoreCase(usernameAppliedWith))) {
 						guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 						event.getChannel().sendMessage("You now have Builder role!").queue();
 						temp = 1;
