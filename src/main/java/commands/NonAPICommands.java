@@ -32,6 +32,7 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.addField("!link <minecraft username>", "Automatically assigns build perms and Builder role if you are on the team", false);
 		embed.addField("!applicant <minecraft username>", "Requires permissions to assign 'ApplicationInProgress' rank", false);
 		embed.addField("!event <minecraft username>", "Requires permissions to assign 'Event' rank", false);
+		embed.addBlankField(false);
 		embed.addField("***__Wisconsin Server Commands__***", "" ,false);
 		embed.addField("?help", "Meta help command that displays these Wisconsin server commands", false);
 		embed.addField("?host_stats", "", false);
