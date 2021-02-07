@@ -25,7 +25,7 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.setColor(Color.blue);
 		embed.setTitle("Command Information");
 		embed.addField("***__Midwest Server Commands__***", "" ,false);
-		embed.addField("!server", "Shows the server status and resource usage.", false);
+		embed.addField("!server", "Displays the server status and resource usage.", false);
 		embed.addField("!map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		embed.addField("!measure", "Measure tutorial derived from the BTE Support Bot", false);
 		embed.addField("!regcon <Xcoord> <Zcoord>", "Converts in-game coordinates to region file format", false);
@@ -34,8 +34,8 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.addField("!event <minecraft username>", "Requires permissions to assign 'Event' rank", false);
 		embed.addBlankField(false);
 		embed.addField("***__Wisconsin Server Commands__***", "" ,false);
-		embed.addField("?help", "Meta help command that displays these Wisconsin server commands", false);
-		embed.addField("?host_stats", "", false);
+		embed.addField("?help", "Meta help command that displays these server commands", false);
+		embed.addField("?host_stats", "Displays server resource usage", false);
 		embed.addField("?server_stats 2", "", false);
 		embed.addField("?list", "", false);
 		embed.addField("?query 2", "Displays basic status information", false);
