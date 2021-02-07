@@ -62,7 +62,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 	public static String cpuUsage() {
 		ServerUsage s = server.getServerUsage();
-		return s.getCpuUsage() + " / 100%";
+		return s.getCpuUsage() + "% / 100%";
 	}
 	
 	public static String diskUsage() {
