@@ -38,9 +38,9 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.addField("?server_stats 2", "", false);
 		embed.addField("?list", "", false);
 		embed.addField("?query", "", false);
-		embed.addField("?restart 2", "", false);
-		embed.addField("?start 2", "", false);
-		embed.addField("?stop 2", "", false);
+		embed.addField("?restart 2", "Restarts Wisoncsin server", false);
+		embed.addField("?start 2", "Starts Wisconsin server", false);
+		embed.addField("?stop 2", "Stops Wisconsin server", false);
 
 		
 		
