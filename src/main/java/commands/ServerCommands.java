@@ -100,7 +100,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		
 		//start server
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!start") && event.getAuthor().getId() == "808088551861518388") {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!start") && event.getAuthor().getId().equals("808088551861518388")) {
 			PowerState b = server.getPowerState();
 			event.getChannel().sendMessage(b.toString()).queue();
 			
