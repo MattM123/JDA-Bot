@@ -30,9 +30,20 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.addField("!measure", "Measure tutorial derived from the BTE Support Bot", false);
 		embed.addField("!regcon <Xcoord> <Zcoord>", "Converts in-game coordinates to region file format", false);
 		embed.addField("!link <minecraft username>", "Automatically assigns build perms and Builder role if you are on the team", false);
-		embed.addField("---------Permissions Required---------", "" , false);
 		embed.addField("!applicant <minecraft username>", "Requires permissions to assign 'ApplicationInProgress' rank", false);
 		embed.addField("!event <minecraft username>", "Requires permissions to assign 'Event' rank", false);
+		embed.addField("***__Wisconsin Server Commands__***", "" ,false);
+		embed.addField("?help", "Meta help command that displays these Wisconsin server commands", false);
+		embed.addField("?host_stats", "", false);
+		embed.addField("?server_stats 2", "", false);
+		embed.addField("?list", "", false);
+		embed.addField("?query", "", false);
+		embed.addField("?restart 2", "", false);
+		embed.addField("?start 2", "", false);
+		embed.addField("?stop 2", "", false);
+
+		
+		
 		
 		EmbedBuilder embed1 = new EmbedBuilder();
 		embed1.setTitle("BTE Midwest Map");
