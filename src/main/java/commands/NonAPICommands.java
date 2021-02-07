@@ -36,7 +36,6 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.addField("?help", "Meta help command that displays these bot commands", false);
 		embed.addField("?host_stats", "Displays server resource usage", false);
 		embed.addField("?server_stats 2", "", false);
-		embed.addField("?query 2", "Displays basic status information", false);
 		embed.addField("?restart 2", "Restarts server", false);
 		embed.addField("?start 2", "Starts server", false);
 		embed.addField("?stop 2", "Stops server", false);
