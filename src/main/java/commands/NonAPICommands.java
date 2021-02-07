@@ -29,7 +29,7 @@ public class NonAPICommands extends ListenerAdapter {
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setColor(Color.blue);
 		embed.setTitle("Command Information");
-		embed.addField((Field) mdwCommands.append("Midwest Server Commands", Formatting.BOLD).build());
+		embed.addField("**Midwest Server Commands**", "" ,false);
 		embed.addField("!server", "Shows the server status and resource usage.", false);
 		embed.addField("!map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		embed.addField("!measure", "Measure tutorial derived from the BTE Support Bot", false);
