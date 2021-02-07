@@ -102,6 +102,8 @@ public class ServerCommands extends ListenerAdapter {
 		//start server
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!start") && event.getAuthor().getIdLong() == 808088551861518388L) {
 			PowerState b = server.getPowerState();
+			event.getChannel().sendMessage(b.toString()).queue();
+			
 			if (b.toString().equals("ON")) {
 				event.getChannel().sendMessage("Server is already online.").queue();
 			}
