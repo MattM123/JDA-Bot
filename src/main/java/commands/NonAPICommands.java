@@ -28,16 +28,14 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.addField("!server", "Displays the server status and resource usage.", false);
 		embed.addField("!map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		embed.addField("!measure", "Measure tutorial derived from the BTE Support Bot", false);
-		embed.addField("!regcon <Xcoord> <Zcoord>", "Converts in-game coordinates to region file format", false);
 		embed.addField("!link <minecraft username>", "Automatically assigns build perms and Builder role if you are on the team", false);
 		embed.addField("!applicant <minecraft username>", "Requires permissions to assign 'ApplicationInProgress' rank", false);
 		embed.addField("!event <minecraft username>", "Requires permissions to assign 'Event' rank", false);
 		embed.addBlankField(false);
 		embed.addField("***__Wisconsin Server Commands__***", "" ,false);
-		embed.addField("?help", "Meta help command that displays these server commands", false);
+		embed.addField("?help", "Meta help command that displays these bot commands", false);
 		embed.addField("?host_stats", "Displays server resource usage", false);
 		embed.addField("?server_stats 2", "", false);
-		embed.addField("?list", "", false);
 		embed.addField("?query 2", "Displays basic status information", false);
 		embed.addField("?restart 2", "Restarts server", false);
 		embed.addField("?start 2", "Starts server", false);
