@@ -2,6 +2,9 @@ package commands;
 
 import java.awt.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.MessageBuilder.Formatting;
+import net.dv8tion.jda.api.entities.MessageEmbed.Field;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -21,9 +24,12 @@ public class NonAPICommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		
+		MessageBuilder mdwCommands = new MessageBuilder(); 
+				
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setColor(Color.blue);
 		embed.setTitle("Command Information");
+		embed.addField((Field) mdwCommands.append("Midwest Server Commands", Formatting.BOLD).build());
 		embed.addField("!server", "Shows the server status and resource usage.", false);
 		embed.addField("!map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		embed.addField("!measure", "Measure tutorial derived from the BTE Support Bot", false);
