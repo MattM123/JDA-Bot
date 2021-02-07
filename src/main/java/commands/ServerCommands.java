@@ -101,10 +101,10 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//start server
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!start") && event.getAuthor().getIdLong() == 808088551861518388L) {
-			if (serverStatus().equals("ONLINE")) {
+			if (serverStatus() == "ONLINE") {
 				event.getChannel().sendMessage("Server is already online.").queue();
 			}
-			else if (serverStatus().equals("OFFLINE")) {
+			else if (serverStatus() == "OFFLINE") {
 				event.getChannel().sendMessage("Starting server...").queue();
 				server.sendCommand("start");
 			}
