@@ -98,6 +98,19 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Usage: ", memoryUsage(), false);
 		
+		
+		//start server
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!start") && event.getAuthor().getIdLong() == 808088551861518388L) {
+			if (serverStatus().equals("ONLINE")) {
+				event.getChannel().sendMessage("Server is already online.").queue();
+			}
+			else if (serverStatus().equals("OFFLINE")) {
+				event.getChannel().sendMessage("Starting server...").queue();
+				server.sendCommand("start");
+			}
+		}
+		
+		//server status
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
 			event.getChannel().sendMessage(embed.build()).queue();
 		}
