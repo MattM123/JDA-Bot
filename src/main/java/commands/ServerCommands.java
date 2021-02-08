@@ -163,7 +163,6 @@ public class ServerCommands extends ListenerAdapter {
 				if (j == banlist.length) {
 					iterations++;
 					j = 0;
-					i++;
 				}
 				continue;
 			}
