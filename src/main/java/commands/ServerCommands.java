@@ -160,11 +160,8 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					
 				}
-				if (j == banlist.length) {
 					iterations++;
-					j = 0;
-				}
-				continue;
+				
 			}
 			event.getChannel().sendMessage("Users Checked: " + i).queue();
 			event.getChannel().sendMessage("Iterations through banlist performed: " + iterations).queue();
