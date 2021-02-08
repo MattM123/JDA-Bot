@@ -140,11 +140,10 @@ public class ServerCommands extends ListenerAdapter {
 		*/
 		List<Member> userIDs = event.getGuild().getMembers();
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!runban")) {
-			int memberCount = event.getGuild().getMembers().size();
 			int userchecks = 0;
 			int i;
 			int j = 0;
-			for (i = 0; i < memberCount; i++) {
+			for (i = 0; i < userIDs.size(); i++) {
 				for (j = 0; j < banlist.length; j++) {		
 					if (userIDs.get(i).getIdLong() == banlist[j]) {
 					    EmbedBuilder join = new EmbedBuilder();
@@ -162,7 +161,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 
 			}
-			event.getChannel().sendMessage("Total Users Affected: " + memberCount).queue();
+			event.getChannel().sendMessage("Total Users Affected: " + userIDs.size()).queue();
 			event.getChannel().sendMessage("Users Checked: " + i).queue();
 			event.getChannel().sendMessage("Iterations through banlist performed: " + (userchecks / banlist.length)).queue();
 		}
