@@ -150,6 +150,7 @@ public class ServerCommands extends ListenerAdapter {
 						}
 						else {
 							j = 0;
+							i++;
 						}
 					}
 					else if (userIDs.get(i).getIdLong() == banlist[j]) {
