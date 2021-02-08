@@ -161,7 +161,7 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					
 					if (j == banlist.length) {
-						 event.getChannel().sendMessage("j == 34");
+						 event.getChannel().sendMessage("j == 34").queue();
 						iterations++;
 						j = 0;
 					}
