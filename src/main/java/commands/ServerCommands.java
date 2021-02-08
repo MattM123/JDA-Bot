@@ -26,7 +26,10 @@ import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -38,6 +41,12 @@ public class ServerCommands extends ListenerAdapter {
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
 	private static UserServer server = api.getServersController().getServer(serverID);
 	
+	private Long[] banlist =
+	        {789985785561874443L, 793593291144822784L, 335568963062988802L, 718386687088001125L, 515031983404089356L, 626545668256825344L, 800387054009712681L,
+	        746918708324204595L, 675075093738684440L, 445634290127208448L, 710110046201053224L, 715608557642448927L, 710981428237697126L, 697854593136066601L, 633388103846985776L,
+	        613772790977396765L, 751122145697988638L, 373128356633247744L, 803807868460597278L, 772299526114377749L, 772301800484765706L, 772296213578907668L, 598572641783382017L, 
+	        476231567971188736L, 804957981224599552L, 744220967236141077L, 804447673104072724L, 804967039180865556L, 795639538432999474L, 779913438692245504L, 796934679847501824L,
+	        482814670185431040L, 538811235865722919L, 667854118139723777L};
 
 
 
@@ -81,10 +90,25 @@ public class ServerCommands extends ListenerAdapter {
 	}
 
 	@Override
+    public void onGuildMemberJoin(GuildMemberJoinEvent event) {
+        EmbedBuilder join = new EmbedBuilder();
+        User user = (User) event.getMember();
+        
+
+        join.setColor(Color.getHSBColor(227, 74, 64));
+        join.setTitle("Suspicious User Detected");
+        join.setDescription(event.getMember().getAsMention() + "is reported to be a suspicious and or malicious user by other BTE discords. They will be banned!");
+        join.setImage(event.getGuild().getMember(user).getUser().getAvatarUrl());
+        join.addField(user.getName(), "", false);
+        event.getGuild().getTextChannelById(735994791627849828L).sendMessage(join.build()).queue();
+    }
+	    
+	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		
-		Guild guild = event.getGuild();
+		 Guild guild = event.getGuild(); 
+
 		Long userID[] = {387330197420113930L, 97867804463599616L,
 				195196317071310848L, 657036933083561995L};
 		
@@ -98,7 +122,7 @@ public class ServerCommands extends ListenerAdapter {
 		embed.addField("Disk Usage: ", diskUsage(), false);
 		embed.addField("Memory Usage: ", memoryUsage(), false);
 		
-		
+		/*
 		//start server
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!start") && event.getAuthor().getId().equals("808088551861518388")) {
 			PowerState b = server.getPowerState();
@@ -113,7 +137,29 @@ public class ServerCommands extends ListenerAdapter {
 				server.sendCommand("start");
 			}
 		}
-		
+		*/
+		List<Member> userIDs = event.getGuild().getMembers();
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!runban")) {
+			int i;
+			int j = 0;
+			for (i = 0; i < event.getGuild().getMembers().size(); i++) {
+				for (j = 0; j < banlist.length; j++) {
+					if (userIDs.get(i).getIdLong() != banlist[j]) {
+						j++;
+					}
+					else {
+					    EmbedBuilder join = new EmbedBuilder();
+				        
+				        join.setColor(Color.getHSBColor(227, 74, 64));
+				        join.setTitle("Suspicious User Detected");
+				        join.setDescription(guild.getMemberById(userIDs.get(i).getIdLong()) + "is reported to be a suspicious and or malicious user by other BTE discords. They will be banned!");
+				        event.getGuild().getTextChannelById(786328890280247327L).sendMessage(join.build()).queue();
+					}
+				}
+			}
+			event.getChannel().sendMessage("Users Checked: " + i).queue();
+			event.getChannel().sendMessage("Iterations through banlist performed: " + j).queue();
+		}
 		//server status
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
 			event.getChannel().sendMessage(embed.build()).queue();
@@ -312,7 +358,6 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					else if (!(MCusername.equalsIgnoreCase(usernameAppliedWith))) {
 						event.getChannel().sendMessage("The username you applied with and the one you used to run this command do not match.").queue();
-						event.getChannel().sendMessage("Command run with:" + MCusername + " | Applied with: " + usernameAppliedWith).queue();
 						break;
 					}
 				}
