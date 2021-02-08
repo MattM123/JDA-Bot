@@ -166,8 +166,8 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					
 				}
+				event.getChannel().sendMessage("J: " + j).queue();
 			}
-			event.getChannel().sendMessage("J: " + j).queue();
 			event.getChannel().sendMessage("Users Checked: " + i).queue();
 			event.getChannel().sendMessage("Iterations through banlist performed: " + iterations).queue();
 			event.getChannel().sendMessage("Number of times user ID was not on banlist: " + userchecks).queue();
