@@ -138,7 +138,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}
 		*/
-		List<Member> userIDs = event.getGuild().getMembers();
+		List<Member> userIDs = guild.getMembers();
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!runban")) {
 			int userchecks = 0;
 			int i;
