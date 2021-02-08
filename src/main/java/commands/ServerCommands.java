@@ -141,6 +141,7 @@ public class ServerCommands extends ListenerAdapter {
 		List<Member> userIDs = event.getGuild().getMembers();
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!runban")) {
 			int iterations = 0;
+			int userchecks = 0;
 			int i;
 			int j = 0;
 			for (i = 0; i < event.getGuild().getMembers().size(); i++) {
@@ -163,16 +164,21 @@ public class ServerCommands extends ListenerAdapter {
 				        join.setDescription(guild.getMemberById(userIDs.get(i).getIdLong()) + "is reported to be a suspicious and or malicious user by other BTE Team Owners. They will be banned!");
 				        event.getGuild().getTextChannelById(786328890280247327L).sendMessage(join.build()).queue();
 					}
+					
+					else {
+						userchecks++;
+					}
+					
 					if (j == banlist.length) {
 						iterations++;
 						j = 0;
 						break;
-						
 					}
 				}
 			}
 			event.getChannel().sendMessage("Users Checked: " + i).queue();
 			event.getChannel().sendMessage("Iterations through banlist performed: " + iterations).queue();
+			event.getChannel().sendMessage("Number of times user ID was not on banlist: " + userchecks).queue();
 		}
 		//server status
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
