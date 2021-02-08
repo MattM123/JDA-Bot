@@ -145,10 +145,6 @@ public class ServerCommands extends ListenerAdapter {
 			int i;
 			int j = 0;
 			for (i = 0; i < event.getGuild().getMembers().size(); i++) {
-				if (j == banlist.length) {
-					iterations++;
-					j = 0;
-				}
 				for (j = 0; j < banlist.length; j++) {		
 					if (userIDs.get(i).getIdLong() == banlist[j]) {
 					    EmbedBuilder join = new EmbedBuilder();
@@ -163,6 +159,10 @@ public class ServerCommands extends ListenerAdapter {
 						userchecks++;
 					}
 					
+				}
+				if (j == banlist.length) {
+					iterations++;
+					j = 0;
 				}
 			}
 			event.getChannel().sendMessage("Users Checked: " + i).queue();
