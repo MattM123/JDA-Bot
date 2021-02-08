@@ -140,31 +140,39 @@ public class ServerCommands extends ListenerAdapter {
 		*/
 		List<Member> userIDs = event.getGuild().getMembers();
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!runban")) {
+			int iterations = 0;
 			int i;
 			int j = 0;
 			for (i = 0; i < event.getGuild().getMembers().size(); i++) {
 				for (j = 0; j < banlist.length; j++) {
-					if (userIDs.get(i).getIdLong() != banlist[j]) {
-						if (j != banlist.length) {
-							j++;
-						}
-						else {
-							j = 0;
-							i++;
-						}
-					}
-					else if (userIDs.get(i).getIdLong() == banlist[j]) {
+				//	if (userIDs.get(i).getIdLong() != banlist[j]) {
+				//		if (j != banlist.length) {
+				//			j++;
+				//		}
+				//		else {
+				//			j = 0;
+				//			iterations++;
+				//			i++;
+					//	}
+				//	}
+					if (userIDs.get(i).getIdLong() == banlist[j]) {
 					    EmbedBuilder join = new EmbedBuilder();
 				        
 				        join.setColor(Color.getHSBColor(227, 74, 64));
 				        join.setTitle("Suspicious User Detected");
-				        join.setDescription(guild.getMemberById(userIDs.get(i).getIdLong()) + "is reported to be a suspicious and or malicious user by other BTE discords. They will be banned!");
+				        join.setDescription(guild.getMemberById(userIDs.get(i).getIdLong()) + "is reported to be a suspicious and or malicious user by other BTE Team Owners. They will be banned!");
 				        event.getGuild().getTextChannelById(786328890280247327L).sendMessage(join.build()).queue();
+					}
+					else if (banlist.length == j) {
+						iterations++;
+						j = 0;
+						continue;
+						
 					}
 				}
 			}
 			event.getChannel().sendMessage("Users Checked: " + i).queue();
-			event.getChannel().sendMessage("Iterations through banlist performed: " + j).queue();
+			event.getChannel().sendMessage("Iterations through banlist performed: " + iterations).queue();
 		}
 		//server status
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
