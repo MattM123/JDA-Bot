@@ -147,8 +147,9 @@ public class ServerCommands extends ListenerAdapter {
 			for (i = 0; i < event.getGuild().getMembers().size(); i++) {
 				for (j = 0; j < banlist.length; j++) {
 
+					event.getChannel().sendMessage("J: " + j).queue();
 					if (j == banlist.length) {
-						event.getChannel().sendMessage("j == 33").queue();
+						event.getChannel().sendMessage("J in nthe loop: " + j).queue();
 						iterations++;
 						j = 0;
 					}
