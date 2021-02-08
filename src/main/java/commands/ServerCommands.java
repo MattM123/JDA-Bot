@@ -163,7 +163,7 @@ public class ServerCommands extends ListenerAdapter {
 				        join.setDescription(guild.getMemberById(userIDs.get(i).getIdLong()) + "is reported to be a suspicious and or malicious user by other BTE Team Owners. They will be banned!");
 				        event.getGuild().getTextChannelById(786328890280247327L).sendMessage(join.build()).queue();
 					}
-					else if (banlist.length == j) {
+					if (banlist.length == j) {
 						iterations++;
 						j = 0;
 						continue;
