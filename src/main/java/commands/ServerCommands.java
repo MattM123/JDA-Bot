@@ -253,6 +253,9 @@ public class ServerCommands extends ListenerAdapter {
 				
 				answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
 				usernameAppliedWith = answers.get(4).getAnswer();
+				if (answers.get(4).getAnswer().contains(" ") || answers.get(4).getAnswer() == null || answers.get(4).getAnswer().isEmpty()) {
+					usernameAppliedWith = MCusername;
+				}
 				
 
 				
@@ -359,57 +362,36 @@ public class ServerCommands extends ListenerAdapter {
 					if (roles.contains(guild.getRoleById(735995176165834756L))) {
 						server.sendCommand("lp user " + MCusername + " parent add kansas-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Kansas Builder for user " + MCusername).queue();
-					//	if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
-					//		if (event.getMessage().getContentRaw().contains("A user for") && (event.getMessage().getContentRaw().contains("could not be found"))) {
-					//			event.getChannel().sendMessage("Rank failed to assign, user UUID could not be found in server cache").queue();
-					//		}
-					//	}
-						}
+
+					}
 					else if (roles.contains(guild.getRoleById(735995164493086720L))) {
 						server.sendCommand("lp user " + MCusername + " parent add iowa-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Iowa Builder for user " + MCusername).queue();
-					//	if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
-					//		if (event.getMessage().getContentRaw().contains("A user for") && (event.getMessage().getContentRaw().contains("could not be found"))) {
-					//			event.getChannel().sendMessage("Rank failed to assign, user UUID could not be found in server cache").queue();
-					//		}
-					//	}
-						}
+
+					}
 					else if (roles.contains(guild.getRoleById(735995136978321541L))) {
 						server.sendCommand("lp user " + MCusername + " parent add nebraska-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Nebraska Builder for user " + MCusername).queue();
-					//	if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
-					//		if (event.getMessage().getContentRaw().contains("A user for") && (event.getMessage().getContentRaw().contains("could not be found"))) {
-					//			event.getChannel().sendMessage("Rank failed to assign, user UUID could not be found in server cache").queue();
-					//		}
-					//	}
-						}
+
+					}
 					else if (roles.contains(guild.getRoleById(735995095773609986L))) {
 						server.sendCommand("lp user " + MCusername + " parent add illinois-builder");
-					//	event.getChannel().sendMessage("Minecraft server rank updated to Illinois Builder for user " + MCusername).queue();
-					//	if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
-					//		if (event.getMessage().getContentRaw().contains("A user for") && (event.getMessage().getContentRaw().contains("could not be found"))) {
-					//			event.getChannel().sendMessage("Rank failed to assign, user UUID could not be found in server cache").queue();
-					//		}
-					//	}
-						}
+
+					}
 					else if (roles.contains(guild.getRoleById(735995115113414656L))) {
 						server.sendCommand("lp user " + MCusername + " parent add missouri-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Missouri Builder for user " + MCusername).queue();
-					//	if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
-					//		if (event.getMessage().getContentRaw().contains("A user for") && (event.getMessage().getContentRaw().contains("could not be found"))) {
-					//			event.getChannel().sendMessage("Rank failed to assign, user UUID could not be found in server cache").queue();
-					//		}
-					//	}
-						}
+
+					}
 					else if (roles.contains(guild.getRoleById(735995196738633819L))) {
 						server.sendCommand("lp user " + MCusername + " parent add minnesota-builder");
 						event.getChannel().sendMessage("Minecraft server rank updated to Minnesota Builder for user " + MCusername).queue();
-					//	if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
-					//		if (event.getMessage().getContentRaw().contains("A user for") && (event.getMessage().getContentRaw().contains("could not be found"))) {
-					//			event.getChannel().sendMessage("Rank failed to assign, user UUID could not be found in server cache").queue();
-					//		}
-					//	}
-						}
+					}
+					else if (roles.contains(guild.getRoleById(808415301799641119L))) {
+						server.sendCommand("lp user " + MCusername + " parent add oklahoma-builder");
+						event.getChannel().sendMessage("Minecraft server rank updated to Oklahoma Builder for user " + MCusername).queue();
+					}
+					
 					else {
 						event.getChannel().sendMessage("Looks like you don't have a state role. Go to #role-menu to select one and run the command again to get server build perms.").queue();
 					}
