@@ -257,6 +257,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				else if (answers.get(4).getAnswer() == null || answers.get(4).getAnswer().isEmpty()) {
 					usernameAppliedWith = MCusername;
+					event.getChannel().sendMessage("username DNE").queue();
 				}
 				else {
 					usernameAppliedWith = answers.get(4).getAnswer();
