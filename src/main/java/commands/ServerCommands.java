@@ -252,9 +252,14 @@ public class ServerCommands extends ListenerAdapter {
 				//retrieving username from application answers
 				
 				answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
-				usernameAppliedWith = answers.get(4).getAnswer();
-				if (answers.get(4).getAnswer().contains(" ") || answers.get(4).getAnswer() == null || answers.get(4).getAnswer().isEmpty()) {
+				if (!(answers.get(4).getAnswer().isEmpty()) && answers.get(4).getAnswer() != null) {
+					usernameAppliedWith = answers.get(4).getAnswer();
+				}
+				else if (answers.get(4).getAnswer() == null || answers.get(4).getAnswer().isEmpty()) {
 					usernameAppliedWith = MCusername;
+				}
+				else {
+					usernameAppliedWith = answers.get(4).getAnswer();
 				}
 				
 
