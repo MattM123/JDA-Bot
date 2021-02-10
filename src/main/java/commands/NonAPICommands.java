@@ -46,8 +46,7 @@ public class NonAPICommands extends ListenerAdapter {
 		EmbedBuilder embed1 = new EmbedBuilder();
 		embed1.setTitle("BTE Midwest Map");
 		embed1.setColor(Color.blue);
-		embed1.setImage("https://i.imgur.com/meaamm7.png");
-		embed1.setFooter("Made by: MN Admin | Mr Jew");
+		embed1.setImage("https://cdn.discordapp.com/attachments/735998501053530163/808887801432768552/path3233-86.png");
 		
 		//returns list of commands used by bot
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!commands")) {
