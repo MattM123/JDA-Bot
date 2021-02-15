@@ -252,17 +252,8 @@ public class ServerCommands extends ListenerAdapter {
 				//retrieving username from application answers
 				
 				answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
-				event.getChannel().sendMessage("user: " + answers.get(4).getAnswer()).queue();
-				if (!(answers.get(4).getAnswer().isEmpty()) && answers.get(4).getAnswer() != null) {
-					usernameAppliedWith = answers.get(4).getAnswer();
-				}
-				else if (answers.get(4).getAnswer() == null || answers.get(4).getAnswer().isEmpty()) {
-					usernameAppliedWith = MCusername;
-					event.getChannel().sendMessage("username DNE").queue();
-				}
-				else {
-					usernameAppliedWith = answers.get(4).getAnswer();
-				}
+				usernameAppliedWith = answers.get(4).getAnswer();
+				
 				
 
 				
