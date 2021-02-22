@@ -217,7 +217,7 @@ public class ServerCommands extends ListenerAdapter {
 			String usernameAppliedWith = null;
 			
 			try {
-				url = new URL("https://buildtheearth.net/api/v1/applications/" + "593781164297420813");//event.getAuthor().getId());
+				url = new URL("https://buildtheearth.net/api/v1/applications/" + event.getAuthor().getId());
 				conn = (HttpsURLConnection) url.openConnection();
 				conn.setRequestProperty("Host","buildtheearth.net");
 				conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
@@ -235,9 +235,7 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					in.close();
 					event.getChannel().sendMessage(json.toString()).queue();
-				}
-				
-			
+				}		
 				
 				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				if ((line = in.readLine()) != null) {
@@ -253,14 +251,8 @@ public class ServerCommands extends ListenerAdapter {
 				 
 				//retrieving username from application answers
 				
-				event.getChannel().sendMessage("Pre-validation").queue();
-				
 				answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
-				usernameAppliedWith = answers.get(4).getAnswer();
-				
-				event.getChannel().sendMessage("Post-validation").queue();
-				
-
+				usernameAppliedWith = answers.get(4).getAnswer();		
 				
 			} catch (MalformedURLException e) {
 				String stack = ExceptionUtils.getStackTrace(e);
