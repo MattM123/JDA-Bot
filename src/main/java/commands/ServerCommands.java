@@ -246,14 +246,18 @@ public class ServerCommands extends ListenerAdapter {
 				
 				//JSON Deserialization
 				
+				
 				Gson gson = new Gson();
 				ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
 				 
 				//retrieving username from application answers
 				
+				event.getChannel().sendMessage("Pre-validation");
+				
 				answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
 				usernameAppliedWith = answers.get(4).getAnswer();
 				
+				event.getChannel().sendMessage("Post-validation");
 				
 
 				
