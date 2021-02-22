@@ -237,6 +237,7 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(json.toString()).queue();
 				}
 				
+			
 				
 				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				if ((line = in.readLine()) != null) {
@@ -252,12 +253,12 @@ public class ServerCommands extends ListenerAdapter {
 				 
 				//retrieving username from application answers
 				
-				event.getChannel().sendMessage("Pre-validation");
+				event.getChannel().sendMessage("Pre-validation").queue();
 				
 				answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
 				usernameAppliedWith = answers.get(4).getAnswer();
 				
-				event.getChannel().sendMessage("Post-validation");
+				event.getChannel().sendMessage("Post-validation").queue();
 				
 
 				
