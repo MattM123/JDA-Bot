@@ -40,15 +40,7 @@ public class ServerCommands extends ListenerAdapter {
 	private static String serverID = "8f401af5";
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
 	private static UserServer server = api.getServersController().getServer(serverID);
-	
-	private Long[] banlist =
-	        {789985785561874443L, 793593291144822784L, 335568963062988802L, 718386687088001125L, 515031983404089356L, 626545668256825344L, 800387054009712681L, 796934679847501824L,
-	        675075093738684440L, 445634290127208448L, 710110046201053224L, 715608557642448927L, 710981428237697126L, 697854593136066601L, 633388103846985776L, 746918708324204595L,
-	        613772790977396765L, 751122145697988638L, 373128356633247744L, 803807868460597278L, 772299526114377749L, 772301800484765706L, 772296213578907668L, 598572641783382017L, 
-	        476231567971188736L, 804957981224599552L, 744220967236141077L, 804447673104072724L, 804967039180865556L, 795639538432999474L, 779913438692245504L, 667854118139723777L,
-	        482814670185431040L, 538811235865722919L};
-
-
+	private ArrayList<Long> banlist = new ArrayList<Long>();
 
 	public static String serverName() {
 		return server.getName();
@@ -91,10 +83,21 @@ public class ServerCommands extends ListenerAdapter {
 
 	@Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
+        banlist.add(789985785561874443L); banlist.add(793593291144822784L); banlist.add(335568963062988802L); banlist.add(718386687088001125L);
+		banlist.add(515031983404089356L); banlist.add(626545668256825344L); banlist.add(800387054009712681L); banlist.add(796934679847501824L);
+		banlist.add(675075093738684440L); banlist.add(445634290127208448L); banlist.add(710110046201053224L); banlist.add(715608557642448927L);
+		banlist.add(710981428237697126L); banlist.add(697854593136066601L); banlist.add(633388103846985776L); banlist.add(746918708324204595L);
+        banlist.add(613772790977396765L); banlist.add(751122145697988638L); banlist.add(373128356633247744L); banlist.add(803807868460597278L);
+        banlist.add(772299526114377749L); banlist.add(772301800484765706L); banlist.add(772296213578907668L); banlist.add(598572641783382017L); 
+        banlist.add(476231567971188736L); banlist.add(804957981224599552L); banlist.add(744220967236141077L); banlist.add(804447673104072724L);
+        banlist.add(804967039180865556L); banlist.add(795639538432999474L); banlist.add(779913438692245504L); banlist.add(667854118139723777L);
+        banlist.add(482814670185431040L); banlist.add(538811235865722919L);
+
+        
         EmbedBuilder join = new EmbedBuilder();
         User user = (User) event.getMember();
-		for (int j = 0; j < banlist.length; j++) {		
-				if (user.getIdLong() == banlist[j]) {		        
+		for (int j = 0; j < banlist.size(); j++) {		
+				if (banlist.contains(user.getIdLong())) {		        
 					event.getGuild().ban(user, 999, "Users' ID was found on a BTE ban list compiled by BTE Midwest");
 			        join.setColor(Color.getHSBColor(227, 74, 64));
 			        join.setTitle("Suspicious User Detected");
@@ -123,7 +126,7 @@ public class ServerCommands extends ListenerAdapter {
 		 Guild guild = event.getGuild(); 
 
 		Long userID[] = {387330197420113930L, 97867804463599616L,
-				195196317071310848L, 657036933083561995L};
+				195196317071310848L, 657036933083561995L, 387330197420113930L};
 		
 		
 		
@@ -158,7 +161,8 @@ public class ServerCommands extends ListenerAdapter {
 		//event builder assign
 		if (event.getMessage().getContentRaw().startsWith("!event")) {
 			if (event.getMessage().getAuthor().getIdLong()== userID[0] || event.getMessage().getAuthor().getIdLong() == userID[1] ||
-					event.getMessage().getAuthor().getIdLong() == userID[2] || event.getMessage().getAuthor().getIdLong() == userID[3]) {
+					event.getMessage().getAuthor().getIdLong() == userID[2] || event.getMessage().getAuthor().getIdLong() == userID[3] ||
+					event.getMessage().getAuthor().getIdLong() == userID[4]) {
 				
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
