@@ -525,6 +525,7 @@ public class ServerCommands extends ListenerAdapter {
 					ApplicationInfo applicationArray = gson.fromJson(RandomApp.toString(), ApplicationInfo.class);  
 					
 					String discordName = guild.getMemberById(UserLongString).getUser().getName();	
+					event.getChannel().sendMessage("username " + discordName).queue();
 					if (RandomApp.toString().equals("{\"applications\":[]}")) {
 						
 						EmbedBuilder testCommand = new EmbedBuilder();
