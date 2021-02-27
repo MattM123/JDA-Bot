@@ -529,21 +529,31 @@ public class ServerCommands extends ListenerAdapter {
 						
 						EmbedBuilder testCommand = new EmbedBuilder();
 						testCommand.setTitle("Random user selected: " + testUser.getName().toString());
+						testCommand.addField("", "User merged into team. Application does not exist for " + testUser.getName().toString(), false);
 						
 						event.getChannel().sendMessage(testCommand.build()).queue();
 					}
 					
+					else if (!applicationArray.getApplications().get(0).getAnswerList().get(4).getQuestion().equals("What is your minecraft username? (This will be used to assign build perms later so make sure this is correct)")) {
+						EmbedBuilder testCommand = new EmbedBuilder();
+						testCommand.setTitle("Random user selected: " + testUser.getName().toString());
+						testCommand.addField("", "User applied withough Minecraft username", false);
+						
+						event.getChannel().sendMessage(testCommand.build()).queue();
+						
+					}
+						
 					else {
-					//retrieving username from application answers
-					
-						event.getChannel().sendMessage("Before Deserialization").queue();
-					answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
-					usernameAppliedWith = answers.get(4).getAnswer();	
-					event.getChannel().sendMessage("After Deserialization").queue();
-					
-					event.getChannel().sendMessage("Random user selected: " + testUser.getName() + "\n" + "Predicted Output: Assign player permissions to " + usernameAppliedWith).queue();
-					
-					
+						
+						answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
+						usernameAppliedWith = answers.get(4).getAnswer();	
+
+						EmbedBuilder testCommand = new EmbedBuilder();
+						testCommand.setTitle("Random user selected: " + testUser.getName().toString());
+						testCommand.addField("Predicted Output", "Build permissions assigned to player " + usernameAppliedWith, false);
+						
+						
+						event.getChannel().sendMessage(testCommand.build()).queue();
 				}
 						
 				} catch (MalformedURLException e) {
