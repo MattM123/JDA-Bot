@@ -486,6 +486,7 @@ public class ServerCommands extends ListenerAdapter {
 				int randomInt = (int) (Math.random() * (max - min + 1) + min);
 				ApplicationFromID = ids.get(randomInt);
 				String UserLongString = String.valueOf(ApplicationFromID);
+				StringBuilder RandomApp = new StringBuilder();
 					
 				event.getChannel().sendMessage("Breakpoint").queue();
 				try {
@@ -504,7 +505,7 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
 						in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 						while ((line = in.readLine()) != null) {
-							json.append(line);
+							RandomApp.append(line);
 						}
 						in.close();
 						event.getChannel().sendMessage(json.toString()).queue();
@@ -512,16 +513,16 @@ public class ServerCommands extends ListenerAdapter {
 			
 					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 					if ((line = in.readLine()) != null) {
-						json.append(line);
+						RandomApp.append(line);
 					}
 					in.close();
 						
-					event.getChannel().sendMessage("ID: " + ApplicationFromID).queue();
-					event.getChannel().sendMessage("JSON: " + json.toString().substring(0, 1000)).queue();		
+					event.getChannel().sendMessage("ID: " + ApplicationFromID).queue();	
+					event.getChannel().sendMessage("JSON: " + RandomApp.toString()).queue();	
 					//JSON Deserialization
 					
 					Gson gson = new Gson();
-					ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
+					ApplicationInfo applicationArray = gson.fromJson(RandomApp.toString(), ApplicationInfo.class);  
 						 
 					event.getChannel().sendMessage("Breakpoint2").queue();
 					//retrieving username from application answers
