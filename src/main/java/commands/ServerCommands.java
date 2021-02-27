@@ -337,7 +337,9 @@ public class ServerCommands extends ListenerAdapter {
 					ids.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
 				}
 					
+				event.getChannel().sendMessage("RIP").queue();
 				//Commands test
+				
 				if (MCusername.equalsIgnoreCase("test")) {
 					int min = 0;
 					int max = ids.size() + 1;
@@ -407,6 +409,7 @@ public class ServerCommands extends ListenerAdapter {
 				
 					
 				}
+				event.getChannel().sendMessage("notgood").queue();
 				
 				//If user ID exists in array and builder role is not already assigned, give builder role
 			
