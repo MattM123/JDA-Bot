@@ -220,8 +220,12 @@ public class ServerCommands extends ListenerAdapter {
 			ArrayList<AnswerInfo> answers = null;
 			String usernameAppliedWith = null;
 			
+			Long ApplicationFromID;
+			
 			try {
-				url = new URL("https://buildtheearth.net/api/v1/applications/" + event.getAuthor().getIdLong());
+				
+				ApplicationFromID = event.getAuthor().getIdLong();
+				url = new URL("https://buildtheearth.net/api/v1/applications/" + ApplicationFromID);
 				conn = (HttpsURLConnection) url.openConnection();
 				conn.setRequestProperty("Host","buildtheearth.net");
 				conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
@@ -331,6 +335,70 @@ public class ServerCommands extends ListenerAdapter {
 					ids.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
 				}
 					
+				
+				//Commands test
+				if (MCusername.equalsIgnoreCase("test")) {
+					int min = 0;
+					int max = ids.size() + 1;
+					int randomInt = (int) (Math.random() * (max - min + 1) + min);
+					ApplicationFromID = ids.get(randomInt);
+					
+					try {
+						
+						url = new URL("https://buildtheearth.net/api/v1/applications/" + ApplicationFromID);
+						conn = (HttpsURLConnection) url.openConnection();
+						conn.setRequestProperty("Host","buildtheearth.net");
+						conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+						conn.setRequestProperty("Accept", "application/json");
+						conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
+						conn.setRequestMethod("GET");
+						
+						//Storing JSON from request into string. Prints error code and error stream if encountered.
+						
+						if (conn.getResponseCode() > 200) {
+							event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
+							in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+							while ((line = in.readLine()) != null) {
+								json.append(line);
+							}
+							in.close();
+							event.getChannel().sendMessage(json.toString()).queue();
+						}		
+						
+						in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+						if ((line = in.readLine()) != null) {
+							json.append(line);
+						}
+						in.close();
+						
+						//JSON Deserialization
+						
+						
+						Gson gson = new Gson();
+						ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
+						 
+						//retrieving username from application answers
+						
+						answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
+						usernameAppliedWith = answers.get(4).getAnswer();		
+						
+					} catch (MalformedURLException e) {
+						String stack = ExceptionUtils.getStackTrace(e);
+						event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+					} catch (IOException e) {
+						String stack = ExceptionUtils.getStackTrace(e);
+						event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+					} catch (JSONException e) {
+						String stack = ExceptionUtils.getStackTrace(e);
+						event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+					}
+					EmbedBuilder testCommand = new EmbedBuilder();
+					testCommand.setTitle("Random user ID selected: " + ApplicationFromID);
+					testCommand.addField("Predicted Output", "Assigning player permissions to: " + usernameAppliedWith, false);
+				
+					
+				}
+				
 				//If user ID exists in array and builder role is not already assigned, give builder role
 			
 				List<Role> roles = event.getMember().getRoles();
