@@ -488,6 +488,7 @@ public class ServerCommands extends ListenerAdapter {
 				String UserLongString = String.valueOf(ApplicationFromID);
 				StringBuilder RandomApp = new StringBuilder();
 					
+				event.getChannel().sendMessage("Breakpoint").queue();
 				try {
 						
 					url = new URL("https://buildtheearth.net/api/v1/applications/" + UserLongString);
@@ -516,24 +517,26 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					in.close();
 						
+					event.getChannel().sendMessage("ID: " + ApplicationFromID).queue();	
+					event.getChannel().sendMessage("JSON: " + RandomApp.toString()).queue();	
 					//JSON Deserialization
 					
 					Gson gson = new Gson();
 					ApplicationInfo applicationArray = gson.fromJson(RandomApp.toString(), ApplicationInfo.class);  
 					
-					event.getChannel().sendMessage("Breakpoint").queue();
-					
 					User testUser = event.getJDA().getUserById(UserLongString);
 					if (RandomApp.toString().equals("{\"applications\":[]}")) {
 						
-						event.getChannel().sendMessage("Random user selected: " + testUser.getName() + "\n" + "Predicted Output: Player " + usernameAppliedWith + " merged into team. No application found.").queue();
+						event.getChannel().sendMessage("Random user selected: " + testUser.getName() + "\n" + "Predicted Output: Player merged into team. No application found.").queue();
 					}
 					
 					else {
 					//retrieving username from application answers
-						
+					
+						event.getChannel().sendMessage("Before Deserialization").queue();
 					answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
 					usernameAppliedWith = answers.get(4).getAnswer();	
+					event.getChannel().sendMessage("After Deserialization").queue();
 					
 					event.getChannel().sendMessage("Random user selected: " + testUser.getName() + "\n" + "Predicted Output: Assign player permissions to " + usernameAppliedWith).queue();
 					
