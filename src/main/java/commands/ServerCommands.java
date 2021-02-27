@@ -485,11 +485,12 @@ public class ServerCommands extends ListenerAdapter {
 				int max = ids.size() + 1;
 				int randomInt = (int) (Math.random() * (max - min + 1) + min);
 				ApplicationFromID = ids.get(randomInt);
+				String UserLongString = String.valueOf(ApplicationFromID);
 					
 				event.getChannel().sendMessage("Breakpoint").queue();
 				try {
 						
-					url = new URL("https://buildtheearth.net/api/v1/applications/" + ApplicationFromID);
+					url = new URL("https://buildtheearth.net/api/v1/applications/" + UserLongString);
 					conn = (HttpsURLConnection) url.openConnection();
 					conn.setRequestProperty("Host","buildtheearth.net");
 					conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
@@ -515,8 +516,7 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					in.close();
 						
-					event.getChannel().sendMessage(" " + ApplicationFromID).queue();
-					event.getChannel().sendMessage("JSON:").queue();
+					event.getChannel().sendMessage(" " + ApplicationFromID + "\n" + "JSON: " + json.toString()).queue();
 					//JSON Deserialization
 					
 					Gson gson = new Gson();
