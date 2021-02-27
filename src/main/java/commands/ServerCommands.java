@@ -344,6 +344,7 @@ public class ServerCommands extends ListenerAdapter {
 					int randomInt = (int) (Math.random() * (max - min + 1) + min);
 					ApplicationFromID = ids.get(randomInt);
 					
+					event.getChannel().sendMessage("Breakpoint").queue();
 					try {
 						
 						url = new URL("https://buildtheearth.net/api/v1/applications/" + ApplicationFromID);
@@ -365,6 +366,8 @@ public class ServerCommands extends ListenerAdapter {
 							in.close();
 							event.getChannel().sendMessage(json.toString()).queue();
 						}		
+						
+						event.getChannel().sendMessage("Breakpoint2").queue();
 						
 						in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 						if ((line = in.readLine()) != null) {
@@ -393,6 +396,9 @@ public class ServerCommands extends ListenerAdapter {
 						String stack = ExceptionUtils.getStackTrace(e);
 						event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 					}
+					
+					event.getChannel().sendMessage("Breakpoint3").queue();
+					
 					EmbedBuilder testCommand = new EmbedBuilder();
 					testCommand.setTitle("Random user ID selected: " + ApplicationFromID);
 					testCommand.addField("Predicted Output", "Assign player permissions to: " + usernameAppliedWith, false);
@@ -400,10 +406,6 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(testCommand.build()).queue();
 				
 					
-				}
-				
-				else if (MCusername.equals("")) {
-					event.getChannel().sendMessage("RIP").queue();
 				}
 				
 				//If user ID exists in array and builder role is not already assigned, give builder role
