@@ -414,7 +414,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 			
 			
-			//Ignore. Used if the ocmmand is being tested to see if it works
+			//Ignore. Used if the command is being tested to see if it works
 			else {
 				
 				String line;
@@ -510,15 +510,14 @@ public class ServerCommands extends ListenerAdapter {
 						in.close();
 						event.getChannel().sendMessage(json.toString()).queue();
 					}		
-					
-					event.getChannel().sendMessage("Breakpoint2").queue();
-					
+			
 					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 					if ((line = in.readLine()) != null) {
 						json.append(line);
 					}
 					in.close();
 						
+					event.getChannel().sendMessage("Breakpoint2").queue();
 					//JSON Deserialization
 					
 					
