@@ -527,7 +527,10 @@ public class ServerCommands extends ListenerAdapter {
 					User testUser = event.getJDA().getUserById(UserLongString);
 					if (RandomApp.toString().equals("{\"applications\":[]}")) {
 						
-						event.getChannel().sendMessage("Random user selected: " +  "\n" + "Predicted Output: Player merged into team. No application found.").queue();
+						EmbedBuilder testCommand = new EmbedBuilder();
+						testCommand.setTitle("Random user selected: " + testUser.getName().toString());
+						
+						event.getChannel().sendMessage(testCommand.build()).queue();
 					}
 					
 					else {
