@@ -528,8 +528,9 @@ public class ServerCommands extends ListenerAdapter {
 					if (RandomApp.toString().equals("{\"applications\":[]}")) {
 						
 						EmbedBuilder testCommand = new EmbedBuilder();
+	
+						testCommand.setTitle("Random user ID selected: " + testUser.getName()).setColor(Color.BLUE);
 						event.getChannel().sendMessage("After Embed").queue();
-						testCommand.setTitle("Random user ID selected: " + testUser.getName());
 						testCommand.addField("Predicted Output", "Player merged into team. No application found." + usernameAppliedWith, false);
 						
 
