@@ -488,7 +488,6 @@ public class ServerCommands extends ListenerAdapter {
 				String UserLongString = String.valueOf(ApplicationFromID);
 				StringBuilder RandomApp = new StringBuilder();
 					
-				event.getChannel().sendMessage("Breakpoint").queue();
 				try {
 						
 					url = new URL("https://buildtheearth.net/api/v1/applications/" + UserLongString);
@@ -517,12 +516,12 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					in.close();
 						
-					event.getChannel().sendMessage("ID: " + ApplicationFromID).queue();	
-					event.getChannel().sendMessage("JSON: " + RandomApp.toString()).queue();	
 					//JSON Deserialization
 					
 					Gson gson = new Gson();
 					ApplicationInfo applicationArray = gson.fromJson(RandomApp.toString(), ApplicationInfo.class);  
+					
+					event.getChannel().sendMessage("Breakpoint").queue();
 					
 					User testUser = event.getJDA().getUserById(UserLongString);
 					if (RandomApp.toString().equals("{\"applications\":[]}")) {
