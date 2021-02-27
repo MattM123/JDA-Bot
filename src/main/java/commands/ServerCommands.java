@@ -394,7 +394,9 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					EmbedBuilder testCommand = new EmbedBuilder();
 					testCommand.setTitle("Random user ID selected: " + ApplicationFromID);
-					testCommand.addField("Predicted Output", "Assigning player permissions to: " + usernameAppliedWith, false);
+					testCommand.addField("Predicted Output", "Assign player permissions to: " + usernameAppliedWith, false);
+					
+					event.getChannel().sendMessage(testCommand.build()).queue();
 				
 					
 				}
