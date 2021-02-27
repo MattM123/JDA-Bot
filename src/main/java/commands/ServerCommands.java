@@ -414,7 +414,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 			
 			
-			//Ignore. Used if the ocmmand is being test to see if it works
+			//Ignore. Used if the ocmmand is being tested to see if it works
 			else {
 				
 				String line;
@@ -480,82 +480,81 @@ public class ServerCommands extends ListenerAdapter {
 				for (int i = 0; i < jarray.size(); i++) {
 					ids.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
 				}
-				//Commands test
 				
-				if (MCusername.equalsIgnoreCase("test")) {
-					int min = 0;
-					int max = ids.size() + 1;
-					int randomInt = (int) (Math.random() * (max - min + 1) + min);
-					ApplicationFromID = ids.get(randomInt);
+				//Commands test
+
+				int min = 0;
+				int max = ids.size() + 1;
+				int randomInt = (int) (Math.random() * (max - min + 1) + min);
+				ApplicationFromID = ids.get(randomInt);
 					
-					event.getChannel().sendMessage("Breakpoint").queue();
-					try {
+				event.getChannel().sendMessage("Breakpoint").queue();
+				try {
 						
-						url = new URL("https://buildtheearth.net/api/v1/applications/" + ApplicationFromID);
-						conn = (HttpsURLConnection) url.openConnection();
-						conn.setRequestProperty("Host","buildtheearth.net");
-						conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-						conn.setRequestProperty("Accept", "application/json");
-						conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
-						conn.setRequestMethod("GET");
+					url = new URL("https://buildtheearth.net/api/v1/applications/" + ApplicationFromID);
+					conn = (HttpsURLConnection) url.openConnection();
+					conn.setRequestProperty("Host","buildtheearth.net");
+					conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+					conn.setRequestProperty("Accept", "application/json");
+					conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
+					conn.setRequestMethod("GET");
 						
-						//Storing JSON from request into string. Prints error code and error stream if encountered.
+					//Storing JSON from request into string. Prints error code and error stream if encountered.
 						
-						if (conn.getResponseCode() > 200) {
-							event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
-							in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-							while ((line = in.readLine()) != null) {
-								json.append(line);
-							}
-							in.close();
-							event.getChannel().sendMessage(json.toString()).queue();
-						}		
-						
-						event.getChannel().sendMessage("Breakpoint2").queue();
-						
+					if (conn.getResponseCode() > 200) {
+						event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
 						in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-						if ((line = in.readLine()) != null) {
+						while ((line = in.readLine()) != null) {
 							json.append(line);
 						}
 						in.close();
-						
-						//JSON Deserialization
-						
-						
-						Gson gson = new Gson();
-						ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
-						 
-						//retrieving username from application answers
-						
-						answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
-						usernameAppliedWith = answers.get(4).getAnswer();		
-						
-					} catch (MalformedURLException e) {
-						String stack = ExceptionUtils.getStackTrace(e);
-						event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-					} catch (IOException e) {
-						String stack = ExceptionUtils.getStackTrace(e);
-						event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-					} catch (JSONException e) {
-						String stack = ExceptionUtils.getStackTrace(e);
-						event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+						event.getChannel().sendMessage(json.toString()).queue();
+					}		
+					
+					event.getChannel().sendMessage("Breakpoint2").queue();
+					
+					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+					if ((line = in.readLine()) != null) {
+						json.append(line);
 					}
+					in.close();
+						
+					//JSON Deserialization
 					
-					event.getChannel().sendMessage("Breakpoint3").queue();
 					
-					EmbedBuilder testCommand = new EmbedBuilder();
-					testCommand.setTitle("Random user ID selected: " + ApplicationFromID);
-					testCommand.addField("Predicted Output", "Assign player permissions to: " + usernameAppliedWith, false);
-					
-					event.getChannel().sendMessage(testCommand.build()).queue();
-				
-					
+					Gson gson = new Gson();
+					ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
+						 
+					//retrieving username from application answers
+						
+					answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
+					usernameAppliedWith = answers.get(4).getAnswer();		
+						
+				} catch (MalformedURLException e) {
+					String stack = ExceptionUtils.getStackTrace(e);
+					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+				} catch (IOException e) {
+					String stack = ExceptionUtils.getStackTrace(e);
+					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
+				} catch (JSONException e) {
+					String stack = ExceptionUtils.getStackTrace(e);
+					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
-				event.getChannel().sendMessage("notgood").queue();
-				
-			}
+					
+				event.getChannel().sendMessage("Breakpoint3").queue();
 		
+				EmbedBuilder testCommand = new EmbedBuilder();
+				testCommand.setTitle("Random user ID selected: " + ApplicationFromID);
+				testCommand.addField("Predicted Output", "Assign player permissions to: " + usernameAppliedWith, false);
+				
+				event.getChannel().sendMessage(testCommand.build()).queue();
+						
+			}
+			event.getChannel().sendMessage("notgood").queue();
+			
 		}
+		
+	}
 	
 		
 		//reads server console and sends server message when corrupted areas have been encountered
@@ -571,9 +570,9 @@ public class ServerCommands extends ListenerAdapter {
 			
 		//}
 		
-	}	
+}	
 	
-}
+//}
 			
 
 
