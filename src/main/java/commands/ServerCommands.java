@@ -210,10 +210,6 @@ public class ServerCommands extends ListenerAdapter {
 				MCusername += chararr[i];
 			}
 			
-			event.getChannel().sendMessage("Username: " + MCusername).queue();
-			
-			if (!MCusername.equalsIgnoreCase("test")) {
-			
 				//Authentication to application to retrieve the username they applied with
 				
 				String line;
@@ -224,12 +220,9 @@ public class ServerCommands extends ListenerAdapter {
 				ArrayList<AnswerInfo> answers = null;
 				String usernameAppliedWith = null;
 				
-				Long ApplicationFromID;
-				
 				try {
-					
-					ApplicationFromID = event.getAuthor().getIdLong();
-					url = new URL("https://buildtheearth.net/api/v1/applications/" + ApplicationFromID);
+
+					url = new URL("https://buildtheearth.net/api/v1/applications/" + event.getAuthor().getId());
 					conn = (HttpsURLConnection) url.openConnection();
 					conn.setRequestProperty("Host","buildtheearth.net");
 					conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
@@ -410,170 +403,10 @@ public class ServerCommands extends ListenerAdapter {
 					else if (temp == 0) {
 						event.getChannel().sendMessage("Looks like you're not on the team or your username was invalid. If this is wrong, then ping mattress#1852").queue();
 					}
-			}
 			
 			
-			//Ignore. Used if the command is being tested
-			else {
-				
-				String line;
-				BufferedReader in; 
-				StringBuilder json = new StringBuilder();
-				URL url;
-				HttpsURLConnection conn = null;
-				ArrayList<AnswerInfo> answers = null;
-				String usernameAppliedWith = null;
-				JsonArray jarray = null;
-				Long ApplicationFromID;
-				
-				//BTE API Authentication, member and applications endpoint
-				
-				try {
-					url = new URL("https://buildtheearth.net/api/v1/members");
-					conn = (HttpsURLConnection) url.openConnection();
-					conn.setRequestProperty("Host","buildtheearth.net");
-					conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-					conn.setRequestProperty("Accept", "application/json");
-					conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
-					conn.setRequestMethod("GET");
-					
-					//Storing JSON from request into a JSON Array. Prints error code and error stream if encountered.
-					
-					if (conn.getResponseCode() > 200) {
-						event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
-						in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-						while ((line = in.readLine()) != null) {
-							json.append(line);
-						}
-						in.close();
-						event.getChannel().sendMessage(json.toString()).queue();
-					}
-					
-					
-					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-					if ((line = in.readLine()) != null) {
-						json.append(line);
-					}
-					in.close();
-					
-					//parsing JSON Element to JSON Array
-					
-					JsonElement ele = JsonParser.parseString(json.toString());
-					jarray = ele.getAsJsonObject().getAsJsonArray("members");
-					
-				} catch (MalformedURLException e) {
-					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-				} catch (IOException e) {
-					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-				} catch (JSONException e) {
-					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-				}
-				
-				//Creation of arraylist with user IDs from API request
-				
-				ArrayList<Long> ids = new ArrayList<Long>();
-				for (int i = 0; i < jarray.size(); i++) {
-					ids.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
-				}
-				
-				//Commands test
-
-				int min = 0;
-				int max = ids.size() + 1;
-				int randomInt = (int) (Math.random() * (max - min + 1) + min);
-				ApplicationFromID = ids.get(randomInt);
-				String UserLongString = String.valueOf(ApplicationFromID);
-				StringBuilder RandomApp = new StringBuilder();
-					
-				event.getChannel().sendMessage("Breakpoint").queue();
-				try {
-						
-					url = new URL("https://buildtheearth.net/api/v1/applications/" + UserLongString);
-					conn = (HttpsURLConnection) url.openConnection();
-					conn.setRequestProperty("Host","buildtheearth.net");
-					conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-					conn.setRequestProperty("Accept", "application/json");
-					conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
-					conn.setRequestMethod("GET");
-						
-					//Storing JSON from request into string. Prints error code and error stream if encountered.
-						
-					if (conn.getResponseCode() > 200) {
-						event.getChannel().sendMessage("Error Code: " + String.valueOf(conn.getResponseCode())).queue();
-						in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-						while ((line = in.readLine()) != null) {
-							RandomApp.append(line);
-						}
-						in.close();
-						event.getChannel().sendMessage(json.toString()).queue();
-					}		
 			
-					in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-					if ((line = in.readLine()) != null) {
-						RandomApp.append(line);
-					}
-					in.close();
-						
-					event.getChannel().sendMessage("ID: " + ApplicationFromID).queue();	
-					event.getChannel().sendMessage("JSON: " + RandomApp.toString()).queue();	
-					//JSON Deserialization
-	
-					
-					String discordName = guild.getMemberById(ApplicationFromID).getNickname();
-					event.getChannel().sendMessage("username " +  discordName).queue();
-					if (RandomApp.toString().equals("{\"applications\":[]}")) {
-						
-						EmbedBuilder testCommand = new EmbedBuilder();
-						testCommand.setTitle("Random user selected: " + discordName);
-						testCommand.addField("", "User merged into team. Application does not exist for " + discordName, false);
-						
-						event.getChannel().sendMessage(testCommand.build()).queue();
-					}
-					
-					Gson gson = new Gson();
-					ApplicationInfo applicationArray = gson.fromJson(RandomApp.toString(), ApplicationInfo.class);  
-					
-					if (!applicationArray.getApplications().get(0).getAnswerList().get(4).getQuestion().equals("What is your minecraft username? (This will be used to assign build perms later so make sure this is correct)")) {
-						EmbedBuilder testCommand = new EmbedBuilder();
-						testCommand.setTitle("Random user selected: " + discordName);
-						testCommand.addField("", "User applied withough Minecraft username", false);
-						
-						event.getChannel().sendMessage(testCommand.build()).queue();
-						
-					}
-						
-					else {
-						
-						answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
-						usernameAppliedWith = answers.get(4).getAnswer();	
-
-						EmbedBuilder testCommand = new EmbedBuilder();
-						testCommand.setTitle("Random user selected: " + discordName);
-						testCommand.addField("Predicted Output", "Build permissions assigned to player " + usernameAppliedWith, false);
-						
-						
-						event.getChannel().sendMessage(testCommand.build()).queue();
-				}
-						
-				} catch (MalformedURLException e) {
-					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-				} catch (IOException e) {
-					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-				} catch (JSONException e) {
-					String stack = ExceptionUtils.getStackTrace(e);
-					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
-				}
-					
-				
-		
 			
-						
-			}
 
 			
 		}
