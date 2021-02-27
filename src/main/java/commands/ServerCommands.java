@@ -517,7 +517,7 @@ public class ServerCommands extends ListenerAdapter {
 					in.close();
 						
 					event.getChannel().sendMessage("ID: " + ApplicationFromID).queue();
-					event.getChannel().sendMessage("JSON: " + json.toString().substring(0, 2000)).queue();		
+					event.getChannel().sendMessage("JSON: " + json.toString().substring(0, 1000)).queue();		
 					//JSON Deserialization
 					
 					Gson gson = new Gson();
