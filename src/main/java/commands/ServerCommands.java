@@ -202,7 +202,7 @@ public class ServerCommands extends ListenerAdapter {
 
 		//give build perms based on presence on build team
 		if (event.getMessage().getContentRaw().startsWith("!link")) {			
-			
+			Gson gson = new Gson();
 			//Parses minecraft username for later use
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String MCusername = "";
@@ -259,7 +259,7 @@ public class ServerCommands extends ListenerAdapter {
 					//JSON Deserialization
 					
 					
-					Gson gson = new Gson();
+					gson = new Gson();
 					ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
 					 
 					//retrieving username from application answers
@@ -519,8 +519,7 @@ public class ServerCommands extends ListenerAdapter {
 						
 					//JSON Deserialization
 					
-					
-					Gson gson = new Gson();
+					gson = new Gson();
 					ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
 						 
 					event.getChannel().sendMessage("Breakpoint2").queue();
