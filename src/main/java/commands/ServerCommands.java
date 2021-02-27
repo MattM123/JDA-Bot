@@ -517,13 +517,13 @@ public class ServerCommands extends ListenerAdapter {
 					}
 					in.close();
 						
-					event.getChannel().sendMessage("Breakpoint2").queue();
 					//JSON Deserialization
 					
 					
 					Gson gson = new Gson();
 					ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
 						 
+					event.getChannel().sendMessage("Breakpoint2").queue();
 					//retrieving username from application answers
 						
 					answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
