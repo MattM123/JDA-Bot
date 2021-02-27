@@ -525,16 +525,9 @@ public class ServerCommands extends ListenerAdapter {
 					ApplicationInfo applicationArray = gson.fromJson(RandomApp.toString(), ApplicationInfo.class);  
 					
 					User testUser = event.getJDA().getUserById(UserLongString);
-
-					EmbedBuilder testCommand1 = new EmbedBuilder();
-
-					testCommand1.setTitle("Random user ID selected: " + testUser.getName()).setColor(Color.BLUE);
-					testCommand1.addField("Predicted Output", "Player merged into team. No application found." + usernameAppliedWith, false);
 					if (RandomApp.toString().equals("{\"applications\":[]}")) {
 						
-						
-
-						event.getChannel().sendMessage(testCommand1.build()).queue();
+						event.getChannel().sendMessage("Random user selected: " + testUser.getName() + "\n" + "Predicted Output: Player " + usernameAppliedWith + " merged into team. No application found.").queue();
 					}
 					
 					else {
@@ -543,11 +536,7 @@ public class ServerCommands extends ListenerAdapter {
 					answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
 					usernameAppliedWith = answers.get(4).getAnswer();	
 					
-					EmbedBuilder testCommand = new EmbedBuilder();
-					testCommand.setTitle("Random user ID selected: " + testUser.getName());
-					testCommand.addField("Predicted Output", "Assign player permissions to: " + usernameAppliedWith, false);
-					
-					event.getChannel().sendMessage(testCommand.build()).queue();
+					event.getChannel().sendMessage("Random user selected: " + testUser.getName() + "\n" + "Predicted Output: Assign player permissions to " + usernameAppliedWith).queue();
 					
 					
 				}
