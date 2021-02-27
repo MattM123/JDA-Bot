@@ -335,7 +335,7 @@ public class ServerCommands extends ListenerAdapter {
 					ids.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
 				}
 					
-				
+				event.getChannel().sendMessage(MCusername).queue();
 				//Commands test
 				if (MCusername.equalsIgnoreCase("test")) {
 					int min = 0;
