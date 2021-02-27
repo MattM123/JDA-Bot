@@ -525,16 +525,16 @@ public class ServerCommands extends ListenerAdapter {
 					ApplicationInfo applicationArray = gson.fromJson(RandomApp.toString(), ApplicationInfo.class);  
 					
 					User testUser = event.getJDA().getUserById(UserLongString);
+
+					EmbedBuilder testCommand1 = new EmbedBuilder();
+
+					testCommand1.setTitle("Random user ID selected: " + testUser.getName()).setColor(Color.BLUE);
+					testCommand1.addField("Predicted Output", "Player merged into team. No application found." + usernameAppliedWith, false);
 					if (RandomApp.toString().equals("{\"applications\":[]}")) {
 						
-						EmbedBuilder testCommand = new EmbedBuilder();
-	
-						testCommand.setTitle("Random user ID selected: " + testUser.getName()).setColor(Color.BLUE);
-						event.getChannel().sendMessage("After Embed").queue();
-						testCommand.addField("Predicted Output", "Player merged into team. No application found." + usernameAppliedWith, false);
 						
 
-						event.getChannel().sendMessage(testCommand.build()).queue();
+						event.getChannel().sendMessage(testCommand1.build()).queue();
 					}
 					
 					else {
