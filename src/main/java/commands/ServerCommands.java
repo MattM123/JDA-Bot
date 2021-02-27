@@ -520,9 +520,7 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage("ID: " + ApplicationFromID).queue();	
 					event.getChannel().sendMessage("JSON: " + RandomApp.toString()).queue();	
 					//JSON Deserialization
-					
-					Gson gson = new Gson();
-					ApplicationInfo applicationArray = gson.fromJson(RandomApp.toString(), ApplicationInfo.class);  
+	
 					
 					String discordName = guild.getMemberById(UserLongString).getUser().getName();	
 					event.getChannel().sendMessage("username " + UserLongString).queue();
@@ -535,7 +533,10 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage(testCommand.build()).queue();
 					}
 					
-					else if (!applicationArray.getApplications().get(0).getAnswerList().get(4).getQuestion().equals("What is your minecraft username? (This will be used to assign build perms later so make sure this is correct)")) {
+					Gson gson = new Gson();
+					ApplicationInfo applicationArray = gson.fromJson(RandomApp.toString(), ApplicationInfo.class);  
+					
+					if (!applicationArray.getApplications().get(0).getAnswerList().get(4).getQuestion().equals("What is your minecraft username? (This will be used to assign build perms later so make sure this is correct)")) {
 						EmbedBuilder testCommand = new EmbedBuilder();
 						testCommand.setTitle("Random user selected: " + discordName);
 						testCommand.addField("", "User applied withough Minecraft username", false);
