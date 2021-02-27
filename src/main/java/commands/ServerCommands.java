@@ -210,6 +210,8 @@ public class ServerCommands extends ListenerAdapter {
 				MCusername += chararr[i];
 			}
 			
+			event.getChannel().sendMessage(MCusername).queue();
+			
 			//Authentication to application to retrieve the username they applied with
 			
 			String line;
@@ -335,7 +337,6 @@ public class ServerCommands extends ListenerAdapter {
 					ids.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
 				}
 					
-				event.getChannel().sendMessage(MCusername).queue();
 				//Commands test
 				if (MCusername.equalsIgnoreCase("test")) {
 					int min = 0;
