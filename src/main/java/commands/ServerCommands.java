@@ -524,19 +524,19 @@ public class ServerCommands extends ListenerAdapter {
 					Gson gson = new Gson();
 					ApplicationInfo applicationArray = gson.fromJson(RandomApp.toString(), ApplicationInfo.class);  
 					
-					User testUser = event.getJDA().getUserById(UserLongString);
+					String discordName = guild.getMemberById(UserLongString).getUser().getName();	
 					if (RandomApp.toString().equals("{\"applications\":[]}")) {
 						
 						EmbedBuilder testCommand = new EmbedBuilder();
-						testCommand.setTitle("Random user selected: " + testUser.getName().toString());
-						testCommand.addField("", "User merged into team. Application does not exist for " + testUser.getName().toString(), false);
+						testCommand.setTitle("Random user selected: " + discordName);
+						testCommand.addField("", "User merged into team. Application does not exist for " + discordName, false);
 						
 						event.getChannel().sendMessage(testCommand.build()).queue();
 					}
 					
 					else if (!applicationArray.getApplications().get(0).getAnswerList().get(4).getQuestion().equals("What is your minecraft username? (This will be used to assign build perms later so make sure this is correct)")) {
 						EmbedBuilder testCommand = new EmbedBuilder();
-						testCommand.setTitle("Random user selected: " + testUser.getName().toString());
+						testCommand.setTitle("Random user selected: " + discordName);
 						testCommand.addField("", "User applied withough Minecraft username", false);
 						
 						event.getChannel().sendMessage(testCommand.build()).queue();
@@ -549,7 +549,7 @@ public class ServerCommands extends ListenerAdapter {
 						usernameAppliedWith = answers.get(4).getAnswer();	
 
 						EmbedBuilder testCommand = new EmbedBuilder();
-						testCommand.setTitle("Random user selected: " + testUser.getName().toString());
+						testCommand.setTitle("Random user selected: " + discordName);
 						testCommand.addField("Predicted Output", "Build permissions assigned to player " + usernameAppliedWith, false);
 						
 						
