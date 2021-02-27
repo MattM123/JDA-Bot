@@ -212,7 +212,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 			event.getChannel().sendMessage("Username: " + MCusername).queue();
 			
-			if (!MCusername.equals("test")) {
+			if (!MCusername.equalsIgnoreCase("test")) {
 			
 				//Authentication to application to retrieve the username they applied with
 				
@@ -410,11 +410,11 @@ public class ServerCommands extends ListenerAdapter {
 					else if (temp == 0) {
 						event.getChannel().sendMessage("Looks like you're not on the team or your username was invalid. If this is wrong, then ping mattress#1852").queue();
 					}
-				}
+			}
 			
 			
-			//Ignore. Used if the command is being tested to see if it works
-			else if (MCusername.equalsIgnoreCase("test")) {
+			//Ignore. Used if the command is being tested
+			else {
 				
 				String line;
 				BufferedReader in; 
@@ -425,9 +425,8 @@ public class ServerCommands extends ListenerAdapter {
 				String usernameAppliedWith = null;
 				JsonArray jarray = null;
 				Long ApplicationFromID;
+				
 				//BTE API Authentication, member and applications endpoint
-				
-				
 				
 				try {
 					url = new URL("https://buildtheearth.net/api/v1/members");
@@ -518,8 +517,8 @@ public class ServerCommands extends ListenerAdapter {
 						
 					//JSON Deserialization
 					
-					Gson gson = new Gson();
-					ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
+					Gson gson1 = new Gson();
+					ApplicationInfo applicationArray = gson1.fromJson(json.toString(), ApplicationInfo.class);  
 						 
 					event.getChannel().sendMessage("Breakpoint2").queue();
 					//retrieving username from application answers
