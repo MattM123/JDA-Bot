@@ -414,7 +414,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 			
 			//Ignore. Used if the command is being tested to see if it works
-			else {
+			else if (MCusername.equalsIgnoreCase("test")) {
 				
 				String line;
 				BufferedReader in; 
