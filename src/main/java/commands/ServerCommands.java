@@ -516,11 +516,11 @@ public class ServerCommands extends ListenerAdapter {
 					in.close();
 						
 					event.getChannel().sendMessage(" " + ApplicationFromID).queue();
-					event.getChannel().sendMessage(json.toString()).queue();
+					event.getChannel().sendMessage("JSON: " + json.toString()).queue();
 					//JSON Deserialization
 					
-					Gson gson1 = new Gson();
-					ApplicationInfo applicationArray = gson1.fromJson(json.toString(), ApplicationInfo.class);  
+					Gson gson = new Gson();
+					ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
 						 
 					event.getChannel().sendMessage("Breakpoint2").queue();
 					//retrieving username from application answers
