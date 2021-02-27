@@ -523,12 +523,30 @@ public class ServerCommands extends ListenerAdapter {
 					
 					Gson gson = new Gson();
 					ApplicationInfo applicationArray = gson.fromJson(RandomApp.toString(), ApplicationInfo.class);  
-						 
-					event.getChannel().sendMessage("Breakpoint2").queue();
+					
+					User testUser = event.getJDA().getUserById(UserLongString);
+					if (RandomApp.toString().equals("{\"applications\":[]}")) {
+						EmbedBuilder testCommand = new EmbedBuilder();
+						testCommand.setTitle("Random user ID selected: " + testUser.getName());
+						testCommand.addField("Predicted Output", "Player merged into team. No application found" + usernameAppliedWith, false);
+						
+						event.getChannel().sendMessage(testCommand.build()).queue();
+					}
+					
+					else {
 					//retrieving username from application answers
 						
 					answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
-					usernameAppliedWith = answers.get(4).getAnswer();		
+					usernameAppliedWith = answers.get(4).getAnswer();	
+					
+					EmbedBuilder testCommand = new EmbedBuilder();
+					testCommand.setTitle("Random user ID selected: " + testUser.getName());
+					testCommand.addField("Predicted Output", "Assign player permissions to: " + usernameAppliedWith, false);
+					
+					event.getChannel().sendMessage(testCommand.build()).queue();
+					
+					
+				}
 						
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
@@ -541,16 +559,12 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(stack.subSequence(0, 1000)).complete();
 				}
 					
-				event.getChannel().sendMessage("Breakpoint3").queue();
-		
-				EmbedBuilder testCommand = new EmbedBuilder();
-				testCommand.setTitle("Random user ID selected: " + ApplicationFromID);
-				testCommand.addField("Predicted Output", "Assign player permissions to: " + usernameAppliedWith, false);
 				
-				event.getChannel().sendMessage(testCommand.build()).queue();
+		
+			
 						
 			}
-			event.getChannel().sendMessage("notgood").queue();
+
 			
 		}
 		
