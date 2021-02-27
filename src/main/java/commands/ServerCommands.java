@@ -401,6 +401,10 @@ public class ServerCommands extends ListenerAdapter {
 					
 				}
 				
+				else if (MCusername.equals("")) {
+					event.getChannel().sendMessage("RIP").queue();
+				}
+				
 				//If user ID exists in array and builder role is not already assigned, give builder role
 			
 				List<Role> roles = event.getMember().getRoles();
