@@ -527,11 +527,11 @@ public class ServerCommands extends ListenerAdapter {
 					User testUser = event.getJDA().getUserById(UserLongString);
 					if (RandomApp.toString().equals("{\"applications\":[]}")) {
 						
-						event.getChannel().sendMessage("Inside if").queue();
 						EmbedBuilder testCommand = new EmbedBuilder();
 						testCommand.setTitle("Random user ID selected: " + testUser.getName());
-						testCommand.addField("Predicted Output", "Player merged into team. No application found" + usernameAppliedWith, false);
+						testCommand.addField("Predicted Output", "Player merged into team. No application found." + usernameAppliedWith, false);
 						
+						event.getChannel().sendMessage("After Embed").queue();
 						event.getChannel().sendMessage(testCommand.build()).queue();
 					}
 					
