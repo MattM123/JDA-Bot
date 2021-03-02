@@ -24,7 +24,7 @@ public class CraftyController {
 	private static String apikey;
 	
 	public CraftyController(String api) {
-		api = apikey;
+		apikey = api;
 	}
 	
 	public void fixUntrustCertificate() throws KeyManagementException, NoSuchAlgorithmException{

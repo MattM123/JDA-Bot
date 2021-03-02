@@ -37,7 +37,7 @@ public class ServerCommands extends ListenerAdapter {
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
 	private static UserServer server = api.getServersController().getServer(serverID);
 	private CraftyController crafty = new CraftyController("XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53");
-	
+	private BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
 
 	public static String serverName() {
 		return server.getName();
@@ -174,8 +174,7 @@ public class ServerCommands extends ListenerAdapter {
 				MCusername += chararr[i];
 			}
 			
-				//Getting username from application for input validation
-			    BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+				//Getting username from application for input validation	
 				String usernameApplied = BTE.getUsernameAppliedWith("326140647998488577");
 				
 				if (usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") 
