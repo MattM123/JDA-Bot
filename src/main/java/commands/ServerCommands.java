@@ -154,15 +154,10 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//crafty test
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
-			JsonArray stats = crafty.getServerStats().get(1).getAsJsonObject().getAsJsonArray();
-			
-			event.getChannel().sendMessage(stats.toString().subSequence(0, 1500)).queue();
-			//for (int i = 0; i < stats.size(); i++) {
-			//	event.getChannel().sendMessage(stats.get(i).toString()).queue();
-			//}
-			
-			
-			
+			JsonElement ele = JsonParser.parseString(crafty.getServerStats());
+			JsonArray jarray = ele.getAsJsonObject().getAsJsonArray("data");
+			event.getChannel().sendMessage(jarray.toString()).queue();
+	
 		}
 
 		//give build perms based on presence on build team
