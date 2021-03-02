@@ -160,7 +160,7 @@ public class ServerCommands extends ListenerAdapter {
 				values.add(crafty.getServerStats().get(i).getAsJsonObject().getAsString());
 			}
 			
-			event.getChannel().sendMessage("JSON Values: " + values.toString()).queue();
+			event.getChannel().sendMessage("JSON Values: " + values.get(4)).queue();
 			
 		}
 
