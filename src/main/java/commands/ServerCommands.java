@@ -158,7 +158,9 @@ public class ServerCommands extends ListenerAdapter {
 			JsonArray jarray = ele.getAsJsonObject().getAsJsonArray("data");
 			JsonArray WisconsinStats = jarray.get(1).getAsJsonArray();
 			
-			
+			for (int i = 0; i < WisconsinStats.size(); i++) {
+				event.getChannel().sendMessage(WisconsinStats.get(i).toString());
+			}
 			event.getChannel().sendMessage(WisconsinStats.toString()).queue();
 	
 		}
