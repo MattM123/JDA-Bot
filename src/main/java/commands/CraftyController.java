@@ -58,7 +58,7 @@ public class CraftyController {
 }
 	
 	//HOST_STATS = '/api/v1/host_stats'
-	public String getServersStats() {
+	public String getServerStats() {
 		String line;
 		BufferedReader in; 
 		StringBuilder json = new StringBuilder();
