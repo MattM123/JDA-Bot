@@ -67,7 +67,7 @@ public class CraftyController {
 
 		try {
 			fixUntrustCertificate();
-			url = new URL("https://panel.richterent.com/api/v1/server_stats," + apikey);
+			url = new URL("https://panel.richterent.com/api/v1/server_stats/apikey=" + apikey);
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
 			conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
