@@ -15,7 +15,7 @@ import org.json.JSONException;
 import com.google.gson.Gson;
 
 public class BuildTheEarthAPI {
-	private String apikey;
+	private String apikey = "";
 	//private String user;
 	
 	public BuildTheEarthAPI(String key) {
@@ -23,9 +23,7 @@ public class BuildTheEarthAPI {
 	}
 	
 	//Given a discord ID, this method returns the username the user applied with
-	public String getUsernameAppliedWith(String userID) {
-	//	user = userID;
-		
+	public String getUsernameAppliedWith(String userID) {	
 		String line;
 		BufferedReader in; 
 		StringBuilder json = new StringBuilder();
