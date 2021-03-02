@@ -147,7 +147,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//crafty test
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
-			event.getChannel().sendMessage(crafty.getHostStats().subSequence(0, 1500)).queue();
+			event.getChannel().sendMessage(crafty.getServerStats().subSequence(0, 1500)).queue();
 		}
 
 		//give build perms based on presence on build team
@@ -245,25 +245,9 @@ public class ServerCommands extends ListenerAdapter {
 					}
 		}
 		
-	}
-	
-		
-		//reads server console and sends server message when corrupted areas have been encountered
-		
-		//if (event.getChannel().equals(event.getGuild().getGuildChannelById(802232830129995847L))) {
-	//		if (event.getMessage().getContentRaw().contains("Cube is corrupted!") && (event.getMessage().getContentRaw().contains("Cube will be regenerated")
-	//			&& (event.getMessage().getContentRaw().contains("ERROR")))); {
-	//			server.sendCommand("say A corrupted area has been loaded in but it is being regenerated.");
-		//	}
-		//	if (event.getMessage().getContentRaw().contains("Could not load cube in") && (event.getMessage().getContentRaw().contains("ERROR"))) {
-		//		server.sendCommand("say A corrupted area has failed to regenerate.");
-		//	}
-			
-		//}
-		
+	}	
 }	
 	
-//}
 			
 
 
