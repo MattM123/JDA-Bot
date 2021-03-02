@@ -79,7 +79,7 @@ public class BuildTheEarthAPI {
 			return stack.subSequence(0, 1000).toString();
 		}
 		
-		return usernameAppliedWith + " " + apikey;
+		return usernameAppliedWith;
 	}
 	//6d83c36acd1bb7301e64749b46ebddc2e3b64a67
 }
