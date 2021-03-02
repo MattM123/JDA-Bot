@@ -58,7 +58,7 @@ public class CraftyController {
 }
 	
 	//HOST_STATS = '/api/v1/host_stats'
-	public String getServerStats() {
+	public String getServersStats() {
 		String line;
 		BufferedReader in; 
 		StringBuilder json = new StringBuilder();
@@ -70,7 +70,7 @@ public class CraftyController {
 			url = new URL("https://panel.richterent.com/api/v1/server_stats," + apikey);
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-			conn.setRequestProperty("Content-Type", "application/json; utf-8");
+			conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
 			conn.setRequestProperty("Accept", "text/html");
 			conn.setRequestProperty("Host", "panel.richterent.com");
 			conn.setRequestMethod("GET");
