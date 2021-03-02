@@ -155,12 +155,13 @@ public class ServerCommands extends ListenerAdapter {
 		//crafty test
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
 			ArrayList<String> values = new ArrayList<String>();
+			JsonArray stats = crafty.getServerStats().get(1).getAsJsonObject().getAsJsonArray();
 			
 			for (int i = 0; i < crafty.getServerStats().size(); i++) {
-				values.add(crafty.getServerStats().get(i).getAsJsonObject().getAsString());
+				values.add(stats.get(i).getAsJsonObject().getAsString());
 			}
 			
-			event.getChannel().sendMessage("JSON Values: " + values.get(4)).queue();
+			event.getChannel().sendMessage("JSON Values: " + values.get(1)).queue();
 			
 		}
 
