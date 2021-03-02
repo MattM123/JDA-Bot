@@ -16,14 +16,14 @@ import com.google.gson.Gson;
 
 public class BuildTheEarthAPI {
 	private String apikey;
-	private long user;
+	private String user;
 	
 	public BuildTheEarthAPI(String key) {
 		key = apikey;
 	}
 	
 	//Given a discord ID, this method returns the username the user applied with
-	public String getUsernameAppliedWith(long userID) {
+	public String getUsernameAppliedWith(String userID) {
 		userID = user;
 		
 		String line;

@@ -176,7 +176,7 @@ public class ServerCommands extends ListenerAdapter {
 				//Getting username from application for input validation
 				
 				BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-				String usernameApplied = BTE.getUsernameAppliedWith(326140647998488577L);
+				String usernameApplied = BTE.getUsernameAppliedWith("326140647998488577");
 				
 				if (usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") 
 						|| usernameApplied.contains("IOException") || usernameApplied.contains("JSONException")) {
