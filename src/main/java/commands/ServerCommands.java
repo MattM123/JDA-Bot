@@ -155,7 +155,7 @@ public class ServerCommands extends ListenerAdapter {
 		//crafty test
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
 			JsonElement ele = JsonParser.parseString(crafty.getServerStats().get(2).toString());
-			event.getChannel().sendMessage(ele.getAsJsonArray().get(0).toString()).queue();
+			event.getChannel().sendMessage(ele.getAsJsonObject().get("server_running").toString()).queue();
 			
 		
 			
