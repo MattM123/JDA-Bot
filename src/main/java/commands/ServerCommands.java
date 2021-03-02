@@ -2,8 +2,15 @@ package commands;
 
 import java.awt.Color;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONArray;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
 import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
@@ -22,7 +29,7 @@ public class ServerCommands extends ListenerAdapter {
 	private static String serverID = "8f401af5";
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
 	private static UserServer server = api.getServersController().getServer(serverID);
-	private CraftyController crafty = new CraftyController("XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53");
+	private CraftyControllerAPI crafty = new CraftyControllerAPI("XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53");
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
 
 	public static String serverName() {
@@ -147,7 +154,14 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//crafty test
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
-			event.getChannel().sendMessage(crafty.getServerStats().subSequence(0, 1500)).queue();
+			ArrayList<String> values = new ArrayList<String>();
+			
+			for (int i = 0; i < crafty.getServerStats().size(); i++) {
+				values.add(crafty.getServerStats().get(i).getAsJsonObject().getAsString());
+			}
+			
+			event.getChannel().sendMessage(values.toString()).queue();
+			
 		}
 
 		//give build perms based on presence on build team

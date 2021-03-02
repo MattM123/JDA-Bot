@@ -19,11 +19,15 @@ import javax.net.ssl.X509TrustManager;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.json.JSONException;
 
-public class CraftyController {
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
+public class CraftyControllerAPI {
 	
 	private static String apikey;
 	
-	public CraftyController(String api) {
+	public CraftyControllerAPI(String api) {
 		apikey = api;
 	}
 	
@@ -58,12 +62,14 @@ public class CraftyController {
 }
 	
 	//HOST_STATS = '/api/v1/host_stats'
-	public String getServerStats() {
+	public JsonArray getServerStats() {
 		String line;
 		BufferedReader in; 
 		StringBuilder json = new StringBuilder();
 		URL url;
 		HttpsURLConnection conn = null;
+		String errorString = "";
+		JsonArray jarray = null;
 
 		try {
 			fixUntrustCertificate();
@@ -84,7 +90,7 @@ public class CraftyController {
 					json.append(line);
 				}
 				in.close();
-				return "Error Code: " + String.valueOf(conn.getResponseCode()) + "\n" + json.toString();
+				errorString = "Error Code: " + String.valueOf(conn.getResponseCode()) + "\n" + json.toString();
 			}		
 			
 			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -93,27 +99,29 @@ public class CraftyController {
 			}
 			in.close();
 			
+			JsonElement ele = JsonParser.parseString(json.toString());
+			jarray = ele.getAsJsonObject().getAsJsonArray("data");
 			
 				
 			
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			errorString = stack;
 		} catch (IOException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			errorString = stack;
 		} catch (JSONException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			errorString = stack;
 		} catch (NoSuchAlgorithmException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			errorString = stack;
 		} catch (KeyManagementException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			errorString = stack;
 		}
 		
-		return json.toString();
+		return jarray;
 	}
 	
 	
