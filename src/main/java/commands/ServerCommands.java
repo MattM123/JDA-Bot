@@ -40,7 +40,7 @@ public class ServerCommands extends ListenerAdapter {
 	private static String serverID = "8f401af5";
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
 	private static UserServer server = api.getServersController().getServer(serverID);
-	private ArrayList<Long> banlist = new ArrayList<Long>();
+	private CraftyController crafty = new CraftyController("XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53");
 
 	public static String serverName() {
 		return server.getName();
@@ -80,44 +80,6 @@ public class ServerCommands extends ListenerAdapter {
 		ServerUsage s = server.getServerUsage();
 		return s.getMemoryUsage() + "MB / " + server.getLimits().getMemory() + "MB";
 	}
-
-	@Override
-    public void onGuildMemberJoin(GuildMemberJoinEvent event) {
-        banlist.add(789985785561874443L); banlist.add(793593291144822784L); banlist.add(335568963062988802L); banlist.add(718386687088001125L);
-		banlist.add(515031983404089356L); banlist.add(626545668256825344L); banlist.add(800387054009712681L); banlist.add(796934679847501824L);
-		banlist.add(675075093738684440L); banlist.add(445634290127208448L); banlist.add(710110046201053224L); banlist.add(715608557642448927L);
-		banlist.add(710981428237697126L); banlist.add(697854593136066601L); banlist.add(633388103846985776L); banlist.add(746918708324204595L);
-        banlist.add(613772790977396765L); banlist.add(751122145697988638L); banlist.add(373128356633247744L); banlist.add(803807868460597278L);
-        banlist.add(772299526114377749L); banlist.add(772301800484765706L); banlist.add(772296213578907668L); banlist.add(598572641783382017L); 
-        banlist.add(476231567971188736L); banlist.add(804957981224599552L); banlist.add(744220967236141077L); banlist.add(804447673104072724L);
-        banlist.add(804967039180865556L); banlist.add(795639538432999474L); banlist.add(779913438692245504L); banlist.add(667854118139723777L);
-        banlist.add(482814670185431040L); banlist.add(538811235865722919L);
-
-        
-        EmbedBuilder join = new EmbedBuilder();
-        User user = (User) event.getMember();
-		for (int j = 0; j < banlist.size(); j++) {		
-				if (banlist.contains(user.getIdLong())) {		        
-					event.getGuild().ban(user, 999, "Users' ID was found on a BTE ban list compiled by BTE Midwest");
-			        join.setColor(Color.getHSBColor(227, 74, 64));
-			        join.setTitle("Suspicious User Detected");
-			        join.setImage(user.getAvatarUrl());
-			        join.setDescription(user.getName() + "is reported to be a suspicious and or malicious user by other BTE Team Owners. They will be banned!");
-			        event.getGuild().getTextChannelById(786328890280247327L).sendMessage(join.build()).queue();
-				}
-			}
-					
-				
-
-			
-		
-        join.setColor(Color.getHSBColor(227, 74, 64));
-        join.setTitle("Suspicious User Detected");
-        join.setDescription(event.getMember().getAsMention() + "is reported to be a suspicious and or malicious user by other BTE discords. They will be banned!");
-        join.setImage(event.getGuild().getMember(user).getUser().getAvatarUrl());
-        join.addField(user.getName(), "", false);
-        event.getGuild().getTextChannelById(735994791627849828L).sendMessage(join.build()).queue();
-    }
 	    
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -198,6 +160,11 @@ public class ServerCommands extends ListenerAdapter {
 			else {
 				event.getChannel().sendMessage("Invalid permissions.").queue();
 			}
+		}
+		
+		//crafty test
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
+			event.getChannel().sendMessage(crafty.getHostStats().subSequence(0, 1500)).queue();
 		}
 
 		//give build perms based on presence on build team
