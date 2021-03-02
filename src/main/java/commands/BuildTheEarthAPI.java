@@ -16,13 +16,13 @@ import com.google.gson.Gson;
 
 public class BuildTheEarthAPI {
 	private String apikey;
-	private long user;
+	private String user;
 	
 	public BuildTheEarthAPI(String key) {
 		key = apikey;
 	}
 	
-	public BuildTheEarthAPI(String key, long userID) {
+	public BuildTheEarthAPI(String key, String userID) {
 		key = apikey;
 		userID = user;
 	}
