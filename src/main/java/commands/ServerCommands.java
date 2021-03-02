@@ -252,19 +252,19 @@ public class ServerCommands extends ListenerAdapter {
 				
 					int temp = 0;
 					for (int i = 0; i < ids.size(); i++) {	
-						if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameAppliedWith))) {
+						if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(BTE.getUsernameAppliedWith()))) {
 							event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
 							temp = 1;
 							break;
 						}
 									
-						else if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) && (MCusername.equalsIgnoreCase(usernameAppliedWith))) {
+						else if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) && (MCusername.equalsIgnoreCase(BTE.getUsernameAppliedWith()))) {
 							guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 							event.getChannel().sendMessage("You now have Builder role!").queue();
 							temp = 1;
 							break;
 						}
-						else if (!(MCusername.equalsIgnoreCase(usernameAppliedWith))) {
+						else if (!(MCusername.equalsIgnoreCase(BTE.getUsernameAppliedWith()))) {
 							event.getChannel().sendMessage("The username you applied with and the one you used to run this command do not match.").queue();
 							break;
 						}
