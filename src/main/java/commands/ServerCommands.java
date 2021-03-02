@@ -15,7 +15,6 @@ import javax.net.ssl.HttpsURLConnection;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.json.JSONException;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -26,10 +25,7 @@ import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -177,10 +173,17 @@ public class ServerCommands extends ListenerAdapter {
 				MCusername += chararr[i];
 			}
 			
-				//Authentication to application to retrieve the username they applied with
+				//Getting username from application for input validation
 				
 				BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67", 326140647998488577L);
 				BTE.getUsernameAppliedWith();
+				
+				if (BTE.getUsernameAppliedWith().contains("Error Code: ") || BTE.getUsernameAppliedWith().contains("MalformedURLException") 
+						|| BTE.getUsernameAppliedWith().contains("IOException") || BTE.getUsernameAppliedWith().contains("JSONException")) {
+					
+					event.getChannel().sendMessage("There was an error with retrieveing the users' application data.").queue();;
+					event.getChannel().sendMessage(BTE.getUsernameAppliedWith()).queue();
+				}
 				event.getChannel().sendMessage(BTE.getUsernameAppliedWith()).queue();
 				
 				//Authenticating to members endpoint to check if user is on team
