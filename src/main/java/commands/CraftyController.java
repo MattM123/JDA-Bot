@@ -21,7 +21,7 @@ import org.json.JSONException;
 
 public class CraftyController {
 	
-	private static String apikey = "XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53";
+	private static String apikey;
 	
 	public CraftyController(String api) {
 		api = apikey;
