@@ -35,7 +35,7 @@ public class BuildTheEarthAPI {
 		String usernameAppliedWith = null;
 		
 		try {
-			url = new URL("https://buildtheearth.net/api/v1/applications/" + userID);
+			url = new URL("https://buildtheearth.net/api/v1/applications/" + user);
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("Host","buildtheearth.net");
 			conn.setRequestProperty("Authorization", "Bearer " + apikey);
