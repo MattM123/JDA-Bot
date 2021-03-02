@@ -61,7 +61,7 @@ public class CraftyControllerAPI {
         HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
 }
 	
-	//HOST_STATS = '/api/v1/host_stats'
+	//returns the list of servers and their stats
 	public JsonArray getServerStats() {
 		String line;
 		BufferedReader in; 
