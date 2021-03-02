@@ -15,8 +15,7 @@ import org.json.JSONException;
 import com.google.gson.Gson;
 
 public class BuildTheEarthAPI {
-	private String apikey = "";
-	//private String user;
+	private String apikey;
 	
 	public BuildTheEarthAPI(String key) {
 		key = apikey;
