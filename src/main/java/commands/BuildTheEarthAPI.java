@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 
 public class BuildTheEarthAPI {
 	private String apikey;
-	private String user;
+	//private String user;
 	
 	public BuildTheEarthAPI(String key) {
 		key = apikey;
@@ -24,7 +24,7 @@ public class BuildTheEarthAPI {
 	
 	//Given a discord ID, this method returns the username the user applied with
 	public String getUsernameAppliedWith(String userID) {
-		userID = user;
+	//	user = userID;
 		
 		String line;
 		BufferedReader in; 
@@ -35,7 +35,7 @@ public class BuildTheEarthAPI {
 		String usernameAppliedWith = null;
 		
 		try {
-			url = new URL("https://buildtheearth.net/api/v1/applications/" + user);
+			url = new URL("https://buildtheearth.net/api/v1/applications/" + userID);
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("Host","buildtheearth.net");
 			conn.setRequestProperty("Authorization", "Bearer " + apikey);
