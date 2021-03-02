@@ -175,16 +175,16 @@ public class ServerCommands extends ListenerAdapter {
 			
 				//Getting username from application for input validation
 				
-				BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67", "326140647998488577");
-				BTE.getUsernameAppliedWith();
+				BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+				String usernameApplied = BTE.getUsernameAppliedWith(326140647998488577L);
 				
-				if (BTE.getUsernameAppliedWith().contains("Error Code: ") || BTE.getUsernameAppliedWith().contains("MalformedURLException") 
-						|| BTE.getUsernameAppliedWith().contains("IOException") || BTE.getUsernameAppliedWith().contains("JSONException")) {
+				if (usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") 
+						|| usernameApplied.contains("IOException") || usernameApplied.contains("JSONException")) {
 					
-					event.getChannel().sendMessage("There was an error with retrieveing the users' application data.").queue();;
-					event.getChannel().sendMessage(BTE.getUsernameAppliedWith()).queue();
+					event.getChannel().sendMessage("There was an error with retrieveing the users' application data.").queue();
+					event.getChannel().sendMessage(usernameApplied).queue();
 				}
-				event.getChannel().sendMessage(BTE.getUsernameAppliedWith()).queue();
+				event.getChannel().sendMessage(usernameApplied).queue();
 				
 				//Authenticating to members endpoint to check if user is on team
 				
@@ -255,19 +255,19 @@ public class ServerCommands extends ListenerAdapter {
 				
 					int temp = 0;
 					for (int i = 0; i < ids.size(); i++) {	
-						if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(BTE.getUsernameAppliedWith()))) {
+						if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {
 							event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
 							temp = 1;
 							break;
 						}
 									
-						else if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) && (MCusername.equalsIgnoreCase(BTE.getUsernameAppliedWith()))) {
+						else if (event.getAuthor().getIdLong() == ids.get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) && (MCusername.equalsIgnoreCase(usernameApplied))) {
 							guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 							event.getChannel().sendMessage("You now have Builder role!").queue();
 							temp = 1;
 							break;
 						}
-						else if (!(MCusername.equalsIgnoreCase(BTE.getUsernameAppliedWith()))) {
+						else if (!(MCusername.equalsIgnoreCase(usernameApplied))) {
 							event.getChannel().sendMessage("The username you applied with and the one you used to run this command do not match.").queue();
 							break;
 						}
