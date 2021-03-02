@@ -69,7 +69,8 @@ public class CraftyController {
 			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/host_stats," + apikey);
 			conn = (HttpsURLConnection) url.openConnection();
-			//conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
+			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
+			conn.setRequestProperty("Content-Type", "application/json");
 			conn.setRequestMethod("GET");
 			
 			//Storing JSON from request into string. Prints error code and error stream if encountered.
