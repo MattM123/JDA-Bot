@@ -1,23 +1,9 @@
 package commands;
 
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.net.ssl.HttpsURLConnection;
-
-import org.apache.commons.lang.exception.ExceptionUtils;
-import org.json.JSONException;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.objects.server.PowerState;
 import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
@@ -177,7 +163,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 			
 				//Getting username from application for input validation	
-				String usernameApplied = BTE.getUsernameAppliedWith("326140647998488577");
+				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
 				if (usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") 
 						|| usernameApplied.contains("IOException") || usernameApplied.contains("JSONException")) {
