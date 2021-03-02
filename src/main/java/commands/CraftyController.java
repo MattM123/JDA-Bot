@@ -31,9 +31,10 @@ public class CraftyController {
 
 		try {
 
-			url = new URL("https://panel.richterent.com/api/v1/host_stats,XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53");
+			url = new URL("http://panel.richterent.com/api/v1/host_stats,XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53");
 			conn = (HttpsURLConnection) url.openConnection();
-			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
+			//conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
+			
 			conn.setRequestMethod("GET");
 			
 			//Storing JSON from request into string. Prints error code and error stream if encountered.
