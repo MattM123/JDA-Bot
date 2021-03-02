@@ -38,7 +38,7 @@ public class BuildTheEarthAPI {
 			url = new URL("https://buildtheearth.net/api/v1/applications/" + userID);
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("Host","buildtheearth.net");
-			conn.setRequestProperty("Authorization", "Bearer 6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+			conn.setRequestProperty("Authorization", "Bearer " + apikey);
 			conn.setRequestProperty("Accept", "application/json");
 			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
 			conn.setRequestMethod("GET");
@@ -82,7 +82,7 @@ public class BuildTheEarthAPI {
 			return stack.subSequence(0, 1000).toString();
 		}
 		
-		return usernameAppliedWith;
+		return usernameAppliedWith + " " + apikey;
 	}
 	//6d83c36acd1bb7301e64749b46ebddc2e3b64a67
 }
