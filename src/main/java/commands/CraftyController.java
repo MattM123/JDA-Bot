@@ -9,8 +9,11 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
+
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
@@ -25,6 +28,36 @@ public class CraftyController {
 		api = apikey;
 	}
 	
+	public void fixUntrustCertificate() throws KeyManagementException, NoSuchAlgorithmException{
+        TrustManager[] trustAllCerts = new TrustManager[]{
+            new X509TrustManager() {
+                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                }
+
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                }
+
+            }
+        };
+
+        SSLContext sc = SSLContext.getInstance("SSL");
+        sc.init(null, trustAllCerts, new java.security.SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+        HostnameVerifier allHostsValid = new HostnameVerifier() {
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+
+        // set the  allTrusting verifier
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+}
+	
 	//HOST_STATS = '/api/v1/host_stats'
 	public String getHostStats() {
 		String line;
@@ -34,21 +67,7 @@ public class CraftyController {
 		HttpsURLConnection conn = null;
 
 		try {
-			//Disabling verify SSL
-			SSLContext context = SSLContext.getInstance("TLSv1.2");
-			TrustManager[] trustManager = new TrustManager[] {
-			    (TrustManager) new X509TrustManager() {
-			       public X509Certificate[] getAcceptedIssuers() {
-			           return new X509Certificate[0];
-			       }
-			       public void checkClientTrusted(X509Certificate[] certificate, String str) {}
-			       public void checkServerTrusted(X509Certificate[] certificate, String str) {}
-			    }
-			};
-			context.init(null, trustManager, new SecureRandom());
-
-			HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
-
+			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/host_stats,XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53");
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
