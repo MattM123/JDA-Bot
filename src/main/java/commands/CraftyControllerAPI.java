@@ -62,7 +62,7 @@ public class CraftyControllerAPI {
 }
 	
 	//returns the list of servers and their stats
-	public String getServerStats() {
+	public JsonArray getServerStats() {
 		String line;
 		BufferedReader in; 
 		StringBuilder json = new StringBuilder();
@@ -99,6 +99,9 @@ public class CraftyControllerAPI {
 			}
 			in.close();	
 			
+			JsonElement ele = JsonParser.parseString(json.toString());
+			jarray = ele.getAsJsonObject().getAsJsonArray("data");
+			
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			errorString = stack;
@@ -116,7 +119,7 @@ public class CraftyControllerAPI {
 			errorString = stack;
 		}
 		
-		return json.toString();
+		return jarray;
 	}
 	
 	
