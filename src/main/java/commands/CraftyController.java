@@ -7,7 +7,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 
 import javax.net.ssl.HostnameVerifier;
@@ -22,7 +21,7 @@ import org.json.JSONException;
 
 public class CraftyController {
 	
-	private static String apikey;
+	private static String apikey = "XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53";
 	
 	public CraftyController(String api) {
 		api = apikey;
@@ -68,7 +67,7 @@ public class CraftyController {
 
 		try {
 			fixUntrustCertificate();
-			url = new URL("97.83.168.213:443/api/v1/host_stats,XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53");
+			url = new URL("https://97.83.168.213:443/api/v1/host_stats," + apikey);
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
 			conn.setRequestMethod("GET");
