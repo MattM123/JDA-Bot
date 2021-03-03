@@ -87,7 +87,8 @@ public class ServerCommands extends ListenerAdapter {
 		//Server stats from crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
 			event.getChannel().sendMessage("breakpoint").queue();
-			JsonElement allServers = JsonParser.parseString(crafty.getServerStats());
+			event.getChannel().sendMessage(crafty.getServerStats().subSequence(0, 1500)).queue();
+			JsonElement allServers = JsonParser.parseString(crafty.toString());
 			event.getChannel().sendMessage("breakpoint2").queue();
 			JsonArray servers = allServers.getAsJsonArray();
 			
