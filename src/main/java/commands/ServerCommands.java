@@ -152,11 +152,29 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}
 		
-		//crafty test
+		//Server stats from crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
 			JsonElement ele = JsonParser.parseString(crafty.getServerStats().get(2).toString());
 			
-			event.getChannel().sendMessage(String.valueOf(ele.getAsJsonObject().get("server_running"))).queue();
+			String status = "";
+			if (ele.getAsJsonObject().get("server_running").toString() == "false") {
+				status = "OFFLINE";
+			}
+			else {
+				status = "ONLINE";
+			}
+			
+			String players = ele.getAsJsonObject().get("players").toString();
+		
+			EmbedBuilder wisconsin = new EmbedBuilder();
+			wisconsin.setTitle("Wisconsin Server Status");
+			wisconsin.setColor(Color.BLUE);
+			wisconsin.addField("Status", status, false);
+			wisconsin.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", false);
+			wisconsin.addField("Memory Usage", ele.getAsJsonObject().get("memory_usage").toString(), false);
+			wisconsin.addField("Players Online", players, false);
+			
+			event.getChannel().sendMessage(wisconsin.build()).queue();
 			
 		
 			
