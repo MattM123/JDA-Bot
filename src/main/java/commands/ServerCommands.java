@@ -164,14 +164,21 @@ public class ServerCommands extends ListenerAdapter {
 				status = "ONLINE";
 			}
 			
-			String players = ele.getAsJsonObject().get("players").toString();
+			String players = "";
+			if (!ele.getAsJsonObject().get("players").toString().equals("\"[]\"")) {
+				players = ele.getAsJsonObject().get("players").toString().substring(1, ele.getAsJsonObject().get("players").toString().length() - 1);
+			}
+			else {
+				players = "There are currently no players online";
+			}
+		
 		
 			EmbedBuilder wisconsin = new EmbedBuilder();
 			wisconsin.setTitle("Wisconsin Server Status");
 			wisconsin.setColor(Color.BLUE);
 			wisconsin.addField("Status", status, false);
 			wisconsin.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", false);
-			wisconsin.addField("Memory Usage", ele.getAsJsonObject().get("memory_usage").toString(), false);
+			wisconsin.addField("Memory Usage", String.valueOf(ele.getAsJsonObject().get("memory_usage")), false);
 			wisconsin.addField("Players Online", players, false);
 			
 			event.getChannel().sendMessage(wisconsin.build()).queue();
