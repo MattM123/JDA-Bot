@@ -110,7 +110,7 @@ public class ServerCommands extends ListenerAdapter {
 			//Midwest status
 			JsonElement ele1 = JsonParser.parseString(crafty.getServerStats().get(4).toString());
 			String status1 = "";
-			String memory1 = ele.getAsJsonObject().get("memory_usage").toString().substring(1, ele1.getAsJsonObject().get("memory_usage").toString().length() - 1);
+			String memory1 = ele1.getAsJsonObject().get("memory_usage").toString().substring(1, ele1.getAsJsonObject().get("memory_usage").toString().length() - 1);
 			String players1 = "";
 			
 			if (ele.getAsJsonObject().get("server_running").toString().equals("false")) {
@@ -131,20 +131,20 @@ public class ServerCommands extends ListenerAdapter {
 			stats.setTitle("Build Server Status");
 			stats.setColor(Color.BLUE);
 			
-			stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK  ** **", status1, false);
+			stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK        ** **", status1, true);
 			stats.addField("Server Status for WI", status, true);
-		//	stats.addField("", "", false);
+			stats.addField("", "", false);
 			
 			stats.addField("CPU UsageMW", ele1.getAsJsonObject().get("cpu_usage") + "%", true);
-			stats.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", false);
-			//stats.addField("", "", false);
+			stats.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", true);
+			stats.addField("", "", false);
 			
 			stats.addField("Memory UsageMW", memory1, true);
-			stats.addField("Memory Usage", memory, false);
-			//stats.addField("", "", false);
+			stats.addField("Memory Usage", memory, true);
+			stats.addField("", "", false);
 			
 			stats.addField("Players OnlineMW", players1, true);
-			stats.addField("Players Online", players, false);
+			stats.addField("Players Online", players, true);
 			
 			event.getChannel().sendMessage(stats.build()).queue();
 			
