@@ -106,17 +106,9 @@ public class ServerCommands extends ListenerAdapter {
 			else {
 				players = "There are currently no players online";
 			}
-		
-			EmbedBuilder wisconsin = new EmbedBuilder();
-			wisconsin.setTitle("Wisconsin Server Status");
-			wisconsin.setColor(Color.BLUE);
-			wisconsin.addField("Status", status, false);
-			wisconsin.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", false);
-			wisconsin.addField("Memory Usage", memory, false);
-			wisconsin.addField("Players Online", players, false);
 			
 			//Midwest status
-			JsonElement ele1 = JsonParser.parseString(crafty.getServerStats().get(2).toString());
+			JsonElement ele1 = JsonParser.parseString(crafty.getServerStats().get(5).toString());
 			String status1 = "";
 			String memory1 = ele.getAsJsonObject().get("memory_usage").toString().substring(1, ele1.getAsJsonObject().get("memory_usage").toString().length() - 1);
 			String players1 = "";
@@ -157,8 +149,8 @@ public class ServerCommands extends ListenerAdapter {
 			stats.addField("Players OnlineMW", players1, true);
 			stats.addField("Players Online", players, true);
 			
-			event.getChannel().sendMessage(stats.build()).queue();
-			
+			//event.getChannel().sendMessage(stats.build()).queue();
+			event.getChannel().sendMessage(crafty.getServerStats().get(5).toString()).queue();
 		
 			
 	
