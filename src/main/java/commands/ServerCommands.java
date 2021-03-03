@@ -161,7 +161,7 @@ public class ServerCommands extends ListenerAdapter {
 			String memory = ele.getAsJsonObject().get("memory_usage").toString().substring(1, ele.getAsJsonObject().get("memory_usage").toString().length() - 1);
 			String players = "";
 			
-			if (ele.getAsJsonObject().get("server_running").toString() == "false") {
+			if (ele.getAsJsonObject().get("server_running").toString().equals("false")) {
 				status = "OFFLINE";
 			}
 			else {
@@ -189,7 +189,7 @@ public class ServerCommands extends ListenerAdapter {
 			String memory1 = ele.getAsJsonObject().get("memory_usage").toString().substring(1, ele1.getAsJsonObject().get("memory_usage").toString().length() - 1);
 			String players1 = "";
 			
-			if (ele.getAsJsonObject().get("server_running").toString() == "false") {
+			if (ele.getAsJsonObject().get("server_running").toString().equals("false")) {
 				status1 = "OFFLINE";
 			}
 			else {
@@ -210,10 +210,12 @@ public class ServerCommands extends ListenerAdapter {
 			stats.setTitle("Build Server Status");
 			stats.setColor(Color.BLUE);
 			
-			stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK", status1, true);
+			stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK     ", status1, true);
 			stats.addField("Server Status for WI", status, true);
-			stats.addBlankField(true);
-			stats.addField("CPU Usage", ele1.getAsJsonObject().get("cpu_usage") + "%", false);
+			stats.addBlankField(false);
+			
+			stats.addField("CPU Usage", ele1.getAsJsonObject().get("cpu_usage") + "%MW", true);
+			stats.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%WI", true);
 			stats.addField("Memory Usage", memory1, false);
 			stats.addField("Players Online", players1, false);
 			
