@@ -98,8 +98,8 @@ public class CraftyControllerAPI {
 			}
 			in.close();	
 			
-			JsonElement ele = JsonParser.parseString(json.toString());
-			jarray = ele.getAsJsonObject().getAsJsonArray("data");
+		//	JsonElement ele = JsonParser.parseString(json.toString());
+		//	jarray = ele.getAsJsonObject().getAsJsonArray("data");
 			
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
