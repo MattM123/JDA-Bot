@@ -89,13 +89,14 @@ public class ServerCommands extends ListenerAdapter {
 			JsonElement allServers = JsonParser.parseString(crafty.getServerStats());
 			JsonArray servers = allServers.getAsJsonArray();
 			
+			event.getChannel().sendMessage("breakpoint").queue();
+			event.getChannel().sendMessage(crafty.getServerStats().subSequence(0, 1500)).queue();
 			//Wisconsin status
 			JsonElement ele = JsonParser.parseString(servers.get(2).toString());
 			String status = "";
 			String memory = ele.getAsJsonObject().get("memory_usage").toString().substring(1, ele.getAsJsonObject().get("memory_usage").toString().length() - 1);
 			String players = "";
 			
-			event.getChannel().sendMessage(crafty.getServerStats().substring(0, 1500)).queue();
 			if (crafty.getServerStats().contains("MalformedURLException") || crafty.getServerStats().contains("IOException") || crafty.getServerStats().contains("JSONException")
 					|| crafty.getServerStats().contains("NoSuchAlgorithmException") || crafty.getServerStats().contains("KeyManagementException")) {
 				
