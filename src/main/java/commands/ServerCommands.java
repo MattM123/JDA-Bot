@@ -134,7 +134,7 @@ public class ServerCommands extends ListenerAdapter {
 			stats.setTitle("Build Server Status");
 			stats.setColor(Color.BLUE);
 			
-			stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK         ** **", status1, true);
+			stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK        ** **", status1, true);
 			stats.addField("Server Status for WI", status, true);
 			stats.addBlankField(false);
 			
@@ -148,9 +148,10 @@ public class ServerCommands extends ListenerAdapter {
 			
 			stats.addField("Players OnlineMW", players1, true);
 			stats.addField("Players Online", players, true);
+			stats.addField("MW motd", ele1.getAsJsonObject().get("motd").toString(), false);
 			
-			//event.getChannel().sendMessage(stats.build()).queue();
-			event.getChannel().sendMessage(crafty.getServerStats().get(5).toString()).complete();
+			event.getChannel().sendMessage(stats.build()).queue();
+			
 		
 			
 	
