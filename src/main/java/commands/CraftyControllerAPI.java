@@ -68,7 +68,6 @@ public class CraftyControllerAPI {
 		StringBuilder json = new StringBuilder();
 		URL url;
 		HttpsURLConnection conn = null;
-		String errorString = "";
 		JsonArray jarray = null;
 
 		try {
@@ -90,7 +89,7 @@ public class CraftyControllerAPI {
 					json.append(line);
 				}
 				in.close();
-				errorString = "Error Code: " + String.valueOf(conn.getResponseCode()) + "\n" + json.toString();
+				return "Error Code: " + String.valueOf(conn.getResponseCode()) + "\n" + json.toString();
 			}		
 			
 			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
