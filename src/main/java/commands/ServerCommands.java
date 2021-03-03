@@ -144,12 +144,18 @@ public class ServerCommands extends ListenerAdapter {
 			
 			stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK            ** **", status1, true);
 			stats.addField("Server Status for WI", status, true);
-			stats.addBlankField(true);
+			stats.addBlankField(false);
 			
-			stats.addField("CPU Usage", ele1.getAsJsonObject().get("cpu_usage") + "%MW", true);
-			stats.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%WI", true);
-			stats.addField("Memory Usage", memory1, false);
-			stats.addField("Players Online", players1, false);
+			stats.addField("CPU UsageMW", ele1.getAsJsonObject().get("cpu_usage") + "%", true);
+			stats.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", true);
+			stats.addBlankField(false);
+			
+			stats.addField("Memory UsageMW", memory1, true);
+			stats.addField("Memory Usage", memory, true);
+			stats.addBlankField(false);
+			
+			stats.addField("Players OnlineMW", players1, true);
+			stats.addField("Players Online", players, true);
 			
 			event.getChannel().sendMessage(stats.build()).queue();
 			
