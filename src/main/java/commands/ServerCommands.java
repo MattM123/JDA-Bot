@@ -108,7 +108,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			//Midwest status
-			JsonElement ele1 = JsonParser.parseString(crafty.getServerStats().get(5).toString());
+			JsonElement ele1 = JsonParser.parseString(crafty.getServerStats().get(4).toString());
 			String status1 = "";
 			String memory1 = ele.getAsJsonObject().get("memory_usage").toString().substring(1, ele1.getAsJsonObject().get("memory_usage").toString().length() - 1);
 			String players1 = "";
@@ -145,7 +145,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 			stats.addField("Players OnlineMW", players1, true);
 			stats.addField("Players Online", players, true);
-			stats.addField("MW motd", ele1.getAsJsonObject().get("motd").toString(), false);
+			stats.addField("MW id", ele1.getAsJsonObject().get("id").toString(), false);
 			
 			event.getChannel().sendMessage(stats.build()).queue();
 			
