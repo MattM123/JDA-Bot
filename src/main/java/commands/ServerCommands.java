@@ -209,7 +209,7 @@ public class ServerCommands extends ListenerAdapter {
 			EmbedBuilder stats = new EmbedBuilder();
 			stats.setTitle("Build Server Status");
 			stats.setColor(Color.BLUE);
-			stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK", status1, false);
+			stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK", status1, true);
 			stats.addField("Server Status for WI", status, true);
 			stats.addField("CPU Usage", ele1.getAsJsonObject().get("cpu_usage") + "%", false);
 			stats.addField("Memory Usage", memory1, false);
