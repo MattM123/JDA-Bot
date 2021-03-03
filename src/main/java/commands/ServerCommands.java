@@ -127,9 +127,6 @@ public class ServerCommands extends ListenerAdapter {
 				players1 = "There are currently no players online";
 			}
 			
-			
-		
-		
 			EmbedBuilder stats = new EmbedBuilder();
 			stats.setTitle("Build Server Status");
 			stats.setColor(Color.BLUE);
@@ -144,7 +141,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 			stats.addField("Memory UsageMW", memory1, true);
 			stats.addField("Memory Usage", memory, true);
-			stats.addBlankField(false);
+			
 			
 			stats.addField("Players OnlineMW", players1, true);
 			stats.addField("Players Online", players, true);
