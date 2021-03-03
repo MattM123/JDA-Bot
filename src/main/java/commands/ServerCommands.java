@@ -31,45 +31,6 @@ public class ServerCommands extends ListenerAdapter {
 	private static UserServer server = api.getServersController().getServer(serverID);
 	private CraftyControllerAPI crafty = new CraftyControllerAPI("XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53");
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-
-	public static String serverName() {
-		return server.getName();
-	}
-	
-	public static String serverStatus() {
-		PowerState b = server.getPowerState();
-		String status = "";
-		
-		if (b.toString() == "ON") {
-			status = "ONLINE";
-		}
-		
-		else if (b.toString() == "OFF") {
-			status = "OFFLINE";
-		}
-		return status;
-	}
-	
-	
-	public static String cpuUsage() {
-		ServerUsage s = server.getServerUsage();
-		return s.getCpuUsage() + "% / 100%";
-	}
-	
-	public static String diskUsage() {
-		NumberFormat format = NumberFormat.getInstance();
-		ServerUsage s = server.getServerUsage();
-		String GB = (s.getDiskUsage() / 1024 ) + "GB / ";
-		String MB = format.format(s.getDiskUsage()) + "MB / ";
-		String KB = format.format(s.getDiskUsage() * 1024) + "KB";
-	
-		return  GB + MB + KB;
-	}
-	
-	public static String memoryUsage() {
-		ServerUsage s = server.getServerUsage();
-		return s.getMemoryUsage() + "MB / " + server.getLimits().getMemory() + "MB";
-	}
 	    
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -80,36 +41,7 @@ public class ServerCommands extends ListenerAdapter {
 		Long userID[] = {387330197420113930L, 97867804463599616L,
 				195196317071310848L, 657036933083561995L, 387330197420113930L};
 		
-		
-		
-		EmbedBuilder embed = new EmbedBuilder();
-		embed.setTitle("Nebraska/Iowa Build Server Status").setColor(Color.blue);
-		embed.addField("Server Name: " , serverName(), false);
-		embed.addField("Server Status: ", serverStatus(), false);
-		embed.addField("CPU Usage: ", cpuUsage(), false);
-		embed.addField("Disk Usage: ", diskUsage(), false);
-		embed.addField("Memory Usage: ", memoryUsage(), false);
-		
-		/*
-		//start server
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!start") && event.getAuthor().getId().equals("808088551861518388")) {
-			PowerState b = server.getPowerState();
-			event.getChannel().sendMessage(b.toString()).queue();
-			
-			if (b.toString().equals("ON")) {
-				event.getChannel().sendMessage("Server is already online.").queue();
-			}
 
-			else if (b.toString().equals("OFF")) {
-				event.getChannel().sendMessage("Starting server...").queue();
-				server.sendCommand("start");
-			}
-		}
-		*/
-		//server status
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
-			event.getChannel().sendMessage(embed.build()).queue();
-		}
 		
 		//event builder assign
 		if (event.getMessage().getContentRaw().startsWith("!event")) {
@@ -153,7 +85,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		//Server stats from crafty
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!status")) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
 			
 			//Wisconsin status
 			JsonElement ele = JsonParser.parseString(crafty.getServerStats().get(2).toString());
@@ -212,7 +144,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 			stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK     ", status1, true);
 			stats.addField("Server Status for WI", status, true);
-			stats.addBlankField(false);
+			
 			
 			stats.addField("CPU Usage", ele1.getAsJsonObject().get("cpu_usage") + "%MW", true);
 			stats.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%WI", true);
