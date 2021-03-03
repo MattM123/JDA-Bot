@@ -91,6 +91,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 			event.getChannel().sendMessage("breakpoint").queue();
 			event.getChannel().sendMessage(crafty.getServerStats().subSequence(0, 1500)).queue();
+			
 			//Wisconsin status
 			JsonElement ele = JsonParser.parseString(servers.get(2).toString());
 			String status = "";
