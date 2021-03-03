@@ -72,7 +72,7 @@ public class CraftyControllerAPI {
 		JsonArray jarray = null;
 
 		try {
-			
+			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/server_stats?token=" + apikey);
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
@@ -109,6 +109,12 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			errorString = stack;
 		} catch (JSONException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			errorString = stack;
+		} catch (NoSuchAlgorithmException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			errorString = stack;
+		} catch (KeyManagementException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			errorString = stack;
 		}
