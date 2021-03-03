@@ -95,7 +95,7 @@ public class ServerCommands extends ListenerAdapter {
 			String memory = ele.getAsJsonObject().get("memory_usage").toString().substring(1, ele.getAsJsonObject().get("memory_usage").toString().length() - 1);
 			String players = "";
 			
-			event.getChannel().sendMessage(crafty.getServerStats()).queue();
+			event.getChannel().sendMessage(crafty.getServerStats().substring(0, 1500)).queue();
 			if (crafty.getServerStats().contains("MalformedURLException") || crafty.getServerStats().contains("IOException") || crafty.getServerStats().contains("JSONException")
 					|| crafty.getServerStats().contains("NoSuchAlgorithmException") || crafty.getServerStats().contains("KeyManagementException")) {
 				
