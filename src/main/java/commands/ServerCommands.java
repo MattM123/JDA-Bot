@@ -99,7 +99,7 @@ public class ServerCommands extends ListenerAdapter {
 			if (crafty.getServerStats().contains("MalformedURLException") || crafty.getServerStats().contains("IOException") || crafty.getServerStats().contains("JSONException")
 					|| crafty.getServerStats().contains("NoSuchAlgorithmException") || crafty.getServerStats().contains("KeyManagementException")) {
 				
-				event.getChannel().sendMessage(crafty.getServerStats().subSequence(0, 1900)).queue();
+				event.getChannel().sendMessage(crafty.getServerStats().subSequence(0, 1500)).queue();
 			}
 			else {
 				
