@@ -154,9 +154,12 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//Server stats from crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
-			JsonElement ele = JsonParser.parseString(crafty.getServerStats().get(2).toString());
 			
+			JsonElement ele = JsonParser.parseString(crafty.getServerStats().get(2).toString());
 			String status = "";
+			String memory = ele.getAsJsonObject().get("memory_usage").toString().substring(1, ele.getAsJsonObject().get("memory_usage").toString().length() - 1);
+			String players = "";
+			
 			if (ele.getAsJsonObject().get("server_running").toString() == "false") {
 				status = "OFFLINE";
 			}
@@ -164,13 +167,15 @@ public class ServerCommands extends ListenerAdapter {
 				status = "ONLINE";
 			}
 			
-			String players = "";
+			
 			if (!ele.getAsJsonObject().get("players").toString().equals("\"[]\"")) {
 				players = ele.getAsJsonObject().get("players").toString().substring(1, ele.getAsJsonObject().get("players").toString().length() - 1);
 			}
 			else {
 				players = "There are currently no players online";
 			}
+			
+			
 		
 		
 			EmbedBuilder wisconsin = new EmbedBuilder();
@@ -178,7 +183,7 @@ public class ServerCommands extends ListenerAdapter {
 			wisconsin.setColor(Color.BLUE);
 			wisconsin.addField("Status", status, false);
 			wisconsin.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", false);
-			wisconsin.addField("Memory Usage", String.valueOf(ele.getAsJsonObject().get("memory_usage")), false);
+			wisconsin.addField("Memory Usage", memory, false);
 			wisconsin.addField("Players Online", players, false);
 			
 			event.getChannel().sendMessage(wisconsin.build()).queue();
