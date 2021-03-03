@@ -133,24 +133,20 @@ public class ServerCommands extends ListenerAdapter {
 			
 			stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK ** **", status1, true);
 			stats.addField("Server Status for WI", status, true);
-			stats.addField("", "", false);
+			stats.addBlankField(false);
 			
 			stats.addField("CPU UsageMW", ele1.getAsJsonObject().get("cpu_usage") + "%", true);
 			stats.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", true);
-			stats.addField("", "", false);
+			stats.addBlankField(false);
 			
 			stats.addField("Memory UsageMW", memory1, true);
 			stats.addField("Memory Usage", memory, true);
-			stats.addField("", "", false);
+			stats.addBlankField(false);
 			
 			stats.addField("Players OnlineMW", players1, true);
 			stats.addField("Players Online", players, true);
 			
 			event.getChannel().sendMessage(stats.build()).queue();
-			
-		
-			
-	
 		}
 
 		//give build perms based on presence on build team
