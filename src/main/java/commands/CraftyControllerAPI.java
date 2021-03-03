@@ -62,7 +62,7 @@ public class CraftyControllerAPI {
 }
 	
 	//returns the list of servers and their stats
-	public JsonArray getServerStats() {
+	public String getServerStats() {
 		String line;
 		BufferedReader in; 
 		StringBuilder json = new StringBuilder();
@@ -104,24 +104,27 @@ public class CraftyControllerAPI {
 			
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			errorString = stack;
+			getError(stack);
 		} catch (IOException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			errorString = stack;
+			getError(stack);
 		} catch (JSONException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			errorString = stack;
+			getError(stack);
 		} catch (NoSuchAlgorithmException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			errorString = stack;
+			getError(stack);
 		} catch (KeyManagementException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			errorString = stack;
+			getError(stack);
 		}
 		
-		return jarray;
+		return json.toString();
 	}
 	
+	public String getError(String err) {
+		return err;
+	}
 	
 	
 	

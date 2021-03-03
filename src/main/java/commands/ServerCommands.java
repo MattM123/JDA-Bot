@@ -86,68 +86,78 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//Server stats from crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
+			JsonElement allServers = JsonParser.parseString(crafty.getServerStats());
+			JsonArray servers = allServers.getAsJsonArray();
 			
 			//Wisconsin status
-			JsonElement ele = JsonParser.parseString(crafty.getServerStats().get(2).toString());
+			JsonElement ele = JsonParser.parseString(servers.get(2).toString());
 			String status = "";
 			String memory = ele.getAsJsonObject().get("memory_usage").toString().substring(1, ele.getAsJsonObject().get("memory_usage").toString().length() - 1);
 			String players = "";
 			
-			if (ele.getAsJsonObject().get("server_running").toString().equals("false")) {
-				status = "OFFLINE";
+			if (crafty.getServerStats().contains("MalformedURLException") || crafty.getServerStats().contains("IOException") || crafty.getServerStats().contains("JSONException")
+					|| crafty.getServerStats().contains("NoSuchAlgorithmException") || crafty.getServerStats().contains("KeyManagementException")) {
+				
+				event.getChannel().sendMessage(crafty.getServerStats().subSequence(0, 1900)).queue();
 			}
 			else {
-				status = "ONLINE";
+				
+				if (ele.getAsJsonObject().get("server_running").toString().equals("false")) {
+					status = "OFFLINE";
+				}
+				else {
+					status = "ONLINE";
+				}
+				
+				if (!ele.getAsJsonObject().get("players").toString().equals("\"[]\"")) {
+					players = ele.getAsJsonObject().get("players").toString().substring(3, ele.getAsJsonObject().get("players").toString().length() - 3);
+				}
+				else {
+					players = "There are currently no players online";
+				}
+				
+				//Midwest status
+				JsonElement ele1 = JsonParser.parseString(servers.get(4).toString());
+				String status1 = "";
+				String memory1 = ele1.getAsJsonObject().get("memory_usage").toString().substring(1, ele1.getAsJsonObject().get("memory_usage").toString().length() - 1);
+				String players1 = "";
+				
+				if (ele.getAsJsonObject().get("server_running").toString().equals("false")) {
+					status1 = "OFFLINE";
+				}
+				else {
+					status1 = "ONLINE";
+				}
+				
+				if (!ele1.getAsJsonObject().get("players").toString().equals("\"[]\"")) {
+					players1 = ele1.getAsJsonObject().get("players").toString().substring(3, ele1.getAsJsonObject().get("players").toString().length() - 3);
+				}
+				else {
+					players1 = "There are currently no players online";
+				}
+				
+				EmbedBuilder stats = new EmbedBuilder();
+				stats.setTitle("Build Server Status");
+				stats.setColor(Color.BLUE);
+				
+				stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK ** **", status1, true);
+				stats.addField("Server Status for WI", status, true);
+				stats.addBlankField(false);
+				
+				stats.addField("CPU UsageMW", ele1.getAsJsonObject().get("cpu_usage") + "%", true);
+				stats.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", true);
+				stats.addBlankField(false);
+				
+				stats.addField("Memory UsageMW", memory1, true);
+				stats.addField("Memory Usage", memory, true);
+				stats.addBlankField(false);
+				
+				stats.addField("Players OnlineMW", players1, true);
+				stats.addField("Players Online", players, true);
+				
+				
+				event.getChannel().sendMessage(stats.build()).queue();
 			}
-			
-			if (!ele.getAsJsonObject().get("players").toString().equals("\"[]\"")) {
-				players = ele.getAsJsonObject().get("players").toString().substring(3, ele.getAsJsonObject().get("players").toString().length() - 3);
-			}
-			else {
-				players = "There are currently no players online";
-			}
-			
-			//Midwest status
-			JsonElement ele1 = JsonParser.parseString(crafty.getServerStats().get(4).toString());
-			String status1 = "";
-			String memory1 = ele1.getAsJsonObject().get("memory_usage").toString().substring(1, ele1.getAsJsonObject().get("memory_usage").toString().length() - 1);
-			String players1 = "";
-			
-			if (ele.getAsJsonObject().get("server_running").toString().equals("false")) {
-				status1 = "OFFLINE";
-			}
-			else {
-				status1 = "ONLINE";
-			}
-			
-			if (!ele1.getAsJsonObject().get("players").toString().equals("\"[]\"")) {
-				players1 = ele1.getAsJsonObject().get("players").toString().substring(3, ele1.getAsJsonObject().get("players").toString().length() - 3);
-			}
-			else {
-				players1 = "There are currently no players online";
-			}
-			
-			EmbedBuilder stats = new EmbedBuilder();
-			stats.setTitle("Build Server Status");
-			stats.setColor(Color.BLUE);
-			
-			stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK ** **", status1, true);
-			stats.addField("Server Status for WI", status, true);
-			stats.addBlankField(false);
-			
-			stats.addField("CPU UsageMW", ele1.getAsJsonObject().get("cpu_usage") + "%", true);
-			stats.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", true);
-			stats.addBlankField(false);
-			
-			stats.addField("Memory UsageMW", memory1, true);
-			stats.addField("Memory Usage", memory, true);
-			stats.addBlankField(false);
-			
-			stats.addField("Players OnlineMW", players1, true);
-			stats.addField("Players Online", players, true);
-			
-			
-			event.getChannel().sendMessage(stats.build()).queue();
 		}
 
 		//give build perms based on presence on build team
