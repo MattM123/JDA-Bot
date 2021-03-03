@@ -153,8 +153,9 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		//Server stats from crafty
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!status")) {
 			
+			//Wisconsin status
 			JsonElement ele = JsonParser.parseString(crafty.getServerStats().get(2).toString());
 			String status = "";
 			String memory = ele.getAsJsonObject().get("memory_usage").toString().substring(1, ele.getAsJsonObject().get("memory_usage").toString().length() - 1);
@@ -173,9 +174,6 @@ public class ServerCommands extends ListenerAdapter {
 			else {
 				players = "There are currently no players online";
 			}
-			
-			
-		
 		
 			EmbedBuilder wisconsin = new EmbedBuilder();
 			wisconsin.setTitle("Wisconsin Server Status");
@@ -185,7 +183,39 @@ public class ServerCommands extends ListenerAdapter {
 			wisconsin.addField("Memory Usage", memory, false);
 			wisconsin.addField("Players Online", players, false);
 			
-			event.getChannel().sendMessage(wisconsin.build()).queue();
+			//Midwest status
+			JsonElement ele1 = JsonParser.parseString(crafty.getServerStats().get(2).toString());
+			String status1 = "";
+			String memory1 = ele.getAsJsonObject().get("memory_usage").toString().substring(1, ele1.getAsJsonObject().get("memory_usage").toString().length() - 1);
+			String players1 = "";
+			
+			if (ele.getAsJsonObject().get("server_running").toString() == "false") {
+				status1 = "OFFLINE";
+			}
+			else {
+				status1 = "ONLINE";
+			}
+			
+			if (!ele1.getAsJsonObject().get("players").toString().equals("\"[]\"")) {
+				players1 = ele1.getAsJsonObject().get("players").toString().substring(3, ele1.getAsJsonObject().get("players").toString().length() - 3);
+			}
+			else {
+				players1 = "There are currently no players online";
+			}
+			
+			
+		
+		
+			EmbedBuilder stats = new EmbedBuilder();
+			stats.setTitle("Build Server Status");
+			stats.setColor(Color.BLUE);
+			stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK", status1, false);
+			stats.addField("Server Status for WI", status, true);
+			stats.addField("CPU Usage", ele1.getAsJsonObject().get("cpu_usage") + "%", false);
+			stats.addField("Memory Usage", memory1, false);
+			stats.addField("Players Online", players1, false);
+			
+			event.getChannel().sendMessage(stats.build()).queue();
 			
 		
 			
