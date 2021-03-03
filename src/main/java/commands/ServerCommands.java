@@ -168,7 +168,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			if (!ele.getAsJsonObject().get("players").toString().equals("\"[]\"")) {
-				players = ele.getAsJsonObject().get("players").toString().substring(2, ele.getAsJsonObject().get("players").toString().length() - 2);
+				players = ele.getAsJsonObject().get("players").toString().substring(3, ele.getAsJsonObject().get("players").toString().length() - 3);
 			}
 			else {
 				players = "There are currently no players online";
