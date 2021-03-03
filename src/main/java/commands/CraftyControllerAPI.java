@@ -104,26 +104,22 @@ public class CraftyControllerAPI {
 			
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			getError(stack);
+			return stack;
 		} catch (IOException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			getError(stack);
+			return stack;
 		} catch (JSONException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			getError(stack);
+			return stack;
 		} catch (NoSuchAlgorithmException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			getError(stack);
+			return stack;
 		} catch (KeyManagementException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			getError(stack);
+			return stack;
 		}
 		
 		return json.toString();
-	}
-	
-	public String getError(String err) {
-		return err;
 	}
 	
 	
