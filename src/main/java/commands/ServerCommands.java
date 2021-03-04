@@ -110,7 +110,7 @@ public class ServerCommands extends ListenerAdapter {
 					status = "ONLINE";
 				}
 				
-				if (!ele.getAsJsonObject().get("players").toString().equals("\"[]\"")) {
+				if (!(ele.getAsJsonObject().get("players").toString().equals("\"[]\""))) {
 					players = ele.getAsJsonObject().get("players").toString().substring(3, ele.getAsJsonObject().get("players").toString().length() - 3);
 				}
 				else {
@@ -130,7 +130,7 @@ public class ServerCommands extends ListenerAdapter {
 					status1 = "ONLINE";
 				}
 				
-				if (!ele1.getAsJsonObject().get("players").toString().equals("\"[]\"")) {
+				if (!(ele1.getAsJsonObject().get("players").toString().equals("\"[]\""))) {
 					players1 = ele1.getAsJsonObject().get("players").toString().substring(3, ele1.getAsJsonObject().get("players").toString().length() - 3);
 				}
 				else {
