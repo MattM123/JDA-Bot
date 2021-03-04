@@ -122,7 +122,61 @@ public class CraftyControllerAPI {
 	}
 	
 	
-	
+	public String sendCommand(String command) {
+		String line;
+		BufferedReader in; 
+		StringBuilder json = new StringBuilder();
+		URL url;
+		HttpsURLConnection conn = null;
+		JsonArray jarray = null;
+
+		try {
+			fixUntrustCertificate();
+			url = new URL("https://panel.richterent.com/api/v1/server_stats?token=" + apikey + ",command=" + command);
+			conn = (HttpsURLConnection) url.openConnection();
+			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
+			conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
+			conn.setRequestProperty("Accept", "text/html");
+			conn.setRequestProperty("Host", "panel.richterent.com");
+			conn.setRequestMethod("GET");
+			
+			
+			//Storing JSON from request into string. Prints error code and error stream if encountered.
+			
+			if (conn.getResponseCode() > 200) {
+				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				while ((line = in.readLine()) != null) {
+					json.append(line);
+				}
+				in.close();
+				return "Error Code: " + String.valueOf(conn.getResponseCode()) + "\n" + json.toString();
+			}		
+			
+			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			while ((line = in.readLine()) != null) {
+				json.append(line);
+			}
+			in.close();	
+		
+			
+		} catch (MalformedURLException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			return stack;
+		} catch (IOException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			return stack;
+		} catch (JSONException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			return stack;
+		} catch (NoSuchAlgorithmException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			return stack;
+		} catch (KeyManagementException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			return stack;
+		}
+		return "Command sent to console";
+	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
     SERVER_STATS = '/api/v1/server_stats' 
