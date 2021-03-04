@@ -86,16 +86,10 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//Server stats from crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
-			event.getChannel().sendMessage("breakpoint").queue();
-			event.getChannel().sendMessage("Test: " + crafty.getServerStats()).queue();
+			
 			JsonElement allServers = JsonParser.parseString(crafty.getServerStats());
-			event.getChannel().sendMessage("breakpoint2").queue();
-		
 			JsonArray servers = allServers.getAsJsonArray();
-			
-			event.getChannel().sendMessage("breakpoint3").queue();
-			
-			
+					
 			//Wisconsin status
 			JsonElement ele = JsonParser.parseString(servers.get(2).toString());
 			String status = "";
@@ -147,7 +141,7 @@ public class ServerCommands extends ListenerAdapter {
 				stats.setTitle("Build Server Status");
 				stats.setColor(Color.BLUE);
 				
-				stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK ** **", status1, true);
+				stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK |", status1, true);
 				stats.addField("Server Status for WI", status, true);
 				stats.addBlankField(false);
 				
@@ -182,8 +176,8 @@ public class ServerCommands extends ListenerAdapter {
 				//Getting username from application for input validation	
 				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
-				if (usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") 
-						|| usernameApplied.contains("IOException") || usernameApplied.contains("JSONException")) {
+				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") 
+						|| usernameApplied.contains("IOException") || usernameApplied.contains("JSONException")) && usernameApplied.length() > 30) {
 					
 					event.getChannel().sendMessage("There was an error with retrieveing the users' application data.").queue();
 					event.getChannel().sendMessage(usernameApplied).queue();
