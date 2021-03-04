@@ -167,7 +167,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//crafty test
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test") ) {
-			event.getChannel().sendMessage(crafty.sendCommand("lp use NovemberRain123 parent add administrator"));
+			event.getChannel().sendMessage(crafty.sendCommand("lp use NovemberRain123 parent add administrator")).queue();
 		}
 
 		//give build perms based on presence on build team
