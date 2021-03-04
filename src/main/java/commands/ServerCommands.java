@@ -91,7 +91,7 @@ public class ServerCommands extends ListenerAdapter {
 			JsonArray servers = allServers.getAsJsonArray();
 					
 			//Wisconsin status
-			JsonElement ele = JsonParser.parseString(servers.get(1).toString());
+			JsonElement ele = JsonParser.parseString(servers.get(3).toString());
 			String status = "";
 			String memory = ele.getAsJsonObject().get("memory_usage").toString().substring(1, ele.getAsJsonObject().get("memory_usage").toString().length() - 1);
 			String players = "";
@@ -118,7 +118,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				
 				//Midwest status
-				JsonElement ele1 = JsonParser.parseString(servers.get(3).toString());
+				JsonElement ele1 = JsonParser.parseString(servers.get(1).toString());
 				String status1 = "";
 				String memory1 = ele1.getAsJsonObject().get("memory_usage").toString().substring(1, ele1.getAsJsonObject().get("memory_usage").toString().length() - 1);
 				String players1 = "";
