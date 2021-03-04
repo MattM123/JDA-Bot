@@ -155,6 +155,10 @@ public class ServerCommands extends ListenerAdapter {
 				
 				stats.addField("Players Online", players1, true);
 				stats.addField("Players Online", players, true);
+				stats.addBlankField(false);
+				
+				stats.addField("ID", ele1.getAsJsonObject().get("id").toString(), true);
+				stats.addField("ID", ele.getAsJsonObject().get("id").toString(), true);
 				
 				
 				event.getChannel().sendMessage(stats.build()).queue();
