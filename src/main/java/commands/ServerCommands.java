@@ -138,29 +138,24 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				
 				EmbedBuilder stats = new EmbedBuilder();
-				stats.setTitle("Build Server Status");
+				stats.setTitle("Midwest Build Server Status");
 				stats.setColor(Color.BLUE);
 				
-				stats.addField("Server Status for NE, IA, MN, KS, MO, IL, OK", status1, true);
-				stats.addField("Server Status for WI", status, true);
-				stats.addBlankField(false);
-				
+				stats.addField("Server Status", status1, true);
 				stats.addField("CPU Usage", ele1.getAsJsonObject().get("cpu_usage") + "%", true);
-				stats.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", true);
-				stats.addBlankField(false);
-				
 				stats.addField("Memory Usage", memory1, true);
-				stats.addField("Memory Usage", memory, true);
-				stats.addBlankField(false);
-				
 				stats.addField("Players Online", players1, true);
-				stats.addField("Players Online", players, true);
-				stats.addBlankField(false);
-				
 				stats.addField("ID", ele1.getAsJsonObject().get("id").toString(), true);
+				
+				
+				EmbedBuilder stats2 = new EmbedBuilder();
+				stats2.addField("Server Status for Wisconsin", status, true);
+				stats2.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", true);
+				stats2.addField("Memory Usage", memory, true);
+				stats2.addField("Players Online", players, true);
 				stats.addField("ID", ele.getAsJsonObject().get("id").toString(), true);
 				
-				
+				event.getChannel().sendMessage(stats2.build()).queue();
 				event.getChannel().sendMessage(stats.build()).queue();
 			}
 		}
