@@ -140,20 +140,21 @@ public class ServerCommands extends ListenerAdapter {
 				EmbedBuilder stats = new EmbedBuilder();
 				stats.setTitle("Midwest Build Server Status");
 				stats.setColor(Color.BLUE);
-				
-				stats.addField("Server Status", status1, true);
-				stats.addField("CPU Usage", ele1.getAsJsonObject().get("cpu_usage") + "%", true);
-				stats.addField("Memory Usage", memory1, true);
-				stats.addField("Players Online", players1, true);
-				stats.addField("ID", ele1.getAsJsonObject().get("id").toString(), true);
+				stats.addField("Server Status", status1, false);
+				stats.addField("CPU Usage", ele1.getAsJsonObject().get("cpu_usage") + "%", false);
+				stats.addField("Memory Usage", memory1, false);
+				stats.addField("Players Online", players1, false);
+				stats.addField("ID", ele1.getAsJsonObject().get("id").toString(), false);
 				
 				
 				EmbedBuilder stats2 = new EmbedBuilder();
-				stats2.addField("Server Status for Wisconsin", status, true);
-				stats2.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", true);
-				stats2.addField("Memory Usage", memory, true);
-				stats2.addField("Players Online", players, true);
-				stats.addField("ID", ele.getAsJsonObject().get("id").toString(), true);
+			
+				stats2.addField("Server Status for Wisconsin", status, false);
+				stats2.setColor(Color.BLUE);
+				stats2.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", false);
+				stats2.addField("Memory Usage", memory, false);
+				stats2.addField("Players Online", players, false);
+				stats.addField("ID", ele.getAsJsonObject().get("id").toString(), false);
 				
 				event.getChannel().sendMessage(stats2.build()).queue();
 				event.getChannel().sendMessage(stats.build()).queue();
