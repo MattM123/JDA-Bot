@@ -154,7 +154,7 @@ public class ServerCommands extends ListenerAdapter {
 				stats2.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", false);
 				stats2.addField("Memory Usage", memory, false);
 				stats2.addField("Players Online", players, false);
-				stats.addField("ID", ele.getAsJsonObject().get("id").toString(), false);
+				stats2.addField("ID", ele.getAsJsonObject().get("id").toString(), false);
 				
 				event.getChannel().sendMessage(stats2.build()).queue();
 				event.getChannel().sendMessage(stats.build()).queue();
