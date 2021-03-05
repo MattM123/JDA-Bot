@@ -149,8 +149,9 @@ public class ServerCommands extends ListenerAdapter {
 				
 				EmbedBuilder stats2 = new EmbedBuilder();
 			
-				stats2.addField("Server Status for Wisconsin", status, false);
+				stats2.setTitle("Wisconsin Build Server Status");
 				stats2.setColor(Color.BLUE);
+				stats2.addField("Server Status", status, false);
 				stats2.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", false);
 				stats2.addField("Memory Usage", memory, false);
 				stats2.addField("Players Online", players, false);
