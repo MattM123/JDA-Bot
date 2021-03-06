@@ -178,7 +178,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 			
 				//Getting username from application for input validation	
-				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
+				String usernameApplied = BTE.getUsernameAppliedWith("593781164297420813");//event.getAuthor().getId());
 				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") 
 						|| usernameApplied.contains("IOException") || usernameApplied.contains("JSONException")) && usernameApplied.length() > 30) {

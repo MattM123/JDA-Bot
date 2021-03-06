@@ -10,7 +10,7 @@ public class Bot {
 
 	public static void main (String[] args) {
 		
-		String token = "NzMyMjkwMTUzNjg2NDk5MzY4.XwycWQ.AHOlF_0KI7GeFj4-Oyxu2-_3gpM"; //token used to hook into the Discord bot
+		String token = "NzMyMjkwMTUzNjg2NDk5MzY4.XwycWQ.AHOlF_0KI7GeFj4-Oyxu2-_3gpM"; //token used to hook into the Discord bot (bot token)
 		try {
 			JDA jda = JDABuilder.createDefault(token).build();
 			

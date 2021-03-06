@@ -26,7 +26,7 @@ public class BuildTheEarthAPI {
 		apikey = key;
 	}
 	
-	//Given a discord ID, this method returns the username the user applied with
+	//Given a discord ID, this method returns the username the user applied to team with
 	public String getUsernameAppliedWith(String userID) {	
 		String line;
 		BufferedReader in; 
