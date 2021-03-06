@@ -128,7 +128,6 @@ public class CraftyControllerAPI {
 		StringBuilder json = new StringBuilder();
 		URL url;
 		HttpsURLConnection conn = null;
-		JsonArray jarray = null;
 
 		try {
 			fixUntrustCertificate();
@@ -175,7 +174,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			return stack;
 		}
-		return "Command sent to console";
+		return "Command sent to console: " + command;
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
