@@ -161,11 +161,6 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage(stats.build()).queue();
 			}
 		}
-		
-		//crafty test
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test") ) {
-			event.getChannel().sendMessage(crafty.sendCommand("lp use NovemberRain123 parent add administrator")).queue();
-		}
 
 		//give build perms based on presence on build team
 		if (event.getMessage().getContentRaw().startsWith("!link")) {		
@@ -195,70 +190,80 @@ public class ServerCommands extends ListenerAdapter {
 					List<Role> roles = event.getMember().getRoles();
 				
 					int temp = 0;
-					for (int i = 0; i < BTE.getMemberList().size(); i++) {	
-						if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {
-							event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
-							temp = 1;
-							break;
-						}
-									
-						else if (event.getAuthor().getIdLong() == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) && (MCusername.equalsIgnoreCase(usernameApplied))) {
-							guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
-							event.getChannel().sendMessage("You now have Builder role!").queue();
-							temp = 1;
-							break;
-						}
-						else if (!(MCusername.equalsIgnoreCase(usernameApplied))) {
-							event.getChannel().sendMessage("The username you applied with and the one you used to run this command do not match.").queue();
-							break;
-						}
+					
+					//retreieves the member list test
+					BTE.getMemberList(); 
+					//if theres an exception in retrieving the member list then it returns the stacktrace of that exception
+					if (!BTE.stackTrace.equals("")) {
+						event.getChannel().sendMessage(BTE.stackTrace).queue();
 					}
-	
-					//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
+					
+					else {
+						for (int i = 0; i < BTE.getMemberList().size(); i++) {	
+							if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {
+								event.getChannel().sendMessage("You already have builder role! Assigning server rank.").queue();
+								temp = 1;
+								break;
+							}
+										
+							else if (event.getAuthor().getIdLong() == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) && (MCusername.equalsIgnoreCase(usernameApplied))) {
+								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
+								event.getChannel().sendMessage("You now have Builder role!").queue();
+								temp = 1;
+								break;
+							}
+							else if (!(MCusername.equalsIgnoreCase(usernameApplied))) {
+								event.getChannel().sendMessage("The username you applied with and the one you used to run this command do not match.").queue();
+								break;
+							}
+						}
 		
-					if (temp == 1) {
-						if (roles.contains(guild.getRoleById(735995176165834756L))) {
-							server.sendCommand("lp user " + MCusername + " parent add kansas-builder");
-							event.getChannel().sendMessage("Minecraft server rank updated to Kansas Builder for user " + MCusername).queue();
-	
-						}
-						else if (roles.contains(guild.getRoleById(735995164493086720L))) {
-							server.sendCommand("lp user " + MCusername + " parent add iowa-builder");
-							event.getChannel().sendMessage("Minecraft server rank updated to Iowa Builder for user " + MCusername).queue();
-	
-						}
-						else if (roles.contains(guild.getRoleById(735995136978321541L))) {
-							server.sendCommand("lp user " + MCusername + " parent add nebraska-builder");
-							event.getChannel().sendMessage("Minecraft server rank updated to Nebraska Builder for user " + MCusername).queue();
-	
-						}
-						else if (roles.contains(guild.getRoleById(735995095773609986L))) {
-							server.sendCommand("lp user " + MCusername + " parent add illinois-builder");
-	
-						}
-						else if (roles.contains(guild.getRoleById(735995115113414656L))) {
-							server.sendCommand("lp user " + MCusername + " parent add missouri-builder");
-							event.getChannel().sendMessage("Minecraft server rank updated to Missouri Builder for user " + MCusername).queue();
-	
-						}
-						else if (roles.contains(guild.getRoleById(735995196738633819L))) {
-							server.sendCommand("lp user " + MCusername + " parent add minnesota-builder");
-							event.getChannel().sendMessage("Minecraft server rank updated to Minnesota Builder for user " + MCusername).queue();
-						}
-						else if (roles.contains(guild.getRoleById(808415301799641119L))) {
-							server.sendCommand("lp user " + MCusername + " parent add oklahoma-builder");
-							event.getChannel().sendMessage("Minecraft server rank updated to Oklahoma Builder for user " + MCusername).queue();
+						//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
+			
+						if (temp == 1) {
+							if (roles.contains(guild.getRoleById(735995176165834756L))) {
+								server.sendCommand("lp user " + MCusername + " parent add kansas-builder");
+								event.getChannel().sendMessage("Minecraft server rank updated to Kansas Builder for user " + MCusername).queue();
+		
+							}
+							else if (roles.contains(guild.getRoleById(735995164493086720L))) {
+								server.sendCommand("lp user " + MCusername + " parent add iowa-builder");
+								event.getChannel().sendMessage("Minecraft server rank updated to Iowa Builder for user " + MCusername).queue();
+		
+							}
+							else if (roles.contains(guild.getRoleById(735995136978321541L))) {
+								server.sendCommand("lp user " + MCusername + " parent add nebraska-builder");
+								event.getChannel().sendMessage("Minecraft server rank updated to Nebraska Builder for user " + MCusername).queue();
+		
+							}
+							else if (roles.contains(guild.getRoleById(735995095773609986L))) {
+								server.sendCommand("lp user " + MCusername + " parent add illinois-builder");
+		
+							}
+							else if (roles.contains(guild.getRoleById(735995115113414656L))) {
+								server.sendCommand("lp user " + MCusername + " parent add missouri-builder");
+								event.getChannel().sendMessage("Minecraft server rank updated to Missouri Builder for user " + MCusername).queue();
+		
+							}
+							else if (roles.contains(guild.getRoleById(735995196738633819L))) {
+								server.sendCommand("lp user " + MCusername + " parent add minnesota-builder");
+								event.getChannel().sendMessage("Minecraft server rank updated to Minnesota Builder for user " + MCusername).queue();
+							}
+							else if (roles.contains(guild.getRoleById(808415301799641119L))) {
+								server.sendCommand("lp user " + MCusername + " parent add oklahoma-builder");
+								event.getChannel().sendMessage("Minecraft server rank updated to Oklahoma Builder for user " + MCusername).queue();
+							}
+							
+							else {
+								event.getChannel().sendMessage("Looks like you don't have a state role. Go to #role-menu to select one and run the command again to get server build perms.").queue();
+							}
 						}
 						
-						else {
-							event.getChannel().sendMessage("Looks like you don't have a state role. Go to #role-menu to select one and run the command again to get server build perms.").queue();
+						//if user is not on the team at all, print this
+						
+						else if (temp == 0) {
+							event.getChannel().sendMessage("Looks like you're not on the team or your username was invalid. If this is wrong, then ping mattress#1852").queue();
 						}
-					}
-					
-					//if user is not on the team at all, print this
-					
-					else if (temp == 0) {
-						event.getChannel().sendMessage("Looks like you're not on the team or your username was invalid. If this is wrong, then ping mattress#1852").queue();
 					}
 		}
 		

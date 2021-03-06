@@ -19,6 +19,8 @@ import com.google.gson.JsonParser;
 
 public class BuildTheEarthAPI {
 	private String apikey;
+	private ArrayList<Long> userIDs = new ArrayList<Long>();
+	public String stackTrace = "";
 	
 	public BuildTheEarthAPI(String key) {
 		apikey = key;
@@ -34,6 +36,7 @@ public class BuildTheEarthAPI {
 		ArrayList<AnswerInfo> answers = null;
 		String usernameAppliedWith = null;
 		
+		//API Authentication
 		try {
 			url = new URL("https://buildtheearth.net/api/v1/applications/" + userID);
 			conn = (HttpsURLConnection) url.openConnection();
@@ -60,14 +63,14 @@ public class BuildTheEarthAPI {
 			}
 			in.close();
 			
-			//JSON Deserialization
+			//JSON Deserialization of a users applciation to store the questions and answers
 			
 			
 			Gson gson = new Gson();
+			//ApplicationInfo class contains a few classes that the JSON is deserialized into
 			ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
 			 
-			//retrieving username from application answers
-			
+			//retrieving username value from application answers	
 			answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
 			usernameAppliedWith = answers.get(4).getAnswer();		
 			
@@ -85,9 +88,8 @@ public class BuildTheEarthAPI {
 		return usernameAppliedWith;
 	}
 	
-	//returns alist of all users discord IDs that are on the team
+	//returns a list of all users discord IDs that are on the team
 	public ArrayList<Long> getMemberList() {
-		String errorString = "";
 		String line;
 		BufferedReader in; 
 		StringBuilder json = new StringBuilder();
@@ -95,6 +97,7 @@ public class BuildTheEarthAPI {
 		HttpsURLConnection conn = null;
 		JsonArray jarray = null;
 		
+		//API authentication
 		try {
 			url = new URL("https://buildtheearth.net/api/v1/members");
 			conn = (HttpsURLConnection) url.openConnection();
@@ -125,16 +128,15 @@ public class BuildTheEarthAPI {
 			
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			errorString = stack.subSequence(0, 1000).toString();
+			stackTrace = stack.subSequence(0, 1000).toString();
 		} catch (IOException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			errorString = stack.subSequence(0, 1000).toString();
+			stackTrace = stack.subSequence(0, 1000).toString();
 		} catch (JSONException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			errorString = stack.subSequence(0, 1000).toString();
+			stackTrace = stack.subSequence(0, 1000).toString();
 		}
 		
-		ArrayList<Long> userIDs = new ArrayList<Long>();
 		for (int i = 0; i < jarray.size(); i++) {
 			userIDs.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
 		}
