@@ -282,10 +282,6 @@ public class ServerCommands extends ListenerAdapter {
 					appNum += message.substring(i + 20);
 				}
 			}
-			
-			if (user.length() != 18) {
-				event.getChannel().sendMessage("Invalid Discord ID").queue();
-			}
 		}								
 	}
 		
