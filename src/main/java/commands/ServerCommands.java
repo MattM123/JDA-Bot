@@ -278,6 +278,7 @@ public class ServerCommands extends ListenerAdapter {
 			for (int i = 9; i <= charArr.length; i++) {
 				if (i == 9) {
 					user += message.substring(charArr[i], message.lastIndexOf(" "));
+					event.getChannel().sendMessage("user: " + user).queue();
 					event.getChannel().sendMessage("appNum: " + message.substring(charArr[i + 20])).queue();
 				}
 				
