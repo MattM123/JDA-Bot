@@ -303,15 +303,26 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(noinfo.build()).queue();
 				}
 				
+				else if (appIndex > application.getApplications().size()) {
+					EmbedBuilder noApp = new EmbedBuilder();
+					noApp.setColor(Color.BLUE);
+					noApp.setTitle("User does not have that many applications, try a lower number");
+					
+					event.getChannel().sendMessage(noApp.build()).queue();
+				}
 				else {
 					EmbedBuilder app = new EmbedBuilder();
 					app.setColor(Color.BLUE);
 					app.setTitle("Application " + appNum + " for user ID " + user);
 					
 					app.addField(application.getApplications().get(appIndex).getAnswerList().get(0).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(0).getAnswer(), false);
+					app.addBlankField(false);
 					app.addField(application.getApplications().get(appIndex).getAnswerList().get(1).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(1).getAnswer(), false);
+					app.addBlankField(false);
 					app.addField(application.getApplications().get(appIndex).getAnswerList().get(2).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer(), false);
+					app.addBlankField(false);
 					app.addField(application.getApplications().get(appIndex).getAnswerList().get(3).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(3).getAnswer(), false);
+					app.addBlankField(false);
 					app.addField(application.getApplications().get(appIndex).getAnswerList().get(4).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(4).getAnswer(), false);
 				
 					event.getChannel().sendMessage(app.build()).queue();
