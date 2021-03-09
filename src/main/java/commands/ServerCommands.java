@@ -296,7 +296,7 @@ public class ServerCommands extends ListenerAdapter {
 				notOnTeam.setColor(Color.BLUE);
 				notOnTeam.setTitle("No data on user");
 				notOnTeam.addField(BTE.stackTrace, "", false);
-				event.getChannel().sendMessage(notOnTeam.build());
+				event.getChannel().sendMessage(notOnTeam.build()).queue();
 			}
 			else {
 				ApplicationInfo application = BTE.getApplicationHistory(user);
