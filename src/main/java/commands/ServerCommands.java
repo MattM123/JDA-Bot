@@ -288,8 +288,6 @@ public class ServerCommands extends ListenerAdapter {
 			//		
 			//	}
 			}
-			event.getChannel().sendMessage("user: " + user).queue();
-			event.getChannel().sendMessage("appNum: " + appNum).queue();
 		}								
 	}
 		
