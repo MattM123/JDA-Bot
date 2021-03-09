@@ -331,7 +331,14 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(app.build()).queue();
 				}
 			}
-		}								
+		}
+		else if (!stateLeaders.contains(event.getMessage().getMember())) {
+			EmbedBuilder noperm = new EmbedBuilder();
+			noperm.setColor(Color.BLUE);
+			noperm.setTitle("You must be a Midest State Leader to use this command");
+			
+			event.getChannel().sendMessage(noperm.build()).queue();
+		}
 	}
 		
 }	
