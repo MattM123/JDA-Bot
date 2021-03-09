@@ -332,6 +332,9 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage(app.build()).queue();
 					}
 				}
+				for (int i = 0; i < stateLeaders.size(); i++) {
+					event.getChannel().sendMessage(stateLeaders.get(i).getEffectiveName()).queue();
+				}
 			}
 			else {
 				EmbedBuilder noperm = new EmbedBuilder();
