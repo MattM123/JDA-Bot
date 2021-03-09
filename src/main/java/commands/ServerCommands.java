@@ -333,7 +333,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 			}
 			else {
-				event.getChannel().sendMessage(String.valueOf(stateLeaders.size()));
+				event.getChannel().sendMessage(String.valueOf(stateLeaders.size())).queue();
 				EmbedBuilder noperm = new EmbedBuilder();
 				noperm.setColor(Color.BLUE);
 				noperm.setTitle("You must be a Midest State Leader to use this command");
