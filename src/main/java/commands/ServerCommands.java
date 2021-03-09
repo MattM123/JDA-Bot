@@ -1,6 +1,7 @@
 package commands;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.JsonArray;
@@ -11,6 +12,7 @@ import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -31,17 +33,12 @@ public class ServerCommands extends ListenerAdapter {
 		super.onGuildMessageReceived(event);
 		
 		 Guild guild = event.getGuild(); 
-
-		Long userID[] = {387330197420113930L, 97867804463599616L,
-				195196317071310848L, 657036933083561995L, 387330197420113930L};
-		
-
+		 Role leader = guild.getRoleById(735991787734433802L);
+		 ArrayList<Member> stateLeaders = (ArrayList<Member>) guild.getMembersWithRoles(leader);
 		
 		//event builder assign
 		if (event.getMessage().getContentRaw().startsWith("!event")) {
-			if (event.getMessage().getAuthor().getIdLong()== userID[0] || event.getMessage().getAuthor().getIdLong() == userID[1] ||
-					event.getMessage().getAuthor().getIdLong() == userID[2] || event.getMessage().getAuthor().getIdLong() == userID[3] ||
-					event.getMessage().getAuthor().getIdLong() == userID[4]) {
+			if (stateLeaders.contains(event.getMessage().getMember())) {
 				
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
@@ -60,8 +57,7 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//Applicant builder assign
 		if (event.getMessage().getContentRaw().startsWith("!applicant")) {
-			if (event.getMessage().getAuthor().getIdLong()== userID[0] || event.getMessage().getAuthor().getIdLong() == userID[1] ||
-					event.getMessage().getAuthor().getIdLong() == userID[2] || event.getMessage().getAuthor().getIdLong() == userID[3]) {
+			if (stateLeaders.contains(event.getMessage().getMember())) {
 				
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
@@ -270,7 +266,7 @@ public class ServerCommands extends ListenerAdapter {
 		}
 		
 		//Retrieves an application of user given a discord ID and an integer representing which application in the list to return
-		if (event.getMessage().getContentRaw().startsWith("!getapp")) {
+		if (event.getMessage().getContentRaw().startsWith("!getapp") && stateLeaders.contains(event.getMessage().getMember())) {
 			String message = event.getMessage().getContentRaw();
 			
 			char[] charArr = event.getMessage().getContentRaw().toCharArray();
