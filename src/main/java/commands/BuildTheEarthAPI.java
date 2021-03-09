@@ -146,8 +146,7 @@ public class BuildTheEarthAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack.subSequence(0, 1000).toString();
 		} catch (IOException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack.subSequence(0, 1000).toString() + "Sdfsdfsdf";
+			stackTrace = "There are no applications under the user ID, " + userID;
 		} catch (JSONException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack.subSequence(0, 1000).toString();
