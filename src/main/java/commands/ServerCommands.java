@@ -14,7 +14,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -33,7 +32,7 @@ public class ServerCommands extends ListenerAdapter {
 		super.onGuildMessageReceived(event);
 		
 		 Guild guild = event.getGuild(); 
-		 Role leader = guild.getRoleById(735991787734433802L);
+		 Role leader = guild.getRoleById("735991787734433802");
 		 ArrayList<Member> stateLeaders = (ArrayList<Member>) guild.getMembersWithRoles(leader);
 		
 		//event builder assign
