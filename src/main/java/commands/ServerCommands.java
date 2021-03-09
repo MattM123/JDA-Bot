@@ -276,7 +276,7 @@ public class ServerCommands extends ListenerAdapter {
 			String appNum = "";
 			for (int i = 8; i < charArr.length; i++) {
 				if (i == 8 && event.getMessage().getContentRaw().substring(8, 9).contains("-")) {
-					user += event.getMessage().getContentRaw().substring(charArr[i + 1], charArr[i + 19]);
+					user = event.getMessage().getContentRaw().substring(charArr[i + 1], charArr[i + 19]);
 				}
 				
 				if (charArr[i] == event.getMessage().getContentRaw().lastIndexOf('-')) {
