@@ -290,6 +290,13 @@ public class ServerCommands extends ListenerAdapter {
 			if (!BTE.stackTrace.equals("")) {
 				event.getChannel().sendMessage(BTE.stackTrace).queue();
 			}
+			
+			else if (BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")) {
+				EmbedBuilder notOnTeam = new EmbedBuilder();
+				notOnTeam.setColor(Color.BLUE);
+				notOnTeam.setTitle(BTE.stackTrace);
+				event.getChannel().sendMessage(notOnTeam.build());
+			}
 			else {
 				ApplicationInfo application = BTE.getApplicationHistory(user);
 				int appIndex = Integer.parseInt(appNum) - 1;
