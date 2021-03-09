@@ -294,7 +294,8 @@ public class ServerCommands extends ListenerAdapter {
 			else if (BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")) {
 				EmbedBuilder notOnTeam = new EmbedBuilder();
 				notOnTeam.setColor(Color.BLUE);
-				notOnTeam.setTitle(BTE.stackTrace);
+				notOnTeam.setTitle("No data on user");
+				notOnTeam.addField(BTE.stackTrace, "", false);
 				event.getChannel().sendMessage(notOnTeam.build());
 			}
 			else {
