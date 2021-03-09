@@ -278,8 +278,8 @@ public class ServerCommands extends ListenerAdapter {
 			for (int i = 9; i <= charArr.length; i++) {
 				if (i == 9) {
 					event.getChannel().sendMessage("user: " + message.substring(9, message.lastIndexOf("-"))).queue();
+					user += message.substring(9, message.lastIndexOf(" -"));	
 					event.getChannel().sendMessage("user: " + user).queue();	
-					user += message.substring(8, message.indexOf(" -"));	
 				}
 				
 				if (i == 29) {
