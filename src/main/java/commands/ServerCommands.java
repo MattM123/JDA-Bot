@@ -273,13 +273,13 @@ public class ServerCommands extends ListenerAdapter {
 			char[] charArr = event.getMessage().getContentRaw().toCharArray();
 			String user = "";
 			String appNum = "";
-			for (int i = 8; i < 25; i++) {
+			for (int i = 8; i < 26; i++) {
 					user += charArr[i];
 				}			
-				appNum += charArr[28];
+				appNum += charArr[29];
 				
 				event.getChannel().sendMessage("user: " + user).queue();
-				event.getChannel().sendMessage("appNum: " + appNum);
+				event.getChannel().sendMessage("appNum: " + appNum).queue();
 		}
 		
 			
