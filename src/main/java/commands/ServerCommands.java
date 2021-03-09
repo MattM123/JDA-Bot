@@ -280,7 +280,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				
 				if (charArr[i] == event.getMessage().getContentRaw().lastIndexOf('-')) {
-					appNum += event.getMessage().getContentRaw().substring(charArr[i + 1], charArr.length);
+					appNum = event.getMessage().getContentRaw().substring(charArr[i + 1], charArr.length);
 				}
 			}
 			
