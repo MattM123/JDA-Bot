@@ -268,6 +268,26 @@ public class ServerCommands extends ListenerAdapter {
 					}
 		}
 		
+		if (event.getMessage().getContentRaw().startsWith("!getapp")) {
+			
+			char[] charArr = event.getMessage().getContentRaw().toCharArray();
+			String user = "";
+			String appNum = "";
+			for (int i = 8; i < charArr.length; i++) {
+				if (charArr[i] == '-') {
+					appNum += charArr[i + 1];
+				}
+				else {
+					user += charArr[i];
+				}
+				event.getChannel().sendMessage("user: " + user).queue();
+				event.getChannel().sendMessage("appNum: " + appNum);
+				
+				
+			}
+			
+		}
+		
 	}	
 }	
 	
