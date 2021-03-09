@@ -276,16 +276,15 @@ public class ServerCommands extends ListenerAdapter {
 			String user = "";
 			String appNum = "";
 			
-			if (charArr.length != 30) {
-				event.getChannel().sendMessage("Command usage: !getapp -<DiscordID> -<application number>").queue();
-			}
-			else {
-				for (int i = 9; i <= charArr.length; i++) {
-					if (i == 9) {
-						user += message.substring(i, message.lastIndexOf(" "));				
-						appNum += message.substring(i + 20);
-					}
+			for (int i = 9; i <= charArr.length; i++) {
+				if (i == 9) {
+					user += message.substring(i, message.lastIndexOf(" "));	
+					appNum += message.substring(i + 20);
 				}
+			}
+			
+			if (user.length() != 18) {
+				event.getChannel().sendMessage("Invalid Discord ID").queue();
 			}
 		}								
 	}
