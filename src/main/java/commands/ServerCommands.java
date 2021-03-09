@@ -283,6 +283,7 @@ public class ServerCommands extends ListenerAdapter {
 					appNum += message.substring(i + 20);
 				}
 			}
+			event.getChannel().sendMessage(user).queue();
 			
 			//Test run for errors
 			BTE.getApplicationHistory(user); 
