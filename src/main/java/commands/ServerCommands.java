@@ -277,8 +277,7 @@ public class ServerCommands extends ListenerAdapter {
 			String appNum = "";
 			for (int i = 9; i <= charArr.length; i++) {
 				if (i == 9) {
-					event.getChannel().sendMessage("user: " + message.substring(9, message.lastIndexOf("-"))).queue();
-					user += message.substring(9, message.lastIndexOf("-"));	
+					user += message.substring(9, message.lastIndexOf(" "));	
 					event.getChannel().sendMessage("user: " + user).queue();	
 				}
 				
