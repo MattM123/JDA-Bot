@@ -31,14 +31,7 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.addField("!link <minecraft username>", "Automatically assigns build perms and Builder role if you are on the team", false);
 		embed.addField("!applicant <minecraft username>", "Requires permissions to assign 'ApplicationInProgress' rank", false);
 		embed.addField("!event <minecraft username>", "Requires permissions to assign 'Event' rank", false);
-		embed.addBlankField(false);
-		embed.addField("***__Wisconsin Server Commands__***", "" ,false);
-		embed.addField("?help", "Meta help command that displays these bot commands", false);
-		embed.addField("?host_stats", "Displays server resource usage", false);
-		embed.addField("?server_stats 2", "", false);
-		embed.addField("?restart 2", "Restarts server", false);
-		embed.addField("?start 2", "Starts server", false);
-		embed.addField("?stop 2", "Stops server", false);
+		embed.addField("!getapp -<DiscordID> -<number of app>", "Requires permissions to view players applications", false);
 
 		
 		
