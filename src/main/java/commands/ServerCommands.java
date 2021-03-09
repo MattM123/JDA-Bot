@@ -287,7 +287,7 @@ public class ServerCommands extends ListenerAdapter {
 			//Test run for errors
 			BTE.getApplicationHistory(user); 
 			//if theres an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
-			if (!BTE.stackTrace.equals("")) {
+			if (!BTE.stackTrace.equals("") && !BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")) {
 				event.getChannel().sendMessage(BTE.stackTrace).queue();
 			}
 			
