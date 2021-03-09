@@ -268,18 +268,25 @@ public class ServerCommands extends ListenerAdapter {
 					}
 		}
 		
+		//Retrieves an application of user given a discord ID and an integer representing which application in the list to return
 		if (event.getMessage().getContentRaw().startsWith("!getapp")) {
 			
 			char[] charArr = event.getMessage().getContentRaw().toCharArray();
 			String user = "";
 			String appNum = "";
-			for (int i = 8; i < 26; i++) {
-					user += charArr[i];
-				}			
-				appNum += charArr[29];
+			for (int i = 8; i < charArr.length; i++) {
+				if (charArr[i] == event.getMessage().getContentRaw().indexOf('-'))
+					user += event.getMessage().getContentRaw().substring(charArr[i + 1], charArr[i + 19]);
+					
 				
-				event.getChannel().sendMessage("user: " + user).queue();
-				event.getChannel().sendMessage("appNum: " + appNum).queue();
+				if (charArr[i] == event.getMessage().getContentRaw().lastIndexOf('-')) {
+					appNum += event.getMessage().getContentRaw().substring(charArr[i + 1], charArr.length]);
+				}
+			}
+			appNum += charArr[29];
+				
+			event.getChannel().sendMessage("user: " + user).queue();
+			event.getChannel().sendMessage("appNum: " + appNum).queue();
 		}
 		
 			
