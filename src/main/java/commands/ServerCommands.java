@@ -335,7 +335,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			else {
 				for (int i = 0; i < stateLeaders.size(); i++) {
-					event.getChannel().sendMessage(stateLeaders.get(i).getEffectiveName()).queue();
+					event.getChannel().sendMessage(stateLeaders.get(i).getId()).queue();
 				}
 				EmbedBuilder noperm = new EmbedBuilder();
 				noperm.setColor(Color.BLUE);
