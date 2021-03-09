@@ -306,13 +306,15 @@ public class ServerCommands extends ListenerAdapter {
 				else {
 					EmbedBuilder app = new EmbedBuilder();
 					app.setColor(Color.BLUE);
-					app.setTitle("Application " + appNum + " for user ID " + user);
+					app.setTitle("Application " + appNum + " for user " + member.getName());
 					
 					app.addField(application.getApplications().get(appIndex).getAnswerList().get(0).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(0).getAnswer(), false);
 					app.addField(application.getApplications().get(appIndex).getAnswerList().get(1).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(1).getAnswer(), false);
 					app.addField(application.getApplications().get(appIndex).getAnswerList().get(2).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer(), false);
 					app.addField(application.getApplications().get(appIndex).getAnswerList().get(3).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(3).getAnswer(), false);
 					app.addField(application.getApplications().get(appIndex).getAnswerList().get(4).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(4).getAnswer(), false);
+				
+					event.getChannel().sendMessage(app.build()).queue();
 				}
 			}
 		}								
