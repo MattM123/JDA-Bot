@@ -147,12 +147,12 @@ public class BuildTheEarthAPI {
 			stackTrace = stack.subSequence(0, 1000).toString();
 		} catch (IOException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack.subSequence(0, 1000).toString();
+			stackTrace = stack.subSequence(0, 1000).toString() + "Sdfsdfsdf";
 		} catch (JSONException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack.subSequence(0, 1000).toString();
 		}
-		
+
 		return applicationArray;
 	}
 }
