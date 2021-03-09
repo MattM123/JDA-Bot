@@ -190,7 +190,7 @@ public class BuildTheEarthAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack.subSequence(0, 1000).toString();
 		} catch (IOException e) {
-			stackTrace = "There are no applications for user ID: " + userID;
+			stackTrace = "User has not applied to the team";
 		} catch (JSONException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack.subSequence(0, 1000).toString();
