@@ -306,7 +306,7 @@ public class ServerCommands extends ListenerAdapter {
 				else {
 					EmbedBuilder app = new EmbedBuilder();
 					app.setColor(Color.BLUE);
-					app.setTitle("Application " + appNum + " for user " + member.getName());
+					app.setTitle("Application " + appNum + " for user ID " + user);
 					
 					app.addField(application.getApplications().get(appIndex).getAnswerList().get(0).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(0).getAnswer(), false);
 					app.addField(application.getApplications().get(appIndex).getAnswerList().get(1).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(1).getAnswer(), false);
