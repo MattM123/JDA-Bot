@@ -279,12 +279,10 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				else {
 					user += charArr[i];
-				}
-				event.getChannel().sendMessage("user: " + user).queue();
-				event.getChannel().sendMessage("appNum: " + appNum);
-				
-				
+				}					
 			}
+			event.getChannel().sendMessage("user: " + user).queue();
+			event.getChannel().sendMessage("appNum: " + appNum);
 			
 		}
 		
