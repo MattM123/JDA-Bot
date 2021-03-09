@@ -275,14 +275,13 @@ public class ServerCommands extends ListenerAdapter {
 			char[] charArr = event.getMessage().getContentRaw().toCharArray();
 			String user = "";
 			String appNum = "";
-		//	event.getChannel().sendMessage("char: |" + event.getMessage().getContentRaw().substring(8,9) + "|").queue();
 			for (int i = 8; i <= charArr.length; i++) {
-				if (i == 8 && charArr[i] == '-') {
-					user = message.substring(message.indexOf('-') + 1, message.indexOf(' '));	
+				if (i == 8) {
+					user = message.substring(8, message.indexOf(" -"));	
 				}
 				
-				if (i == 29 && charArr[i] == '-') {
-					appNum = message.substring(charArr[i + 1], message.length());
+				if (i == 29) {
+					appNum = message.substring(charArr[i], message.length());
 				}
 			}
 			event.getChannel().sendMessage("user: " + user).queue();
