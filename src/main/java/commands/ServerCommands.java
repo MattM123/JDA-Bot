@@ -292,7 +292,6 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			else {
 				ApplicationInfo application = BTE.getApplicationHistory(user);
-				User member = (User) guild.getMemberById(Long.parseLong(user));
 				int appIndex = Integer.parseInt(appNum) - 1;
 				
 				if (application.getApplications().isEmpty()) {
@@ -303,10 +302,10 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage(noinfo.build()).queue();
 				}
 				
-				else if (appIndex > application.getApplications().size()) {
+				else if (Integer.parseInt(appNum) > (application.getApplications().size() + 1)) {
 					EmbedBuilder noApp = new EmbedBuilder();
 					noApp.setColor(Color.BLUE);
-					noApp.setTitle("User does not have that many applications, try a lower number");
+					noApp.setTitle("User does not have that many applications, try a lower number.");
 					
 					event.getChannel().sendMessage(noApp.build()).queue();
 				}
