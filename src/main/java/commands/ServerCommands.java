@@ -12,6 +12,7 @@ import com.stanjg.ptero4j.entities.panel.user.UserServer;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -282,8 +283,37 @@ public class ServerCommands extends ListenerAdapter {
 					appNum += message.substring(i + 20);
 				}
 			}
-			event.getChannel().sendMessage(user).queue();
-			event.getChannel().sendMessage(appNum).queue();
+			
+			BTE.getApplicationHistory(user); 
+			//if theres an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
+			if (!BTE.stackTrace.equals("")) {
+				event.getChannel().sendMessage(BTE.stackTrace).queue();
+			}
+			else {
+				ApplicationInfo application = BTE.getApplicationHistory(user);
+				User member = (User) guild.getMemberById(Long.parseLong(user));
+				int appIndex = Integer.parseInt(appNum) - 1;
+				
+				if (application.getApplications().isEmpty()) {
+					EmbedBuilder noinfo = new EmbedBuilder();
+					noinfo.setColor(Color.BLUE);
+					noinfo.setTitle("No data on user");
+					noinfo.addField("User does not have any applications", "", false);
+					event.getChannel().sendMessage(noinfo.build()).queue();
+				}
+				
+				else {
+					EmbedBuilder app = new EmbedBuilder();
+					app.setColor(Color.BLUE);
+					app.setTitle("Application " + appNum + " for user " + member.getName());
+					
+					app.addField(application.getApplications().get(appIndex).getAnswerList().get(0).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(0).getAnswer(), false);
+					app.addField(application.getApplications().get(appIndex).getAnswerList().get(1).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(1).getAnswer(), false);
+					app.addField(application.getApplications().get(appIndex).getAnswerList().get(2).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer(), false);
+					app.addField(application.getApplications().get(appIndex).getAnswerList().get(3).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(3).getAnswer(), false);
+					app.addField(application.getApplications().get(appIndex).getAnswerList().get(4).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(4).getAnswer(), false);
+				}
+			}
 		}								
 	}
 		
