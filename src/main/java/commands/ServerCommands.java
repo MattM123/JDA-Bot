@@ -270,28 +270,24 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//Retrieves an application of user given a discord ID and an integer representing which application in the list to return
 		if (event.getMessage().getContentRaw().startsWith("!getapp")) {
+			String message = event.getMessage().getContentRaw();
 			
 			char[] charArr = event.getMessage().getContentRaw().toCharArray();
 			String user = "";
 			String appNum = "";
-			event.getChannel().sendMessage("char: |" + event.getMessage().getContentRaw().substring(8,9) + "|").queue();
+		//	event.getChannel().sendMessage("char: |" + event.getMessage().getContentRaw().substring(8,9) + "|").queue();
 			for (int i = 8; i <= charArr.length; i++) {
-				if (i == 8 && event.getMessage().getContentRaw().substring(8, 9).equals("-")) {
-					user = event.getMessage().getContentRaw().substring(charArr[i + 1], charArr[i + 19]);
+				if (i == 8 && charArr[i] == '-') {
+					user = message.substring(message.indexOf('-') + 1, message.indexOf(' '));	
 				}
 				
-				
-				if (i == 29 && event.getMessage().getContentRaw().substring(29, 30).equals("-")) {
-					appNum = event.getMessage().getContentRaw().substring(charArr[i + 1], charArr.length);
+				if (i == 29 && charArr[i] == '-') {
+					appNum = message.substring(charArr[i + 1], message.length());
 				}
 			}
-			
-				
 			event.getChannel().sendMessage("user: " + user).queue();
 			event.getChannel().sendMessage("appNum: " + appNum).queue();
-		}
-		
-			
+		}								
 	}
 		
 }	
