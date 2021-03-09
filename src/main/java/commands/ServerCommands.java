@@ -275,18 +275,17 @@ public class ServerCommands extends ListenerAdapter {
 			char[] charArr = event.getMessage().getContentRaw().toCharArray();
 			String user = "";
 			String appNum = "";
-			for (int i = 9; i <= charArr.length; i++) {
-				if (i == 9) {
-					user += message.substring(i, message.lastIndexOf(" "));
-					event.getChannel().sendMessage("user: " + user).queue();
-					event.getChannel().sendMessage("appNum: " + message.substring(i + 20)).queue();
+			
+			if (charArr.length != 30) {
+				event.getChannel().sendMessage("Command usage: !getapp -<DiscordID> -<application number>").queue();
+			}
+			else {
+				for (int i = 9; i <= charArr.length; i++) {
+					if (i == 9) {
+						user += message.substring(i, message.lastIndexOf(" "));				
+						appNum += message.substring(i + 20);
+					}
 				}
-				
-			//	if (i == 29) {
-			//		event.getChannel().sendMessage("appNum: " + message.substring(charArr[i])).queue();
-			//		appNum += message.substring(charArr[i]);
-			//		
-			//	}
 			}
 		}								
 	}
