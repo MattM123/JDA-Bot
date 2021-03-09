@@ -284,6 +284,7 @@ public class ServerCommands extends ListenerAdapter {
 				}
 			}
 			
+			//Test run for errors
 			BTE.getApplicationHistory(user); 
 			//if theres an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
 			if (!BTE.stackTrace.equals("")) {
@@ -298,14 +299,14 @@ public class ServerCommands extends ListenerAdapter {
 					EmbedBuilder noinfo = new EmbedBuilder();
 					noinfo.setColor(Color.BLUE);
 					noinfo.setTitle("No data on user");
-					noinfo.addField("User does not have any applications", "", false);
+					noinfo.addField("This user was most likely merged into the team", "", false);
 					event.getChannel().sendMessage(noinfo.build()).queue();
 				}
 				
 				else {
 					EmbedBuilder app = new EmbedBuilder();
 					app.setColor(Color.BLUE);
-					app.setTitle("Application " + appNum + " for user " + member.getName());
+					app.setTitle("Application " + appNum + " for user ID " + user);
 					
 					app.addField(application.getApplications().get(appIndex).getAnswerList().get(0).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(0).getAnswer(), false);
 					app.addField(application.getApplications().get(appIndex).getAnswerList().get(1).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(1).getAnswer(), false);
