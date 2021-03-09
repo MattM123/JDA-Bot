@@ -277,15 +277,15 @@ public class ServerCommands extends ListenerAdapter {
 			String appNum = "";
 			for (int i = 9; i <= charArr.length; i++) {
 				if (i == 9) {
-					user += message.substring(charArr[i], message.lastIndexOf(" "));	
-						
+					user += message.substring(charArr[i], message.lastIndexOf(" "));
+					event.getChannel().sendMessage("appNum: " + message.substring(charArr[i + 20])).queue();
 				}
 				
-				if (i == 29) {
-					event.getChannel().sendMessage("appNum: " + message.substring(charArr[i])).queue();
-					appNum += message.substring(charArr[i]);
-					
-				}
+			//	if (i == 29) {
+			//		event.getChannel().sendMessage("appNum: " + message.substring(charArr[i])).queue();
+			//		appNum += message.substring(charArr[i]);
+			//		
+			//	}
 			}
 			event.getChannel().sendMessage("user: " + user).queue();
 			event.getChannel().sendMessage("appNum: " + appNum).queue();
