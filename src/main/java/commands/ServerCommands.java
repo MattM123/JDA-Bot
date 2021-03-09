@@ -282,6 +282,8 @@ public class ServerCommands extends ListenerAdapter {
 					appNum += message.substring(i + 20);
 				}
 			}
+			event.getChannel().sendMessage(user).queue();
+			event.getChannel().sendMessage(appNum).queue();
 		}								
 	}
 		
