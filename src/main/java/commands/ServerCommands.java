@@ -172,7 +172,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
 			
-			crafty.sendCommand("ping");
+		//	crafty.sendCommand("ping");
 			if (crafty.stackTrace.equals("")) {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
