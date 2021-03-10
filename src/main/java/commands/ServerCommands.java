@@ -352,7 +352,7 @@ public class ServerCommands extends ListenerAdapter {
 					EmbedBuilder notOnTeam = new EmbedBuilder();
 					notOnTeam.setColor(Color.BLUE);
 					notOnTeam.setTitle("No data on user");
-					notOnTeam.addField(BTE.stackTrace, "", false);
+					notOnTeam.addField(BTE.stackTrace, "This error resulted from a FileNotFoundException, meaning the Discord ID does not exist on the team.", false);
 					event.getChannel().sendMessage(notOnTeam.build()).queue();
 					
 				
@@ -361,7 +361,7 @@ public class ServerCommands extends ListenerAdapter {
 					ApplicationInfo application = BTE.getApplicationHistory(user);
 					int appIndex = Integer.parseInt(appNum) - 1;
 					
-					if (application.getApplications().isEmpty()) {
+					if (application.getApplications().size() == 0) {
 						EmbedBuilder noinfo = new EmbedBuilder();
 						noinfo.setColor(Color.BLUE);
 						noinfo.setTitle("No data on user");
