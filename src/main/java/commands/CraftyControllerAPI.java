@@ -26,6 +26,7 @@ import com.google.gson.JsonParser;
 public class CraftyControllerAPI {
 	
 	private static String apikey;
+	public String stackTrace = "";
 	
 	public CraftyControllerAPI(String api) {
 		apikey = api;
@@ -160,19 +161,19 @@ public class CraftyControllerAPI {
 			
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			stackTrace = stack;
 		} catch (IOException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			stackTrace = stack;
 		} catch (JSONException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			stackTrace = stack;
 		} catch (NoSuchAlgorithmException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			stackTrace = stack;
 		} catch (KeyManagementException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			stackTrace = stack;
 		}
 		return "Command sent to console: " + command;
 	}

