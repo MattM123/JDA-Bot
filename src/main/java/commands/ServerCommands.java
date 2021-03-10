@@ -363,7 +363,8 @@ public class ServerCommands extends ListenerAdapter {
 					ApplicationInfo application = BTE.getApplicationHistory(user);
 					int appIndex = Integer.parseInt(appNum) - 1;
 					
-					if ((application.getApplications().size() == 0) && BTE.getMemberList().contains(Long.parseLong(user))) {
+					if ((application.getApplications().isEmpty())) {
+						
 						EmbedBuilder noinfo = new EmbedBuilder();
 						noinfo.setColor(Color.BLUE);
 						noinfo.setTitle("No data on user");
