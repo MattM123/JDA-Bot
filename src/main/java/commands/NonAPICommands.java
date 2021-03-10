@@ -76,7 +76,7 @@ public class NonAPICommands extends ListenerAdapter {
 			String Zbuilder = "";
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			
-			for (int i = 8; i < chararr.length; i++) {
+			for (int i = 10; i < chararr.length; i++) {
 				if (chararr[i] == ' ') {
 					for (int j = (i + 1); j < chararr.length; j++) {
 						Zbuilder += chararr[j];
@@ -96,7 +96,7 @@ public class NonAPICommands extends ListenerAdapter {
 			String Zbuilder = "";
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			
-			for (int i = 8; i < chararr.length; i++) {
+			for (int i = 10; i < chararr.length; i++) {
 				if (chararr[i] == ' ') {
 					for (int j = (i + 1); j < chararr.length; j++) {
 						Zbuilder += chararr[j];
