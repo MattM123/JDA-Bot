@@ -357,6 +357,7 @@ public class ServerCommands extends ListenerAdapter {
 					
 				
 				}
+				//else everything will run as it should
 				else {
 					ApplicationInfo application = BTE.getApplicationHistory(user);
 					int appIndex = Integer.parseInt(appNum) - 1;
