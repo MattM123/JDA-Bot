@@ -9,12 +9,20 @@ public class NonAPICommands extends ListenerAdapter {
 //	private static ArrayList<String> records;
 //	private Logger logger = LoggerFactory.getLogger(NonAPICommands.class);
 
-	public static String getNum(int x, int z) {
+	public static String get2d(int x, int z) {
 		int X = Math.floorDiv(x, 512);
 		//int Y = Math.floorDiv(y, 256);
 		int Z = Math.floorDiv(z, 512);
 		
 		return X + "." + Z + ".2dr";
+	}
+	
+	public static String get3d(int x, int z) {
+		int X = Math.floorDiv(x, 256);
+		//int Y = Math.floorDiv(y, 256);
+		int Z = Math.floorDiv(z, 256);
+		
+		return X + "." + Z + ".3dr";
 	}
 	
 	
@@ -63,7 +71,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		//chunk conversion to region file
-		if (event.getMessage().getContentRaw().startsWith("!regcon")) {
+		if (event.getMessage().getContentRaw().startsWith("!regcon2d")) {
 			String Xbuilder = "";
 			String Zbuilder = "";
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
@@ -79,7 +87,27 @@ public class NonAPICommands extends ListenerAdapter {
 					Xbuilder += chararr[i];
 				}
 			}
-			event.getChannel().sendMessage("2DR File: " + getNum(Integer.parseInt(Xbuilder), Integer.parseInt(Zbuilder))).queue();
+			event.getChannel().sendMessage("2DR File: " + get2d(Integer.parseInt(Xbuilder), Integer.parseInt(Zbuilder))).queue();
+
+		}
+		
+		if (event.getMessage().getContentRaw().startsWith("!regcon3d")) {
+			String Xbuilder = "";
+			String Zbuilder = "";
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			
+			for (int i = 8; i < chararr.length; i++) {
+				if (chararr[i] == ' ') {
+					for (int j = (i + 1); j < chararr.length; j++) {
+						Zbuilder += chararr[j];
+					}
+					break;
+				}
+				else {
+					Xbuilder += chararr[i];
+				}
+			}
+			event.getChannel().sendMessage("3DR File: " + get3d(Integer.parseInt(Xbuilder), Integer.parseInt(Zbuilder))).queue();
 
 		}
 	}
