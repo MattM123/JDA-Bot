@@ -69,8 +69,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 				for (int i = 11; i < chararr.length; i++) {
 					namebuilder += chararr[i];
-				}
-				
+				}		
 				server.sendCommand("lp user " + namebuilder + " parent add applicants");
 		
 				EmbedBuilder emb = new EmbedBuilder();
@@ -355,6 +354,8 @@ public class ServerCommands extends ListenerAdapter {
 					notOnTeam.setTitle("No data on user");
 					notOnTeam.addField(BTE.stackTrace, "", false);
 					event.getChannel().sendMessage(notOnTeam.build()).queue();
+					
+					event.getChannel().sendMessage(user).queue();
 				}
 				else {
 					ApplicationInfo application = BTE.getApplicationHistory(user);
