@@ -355,7 +355,7 @@ public class ServerCommands extends ListenerAdapter {
 					notOnTeam.addField(BTE.stackTrace, "", false);
 					event.getChannel().sendMessage(notOnTeam.build()).queue();
 					
-					event.getChannel().sendMessage(user).queue();
+				
 				}
 				else {
 					ApplicationInfo application = BTE.getApplicationHistory(user);
