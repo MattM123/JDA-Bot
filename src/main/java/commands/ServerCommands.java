@@ -44,10 +44,13 @@ public class ServerCommands extends ListenerAdapter {
 			
 				for (int i = 7; i < chararr.length; i++) {
 					namebuilder += chararr[i];
-				}
-				
+				}			
 				server.sendCommand("lp user " + namebuilder + " parent add event-builder");
-				event.getChannel().sendMessage("Rank updated to Event Builder for user " + namebuilder).queue();
+				
+				EmbedBuilder emb = new EmbedBuilder();
+				emb.setColor(Color.BLUE);
+				emb.setTitle("Rank updated to Event Builder for user " + namebuilder);
+				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
 				EmbedBuilder emb = new EmbedBuilder();
@@ -69,7 +72,11 @@ public class ServerCommands extends ListenerAdapter {
 				}
 				
 				server.sendCommand("lp user " + namebuilder + " parent add applicants");
-				event.getChannel().sendMessage("Rank updated to Application In Progress for user " + namebuilder).queue();
+		
+				EmbedBuilder emb = new EmbedBuilder();
+				emb.setColor(Color.BLUE);
+				emb.setTitle("Rank updated to Application In Progress for user " + namebuilder);
+				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
 				EmbedBuilder emb = new EmbedBuilder();
