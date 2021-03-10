@@ -13,7 +13,7 @@ public class NonAPICommands extends ListenerAdapter {
 		x = (int) (Math.floor(x / 32));
 		z = (int) (Math.floor(z / 32));
 		
-		return String.valueOf(x) + "." + String.valueOf(z) + ".3dr/mca/2dr"; 
+		return String.valueOf(x) + "." + String.valueOf(z) + ".2dr"; 
 	}
 	
 	
