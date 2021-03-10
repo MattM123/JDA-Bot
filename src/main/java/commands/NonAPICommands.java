@@ -14,7 +14,7 @@ public class NonAPICommands extends ListenerAdapter {
 		//int Y = Math.floorDiv(y, 256);
 		int Z = Math.floorDiv(z, 512);
 		
-		return X + "." + Z + ".3dr";
+		return X + "." + Z + ".2dr";
 	}
 	
 	
