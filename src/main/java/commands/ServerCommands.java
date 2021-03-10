@@ -177,6 +177,7 @@ public class ServerCommands extends ListenerAdapter {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("Console command sent");
+				emb.addField(crafty.sendCommand("ping"), "", false);
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
