@@ -9,11 +9,12 @@ public class NonAPICommands extends ListenerAdapter {
 //	private static ArrayList<String> records;
 //	private Logger logger = LoggerFactory.getLogger(NonAPICommands.class);
 
-	public static String regionXZ(double x, double z) {
-		x = (int) (Math.floor(x / 32));
-		z = (int) (Math.floor(z / 32));
+	public static String getNum(int x, int z) {
+		int X = Math.floorDiv(x, 256);
+		//int Y = Math.floorDiv(y, 256);
+		int Z = Math.floorDiv(z, 256);
 		
-		return String.valueOf(x) + "." + String.valueOf(z) + ".2dr"; 
+		return X + "." + Z + ".3dr";
 	}
 	
 	
@@ -78,7 +79,7 @@ public class NonAPICommands extends ListenerAdapter {
 					Xbuilder += chararr[i];
 				}
 			}
-			event.getChannel().sendMessage("2DR File: " + regionXZ(Double.parseDouble(Xbuilder), Double.parseDouble(Zbuilder))).queue();
+			event.getChannel().sendMessage("2DR File: " + getNum(Integer.parseInt(Xbuilder), Integer.parseInt(Zbuilder))).queue();
 
 		}
 	}
