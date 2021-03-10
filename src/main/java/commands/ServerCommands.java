@@ -372,7 +372,7 @@ public class ServerCommands extends ListenerAdapter {
 						event.getChannel().sendMessage(noinfo.build()).queue();
 					}
 					
-					else if (appIndex >= application.getApplications().size() ) {
+					else if (appIndex >= application.getApplications().size()) {
 						EmbedBuilder noApp = new EmbedBuilder();
 						noApp.setColor(Color.BLUE);
 						noApp.setTitle("User does not have that many applications, try a lower number.");
