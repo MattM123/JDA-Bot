@@ -78,7 +78,7 @@ public class NonAPICommands extends ListenerAdapter {
 					Xbuilder += chararr[i];
 				}
 			}
-			event.getChannel().sendMessage("Your file should look something like this: " + regionXZ(Double.parseDouble(Xbuilder), Double.parseDouble(Zbuilder))).queue();
+			event.getChannel().sendMessage("2DR File: " + regionXZ(Double.parseDouble(Xbuilder), Double.parseDouble(Zbuilder))).queue();
 
 		}
 	}
