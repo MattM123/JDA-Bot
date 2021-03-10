@@ -10,9 +10,9 @@ public class NonAPICommands extends ListenerAdapter {
 //	private Logger logger = LoggerFactory.getLogger(NonAPICommands.class);
 
 	public static String getNum(int x, int z) {
-		int X = Math.floorDiv(x, 256);
+		int X = Math.floorDiv(x, 512);
 		//int Y = Math.floorDiv(y, 256);
-		int Z = Math.floorDiv(z, 256);
+		int Z = Math.floorDiv(z, 512);
 		
 		return X + "." + Z + ".3dr";
 	}
