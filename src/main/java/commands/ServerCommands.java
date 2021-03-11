@@ -172,19 +172,18 @@ public class ServerCommands extends ListenerAdapter {
 		//Send command to console crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
 			
-		//	crafty.sendCommand("ping");
-			if (crafty.stackTrace.equals("")) {
+			if (crafty.sendCommand("ping").contains("MalformedURLException") || crafty.sendCommand("ping").contains("IOException") || crafty.sendCommand("ping").contains("JSONException")
+					|| crafty.sendCommand("ping").contains("NoSuchAlgorithmException") || crafty.sendCommand("ping").contains("KeyManagementException")) {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
-				emb.setTitle(crafty.sendCommand("ping"));
+				emb.setTitle("An error occured while sending the console command");
 				emb.addField("", crafty.stackTrace, false);
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
-				emb.setTitle("An error occured while sending the console command");
-				emb.addField("", crafty.stackTrace, false);
+				emb.setTitle(crafty.sendCommand("ping"));
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 		}
