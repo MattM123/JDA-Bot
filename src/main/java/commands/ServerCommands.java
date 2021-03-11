@@ -110,11 +110,11 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			else {
 				
-				if (ele.getAsJsonObject().get("server_running").toString().equals("false")) {
-					status = "OFFLINE";
+				if (ele.getAsJsonObject().get("server_running").toString().equals("true")) {
+					status = "ONLINE";
 				}
 				else {
-					status = "ONLINE";
+					status = "OFFLINE";
 				}
 				
 				if (!(ele.getAsJsonObject().get("players").toString().equals("\"[]\""))) {
@@ -130,11 +130,11 @@ public class ServerCommands extends ListenerAdapter {
 				String memory1 = ele1.getAsJsonObject().get("memory_usage").toString().substring(1, ele1.getAsJsonObject().get("memory_usage").toString().length() - 1);
 				String players1 = "";
 				
-				if (ele.getAsJsonObject().get("server_running").toString().equals("false")) {
-					status1 = "OFFLINE";
+				if (ele.getAsJsonObject().get("server_running").toString().equals("true")) {
+					status1 = "ONLINE";
 				}
 				else {
-					status1 = "ONLINE";
+					status1 = "OFFLINE";
 				}
 				
 				if (!(ele1.getAsJsonObject().get("players").toString().equals("\"[]\""))) {
@@ -172,7 +172,7 @@ public class ServerCommands extends ListenerAdapter {
 	
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
 			
-		//	crafty.sendCommand("ping");
+			crafty.sendCommand("ping");
 			if (crafty.stackTrace.equals("")) {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
