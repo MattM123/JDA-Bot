@@ -176,11 +176,8 @@ public class ServerCommands extends ListenerAdapter {
 			
 			char[] charArr = event.getMessage().getContentRaw().toCharArray();
 			for (int i = 0; i < charArr.length; i++) {
-				if (charArr[5] == ' ' && charArr[5] == event.getMessage().getContentRaw().indexOf(' ')) {
+				if (charArr[5] == ' ') {
 					command += event.getMessage().getContentRaw().substring(charArr[i + 1]);
-				}
-				else {
-					event.getChannel().sendMessage("Error with parsing command").queue();
 				}
 			}
 			
