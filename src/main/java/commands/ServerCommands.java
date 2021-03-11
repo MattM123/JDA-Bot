@@ -172,10 +172,10 @@ public class ServerCommands extends ListenerAdapter {
 		//Send command to console crafty
 		if (event.getMessage().getContentRaw().startsWith("!test")) {
 			
-			String command = "";
+			//String command = "";
 			
 			char[] charArr = event.getMessage().getContentRaw().toCharArray();
-			command += event.getMessage().getContentRaw().substring(charArr[6]);
+			String command = event.getMessage().getContentRaw().substring(charArr[6]);
 				
 			event.getChannel().sendMessage("command: " + command).queue();
 		}
