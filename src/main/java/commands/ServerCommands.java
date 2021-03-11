@@ -172,8 +172,8 @@ public class ServerCommands extends ListenerAdapter {
 		//Send command to console crafty
 		if (event.getMessage().getContentRaw().startsWith("!test")) {
 			
-			String command = "ping";
-			/*
+			String command = "";
+			
 			char[] charArr = event.getMessage().getContentRaw().toCharArray();
 			for (int i = 6; i < charArr.length; i++) {
 				if (i == 6 && charArr[6] == '-') {
@@ -183,16 +183,16 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage("Error with parsing command").queue();
 				}
 			}
-			*/
+			
 			event.getChannel().sendMessage("command: " + command).queue();
 			
 			if (crafty.sendCommand(command).contains("MalformedURLException") || crafty.sendCommand(command).contains("IOException") || crafty.sendCommand(command).contains("JSONException")
-					|| crafty.sendCommand(command).contains("NoSuchAlgorithmException") || crafty.sendCommand(command).contains("KeyManagementException")) {
+					|| crafty.sendCommand(command).contains("NoSuchAlgorithmException") || crafty.sendCommand(command).contains("KeyManagementException") || crafty.sendCommand(command).contains("Error Code:") ) {
 				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("An error occured while sending the console command");
-				emb.addField("Stacktrace", crafty.sendCommand(command).substring(0, 1000), false);
+				emb.addField("Stacktrace or Error Code", crafty.sendCommand(command).substring(0, 1000), false);
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
@@ -219,7 +219,7 @@ public class ServerCommands extends ListenerAdapter {
 				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") 
-						|| usernameApplied.contains("IOException") || usernameApplied.contains("JSONException")) && usernameApplied.length() > 30) {
+						|| usernameApplied.contains("IOException") || usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:"))) {
 					
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setColor(Color.BLUE);
