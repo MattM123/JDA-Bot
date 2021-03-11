@@ -172,18 +172,28 @@ public class ServerCommands extends ListenerAdapter {
 		//Send command to console crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
 			
-			if (crafty.sendCommand("ping").contains("MalformedURLException") || crafty.sendCommand("ping").contains("IOException") || crafty.sendCommand("ping").contains("JSONException")
-					|| crafty.sendCommand("ping").contains("NoSuchAlgorithmException") || crafty.sendCommand("ping").contains("KeyManagementException")) {
+			String command = "";
+			char[] charArr = event.getMessage().getContentRaw().toCharArray();
+			for (int i = 6; i < charArr.length; i++) {
+				if (charArr[i] == '-') {
+					command = event.getMessage().getContentRaw().substring(charArr[i + 1]);
+				}
+			}
+			event.getChannel().sendMessage("command: " + command).queue();
+			
+			if (crafty.sendCommand(command).contains("MalformedURLException") || crafty.sendCommand(command).contains("IOException") || crafty.sendCommand(command).contains("JSONException")
+					|| crafty.sendCommand(command).contains("NoSuchAlgorithmException") || crafty.sendCommand(command).contains("KeyManagementException")) {
+				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("An error occured while sending the console command");
-				emb.addField("Stacktrace", crafty.sendCommand("ping").substring(0, 1000), false);
+				emb.addField("Stacktrace", crafty.sendCommand(command).substring(0, 1000), false);
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
-				emb.setTitle(crafty.sendCommand("ping"));
+				emb.setTitle(crafty.sendCommand(command));
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 		}
