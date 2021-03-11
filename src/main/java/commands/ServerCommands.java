@@ -175,15 +175,8 @@ public class ServerCommands extends ListenerAdapter {
 			String command = "";
 			char[] charArr = event.getMessage().getContentRaw().toCharArray();
 			for (int i = 0; i < charArr.length; i++) {
-				if (charArr[6] == '-') {
+				if (charArr[i] == '-') {
 					command = event.getMessage().getContentRaw().substring(charArr[i + 1]);
-				}
-				else {
-					EmbedBuilder emb = new EmbedBuilder();
-					emb.setColor(Color.BLUE);
-					emb.setTitle("Invalid Syntax. Please put a '-' before the command to be run");
-					event.getChannel().sendMessage(emb.build()).queue();
-					break;
 				}
 			}
 			event.getChannel().sendMessage("command: " + command).queue();
