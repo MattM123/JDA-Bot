@@ -172,7 +172,8 @@ public class ServerCommands extends ListenerAdapter {
 		//Send command to console crafty
 		if (event.getMessage().getContentRaw().startsWith("!test")) {
 			
-			String command = "";
+			String command = "ping";
+			/*
 			char[] charArr = event.getMessage().getContentRaw().toCharArray();
 			for (int i = 6; i < charArr.length; i++) {
 				if (i == 6 && charArr[6] == '-') {
@@ -182,6 +183,7 @@ public class ServerCommands extends ListenerAdapter {
 					event.getChannel().sendMessage("Error with parsing command").queue();
 				}
 			}
+			*/
 			event.getChannel().sendMessage("command: " + command).queue();
 			
 			if (crafty.sendCommand(command).contains("MalformedURLException") || crafty.sendCommand(command).contains("IOException") || crafty.sendCommand(command).contains("JSONException")
