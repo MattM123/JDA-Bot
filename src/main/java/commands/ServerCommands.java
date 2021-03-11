@@ -168,11 +168,11 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage(stats.build()).queue();
 			}
 		}
-		//crafy test
-	
+		
+		//Send command to console crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!test")) {
 			
-			crafty.sendCommand("ping");
+		//	crafty.sendCommand("ping");
 			if (crafty.stackTrace.equals("")) {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
