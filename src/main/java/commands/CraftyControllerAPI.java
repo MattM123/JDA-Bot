@@ -138,7 +138,7 @@ public class CraftyControllerAPI {
 			conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
 			conn.setRequestProperty("Accept", "text/html");
 			conn.setRequestProperty("Host", "panel.richterent.com");
-			conn.addRequestProperty("command", command);
+			conn.addRequestProperty("body", command);
 			conn.setRequestMethod("POST");
 			
 			
