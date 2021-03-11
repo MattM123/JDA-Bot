@@ -174,8 +174,8 @@ public class ServerCommands extends ListenerAdapter {
 			
 			String command = "";
 			char[] charArr = event.getMessage().getContentRaw().toCharArray();
-			for (int i = 0; i < charArr.length; i++) {
-				if (charArr[i] == '-') {
+			for (int i = 6; i < charArr.length; i++) {
+				if (charArr[6] == '-') {
 					command = event.getMessage().getContentRaw().substring(charArr[i + 1]);
 				}
 			}
