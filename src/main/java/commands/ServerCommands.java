@@ -180,8 +180,11 @@ public class ServerCommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
-				event.getChannel().sendMessage("An error occured while sending the console command");
-				event.getChannel().sendMessage(crafty.stackTrace).queue();
+				EmbedBuilder emb = new EmbedBuilder();
+				emb.setColor(Color.BLUE);
+				emb.setTitle("An error occured while sending the console command");
+				emb.addField("", crafty.stackTrace, false);
+				event.getChannel().sendMessage(emb.build()).queue();
 			}
 		}
 
