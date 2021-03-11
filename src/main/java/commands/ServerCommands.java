@@ -171,19 +171,9 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//Send command to console crafty
 		if (event.getMessage().getContentRaw().startsWith("!test")) {
-			
-			//String command = "";
-			
-			char[] charArr = event.getMessage().getContentRaw().toCharArray();
+					
 			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
 			
-			
-			event.getChannel().sendMessage("command" + command).queue();
-			
-		}
-			
-		
-		/*	
 			if (crafty.sendCommand(command).contains("MalformedURLException") || crafty.sendCommand(command).contains("IOException") || crafty.sendCommand(command).contains("JSONException")
 					|| crafty.sendCommand(command).contains("NoSuchAlgorithmException") || crafty.sendCommand(command).contains("KeyManagementException") || crafty.sendCommand(command).contains("Error Code:") ) {
 				
@@ -199,8 +189,8 @@ public class ServerCommands extends ListenerAdapter {
 				emb.setTitle(crafty.sendCommand(command));
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
-			*/
-	//	}
+			
+		}
 
 		//give build perms based on presence on build team
 		if (event.getMessage().getContentRaw().startsWith("!link")) {		
