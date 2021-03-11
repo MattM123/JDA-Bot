@@ -185,7 +185,7 @@ public class ServerCommands extends ListenerAdapter {
 			}
 			
 			event.getChannel().sendMessage("command: " + command).queue();
-			
+		/*	
 			if (crafty.sendCommand(command).contains("MalformedURLException") || crafty.sendCommand(command).contains("IOException") || crafty.sendCommand(command).contains("JSONException")
 					|| crafty.sendCommand(command).contains("NoSuchAlgorithmException") || crafty.sendCommand(command).contains("KeyManagementException") || crafty.sendCommand(command).contains("Error Code:") ) {
 				
@@ -201,6 +201,7 @@ public class ServerCommands extends ListenerAdapter {
 				emb.setTitle(crafty.sendCommand(command));
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
+			*/
 		}
 
 		//give build perms based on presence on build team
