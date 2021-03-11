@@ -175,7 +175,7 @@ public class ServerCommands extends ListenerAdapter {
 			//String command = "";
 			
 			char[] charArr = event.getMessage().getContentRaw().toCharArray();
-			String command = event.getMessage().getContentRaw().substring(charArr[5]);
+			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
 			
 			
 			event.getChannel().sendMessage("command" + command).queue();
