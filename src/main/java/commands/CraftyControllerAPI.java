@@ -161,19 +161,19 @@ public class CraftyControllerAPI {
 			
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack;
+			return stack;
 		} catch (IOException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack;
+			return stack;
 		} catch (JSONException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack;
+			return stack;
 		} catch (NoSuchAlgorithmException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack;
+			return stack;
 		} catch (KeyManagementException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack;
+			return stack;
 		}
 		return "Command sent to console: " + command;
 	}
