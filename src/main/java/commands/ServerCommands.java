@@ -177,6 +177,7 @@ public class ServerCommands extends ListenerAdapter {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle(crafty.sendCommand("ping"));
+				emb.addField("", crafty.stackTrace, false);
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
