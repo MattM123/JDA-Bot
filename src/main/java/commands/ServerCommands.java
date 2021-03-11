@@ -176,8 +176,7 @@ public class ServerCommands extends ListenerAdapter {
 			if (crafty.stackTrace.equals("")) {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
-				emb.setTitle("Console command sent");
-				emb.addField(crafty.sendCommand("ping"), "", false);
+				emb.setTitle(crafty.sendCommand("ping"));
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
@@ -263,7 +262,7 @@ public class ServerCommands extends ListenerAdapter {
 								server.sendCommand("lp user " + MCusername + " parent add kansas-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Kansas Builder for user" + MCusername);
+								emb.setTitle("Minecraft server rank updated to Kansas Builder for user " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 		
 							}
@@ -271,7 +270,7 @@ public class ServerCommands extends ListenerAdapter {
 								server.sendCommand("lp user " + MCusername + " parent add iowa-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Iowa Builder for user" + MCusername);
+								emb.setTitle("Minecraft server rank updated to Iowa Builder for user " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 		
 							}
@@ -279,7 +278,7 @@ public class ServerCommands extends ListenerAdapter {
 								server.sendCommand("lp user " + MCusername + " parent add nebraska-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Nebraska Builder for user" + MCusername);
+								emb.setTitle("Minecraft server rank updated to Nebraska Builder for user " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 		
 							}
@@ -287,14 +286,14 @@ public class ServerCommands extends ListenerAdapter {
 								server.sendCommand("lp user " + MCusername + " parent add illinois-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Illinois Builder for user" + MCusername);
+								emb.setTitle("Minecraft server rank updated to Illinois Builder for user " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 							else if (roles.contains(guild.getRoleById(735995115113414656L))) {
 								server.sendCommand("lp user " + MCusername + " parent add missouri-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Missouri Builder for user" + MCusername);
+								emb.setTitle("Minecraft server rank updated to Missouri Builder for user " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 		
 							}
@@ -302,14 +301,14 @@ public class ServerCommands extends ListenerAdapter {
 								server.sendCommand("lp user " + MCusername + " parent add minnesota-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Minnesota Builder for user" + MCusername);
+								emb.setTitle("Minecraft server rank updated to Minnesota Builder for user " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 							else if (roles.contains(guild.getRoleById(808415301799641119L))) {
 								server.sendCommand("lp user " + MCusername + " parent add oklahoma-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Oklahoma Builder for user" + MCusername);
+								emb.setTitle("Minecraft server rank updated to Oklahoma Builder for user " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 							
