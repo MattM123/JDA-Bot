@@ -23,7 +23,10 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 
@@ -141,6 +144,7 @@ public class CraftyControllerAPI {
 		try {
 			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+			CloseableHttpClient client = HttpClients.createDefault();
 			HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");//&command=" + command);
 			
 			List<NameValuePair> data = new ArrayList<NameValuePair>();
@@ -154,7 +158,9 @@ public class CraftyControllerAPI {
 			
 			post.setEntity(new UrlEncodedFormEntity(data));
 			
-			
+			CloseableHttpResponse response = client.execute(post);
+		  
+		 
 			//conn = (HttpsURLConnection) url.openConnection();
 			
 			//conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
@@ -167,23 +173,23 @@ public class CraftyControllerAPI {
 			
 			
 			//Storing JSON from request into string. Prints error code and error stream if encountered.
-			/*
-			if (conn.getResponseCode() > 200) {
-				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				while ((line = in.readLine()) != null) {
-					json.append(line);
-				}
-				in.close();
-				return "Error Code: " + String.valueOf(conn.getResponseCode()) + "\n" + json.toString();
-			}		
 			
-			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			while ((line = in.readLine()) != null) {
-				json.append(line);
-			}
-			in.close();	
+			if (response.getStatusLine().getStatusCode() > 200) {
+			//	in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			//	while ((line = in.readLine()) != null) {
+			//		json.append(line);
+			//	}
+			//	in.close();
+				return "Error Code: " + String.valueOf(response.getStatusLine().getStatusCode()) + "\n" + json.toString();
+			}		
+			   client.close();
+		//	in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		//	while ((line = in.readLine()) != null) {
+		//		json.append(line);
+		//	}
+			//in.close();	
 		
-			*/
+			
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			return stack;
