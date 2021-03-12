@@ -147,7 +147,7 @@ public class CraftyControllerAPI {
 			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-		//	conn = (HttpsURLConnection) url.openConnection();//&command=" + command);
+			conn = (HttpsURLConnection) url.openConnection();//&command=" + command);
 			
 			List<NameValuePair> data = new ArrayList<NameValuePair>();
 				    data.add(new BasicNameValuePair("command", command));
@@ -161,16 +161,16 @@ public class CraftyControllerAPI {
 			
 			code = post.getRequestLine();
 			
-		//	conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-		//	conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
-		//	conn.setRequestProperty("Accept", "text/html");
-		//	conn.setRequestProperty("Host", "panel.richterent.com");
-		//	conn.setRequestProperty("command", command);
-		//	conn.setRequestMethod("POST");
+			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
+			conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
+			conn.setRequestProperty("Accept", "text/html");
+			conn.setRequestProperty("Host", "panel.richterent.com");
+			conn.setRequestProperty("command", command);
+			conn.setRequestMethod("POST");
 			
 			
 			//Storing JSON from request into string. Prints error code and error stream if encountered.
-		/*	
+			
 			if (conn.getResponseCode() > 200) {
 				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				while ((line = in.readLine()) != null) {
@@ -186,7 +186,7 @@ public class CraftyControllerAPI {
 			}
 			in.close();	
 		
-		*/	
+			
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
