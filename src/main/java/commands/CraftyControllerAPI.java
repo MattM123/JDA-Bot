@@ -145,7 +145,7 @@ public class CraftyControllerAPI {
 
 		try {
 			fixUntrustCertificate();
-			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6&command=" + command);
 		
 			conn = (HttpsURLConnection) url.openConnection();//&command=" + command);
 			
