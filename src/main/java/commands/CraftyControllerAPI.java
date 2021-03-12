@@ -22,6 +22,7 @@ import javax.net.ssl.X509TrustManager;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
+import org.apache.http.RequestLine;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -140,7 +141,7 @@ public class CraftyControllerAPI {
 		StringBuilder json = new StringBuilder();
 		URL url;
 		HttpsURLConnection conn = null;
-		String code = "";
+		RequestLine code = null;
 
 		try {
 			fixUntrustCertificate();
@@ -159,10 +160,8 @@ public class CraftyControllerAPI {
 			
 			post.setEntity(new UrlEncodedFormEntity(data));
 			
-		  
-			CloseableHttpResponse response = client.execute(post);
-		    code = String.valueOf(response.getStatusLine().getStatusCode());
-		    client.close();
+			code = post.getRequestLine();
+		
 			//conn = (HttpsURLConnection) url.openConnection();
 			
 			//conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
