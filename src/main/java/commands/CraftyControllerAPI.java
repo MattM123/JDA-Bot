@@ -145,7 +145,7 @@ public class CraftyControllerAPI {
 
 		try {
 			fixUntrustCertificate();
-			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6&command=" + command);
+			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 		
 			conn = (HttpsURLConnection) url.openConnection();//&command=" + command);
 			
@@ -168,6 +168,7 @@ public class CraftyControllerAPI {
 			conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
 			conn.setRequestProperty("Accept", "text/html");
 			conn.setRequestProperty("Host", "panel.richterent.com");
+			conn.setRequestProperty("command", command);
 			conn.setRequestMethod("POST");
 			
 			
