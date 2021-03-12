@@ -180,7 +180,7 @@ public class ServerCommands extends ListenerAdapter {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("An error occured while sending the console command");
-				emb.addField("Stacktrace or Error Code", crafty.sendCommand(command).substring(0, 1000), false);
+				emb.addField("", crafty.sendCommand(command), false);
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
