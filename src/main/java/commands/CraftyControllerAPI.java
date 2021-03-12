@@ -146,17 +146,17 @@ public class CraftyControllerAPI {
 		try {
 			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-		
+			HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			conn = (HttpsURLConnection) url.openConnection();//&command=" + command);
 			
-		//	List<NameValuePair> data = new ArrayList<NameValuePair>();
-		//		    data.add(new BasicNameValuePair("command", command));
+			List<NameValuePair> data = new ArrayList<NameValuePair>();
+				    data.add(new BasicNameValuePair("command", command));
 			
 			
-		//	post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-		//	post.setHeader("Content-Type", "text/html; charset=UTF-8");
-		//	post.setHeader("Accept", "text/html");
-		//	post.setHeader("Host", "panel.richterent.com");
+			post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
+			post.setHeader("Content-Type", "text/html; charset=UTF-8");
+			post.setHeader("Accept", "text/html");
+			post.setHeader("Host", "panel.richterent.com");
 			
 			//post.setEntity(new UrlEncodedFormEntity(data));
 			
