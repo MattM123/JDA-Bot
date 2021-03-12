@@ -158,7 +158,6 @@ public class CraftyControllerAPI {
 			
 			post.setEntity(new UrlEncodedFormEntity(data));
 			
-			CloseableHttpResponse response = client.execute(post);
 		  
 		 
 			//conn = (HttpsURLConnection) url.openConnection();
@@ -174,15 +173,15 @@ public class CraftyControllerAPI {
 			
 			//Storing JSON from request into string. Prints error code and error stream if encountered.
 			
-			if (response.getStatusLine().getStatusCode() == 200) {
+		//	if (response.getStatusLine().getStatusCode() == 200) {
 			//	in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			//	while ((line = in.readLine()) != null) {
 			//		json.append(line);
 			//	}
 			//	in.close();
-				return "Error Code: " + String.valueOf(response.getStatusLine().getStatusCode()) + "\n" + json.toString();
-			}		
-			   client.close();
+			//	return "Error Code: " + String.valueOf(response.getStatusLine().getStatusCode());
+			//}		
+			
 		//	in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		//	while ((line = in.readLine()) != null) {
 		//		json.append(line);
