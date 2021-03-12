@@ -147,7 +147,7 @@ public class CraftyControllerAPI {
 			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-			conn = (HttpsURLConnection) url.openConnection();//&command=" + command);
+		//	conn = (HttpsURLConnection) url.openConnection();//&command=" + command);
 			
 			List<NameValuePair> data = new ArrayList<NameValuePair>();
 				    data.add(new BasicNameValuePair("command", command));
@@ -170,7 +170,7 @@ public class CraftyControllerAPI {
 			
 			
 			//Storing JSON from request into string. Prints error code and error stream if encountered.
-			
+		/*	
 			if (conn.getResponseCode() > 200) {
 				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				while ((line = in.readLine()) != null) {
@@ -184,9 +184,9 @@ public class CraftyControllerAPI {
 			while ((line = in.readLine()) != null) {
 				json.append(line);
 			}
-			//in.close();	
+			in.close();	
 		
-			
+		*/	
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
