@@ -174,7 +174,7 @@ public class CraftyControllerAPI {
 			
 			//Storing JSON from request into string. Prints error code and error stream if encountered.
 			
-			if (response.getStatusLine().getStatusCode() > 200) {
+			if (response.getStatusLine().getStatusCode() == 200) {
 			//	in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			//	while ((line = in.readLine()) != null) {
 			//		json.append(line);
