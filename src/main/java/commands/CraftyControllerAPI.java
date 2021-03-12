@@ -140,6 +140,7 @@ public class CraftyControllerAPI {
 		StringBuilder json = new StringBuilder();
 		URL url;
 		HttpsURLConnection conn = null;
+		String code = "";
 
 		try {
 			fixUntrustCertificate();
@@ -159,7 +160,9 @@ public class CraftyControllerAPI {
 			post.setEntity(new UrlEncodedFormEntity(data));
 			
 		  
-		 
+			CloseableHttpResponse response = client.execute(post);
+		    code = String.valueOf(response.getStatusLine().getStatusCode());
+		    client.close();
 			//conn = (HttpsURLConnection) url.openConnection();
 			
 			//conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
@@ -205,7 +208,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			return stack;
 		}
-		return "Command sent to console: " + command;
+		return "Command sent to console: " + command + " Status code: " + code;
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
