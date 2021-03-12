@@ -174,13 +174,12 @@ public class ServerCommands extends ListenerAdapter {
 					
 			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
 			
-			if (crafty.sendCommand(command).contains("MalformedURLException") || crafty.sendCommand(command).contains("IOException") || crafty.sendCommand(command).contains("JSONException")
-					|| crafty.sendCommand(command).contains("NoSuchAlgorithmException") || crafty.sendCommand(command).contains("KeyManagementException") || crafty.sendCommand(command).contains("Error Code:") ) {
+			if (!crafty.stackTrace.equals("")) {
 				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("An error occured while sending the console command");
-				emb.addField("", crafty.sendCommand(command), false);
+				emb.addField("", crafty.stackTrace, false);
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
