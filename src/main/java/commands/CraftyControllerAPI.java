@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -17,6 +20,11 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 
 import com.google.gson.JsonArray;
@@ -132,19 +140,34 @@ public class CraftyControllerAPI {
 
 		try {
 			fixUntrustCertificate();
-			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");//&command=" + command);
-			conn = (HttpsURLConnection) url.openConnection();
-			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-			conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
-			conn.setRequestProperty("Accept", "text/html");
-			conn.setRequestProperty("Host", "panel.richterent.com");
-			conn.setRequestProperty("body", command);
+			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+			HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");//&command=" + command);
 			
-			conn.setRequestMethod("POST");
+			List<NameValuePair> data = new ArrayList<NameValuePair>();
+				    data.add(new BasicNameValuePair("command", command));
+			
+			
+			post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
+			post.setHeader("Content-Type", "text/html; charset=UTF-8");
+			post.setHeader("Accept", "text/html");
+			post.setHeader("Host", "panel.richterent.com");
+			
+			post.setEntity(new UrlEncodedFormEntity(data));
+			
+			
+			//conn = (HttpsURLConnection) url.openConnection();
+			
+			//conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
+			//conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
+			//conn.setRequestProperty("Accept", "text/html");
+			//conn.setRequestProperty("Host", "panel.richterent.com");
+		
+	
+			//conn.setRequestMethod("POST");
 			
 			
 			//Storing JSON from request into string. Prints error code and error stream if encountered.
-			
+			/*
 			if (conn.getResponseCode() > 200) {
 				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				while ((line = in.readLine()) != null) {
@@ -160,7 +183,7 @@ public class CraftyControllerAPI {
 			}
 			in.close();	
 		
-			
+			*/
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			return stack;
