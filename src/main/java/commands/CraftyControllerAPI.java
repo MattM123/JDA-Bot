@@ -146,48 +146,46 @@ public class CraftyControllerAPI {
 		try {
 			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-			CloseableHttpClient client = HttpClients.createDefault();
-			HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");//&command=" + command);
-			
-			List<NameValuePair> data = new ArrayList<NameValuePair>();
-				    data.add(new BasicNameValuePair("command", command));
-			
-			
-			post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-			post.setHeader("Content-Type", "text/html; charset=UTF-8");
-			post.setHeader("Accept", "text/html");
-			post.setHeader("Host", "panel.richterent.com");
-			
-			post.setEntity(new UrlEncodedFormEntity(data));
-			
-			code = post.getRequestLine();
 		
-			//conn = (HttpsURLConnection) url.openConnection();
+			conn = (HttpsURLConnection) url.openConnection();//&command=" + command);
 			
-			//conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-			//conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
-			//conn.setRequestProperty("Accept", "text/html");
-			//conn.setRequestProperty("Host", "panel.richterent.com");
+		//	List<NameValuePair> data = new ArrayList<NameValuePair>();
+		//		    data.add(new BasicNameValuePair("command", command));
+			
+			
+		//	post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
+		//	post.setHeader("Content-Type", "text/html; charset=UTF-8");
+		//	post.setHeader("Accept", "text/html");
+		//	post.setHeader("Host", "panel.richterent.com");
+			
+			//post.setEntity(new UrlEncodedFormEntity(data));
+			
+			//code = post.getRequestLine();
 		
-	
-			//conn.setRequestMethod("POST");
+			conn = (HttpsURLConnection) url.openConnection();
+			
+			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
+			conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
+			conn.setRequestProperty("Accept", "text/html");
+			conn.setRequestProperty("Host", "panel.richterent.com");
+			conn.setRequestMethod("POST");
 			
 			
 			//Storing JSON from request into string. Prints error code and error stream if encountered.
 			
-		//	if (response.getStatusLine().getStatusCode() == 200) {
-			//	in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			//	while ((line = in.readLine()) != null) {
-			//		json.append(line);
-			//	}
-			//	in.close();
-			//	return "Error Code: " + String.valueOf(response.getStatusLine().getStatusCode());
-			//}		
+			if (conn.getResponseCode() > 200) {
+				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				while ((line = in.readLine()) != null) {
+					json.append(line);
+				}
+				in.close();
+				return "Error Code: " + String.valueOf(conn.getResponseCode() + "\n" + json.toString());
+			}		
 			
-		//	in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		//	while ((line = in.readLine()) != null) {
-		//		json.append(line);
-		//	}
+			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			while ((line = in.readLine()) != null) {
+				json.append(line);
+			}
 			//in.close();	
 		
 			
@@ -207,7 +205,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			return stack;
 		}
-		return "Command sent to console: " + command + " \nStatus: " + code;
+		return "Command sent to console: " + command + " \nStatus: " + json.toString();
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
