@@ -203,7 +203,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			return stack;
 		}
-		return "Command sent to console: " + command + " \nStatus: " + json.toString();
+		return "Command sent to console: " + command + " \nStatus: " + json.toString() + "\n" + code;
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
