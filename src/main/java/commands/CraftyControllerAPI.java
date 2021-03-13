@@ -11,6 +11,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -18,7 +21,11 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 
 import com.google.gson.JsonArray;
@@ -136,22 +143,14 @@ public class CraftyControllerAPI {
 		try {
 			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-			conn = (HttpsURLConnection) url.openConnection();
-			String param = "command=" + command;
-		       conn.setRequestMethod("POST");
-		       conn.setRequestProperty("Content-Type", "multipart/form-data");
-		       conn.setDoOutput(true);
-		       conn.getOutputStream().write(param.getBytes("UTF-8"));
-		       conn.getInputStream();
-
-			
+		//	conn = (HttpsURLConnection) url.openConnection();
 
 
-		/*
+		
 			HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			//conn = (HttpsURLConnection) url.openConnection();
 			
-			List<NameValuePair> data = new ArrayList<NameValuePair>();
+			List<BasicNameValuePair> data = new ArrayList<BasicNameValuePair>();
 				    data.add(new BasicNameValuePair("command", command));
 			
 			
@@ -163,7 +162,7 @@ public class CraftyControllerAPI {
 			post.setHeader("Content-Type", "multipart/form-data");
 			post.setEntity(new UrlEncodedFormEntity(data));
 			
-		*/
+		
 			
 			
 		//	conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
