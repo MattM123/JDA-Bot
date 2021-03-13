@@ -3,9 +3,11 @@ package commands;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
@@ -148,9 +150,23 @@ public class CraftyControllerAPI {
 
 		try {
 			fixUntrustCertificate();
-			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+			//url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 
-		
+			
+			String urlParameters  = "command=" + command;
+			byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
+			int    postDataLength = postData.length;
+		//	String request        = "http://example.com/index.php";
+			    url            = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+			conn = (HttpsURLConnection) url.openConnection();           
+			conn.setDoOutput(true);
+			conn.setInstanceFollowRedirects(false);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+			conn.setRequestProperty("charset", "utf-8");
+			conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+			conn.setUseCaches(false);
+		/*
 			HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			//conn = (HttpsURLConnection) url.openConnection();
 			
@@ -166,7 +182,7 @@ public class CraftyControllerAPI {
 			post.setHeader("Content-Type", "multipart/form-data");
 			post.setEntity(new UrlEncodedFormEntity(data));
 			
-		
+		*/
 			
 			
 		//	conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
