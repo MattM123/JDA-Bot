@@ -141,7 +141,7 @@ public class CraftyControllerAPI {
 		StringBuilder json = new StringBuilder();
 		URL url;
 		HttpsURLConnection conn = null;
-		RequestLine code = null;
+		
 
 		try {
 			fixUntrustCertificate();
@@ -158,9 +158,10 @@ public class CraftyControllerAPI {
 			post.setHeader("Accept", "text/html");
 			post.setHeader("Host", "panel.richterent.com");
 			post.setEntity(new UrlEncodedFormEntity(data));
+			post.releaseConnection();
 			
 			
-			code = post.getRequestLine();
+			
 			
 		//	conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
 		//	conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
@@ -174,7 +175,7 @@ public class CraftyControllerAPI {
 			//Storing JSON from request into string. Prints error code and error stream if encountered.
 			
 			/*
-			if (conn.getResponseCode() > 200) {
+			if (post. > 200) {
 				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				while ((line = in.readLine()) != null) {
 					json.append(line);
@@ -206,7 +207,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
 		}
-		return "Command sent to console: " + command + " \nStatus: " + json.toString() + code;
+		return "Command sent to console: " + command + " \nStatus: " + json.toString();
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
