@@ -146,31 +146,34 @@ public class CraftyControllerAPI {
 		try {
 			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-		//	HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-			conn = (HttpsURLConnection) url.openConnection();
+			HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+			//conn = (HttpsURLConnection) url.openConnection();
 			
-		//	List<NameValuePair> data = new ArrayList<NameValuePair>();
-		//		    data.add(new BasicNameValuePair("command", command));
+			List<NameValuePair> data = new ArrayList<NameValuePair>();
+				    data.add(new BasicNameValuePair("command", command));
 			
 			
-		//	post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-		//	post.setHeader("Content-Type", "text/html; charset=UTF-8");
-		//	post.setHeader("Accept", "text/html");
-		//	post.setHeader("Host", "panel.richterent.com");
-		//	post.setEntity(new UrlEncodedFormEntity(data));
+			post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
+			post.setHeader("Content-Type", "multipart/form-data");
+			post.setHeader("Accept", "text/html");
+			post.setHeader("Host", "panel.richterent.com");
+			post.setEntity(new UrlEncodedFormEntity(data));
 			
-		//	code = post.getRequestLine();
 			
-			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-			conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
-			conn.setRequestProperty("Accept", "text/html");
-			conn.setRequestProperty("Host", "panel.richterent.com");
-			conn.setRequestProperty("command", command);
-			conn.setRequestMethod("POST");
+			code = post.getRequestLine();
+			
+		//	conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
+		//	conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
+		//	conn.setRequestProperty("Accept", "text/html");
+		//	conn.setRequestProperty("Host", "panel.richterent.com");
+		//	conn.setRequestProperty("command", command);
+		//	conn.setRequestMethod("POST");
+		
 			
 			
 			//Storing JSON from request into string. Prints error code and error stream if encountered.
 			
+			/*
 			if (conn.getResponseCode() > 200) {
 				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				while ((line = in.readLine()) != null) {
@@ -186,7 +189,7 @@ public class CraftyControllerAPI {
 			}
 			in.close();	
 		
-			
+		*/	
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
@@ -203,7 +206,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
 		}
-		return "Command sent to console: " + command + " \nStatus: " + json.toString();
+		return "Command sent to console: " + command + " \nStatus: " + json.toString() + code;
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
