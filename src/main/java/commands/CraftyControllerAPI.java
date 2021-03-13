@@ -158,7 +158,6 @@ public class CraftyControllerAPI {
 			post.setHeader("Accept", "text/html");
 			post.setHeader("Host", "panel.richterent.com");
 			post.setEntity(new UrlEncodedFormEntity(data));
-			post.releaseConnection();
 			
 			
 			
@@ -207,7 +206,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
 		}
-		return "Command sent to console: " + command + " \nStatus: " + json.toString();
+		return "Command sent to console: " + command;
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
