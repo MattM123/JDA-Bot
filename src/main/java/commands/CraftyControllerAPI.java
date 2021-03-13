@@ -5,10 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -133,26 +137,30 @@ public class CraftyControllerAPI {
 
 		try {
 			fixUntrustCertificate();
-			//url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 
 			
-			String urlParameters  = "command=" + command;
-			byte[] postData       = urlParameters.getBytes(StandardCharsets.UTF_8);
-			int    postDataLength = postData.length;
-		//	String request        = "http://example.com/index.php";
-			    url            = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-			conn = (HttpsURLConnection) url.openConnection();           
-			conn.setDoOutput(true);
-			conn.setInstanceFollowRedirects(false);
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "multipart/form-data"); 
-			conn.setRequestProperty("charset", "utf-8");
-			conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
-			conn.setUseCaches(false);
-		/*
-			HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-			//conn = (HttpsURLConnection) url.openConnection();
-			
+	      
+	        Map<String,Object> params = new LinkedHashMap<>();
+	        params.put("command", command);
+	  
+	        StringBuilder postData = new StringBuilder();
+	        for (Map.Entry<String,Object> param : params.entrySet()) {
+	            if (postData.length() != 0) postData.append('&');
+	            postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+	            postData.append('=');
+	            postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+	        }
+	        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+		
+		//	HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+			conn = (HttpsURLConnection) url.openConnection();
+			 conn.setRequestMethod("POST");
+		        conn.setRequestProperty("Content-Type", "multipart/form-data");
+		        conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+		        conn.setDoOutput(true);
+		        conn.getOutputStream().write(postDataBytes);
+		/*	
 			List<NameValuePair> data = new ArrayList<NameValuePair>();
 				    data.add(new BasicNameValuePair("command", command));
 			
