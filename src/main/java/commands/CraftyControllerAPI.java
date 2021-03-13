@@ -139,6 +139,7 @@ public class CraftyControllerAPI {
 			conn = (HttpsURLConnection) url.openConnection();
 			String param = "command=" + command;
 		       conn.setRequestMethod("POST");
+		       conn.setRequestProperty("Content-Type", "multipart/form-data");
 		       conn.setDoOutput(true);
 		       conn.getOutputStream().write(param.getBytes("UTF-8"));
 		       conn.getInputStream();
