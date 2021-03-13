@@ -135,18 +135,13 @@ public class CraftyControllerAPI {
 
 		try {
 			fixUntrustCertificate();
-			//url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-
-			String urlParameters = "command=" + command;
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			conn = (HttpsURLConnection) url.openConnection();
-
-			conn.setDoOutput(true);
-
-			OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
-
-			writer.write(urlParameters);
-			writer.flush();
+			String param = "command=" + command;
+		       conn.setRequestMethod("POST");
+		       conn.setDoOutput(true);
+		       conn.getOutputStream().write(param.getBytes("UTF-8"));
+		       conn.getInputStream();
 
 			
 
