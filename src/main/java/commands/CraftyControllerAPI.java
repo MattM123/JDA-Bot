@@ -137,7 +137,7 @@ public class CraftyControllerAPI {
 			fixUntrustCertificate();
 			//url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 
-			String urlParameters = "&command=" + command;
+			String urlParameters = "command=" + command;
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			conn = (HttpsURLConnection) url.openConnection();
 
@@ -148,7 +148,7 @@ public class CraftyControllerAPI {
 			writer.write(urlParameters);
 			writer.flush();
 
-			writer.close();
+			
 
 
 		/*
