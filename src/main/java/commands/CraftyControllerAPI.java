@@ -181,15 +181,12 @@ public class CraftyControllerAPI {
 			conn.setDoOutput(true);
 			
 			Map<String,String> arguments = new HashMap<>();
-			arguments.put("username", "root");
-			arguments.put("password", "sjh76HSn!"); // This is a fake password obviously
+			arguments.put("command", command);
 			StringJoiner sj = new StringJoiner("&");
 			for(Map.Entry<String,String> entry : arguments.entrySet())
 			    sj.add(URLEncoder.encode(entry.getKey(), "UTF-8") + "=" 
 			         + URLEncoder.encode(entry.getValue(), "UTF-8"));
 			byte[] out = sj.toString().getBytes(StandardCharsets.UTF_8);
-			
-			int length = out.length;
 		
 			conn.connect();
 			try(OutputStream os = conn.getOutputStream()) {
