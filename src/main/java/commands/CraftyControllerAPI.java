@@ -3,16 +3,21 @@ package commands;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.StringJoiner;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -143,26 +148,27 @@ public class CraftyControllerAPI {
 		try {
 			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-		//	conn = (HttpsURLConnection) url.openConnection();
+			conn = (HttpsURLConnection) url.openConnection();
 
 
 		
-			HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+	//		HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			//conn = (HttpsURLConnection) url.openConnection();
 			
-			List<BasicNameValuePair> data = new ArrayList<BasicNameValuePair>();
-				    data.add(new BasicNameValuePair("command", command));
+	//		List<BasicNameValuePair> data = new ArrayList<BasicNameValuePair>();
+	//			    data.add(new BasicNameValuePair("command", command));
+	//		
 			
 			
-				    
+			/*	    
 		
 			post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
 			post.setHeader("Accept", "text/html");
 			post.setHeader("Host", "panel.richterent.com");
-			post.setHeader("Content-Type", "form-data");
+			post.setHeader("Content-Type", "multipart/form-data");
 			post.setEntity(new UrlEncodedFormEntity(data));
 			
-			
+		*/	
 		
 			
 			
@@ -171,9 +177,24 @@ public class CraftyControllerAPI {
 		//	conn.setRequestProperty("Accept", "text/html");
 		//	conn.setRequestProperty("Host", "panel.richterent.com");
 		//	conn.setRequestProperty("command", command);
-		//	conn.setRequestMethod("POST");
-		
+			conn.setRequestMethod("POST"); // PUT is another valid option
+			conn.setDoOutput(true);
 			
+			Map<String,String> arguments = new HashMap<>();
+			arguments.put("username", "root");
+			arguments.put("password", "sjh76HSn!"); // This is a fake password obviously
+			StringJoiner sj = new StringJoiner("&");
+			for(Map.Entry<String,String> entry : arguments.entrySet())
+			    sj.add(URLEncoder.encode(entry.getKey(), "UTF-8") + "=" 
+			         + URLEncoder.encode(entry.getValue(), "UTF-8"));
+			byte[] out = sj.toString().getBytes(StandardCharsets.UTF_8);
+			
+			int length = out.length;
+		
+			conn.connect();
+			try(OutputStream os = conn.getOutputStream()) {
+			    os.write(out);
+			}
 			
 			//Storing JSON from request into string. Prints error code and error stream if encountered.
 			
