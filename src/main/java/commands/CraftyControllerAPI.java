@@ -178,9 +178,9 @@ public class CraftyControllerAPI {
 			post.setHeader("Accept", "text/html");
 			post.setHeader("Host", "panel.richterent.com");
 			post.setHeader("Content-Type", "multipart/form-data");
-			post.setEntity(new UrlEncodedFormEntity(params));
-			client.execute(post);
 			
+			client.execute(post);
+			post.setEntity(new UrlEncodedFormEntity(params));
 			//post.execute(new HttpState(), post);
 			//conn = (HttpsURLConnection) url.openConnection();
 			
