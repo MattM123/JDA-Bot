@@ -180,13 +180,13 @@ public class CraftyControllerAPI {
 			conn.setRequestMethod("POST"); // PUT is another valid option
 			conn.setDoOutput(true);
 			
-			Map<String,String> arguments = new HashMap<>();
+			Map<String,String> arguments = new HashMap<String, String>();
 			arguments.put("command", command);
 			StringJoiner sj = new StringJoiner("&");
 			for(Map.Entry<String,String> entry : arguments.entrySet())
 			    sj.add(URLEncoder.encode(entry.getKey(), "UTF-8") + "=" 
 			         + URLEncoder.encode(entry.getValue(), "UTF-8"));
-			byte[] out = sj.toString().getBytes();
+			byte[] out = sj.toString().getBytes(StandardCharsets.UTF_8);
 		
 			conn.connect();
 			try(OutputStream os = conn.getOutputStream()) {
