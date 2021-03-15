@@ -186,7 +186,7 @@ public class CraftyControllerAPI {
 			for(Map.Entry<String,String> entry : arguments.entrySet())
 			    sj.add(URLEncoder.encode(entry.getKey(), "UTF-8") + "=" 
 			         + URLEncoder.encode(entry.getValue(), "UTF-8"));
-			byte[] out = sj.toString().getBytes(StandardCharsets.UTF_8);
+			byte[] out = sj.toString().getBytes();
 		
 			conn.connect();
 			try(OutputStream os = conn.getOutputStream()) {
