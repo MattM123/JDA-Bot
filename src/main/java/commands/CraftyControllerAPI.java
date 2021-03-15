@@ -37,8 +37,11 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 
@@ -159,17 +162,25 @@ public class CraftyControllerAPI {
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			//conn = (HttpsURLConnection) url.openConnection();
 			
+			
+			
+			//HttpMethodParams com = (HttpMethodParams) params;
+			CloseableHttpClient client = HttpClients.createDefault();
+			HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+			
 			List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 			params.add(new BasicNameValuePair("command", command));
+		//	HttpClient client = new HttpClient();
+		//	HttpMethod post = new PostMethod("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			
-			HttpMethodParams com = (HttpMethodParams) params;
-			
-			HttpMethod post = new PostMethod("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-			post.setParams(com);
-			post.setRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-			post.setRequestHeader("Accept", "text/html");
-			post.setRequestHeader("Host", "panel.richterent.com");
-			post.setRequestHeader("Content-Type", "multipart/form-data");
+			//post.setParams((HttpParams) com);
+			post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
+			post.setHeader("Accept", "text/html");
+			post.setHeader("Host", "panel.richterent.com");
+			post.setHeader("Content-Type", "multipart/form-data");
+			post.setEntity((HttpEntity) params);
+			client.execute(post);
+
 			//post.execute(new HttpState(), post);
 			//conn = (HttpsURLConnection) url.openConnection();
 			
