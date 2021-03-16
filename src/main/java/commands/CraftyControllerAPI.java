@@ -49,6 +49,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class CraftyControllerAPI {
 	
 	private static String apikey;
@@ -108,6 +115,7 @@ public class CraftyControllerAPI {
 			conn.setRequestMethod("GET");
 			
 			
+			
 			//Storing JSON from request into string. Prints error code and error stream if encountered.
 			
 			if (conn.getResponseCode() > 200) {
@@ -155,32 +163,46 @@ public class CraftyControllerAPI {
 		StringBuilder json = new StringBuilder();
 		URL url;
 		HttpsURLConnection conn = null;
-		
+		Response response = null;
 
 		try {
 			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+			
+			OkHttpClient client = new OkHttpClient().newBuilder()
+					  .build();
+					MediaType mediaType = MediaType.parse("text/plain");
+					RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+					  .addFormDataPart("command","ping")
+					  .build();
+					Request request = new Request.Builder()
+					  .url("https://panel.richterent.com/api/v1/server/send_command?token=XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53&id=6")
+					  .method("POST", body)
+					  .build();
+					response = client.newCall(request).execute();
+			
+			
 			//conn = (HttpsURLConnection) url.openConnection();
 			
 			
 			
 			//HttpMethodParams com = (HttpMethodParams) params;
-			CloseableHttpClient client = HttpClients.createDefault();
-			HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+		//	CloseableHttpClient client = HttpClients.createDefault();
+		//	HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			
-			List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-			params.add(new BasicNameValuePair("command", command));
+		//	List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		//	params.add(new BasicNameValuePair("command", command));
 		//	HttpClient client = new HttpClient();
 		//	HttpMethod post = new PostMethod("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			
 			//post.setParams((HttpParams) com);
-			post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-			post.setHeader("Host", "panel.richterent.com");
-			post.setHeader("Content-Type", "multipart/form-data");
-			post.setEntity(new UrlEncodedFormEntity(params));
-			client.execute(post);
+		//	post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
+		//	post.setHeader("Host", "panel.richterent.com");
+		///	post.setHeader("Content-Type", "multipart/form-data");
+		//	post.setEntity(new UrlEncodedFormEntity(params));
+		//	client.execute(post);
 
-			client.close();
+		//	client.close();
 		
 			//post.execute(new Htt
 
@@ -240,7 +262,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
 		}
-		return "Command sent to console: " + command;
+		return "Command sent to console: " + command + "\n" + response.toString();
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
