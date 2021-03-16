@@ -196,71 +196,8 @@ public class CraftyControllerAPI {
 		        stackTrace = IOUtils.toString(instream, "UTF-8"); 
 		    }
 		    
-		    client.close();
-			//conn = (HttpsURLConnection) url.openConnection();
-			
-			
-			
-			//HttpMethodParams com = (HttpMethodParams) params;
-		//	CloseableHttpClient client = HttpClients.createDefault();
-		//	HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-			
-		//	List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		//	params.add(new BasicNameValuePair("command", command));
-		//	HttpClient client = new HttpClient();
-		//	HttpMethod post = new PostMethod("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-			
-			//post.setParams((HttpParams) com);
-		//	post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-		//	post.setHeader("Host", "panel.richterent.com");
-		///	post.setHeader("Content-Type", "multipart/form-data");
-		//	post.setEntity(new UrlEncodedFormEntity(params));
-		//	client.execute(post);
+		    client.close();	
 
-		//	client.close();
-		
-			//post.execute(new Htt
-
-			//conn = (HttpsURLConnection) url.openConnection();
-			
-			/*	    
-		
-			post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-			post.setHeader("Accept", "text/html");
-			post.setHeader("Host", "panel.richterent.com");
-			post.setHeader("Content-Type", "multipart/form-data");
-			post.setEntity(new UrlEncodedFormEntity(data));
-			
-		*/	
-		
-			
-			
-		//	conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-		//	conn.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
-		//	conn.setRequestProperty("Accept", "text/html");
-		//	conn.setRequestProperty("Host", "panel.richterent.com");
-		//	conn.setRequestProperty("command", command);
-		//	conn.setRequestMethod("POST"); // PUT is another valid option
-	
-			//Storing JSON from request into string. Prints error code and error stream if encountered.
-			
-			/*
-			if (post. > 200) {
-				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				while ((line = in.readLine()) != null) {
-					json.append(line);
-				}
-				in.close();
-				return "Error Code: " + String.valueOf(conn.getResponseCode() + "\n" + json.toString() + "\n" + code);
-			}		
-			
-			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			while ((line = in.readLine()) != null) {
-				json.append(line);
-			}
-			in.close();	
-		
-		*/	
 					
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
