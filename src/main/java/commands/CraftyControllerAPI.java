@@ -191,10 +191,10 @@ public class CraftyControllerAPI {
 		    HttpEntity entity = response.getEntity();
 		    
 		    if (entity != null) {
-		        try (InputStream instream = entity.getContent()) {
-		        	stackTrace = IOUtils.toString(instream, "UTF-8"); 
-		        }
+		    	InputStream instream = entity.getContent();
+		        stackTrace = IOUtils.toString(instream, "UTF-8"); 
 		    }
+		    
 		    client.close();
 			//conn = (HttpsURLConnection) url.openConnection();
 			
