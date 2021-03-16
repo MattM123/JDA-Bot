@@ -161,6 +161,7 @@ public class CraftyControllerAPI {
 	
 	public String sendCommand(String command) {
 		URL url;
+		HttpResponse response = null;
 
 		try {
 			fixUntrustCertificate();
@@ -187,7 +188,7 @@ public class CraftyControllerAPI {
 		    post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 		    //POST execution
-		    HttpResponse response = client.execute(post);
+		    response = client.execute(post);
 		    HttpEntity entity = response.getEntity();
 		    
 		    if (entity != null) {
