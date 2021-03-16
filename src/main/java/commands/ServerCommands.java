@@ -174,7 +174,7 @@ public class ServerCommands extends ListenerAdapter {
 					
 			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
 			
-			if (!crafty.stackTrace.equals("")) {
+			if (!crafty.stackTrace.isEmpty()) {
 				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);

@@ -198,6 +198,9 @@ public class CraftyControllerAPI {
 		    	IOUtils.copy(instream, writer, "UTF-8");
 		    	stackTrace = writer.toString(); 
 		    }
+		    else {
+		    	stackTrace += " Null Response";
+		    }
 		    
 		    client.close();	
 
