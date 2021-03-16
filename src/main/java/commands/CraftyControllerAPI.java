@@ -169,19 +169,19 @@ public class CraftyControllerAPI {
 			HttpPost post = new HttpPost("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			
 			List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-			params.add(new BasicNameValuePair("&command=", command));
+			params.add(new BasicNameValuePair("command", command));
 		//	HttpClient client = new HttpClient();
 		//	HttpMethod post = new PostMethod("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			
 			//post.setParams((HttpParams) com);
 			post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-			post.setHeader("Accept", "text/html");
+			post.setHeader("Accept", "application/json");
 			post.setHeader("Host", "panel.richterent.com");
 			post.setHeader("Content-Type", "multipart/form-data");
 			post.setEntity(new UrlEncodedFormEntity(params));
 			client.execute(post);
 			client.close();
-			
+		
 			//post.execute(new HttpState(), post);
 			//conn = (HttpsURLConnection) url.openConnection();
 			
