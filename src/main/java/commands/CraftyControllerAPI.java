@@ -201,7 +201,6 @@ public class CraftyControllerAPI {
 		    else {
 		    	stackTrace += " Null Response";
 		    }
-		    
 		    client.close();	
 
 					
