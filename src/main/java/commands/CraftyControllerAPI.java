@@ -162,7 +162,7 @@ public class CraftyControllerAPI {
 	
 	public String sendCommand(String command) {
 		URL url;
-	
+		Response response = null;
 
 		try {
 			fixUntrustCertificate();
@@ -178,7 +178,7 @@ public class CraftyControllerAPI {
 					  .url("https://panel.richterent.com/api/v1/server/send_command?token=XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53&id=6")
 					  .method("POST", body)
 					  .build();
-					Response response = client.newCall(request).execute();
+					response = client.newCall(request).execute();
 			
 					stackTrace = response.message();
 			/*	
@@ -234,7 +234,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
 		}
-		return "Command sent to console: " + command;
+		return "Command sent to console: " + command + "\n" + response.message();
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
