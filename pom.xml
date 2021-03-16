@@ -24,11 +24,6 @@
     	<version>1.6.2</version>
    	 	<scope>test</scope>
 	</dependency>
-    <dependency>
-    	<groupId>com.github.twitch4j</groupId>
-    	<artifactId>twitch4j</artifactId>
-    	<version>1.1.0</version>
-    </dependency>
      <dependency>
             <groupId>com.github.stanjg</groupId>
             <artifactId>Ptero4J</artifactId>
@@ -72,9 +67,12 @@
     <artifactId>commons-httpclient</artifactId>
     <version>3.1</version>
 </dependency>
-<!-- https://mvnrepository.com/artifact/com.mashape.unirest/unirest-java -->
-
-
+<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-dependency-plugin -->
+<dependency>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-dependency-plugin</artifactId>
+    <version>3.1.2</version>
+</dependency>
    
     </dependencies>
     
@@ -98,17 +96,7 @@
   
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
-                        <goals><goal>copy-dependencies</goal></goals>
-                    </execution>
-                </executions>
-            </plugin>
+          
         </plugins>
     </build>
 </project>
