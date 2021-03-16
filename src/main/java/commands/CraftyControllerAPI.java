@@ -164,13 +164,18 @@ public class CraftyControllerAPI {
 		try {
 			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-			
-			Unirest.setTimeouts(0, 0);
-			HttpResponse<String> response = Unirest.post("https://panel.richterent.com/api/v1/server/send_command?token=XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53&id=6")
-			  .multiPartContent()
-			  .field("command", "ping")
-			  .asString();
-			
+			OkHttpClient client = new OkHttpClient().newBuilder()
+					  .build();
+					MediaType mediaType = MediaType.parse("text/plain");
+					RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+					  .addFormDataPart("command","ping")
+					  .build();
+					Request request = new Request.Builder()
+					  .url("https://panel.richterent.com/api/v1/server/send_command?token=XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53&id=6")
+					  .method("POST", body)
+					  .build();
+					response = client.newCall(request).execute().cacheResponse();
+					stackTrace = response.cacheResponse().message();
 			//conn = (HttpsURLConnection) url.openConnection();
 			
 			
@@ -235,6 +240,7 @@ public class CraftyControllerAPI {
 			in.close();	
 		
 		*/	
+					
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
