@@ -158,11 +158,7 @@ public class CraftyControllerAPI {
 	
 	
 	public String sendCommand(String command) {
-		String line;
-		BufferedReader in; 
-		StringBuilder json = new StringBuilder();
 		URL url;
-		HttpsURLConnection conn = null;
 		Response response = null;
 
 		try {
@@ -173,10 +169,10 @@ public class CraftyControllerAPI {
 					  .build();
 					MediaType mediaType = MediaType.parse("text/plain");
 					RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-					  .addFormDataPart("command","ping")
+					  .addFormDataPart("command", command)
 					  .build();
 					Request request = new Request.Builder()
-					  .url("https://panel.richterent.com/api/v1/server/send_command?token=XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53&id=6")
+					  .url(url)
 					  .method("POST", body)
 					  .build();
 					response = client.newCall(request).execute();
