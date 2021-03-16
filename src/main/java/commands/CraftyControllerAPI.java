@@ -180,7 +180,7 @@ public class CraftyControllerAPI {
 					  .build();
 					response = client.newCall(request).execute();
 			
-					stackTrace = response.message();
+					//stackTrace = response.message();
 			/*	
 		    CloseableHttpClient client = HttpClients.createDefault();
 
