@@ -162,12 +162,26 @@ public class CraftyControllerAPI {
 	
 	public String sendCommand(String command) {
 		URL url;
-		HttpResponse response = null;
+	
 
 		try {
 			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+	
+			OkHttpClient client = new OkHttpClient().newBuilder()
+					  .build();
+					MediaType mediaType = MediaType.parse("text/plain");
+					RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+					  .addFormDataPart("command","ping")
+					  .build();
+					Request request = new Request.Builder()
+					  .url("https://panel.richterent.com/api/v1/server/send_command?token=XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53&id=6")
+					  .method("POST", body)
+					  .build();
+					Response response = client.newCall(request).execute();
 			
+					stackTrace = response.message();
+			/*	
 		    CloseableHttpClient client = HttpClients.createDefault();
 
 		    //POST to be executed
@@ -202,7 +216,7 @@ public class CraftyControllerAPI {
 		    	stackTrace += " Null Response";
 		    }
 		    client.close();	
-
+*/
 					
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
