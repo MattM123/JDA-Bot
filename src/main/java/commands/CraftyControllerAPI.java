@@ -165,18 +165,11 @@ public class CraftyControllerAPI {
 			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
 			
-			OkHttpClient client = new OkHttpClient().newBuilder()
-					  .build();
-					MediaType mediaType = MediaType.parse("text/plain");
-					RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-					  .addFormDataPart("command", command)
-					  .build();
-					Request request = new Request.Builder()
-					  .url(url)
-					  .method("POST", body)
-					  .build();
-					response = client.newCall(request).execute();
-			
+			Unirest.setTimeouts(0, 0);
+			HttpResponse<String> response = Unirest.post("https://panel.richterent.com/api/v1/server/send_command?token=XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53&id=6")
+			  .multiPartContent()
+			  .field("command", "ping")
+			  .asString();
 			
 			//conn = (HttpsURLConnection) url.openConnection();
 			
@@ -258,7 +251,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
 		}
-		return "Command sent to console: " + command + "\n" + response.toString();
+		return "Command sent to console: " + command + "\n" + response.cacheResponse();
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
