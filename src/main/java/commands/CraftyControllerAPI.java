@@ -180,6 +180,7 @@ public class CraftyControllerAPI {
 			post.setHeader("Content-Type", "multipart/form-data");
 			post.setEntity(new UrlEncodedFormEntity(params));
 			client.execute(post);
+			client.close();
 			
 			//post.execute(new HttpState(), post);
 			//conn = (HttpsURLConnection) url.openConnection();
