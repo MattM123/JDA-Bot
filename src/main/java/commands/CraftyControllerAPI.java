@@ -2,6 +2,7 @@ package commands;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -32,6 +33,7 @@ import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -159,23 +161,41 @@ public class CraftyControllerAPI {
 	
 	public String sendCommand(String command) {
 		URL url;
-		Response response = null;
 
 		try {
 			fixUntrustCertificate();
 			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-			OkHttpClient client = new OkHttpClient().newBuilder()
-					  .build();
-					MediaType mediaType = MediaType.parse("text/plain");
-					RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-					  .addFormDataPart("command", command)
-					  .build();
-					Request request = new Request.Builder()
-					  .url("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6")
-					  .method("POST", body)
-					  .build();
-					response = client.newCall(request).execute().cacheResponse();
-					stackTrace = response.cacheResponse().message();
+			
+		    CloseableHttpClient client = HttpClients.createDefault();
+
+		    //POST to be executed
+		    HttpPost post = new HttpPost("https://panel.<address>.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+
+
+		    //data to send in POST
+		    List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		    params.add(new BasicNameValuePair("command", command)); 
+
+
+		    //Headers
+		    post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
+		    post.setHeader("Accept", "text/html");
+		    post.setHeader("Host", "panel.<address>.com");
+		    post.setHeader("Content-Type", "multipart/form-data");
+
+		    //Entity to send
+		    post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+		    //POST execution
+		    HttpResponse response = client.execute(post);
+		    HttpEntity entity = response.getEntity();
+		    
+		    if (entity != null) {
+		        try (InputStream instream = entity.getContent()) {
+		        	stackTrace = IOUtils.toString(instream, "UTF-8"); 
+		        }
+		    }
+		    client.close();
 			//conn = (HttpsURLConnection) url.openConnection();
 			
 			
