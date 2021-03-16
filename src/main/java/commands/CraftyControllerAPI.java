@@ -180,7 +180,12 @@ public class CraftyControllerAPI {
 					  .build();
 					response = client.newCall(request).execute();
 			
-					stackTrace += response.message().toString();
+					if (response == null) {
+						stackTrace += "test";
+					}
+					else {
+						stackTrace += response.message().toString();
+					}
 					
 			/*	
 		    CloseableHttpClient client = HttpClients.createDefault();
@@ -235,7 +240,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
 		}
-		return "Command sent to console: " + command + " " + stackTrace;
+		return "Command sent to console: " + command;
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
