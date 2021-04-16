@@ -164,7 +164,7 @@ public class CraftyControllerAPI {
 	
 	public String sendCommand(String command) {
 		String url;
-		HttpResponse resp;
+		HttpResponse resp = null;
 
 		try {
 			fixUntrustCertificate();
@@ -177,7 +177,7 @@ public class CraftyControllerAPI {
 			pairs.add(new BasicNameValuePair("command", command));
 
 			request.setEntity(new UrlEncodedFormEntity(pairs ));
-			HttpResponse resp = ((org.apache.http.client.HttpClient) client).execute(request);
+			resp = ((org.apache.http.client.HttpClient) client).execute(request);
 			/*	
 		    CloseableHttpClient client = HttpClients.createDefault();
 
