@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -40,6 +41,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -161,15 +163,22 @@ public class CraftyControllerAPI {
 	
 	
 	public String sendCommand(String command) {
-		URL url;
-		HttpResponse response = null;
+		String url;
+		HttpResponse resp;
 
 		try {
 			fixUntrustCertificate();
-			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+			url = "https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6";
+	
+			HttpClient client= new HttpClient();
+			HttpPost request = new HttpPost(url);
 
-					
-			
+			List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
+			pairs.add(new BasicNameValuePair("command", command));
+
+			request.setEntity(new UrlEncodedFormEntity(pairs ));
+			HttpResponse resp = ((org.apache.http.client.HttpClient) client).execute(request);
+			/*	
 		    CloseableHttpClient client = HttpClients.createDefault();
 
 		    //POST to be executed
@@ -198,13 +207,13 @@ public class CraftyControllerAPI {
 		    	InputStream instream = entity.getContent();
 		    	StringWriter writer = new StringWriter();
 		    	IOUtils.copy(instream, writer, "UTF-8");
-		    	stackTrace += writer.toString(); 
+		    	stackTrace = writer.toString(); 
 		    }
 		    else {
 		    	stackTrace += " Null Response";
 		    }
 		    client.close();	
-
+*/
 					
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
@@ -222,7 +231,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
 		}
-		return "Command sent to console: " + command;
+		return "Command sent to console: " + command + "\n Response: " + resp;
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
