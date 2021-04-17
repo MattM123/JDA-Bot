@@ -50,6 +50,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -138,6 +139,8 @@ public class CraftyControllerAPI {
 			}
 			in.close();	
 			
+			//Gson gson = new Gson();
+			
 			JsonElement ele = JsonParser.parseString(json.toString());
 			jarray = ele.getAsJsonObject().getAsJsonArray("data");
 			
@@ -170,7 +173,7 @@ public class CraftyControllerAPI {
 			fixUntrustCertificate();
 			url = "https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6";
 	
-			HttpClient client= new HttpClient();
+			HttpClient client = new HttpClient();
 			HttpPost request = new HttpPost(url);
 
 			List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
