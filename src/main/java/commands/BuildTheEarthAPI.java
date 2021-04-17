@@ -63,10 +63,9 @@ public class BuildTheEarthAPI {
 			}
 			in.close();
 			
-			//JSON Deserialization of a users applciation to store the questions and answers
-			
-			
+			//JSON Deserialization of a users applciation to store the questions and answers					
 			Gson gson = new Gson();
+			
 			//ApplicationInfo class contains a few classes that the JSON is deserialized into
 			ApplicationInfo applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class);  
 			 

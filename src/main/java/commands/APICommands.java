@@ -18,7 +18,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 
-public class ServerCommands extends ListenerAdapter {
+public class APICommands extends ListenerAdapter {
 
 	private static String apikey = "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens";
 	private static String serverID = "8f401af5";
@@ -87,84 +87,53 @@ public class ServerCommands extends ListenerAdapter {
 		
 		//Server stats from crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
-
+			int midwestIndex = 0;
+			int wisconsinIndex = 0;
+			for (int i = 0; i < crafty.getServerList().size(); i++) {
+				if (crafty.getServerList().get(i).getID() == 1) {
+					wisconsinIndex = i;
+				}
+				
+				if (crafty.getServerList().get(i).getID() == 6) {
+					midwestIndex = i;
+				}
+			}
 			
-			JsonElement allServers = JsonParser.parseString(crafty.getServerStats());
-			JsonArray servers = allServers.getAsJsonArray();
-			event.getChannel().sendMessage(allServers.toString().subSequence(0, 1900)).queue();
-					
-			//Wisconsin status
-			JsonElement ele = JsonParser.parseString(servers.get(3).toString());
-			String status = "";
-			String memory = ele.getAsJsonObject().get("memory_usage").toString().substring(1, ele.getAsJsonObject().get("memory_usage").toString().length() - 1);
-			String players = "";
-			
-			if (crafty.getServerStats().contains("MalformedURLException") || crafty.getServerStats().contains("IOException") || crafty.getServerStats().contains("JSONException")
-					|| crafty.getServerStats().contains("NoSuchAlgorithmException") || crafty.getServerStats().contains("KeyManagementException")) {
+			//Wisconsin status		
+			if (crafty.stackTrace.contains("MalformedURLException") || crafty.stackTrace.contains("IOException") || crafty.stackTrace.contains("JSONException")
+					|| crafty.stackTrace.contains("NoSuchAlgorithmException") || crafty.stackTrace.contains("KeyManagementException")) {
 				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("There was an error retrieveing the server stats");
-				emb.addField("", (String) crafty.getServerStats().subSequence(0, 1000), false);
+				emb.addField("", (String) crafty.getServerList().toString().subSequence(0, 1000), false);
 				event.getChannel().sendMessage(emb.build()).queue();
 				
 		
 			}
 			else {
-				
-				if (ele.getAsJsonObject().get("server_running").toString().equals("true")) {
-					status = "ONLINE";
-				}
-				else {
-					status = "OFFLINE";
-				}
-				
-				if (!(ele.getAsJsonObject().get("players").toString().equals("\"[]\""))) {
-					players = ele.getAsJsonObject().get("players").toString().substring(3, ele.getAsJsonObject().get("players").toString().length() - 3);
-				}
-				else {
-					players = "There are currently no players online";
-				}
-				
-				//Midwest status
-				JsonElement ele1 = JsonParser.parseString(servers.get(1).toString());
-				String status1 = "";
-				String memory1 = ele1.getAsJsonObject().get("memory_usage").toString().substring(1, ele1.getAsJsonObject().get("memory_usage").toString().length() - 1);
-				String players1 = "";
-				
-				if (ele.getAsJsonObject().get("server_running").toString().equals("true")) {
-					status1 = "ONLINE";
-				}
-				else {
-					status1 = "OFFLINE";
-				}
-				
-				if (!(ele1.getAsJsonObject().get("players").toString().equals("\"[]\""))) {
-					players1 = ele1.getAsJsonObject().get("players").toString().substring(3, ele1.getAsJsonObject().get("players").toString().length() - 3);
-				}
-				else {
-					players1 = "There are currently no players online";
-				}
-				
+
+			
+				//Midwest status			
 				EmbedBuilder stats = new EmbedBuilder();
 				stats.setTitle("Midwest Build Server Status");
 				stats.setColor(Color.BLUE);
-				stats.addField("Server Status", status1, false);
-				stats.addField("CPU Usage", ele1.getAsJsonObject().get("cpu_usage") + "%", false);
-				stats.addField("Memory Usage", memory1, false);
-				stats.addField("Players Online", players1, false);
-				stats.addField("ID", ele1.getAsJsonObject().get("id").toString(), false);
+				stats.addField("Server Status", crafty.getServerList().get(wisconsinIndex).getStatus(), false);
+				stats.addField("CPU Usage", crafty.getServerList().get(wisconsinIndex).getCpuUsage() + "%", false);
+				stats.addField("Memory Usage", crafty.getServerList().get(wisconsinIndex).getMemUsage(), false);
+				stats.addField("Players Online", crafty.getServerList().get(wisconsinIndex).getPlayerList().toString(), false);
+				stats.addField("ID", String.valueOf(wisconsinIndex), false);
 				
 				
 				EmbedBuilder stats2 = new EmbedBuilder();
 			
 				stats2.setTitle("Wisconsin Build Server Status");
 				stats2.setColor(Color.BLUE);
-				stats2.addField("Server Status", status, false);
-				stats2.addField("CPU Usage", ele.getAsJsonObject().get("cpu_usage") + "%", false);
-				stats2.addField("Memory Usage", memory, false);
-				stats2.addField("Players Online", players, false);
-				stats2.addField("ID", ele.getAsJsonObject().get("id").toString(), false);
+				stats.addField("Server Status", crafty.getServerList().get(midwestIndex).getStatus(), false);
+				stats.addField("CPU Usage", crafty.getServerList().get(midwestIndex).getCpuUsage() + "%", false);
+				stats.addField("Memory Usage", crafty.getServerList().get(midwestIndex).getMemUsage(), false);
+				stats.addField("Players Online", crafty.getServerList().get(midwestIndex).getPlayerList().toString(), false);
+				stats.addField("ID", String.valueOf(wisconsinIndex), false);
 				
 				event.getChannel().sendMessage(stats2.build()).queue();
 				event.getChannel().sendMessage(stats.build()).queue();

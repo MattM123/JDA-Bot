@@ -66,6 +66,7 @@ public class CraftyControllerAPI {
 	
 	private static String apikey;
 	public String stackTrace = "";
+	private ArrayList<Server> serverList = null;
 	
 	public CraftyControllerAPI(String api) {
 		apikey = api;
@@ -102,7 +103,7 @@ public class CraftyControllerAPI {
 }
 	
 	//returns the list of servers and their stats
-	public String getServerStats() {
+	public ArrayList<Server> getServerList() {
 		String line;
 		BufferedReader in; 
 		StringBuilder json = new StringBuilder();
@@ -130,7 +131,7 @@ public class CraftyControllerAPI {
 					json.append(line);
 				}
 				in.close();
-				return "Error Code: " + String.valueOf(conn.getResponseCode()) + "\n" + json.toString();
+				stackTrace = "Error Code: " + String.valueOf(conn.getResponseCode()) + "\n" + json.toString();
 			}		
 			
 			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -139,29 +140,34 @@ public class CraftyControllerAPI {
 			}
 			in.close();	
 			
-			//Gson gson = new Gson();
+			//JSON Deserialization of a users applciation to store the questions and answers					
+			Gson gson = new Gson();
 			
-			JsonElement ele = JsonParser.parseString(json.toString());
-			jarray = ele.getAsJsonObject().getAsJsonArray();
+			//ApplicationInfo class contains a few classes that the JSON is deserialized into
+			ServerCollection data = gson.fromJson(json.toString(), ServerCollection.class);  
+			
+			serverList = (ArrayList<Server>) data.getServers();
+				
+			
 			
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			stackTrace = stack;
 		} catch (IOException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			stackTrace = stack;
 		} catch (JSONException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			stackTrace = stack;
 		} catch (NoSuchAlgorithmException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			stackTrace = stack;
 		} catch (KeyManagementException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack;
+			stackTrace = stack;
 		}
 		
-		return jarray.toString();
+		return serverList;
 	}
 	
 	
