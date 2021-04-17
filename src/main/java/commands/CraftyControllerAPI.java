@@ -142,7 +142,7 @@ public class CraftyControllerAPI {
 			//Gson gson = new Gson();
 			
 			JsonElement ele = JsonParser.parseString(json.toString());
-			jarray = ele.getAsJsonObject().getAsJsonArray("data");
+			jarray = ele.getAsJsonObject().getAsJsonArray();
 			
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
