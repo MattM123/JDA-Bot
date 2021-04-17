@@ -91,7 +91,7 @@ public class ServerCommands extends ListenerAdapter {
 			
 			JsonElement allServers = JsonParser.parseString(crafty.getServerStats());
 			JsonArray servers = allServers.getAsJsonArray();
-			event.getChannel().sendMessage(allServers.toString()).queue();
+			event.getChannel().sendMessage(allServers.toString().subSequence(0, 1900)).queue();
 					
 			//Wisconsin status
 			JsonElement ele = JsonParser.parseString(servers.get(3).toString());
