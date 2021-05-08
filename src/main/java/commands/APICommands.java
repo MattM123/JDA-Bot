@@ -71,7 +71,9 @@ public class APICommands extends ListenerAdapter {
 				
 				//API work-around
 				TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
-				console.sendMessage("lp user " + namebuilder + " parent add applicants").queue();
+				if (event.getJDA().getSelfUser().isBot() == true) {
+					console.sendMessage("lp user " + namebuilder + " parent add applicants").queue();
+				}
 				//server.sendCommand("lp user " + namebuilder + " parent add applicants");
 		
 				EmbedBuilder emb = new EmbedBuilder();
@@ -294,7 +296,9 @@ public class APICommands extends ListenerAdapter {
 							else if (roles.contains(guild.getRoleById(735995196738633819L))) {
 								//API work-around
 								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
-								console.sendMessage("lp user " + MCusername + " parent add minnesota-builder").queue();
+								if (event.getJDA().getSelfUser().isBot() == true) {
+									console.sendMessage("lp user " + MCusername + " parent add minnesota-builder").queue();
+								}
 								//server.sendCommand("lp user " + MCusername + " parent add minnesota-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
@@ -304,7 +308,9 @@ public class APICommands extends ListenerAdapter {
 							else if (roles.contains(guild.getRoleById(808415301799641119L))) {
 								//API work-around
 								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
-								console.sendMessage("lp user " + MCusername + " parent add oklahoma-builder").queue();
+								if (event.getJDA().getSelfUser().isBot() == true) {
+									console.sendMessage("lp user " + MCusername + " parent add oklahoma-builder").queue();
+								}
 								//server.sendCommand("lp user " + MCusername + " parent add oklahoma-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
