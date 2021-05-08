@@ -76,7 +76,7 @@
    
     </dependencies>
     
-     <repositories>
+    <repositories>
        <repository>
     <id>central</id>
     <name>bintray</name>

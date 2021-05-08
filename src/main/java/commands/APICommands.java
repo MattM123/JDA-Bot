@@ -12,8 +12,10 @@ import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -70,7 +72,11 @@ public class APICommands extends ListenerAdapter {
 				for (int i = 11; i < chararr.length; i++) {
 					namebuilder += chararr[i];
 				}		
-				server.sendCommand("lp user " + namebuilder + " parent add applicants");
+				
+				//API work-around
+				TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
+				console.sendMessage("lp user " + namebuilder + " parent add applicants");
+				//server.sendCommand("lp user " + namebuilder + " parent add applicants");
 		
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
