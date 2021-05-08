@@ -71,7 +71,7 @@ public class APICommands extends ListenerAdapter {
 				
 				//API work-around
 				TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
-				console.sendMessage("lp user " + namebuilder + " parent add applicants");
+				console.sendMessage("lp user " + namebuilder + " parent add applicants").queue();
 				//server.sendCommand("lp user " + namebuilder + " parent add applicants");
 		
 				EmbedBuilder emb = new EmbedBuilder();
@@ -240,7 +240,7 @@ public class APICommands extends ListenerAdapter {
 							if (roles.contains(guild.getRoleById(735995176165834756L))) {
 								//API work-around
 								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
-								console.sendMessage("lp user " + MCusername + " parent add kansas-builder");
+								console.sendMessage("lp user " + MCusername + " parent add kansas-builder").queue();
 								//server.sendCommand("lp user " + MCusername + " parent add kansas-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
@@ -251,7 +251,7 @@ public class APICommands extends ListenerAdapter {
 							else if (roles.contains(guild.getRoleById(735995164493086720L))) {
 								//API work-around
 								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
-								console.sendMessage("lp user " + MCusername + " parent add iowa-builder");
+								console.sendMessage("lp user " + MCusername + " parent add iowa-builder").queue();
 								//server.sendCommand("lp user " + MCusername + " parent add iowa-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
@@ -262,7 +262,7 @@ public class APICommands extends ListenerAdapter {
 							else if (roles.contains(guild.getRoleById(735995136978321541L))) {
 								//API work-around
 								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
-								console.sendMessage("lp user " + MCusername + " parent add nebraska-builder");
+								console.sendMessage("lp user " + MCusername + " parent add nebraska-builder").queue();
 								//server.sendCommand("lp user " + MCusername + " parent add nebraska-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
@@ -273,7 +273,7 @@ public class APICommands extends ListenerAdapter {
 							else if (roles.contains(guild.getRoleById(735995095773609986L))) {
 								//API work-around
 								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
-								console.sendMessage("lp user " + MCusername + " parent add illinois-builder");
+								console.sendMessage("lp user " + MCusername + " parent add illinois-builder").queue();
 								//server.sendCommand("lp user " + MCusername + " parent add illinois-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
@@ -283,7 +283,7 @@ public class APICommands extends ListenerAdapter {
 							else if (roles.contains(guild.getRoleById(735995115113414656L))) {
 								//API work-around
 								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
-								console.sendMessage("lp user " + MCusername + " parent add missouri-builder");
+								console.sendMessage("lp user " + MCusername + " parent add missouri-builder").queue();
 								//server.sendCommand("lp user " + MCusername + " parent add missouri-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
@@ -294,7 +294,7 @@ public class APICommands extends ListenerAdapter {
 							else if (roles.contains(guild.getRoleById(735995196738633819L))) {
 								//API work-around
 								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
-								console.sendMessage("lp user " + MCusername + " parent add minnesota-builder");
+								console.sendMessage("lp user " + MCusername + " parent add minnesota-builder").queue();
 								//server.sendCommand("lp user " + MCusername + " parent add minnesota-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
@@ -304,7 +304,7 @@ public class APICommands extends ListenerAdapter {
 							else if (roles.contains(guild.getRoleById(808415301799641119L))) {
 								//API work-around
 								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
-								console.sendMessage("lp user " + MCusername + " parent add oklahoma-builder");
+								console.sendMessage("lp user " + MCusername + " parent add oklahoma-builder").queue();
 								//server.sendCommand("lp user " + MCusername + " parent add oklahoma-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
