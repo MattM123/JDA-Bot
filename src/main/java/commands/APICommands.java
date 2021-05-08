@@ -4,15 +4,11 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -242,7 +238,10 @@ public class APICommands extends ListenerAdapter {
 			
 						if (temp == 1) {
 							if (roles.contains(guild.getRoleById(735995176165834756L))) {
-								server.sendCommand("lp user " + MCusername + " parent add kansas-builder");
+								//API work-around
+								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
+								console.sendMessage("lp user " + MCusername + " parent add kansas-builder");
+								//server.sendCommand("lp user " + MCusername + " parent add kansas-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Kansas Builder for user " + MCusername);
@@ -250,7 +249,10 @@ public class APICommands extends ListenerAdapter {
 		
 							}
 							else if (roles.contains(guild.getRoleById(735995164493086720L))) {
-								server.sendCommand("lp user " + MCusername + " parent add iowa-builder");
+								//API work-around
+								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
+								console.sendMessage("lp user " + MCusername + " parent add iowa-builder");
+								//server.sendCommand("lp user " + MCusername + " parent add iowa-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Iowa Builder for user " + MCusername);
@@ -258,7 +260,10 @@ public class APICommands extends ListenerAdapter {
 		
 							}
 							else if (roles.contains(guild.getRoleById(735995136978321541L))) {
-								server.sendCommand("lp user " + MCusername + " parent add nebraska-builder");
+								//API work-around
+								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
+								console.sendMessage("lp user " + MCusername + " parent add nebraska-builder");
+								//server.sendCommand("lp user " + MCusername + " parent add nebraska-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Nebraska Builder for user " + MCusername);
@@ -266,14 +271,20 @@ public class APICommands extends ListenerAdapter {
 		
 							}
 							else if (roles.contains(guild.getRoleById(735995095773609986L))) {
-								server.sendCommand("lp user " + MCusername + " parent add illinois-builder");
+								//API work-around
+								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
+								console.sendMessage("lp user " + MCusername + " parent add illinois-builder");
+								//server.sendCommand("lp user " + MCusername + " parent add illinois-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Illinois Builder for user " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 							else if (roles.contains(guild.getRoleById(735995115113414656L))) {
-								server.sendCommand("lp user " + MCusername + " parent add missouri-builder");
+								//API work-around
+								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
+								console.sendMessage("lp user " + MCusername + " parent add missouri-builder");
+								//server.sendCommand("lp user " + MCusername + " parent add missouri-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Missouri Builder for user " + MCusername);
@@ -281,14 +292,20 @@ public class APICommands extends ListenerAdapter {
 		
 							}
 							else if (roles.contains(guild.getRoleById(735995196738633819L))) {
-								server.sendCommand("lp user " + MCusername + " parent add minnesota-builder");
+								//API work-around
+								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
+								console.sendMessage("lp user " + MCusername + " parent add minnesota-builder");
+								//server.sendCommand("lp user " + MCusername + " parent add minnesota-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Minnesota Builder for user " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 							else if (roles.contains(guild.getRoleById(808415301799641119L))) {
-								server.sendCommand("lp user " + MCusername + " parent add oklahoma-builder");
+								//API work-around
+								TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
+								console.sendMessage("lp user " + MCusername + " parent add oklahoma-builder");
+								//server.sendCommand("lp user " + MCusername + " parent add oklahoma-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Oklahoma Builder for user " + MCusername);
