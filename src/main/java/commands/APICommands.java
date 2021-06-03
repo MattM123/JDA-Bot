@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
@@ -22,7 +24,7 @@ public class APICommands extends ListenerAdapter {
 	private static String serverID = "8f401af5";
 	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
 	private static UserServer server = api.getServersController().getServer(serverID);
-	private CraftyControllerAPI crafty = new CraftyControllerAPI("XMLQUX8L6WZF194VUOTH1C5RM7KJ5J53");
+	private CraftyControllerAPI crafty = new CraftyControllerAPI("XSRLSD2EHEI06MUZCY0UC5ET7FVZFBUE");
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
 	    
 	@Override
@@ -89,10 +91,13 @@ public class APICommands extends ListenerAdapter {
 		
 		//Server stats from crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
+			JSONObject obj = new JSONObject(crafty.getServerList());
 			int midwestIndex = 0;
 			int wisconsinIndex = 0;
-			for (int i = 0; i < crafty.getServerList().size(); i++) {
-				if (crafty.getServerList().get(i).getID() == 1) {
+		
+			/*
+			while (obj.keys().hasNext()) {
+				if (obj.has(key) == 1) {
 					wisconsinIndex = i;
 				}
 				
@@ -100,7 +105,7 @@ public class APICommands extends ListenerAdapter {
 					midwestIndex = i;
 				}
 			}
-			
+		*/	
 			//Wisconsin status		
 			if (crafty.stackTrace.contains("MalformedURLException") || crafty.stackTrace.contains("IOException") || crafty.stackTrace.contains("JSONException")
 					|| crafty.stackTrace.contains("NoSuchAlgorithmException") || crafty.stackTrace.contains("KeyManagementException")) {
@@ -114,16 +119,17 @@ public class APICommands extends ListenerAdapter {
 		
 			}
 			else {
-
+				
 			
 				//Midwest status			
 				EmbedBuilder stats = new EmbedBuilder();
 				stats.setTitle("Midwest Build Server Status");
 				stats.setColor(Color.BLUE);
-				stats.addField("Server Status", crafty.getServerList().get(wisconsinIndex).getStatus(), false);
-				stats.addField("CPU Usage", crafty.getServerList().get(wisconsinIndex).getCpuUsage() + "%", false);
-				stats.addField("Memory Usage", crafty.getServerList().get(wisconsinIndex).getMemUsage(), false);
-				stats.addField("Players Online", crafty.getServerList().get(wisconsinIndex).getPlayerList().toString(), false);
+				stats.addField("Server Status", crafty.getServerList(), false);
+				stats.addField("test", crafty.getServerList().substring(0, 1000), false);
+			//	stats.addField("CPU Usage", crafty.getServerList().get(wisconsinIndex).getCpuUsage() + "%", false);
+			//	stats.addField("Memory Usage", crafty.getServerList().get(wisconsinIndex).getMemUsage(), false);
+			//	stats.addField("Players Online", crafty.getServerList().get(wisconsinIndex).getPlayerList().toString(), false);
 				stats.addField("ID", String.valueOf(wisconsinIndex), false);
 				
 				
@@ -131,10 +137,10 @@ public class APICommands extends ListenerAdapter {
 			
 				stats2.setTitle("Wisconsin Build Server Status");
 				stats2.setColor(Color.BLUE);
-				stats.addField("Server Status", crafty.getServerList().get(midwestIndex).getStatus(), false);
-				stats.addField("CPU Usage", crafty.getServerList().get(midwestIndex).getCpuUsage() + "%", false);
-				stats.addField("Memory Usage", crafty.getServerList().get(midwestIndex).getMemUsage(), false);
-				stats.addField("Players Online", crafty.getServerList().get(midwestIndex).getPlayerList().toString(), false);
+			//	stats.addField("Server Status", crafty.getServerList().get(midwestIndex).getStatus(), false);
+			//	stats.addField("CPU Usage", crafty.getServerList().get(midwestIndex).getCpuUsage() + "%", false);
+			//	stats.addField("Memory Usage", crafty.getServerList().get(midwestIndex).getMemUsage(), false);
+			//	stats.addField("Players Online", crafty.getServerList().get(midwestIndex).getPlayerList().toString(), false);
 				stats.addField("ID", String.valueOf(wisconsinIndex), false);
 				
 				event.getChannel().sendMessage(stats2.build()).queue();

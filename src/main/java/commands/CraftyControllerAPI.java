@@ -66,7 +66,6 @@ public class CraftyControllerAPI {
 	
 	private static String apikey;
 	public String stackTrace = "";
-	private ArrayList<Server> serverList = null;
 	
 	public CraftyControllerAPI(String api) {
 		apikey = api;
@@ -103,8 +102,9 @@ public class CraftyControllerAPI {
 }
 	
 	//returns the list of servers and their stats
-	public ArrayList<Server> getServerList() {
+	public String getServerList() {
 		String line;
+		String out = "test";
 		BufferedReader in; 
 		StringBuilder json = new StringBuilder();
 		URL url;
@@ -140,13 +140,9 @@ public class CraftyControllerAPI {
 			}
 			in.close();	
 			
-			//JSON Deserialization of a users applciation to store the questions and answers					
-			Gson gson = new Gson();
+			out = json.toString();  
 			
-			//ApplicationInfo class contains a few classes that the JSON is deserialized into
-			ServerCollection data = gson.fromJson(json.toString(), ServerCollection.class);  
-			
-			serverList = (ArrayList<Server>) data.getServers();
+			//serverList = data.toString();
 				
 			
 			
@@ -167,7 +163,7 @@ public class CraftyControllerAPI {
 			stackTrace = stack;
 		}
 		
-		return serverList;
+		return out;
 	}
 	
 	
