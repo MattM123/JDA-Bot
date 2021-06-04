@@ -98,7 +98,7 @@ public class APICommands extends ListenerAdapter {
 			int wisconsinIndex = 0;
 			String test = "";
 			
-			event.getChannel().sendMessage(jarray.getString(1)).queue();
+			event.getChannel().sendMessage(crafty.getServerList()).queue();
 			
 	//		for (int i = 0; i < jarray.length(); i++) {
 		//		if () {
