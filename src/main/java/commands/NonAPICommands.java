@@ -110,5 +110,10 @@ public class NonAPICommands extends ListenerAdapter {
 			event.getChannel().sendMessage("3DR File: " + get3d(Integer.parseInt(Xbuilder), Integer.parseInt(Zbuilder))).queue();
 
 		}
+		
+		//Tests if Discord API is working
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!ping")) {
+			event.getChannel().sendMessage("Pong!").queue();
+		}
 	}
 }
