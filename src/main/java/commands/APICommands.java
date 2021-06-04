@@ -91,17 +91,17 @@ public class APICommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
 			String test = "Not working";
 			JSONObject obj = new JSONObject(crafty.getServerList());
-			JSONArray jarray = obj.getJSONArray("data");
+			JSONObject serverList = obj.getJSONObject("data");
 			int midwestIndex = 0;
 			int wisconsinIndex = 0;
-			test =  "test " + jarray.toString().substring(0, 1000);
+			test =  "test " + serverList.toString().substring(0, 1000);
 			
 			EmbedBuilder e = new EmbedBuilder();
 			e.setTitle("Test");
 			e.addField("test", "StackTrace: " + crafty.stackTrace, false);
 			
-			for (int i = 0; i < jarray.length(); i++) {
-				event.getChannel().sendMessage(String.valueOf(jarray.getInt(4))).queue();
+			for (int i = 0; i < obj.length(); i++) {
+				event.getChannel().sendMessage(serverList.get("server_id").toString()).queue();
 			}
 			event.getChannel().sendMessage(test).queue();
 			
