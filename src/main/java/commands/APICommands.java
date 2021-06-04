@@ -100,6 +100,9 @@ public class APICommands extends ListenerAdapter {
 			e.setTitle("Test");
 			e.addField("test", "StackTrace: " + crafty.stackTrace, false);
 			
+			for (int i = 0; i < jarray.length(); i++) {
+				event.getChannel().sendMessage(String.valueOf(jarray.getInt(4))).queue();
+			}
 			event.getChannel().sendMessage(test).queue();
 			
 	//		for (int i = 0; i < jarray.length(); i++) {
