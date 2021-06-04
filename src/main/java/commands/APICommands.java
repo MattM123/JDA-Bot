@@ -72,9 +72,6 @@ public class APICommands extends ListenerAdapter {
 					namebuilder += chararr[i];
 				}		
 				
-				//API work-around
-				TextChannel console = event.getGuild().getTextChannelById("802232830129995847");
-				console.sendMessage("/lp user " + namebuilder + " parent add applicants").queue();
 				//server.sendCommand("lp user " + namebuilder + " parent add applicants");
 		
 				EmbedBuilder emb = new EmbedBuilder();
