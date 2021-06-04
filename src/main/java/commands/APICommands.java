@@ -99,6 +99,7 @@ public class APICommands extends ListenerAdapter {
 			String test = "";
 			
 			test = jarray.getJSONArray(1).getJSONObject(0).toString();
+			event.getChannel().sendMessage(test).queue();
 			
 	//		for (int i = 0; i < jarray.length(); i++) {
 		//		if () {
@@ -109,7 +110,7 @@ public class APICommands extends ListenerAdapter {
 	//				midwestIndex = i;
 	//			}
 			//}
-			
+		/*	
 			//Wisconsin status		
 			if (crafty.stackTrace.contains("MalformedURLException") || crafty.stackTrace.contains("IOException") || crafty.stackTrace.contains("JSONException")
 					|| crafty.stackTrace.contains("NoSuchAlgorithmException") || crafty.stackTrace.contains("KeyManagementException")) {
@@ -150,8 +151,10 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(stats2.build()).queue();
 				event.getChannel().sendMessage(stats.build()).queue();
 			}
+			*/
 		}
 		
+			
 		//Send command to console crafty
 		if (event.getMessage().getContentRaw().startsWith("!test")) {
 					
