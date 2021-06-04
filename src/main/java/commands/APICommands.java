@@ -98,7 +98,11 @@ public class APICommands extends ListenerAdapter {
 			int wisconsinIndex = 0;
 			String test = "";
 			
-			event.getChannel().sendMessage("Stacktrace: " + crafty.stackTrace).queue();
+			EmbedBuilder e = new EmbedBuilder();
+			e.setTitle("Test");
+			e.addField("test", "StackTrace: " + crafty.stackTrace, false);
+			
+			event.getChannel().sendMessage(e.build()).queue();
 			
 	//		for (int i = 0; i < jarray.length(); i++) {
 		//		if () {
