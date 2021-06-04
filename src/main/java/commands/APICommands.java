@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.stanjg.ptero4j.PteroUserAPI;
@@ -92,20 +93,23 @@ public class APICommands extends ListenerAdapter {
 		//Server stats from crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
 			JSONObject obj = new JSONObject(crafty.getServerList());
+			JSONArray jarray = obj.getJSONArray("data");
 			int midwestIndex = 0;
 			int wisconsinIndex = 0;
-		
-			/*
-			while (obj.keys().hasNext()) {
-				if (obj.has(key) == 1) {
-					wisconsinIndex = i;
-				}
+			String test = "";
+			
+			test = jarray.getJSONArray(1).getJSONObject(0).toString();
+			
+	//		for (int i = 0; i < jarray.length(); i++) {
+		//		if () {
+		//			wisconsinIndex = i;
+	//			}
 				
-				if (crafty.getServerList().get(i).getID() == 6) {
-					midwestIndex = i;
-				}
-			}
-		*/	
+	//			if (crafty.getServerList().get(i).getID() == 6) {
+	//				midwestIndex = i;
+	//			}
+			//}
+			
 			//Wisconsin status		
 			if (crafty.stackTrace.contains("MalformedURLException") || crafty.stackTrace.contains("IOException") || crafty.stackTrace.contains("JSONException")
 					|| crafty.stackTrace.contains("NoSuchAlgorithmException") || crafty.stackTrace.contains("KeyManagementException")) {
@@ -113,7 +117,7 @@ public class APICommands extends ListenerAdapter {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("There was an error retrieveing the server stats");
-				emb.addField("", (String) crafty.getServerList().toString().subSequence(0, 1000), false);
+				emb.addField("", test, false);
 				event.getChannel().sendMessage(emb.build()).queue();
 				
 		
