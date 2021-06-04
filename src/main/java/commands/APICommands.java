@@ -97,7 +97,7 @@ public class APICommands extends ListenerAdapter {
 			JSONArray jarray = obj.getJSONArray("data");
 			int midwestIndex = 0;
 			int wisconsinIndex = 0;
-			test =  obj.toString();
+			test =  "test " + obj.toString();
 			
 			EmbedBuilder e = new EmbedBuilder();
 			e.setTitle("Test");
