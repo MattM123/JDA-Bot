@@ -130,7 +130,7 @@ public class APICommands extends ListenerAdapter {
 				stats.setTitle("Midwest Build Server Status");
 				stats.setColor(Color.BLUE);
 				stats.addField("Server Status", crafty.getServerList(), false);
-				stats.addField("test", crafty.getServerList().substring(0, 1000), false);
+				stats.addField("test", test, false);
 			//	stats.addField("CPU Usage", crafty.getServerList().get(wisconsinIndex).getCpuUsage() + "%", false);
 			//	stats.addField("Memory Usage", crafty.getServerList().get(wisconsinIndex).getMemUsage(), false);
 			//	stats.addField("Players Online", crafty.getServerList().get(wisconsinIndex).getPlayerList().toString(), false);
