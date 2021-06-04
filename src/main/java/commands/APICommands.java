@@ -98,8 +98,7 @@ public class APICommands extends ListenerAdapter {
 			int wisconsinIndex = 0;
 			String test = "";
 			
-			test = jarray.getJSONArray(1).getJSONObject(0).toString();
-			event.getChannel().sendMessage(test).queue();
+			event.getChannel().sendMessage(jarray.getString(1)).queue();
 			
 	//		for (int i = 0; i < jarray.length(); i++) {
 		//		if () {
