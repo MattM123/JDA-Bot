@@ -70,47 +70,6 @@ public class NonAPICommands extends ListenerAdapter {
 			event.getChannel().sendMessage(embed1.build()).queue();
 		}
 		
-		//chunk conversion to region file
-		if (event.getMessage().getContentRaw().startsWith("!regcon2d")) {
-			String Xbuilder = "";
-			String Zbuilder = "";
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
-			
-			for (int i = 10; i < chararr.length; i++) {
-				if (chararr[i] == ' ') {
-					for (int j = (i + 1); j < chararr.length; j++) {
-						Zbuilder += chararr[j];
-					}
-					break;
-				}
-				else {
-					Xbuilder += chararr[i];
-				}
-			}
-			event.getChannel().sendMessage("2DR File: " + get2d(Integer.parseInt(Xbuilder), Integer.parseInt(Zbuilder))).queue();
-
-		}
-		
-		if (event.getMessage().getContentRaw().startsWith("!regcon3d")) {
-			String Xbuilder = "";
-			String Zbuilder = "";
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
-			
-			for (int i = 10; i < chararr.length; i++) {
-				if (chararr[i] == ' ') {
-					for (int j = (i + 1); j < chararr.length; j++) {
-						Zbuilder += chararr[j];
-					}
-					break;
-				}
-				else {
-					Xbuilder += chararr[i];
-				}
-			}
-			event.getChannel().sendMessage("3DR File: " + get3d(Integer.parseInt(Xbuilder), Integer.parseInt(Zbuilder))).queue();
-
-		}
-		
 		//Tests if Discord API is working
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!ping")) {
 			event.getChannel().sendMessage("Pong!").queue();
