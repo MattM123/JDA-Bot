@@ -112,7 +112,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		//Tests if Discord API is working
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("=ping")) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!ping")) {
 			event.getChannel().sendMessage("Pong!").queue();
 		}
 	}
