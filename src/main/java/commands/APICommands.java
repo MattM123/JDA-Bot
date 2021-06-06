@@ -109,7 +109,7 @@ public class APICommands extends ListenerAdapter {
 			for (int i = 0; i < serverList.length(); i++) {
 				event.getChannel().sendMessage(serverList.get("server_id").toString()).queue();
 					//wisconsinIndex = i;
-			 
+			   
 				
 				//if (crafty.getServerList().get(i).getID() == 6) {
 				//	midwestIndex = i;
