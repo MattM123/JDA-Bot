@@ -6,23 +6,6 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class NonAPICommands extends ListenerAdapter {
-
-	public static String get2d(int x, int z) {
-		int X = Math.floorDiv(x, 512);
-		//int Y = Math.floorDiv(y, 256);
-		int Z = Math.floorDiv(z, 512);
-		
-		return X + "." + Z + ".2dr";
-	}
-	
-	public static String get3d(int x, int z) {
-		int X = Math.floorDiv(x, 256);
-		//int Y = Math.floorDiv(y, 256);
-		int Z = Math.floorDiv(z, 256);
-		
-		return X + "." + Z + ".3dr";
-	}
-	
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
