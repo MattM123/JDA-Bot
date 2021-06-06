@@ -6,8 +6,6 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class NonAPICommands extends ListenerAdapter {
-//	private static ArrayList<String> records;
-//	private Logger logger = LoggerFactory.getLogger(NonAPICommands.class);
 
 	public static String get2d(int x, int z) {
 		int X = Math.floorDiv(x, 512);
