@@ -89,26 +89,32 @@ public class APICommands extends ListenerAdapter {
 		
 		//Server stats from crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
-			String test = "Not working";
 			JSONObject obj = new JSONObject(crafty.getServerList());
-			JSONArray serverList = obj.getJSONArray("data");
+			JSONObject serverList = obj.getJSONObject("data");
 			int midwestIndex = 0;
 			int wisconsinIndex = 0;
-			test =  "test " + serverList.toString().substring(0, 1000);
-			
-			event.getChannel().sendMessage(serverList.toString()).queue();
-			
-			event.getChannel().sendMessage(test).queue();
-			
-	//		for (int i = 0; i < jarray.length(); i++) {
-		//		if () {
-		//			wisconsinIndex = i;
-	//			}
+		
+			//Tests API connection
+			crafty.getServerList();
+			if (crafty.stackTrace.contains("MalformedURLException") || crafty.stackTrace.contains("IOException") || crafty.stackTrace.contains("JSONException")
+					|| crafty.stackTrace.contains("NoSuchAlgorithmException") || crafty.stackTrace.contains("KeyManagementException")) {
 				
-	//			if (crafty.getServerList().get(i).getID() == 6) {
-	//				midwestIndex = i;
-	//			}
-			//}
+				EmbedBuilder emb = new EmbedBuilder();
+				emb.setColor(Color.BLUE);
+				emb.setTitle("There was an error retrieveing the server stats");
+				emb.addField("", "", false);
+				event.getChannel().sendMessage(emb.build()).queue();
+			}
+			
+			for (int i = 0; i < serverList.length(); i++) {
+				event.getChannel().sendMessage(serverList.get("server_id").toString()).queue();
+					//wisconsinIndex = i;
+				
+				
+				//if (crafty.getServerList().get(i).getID() == 6) {
+				//	midwestIndex = i;
+				//}
+			}
 		/*	
 			//Wisconsin status		
 			if (crafty.stackTrace.contains("MalformedURLException") || crafty.stackTrace.contains("IOException") || crafty.stackTrace.contains("JSONException")
