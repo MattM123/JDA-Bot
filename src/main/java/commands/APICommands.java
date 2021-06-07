@@ -134,7 +134,7 @@ public class APICommands extends ListenerAdapter {
 					corruptServer.setTitle(serverList.getJSONObject(i).get("name").toString());
 					corruptServer.addField("Status", status, false);		
 					corruptServer.addField("Memory Usage",  serverList.getJSONObject(i).get("memory_usage").toString(), false);
-					corruptServer.addField("SPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
+					corruptServer.addField("CPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
 					corruptServer.addField("Players Online", players, false);
 					if (status.equals("Online")) {
 						corruptServer.setColor(Color.green);
@@ -149,7 +149,7 @@ public class APICommands extends ListenerAdapter {
 					midwestServer.setTitle(serverList.getJSONObject(i).get("name").toString());
 					midwestServer.addField("Status", status, false);		
 					midwestServer.addField("Memory Usage",  serverList.getJSONObject(i).get("memory_usage").toString(), false);
-					midwestServer.addField("SPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
+					midwestServer.addField("CPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
 					midwestServer.addField("Players Online", players, false);					
 					if (status.equals("Online")) {
 						midwestServer.setColor(Color.green);
@@ -163,7 +163,7 @@ public class APICommands extends ListenerAdapter {
 					wisconsinServer.setTitle(serverList.getJSONObject(i).get("name").toString());
 					wisconsinServer.addField("Status", status, false);		
 					wisconsinServer.addField("Memory Usage",  serverList.getJSONObject(i).get("memory_usage").toString(), false);
-					wisconsinServer.addField("SPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
+					wisconsinServer.addField("CPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
 					wisconsinServer.addField("Players Online", players, false);					
 					if (status.equals("Online")) {
 						wisconsinServer.setColor(Color.green);
