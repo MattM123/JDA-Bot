@@ -107,7 +107,10 @@ public class APICommands extends ListenerAdapter {
 			
 			//Creation of embed that display stats
 			EmbedBuilder corruptServer = new EmbedBuilder();
-			event.getChannel().sendMessage(serverList.getJSONObject(3).get("server_running").toString()).queue();
+			EmbedBuilder midwestServer = new EmbedBuilder();
+			EmbedBuilder wisconsinServer = new EmbedBuilder();
+
+			//Iterates through servers
 			for (int i = 0; i < serverList.length(); i++) {
 				
 				String players = serverList.getJSONObject(i).get("players").toString();		
@@ -127,18 +130,52 @@ public class APICommands extends ListenerAdapter {
 					}
 				//------------------------------------------------------------------------------
 				if (serverList.getJSONObject(i).get("server_id").toString().equals("4")) {	
+			
 					corruptServer.setTitle(serverList.getJSONObject(i).get("name").toString());
 					corruptServer.addField("Status", status, false);		
-					corruptServer.addField("Memory Usage",  serverList.getJSONObject(i).get("memory_usage") + "%", false);
-					corruptServer.addField("SPU Usage", serverList.getJSONObject(i).get("cpu_usage").toString(), false);
+					corruptServer.addField("Memory Usage",  serverList.getJSONObject(i).get("memory_usage").toString(), false);
+					corruptServer.addField("SPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
 					corruptServer.addField("Players Online", players, false);
+					if (status.equals("Online")) {
+						corruptServer.setColor(Color.green);
+					}
+					else {
+						corruptServer.setColor(Color.red);
+					}
 					
 				}
-				else {
-					event.getChannel().sendMessage("Item Not Found").queue();
+				
+				if (serverList.getJSONObject(i).get("server_id").toString().equals("2")) {	
+					midwestServer.setTitle(serverList.getJSONObject(i).get("name").toString());
+					midwestServer.addField("Status", status, false);		
+					midwestServer.addField("Memory Usage",  serverList.getJSONObject(i).get("memory_usage").toString(), false);
+					midwestServer.addField("SPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
+					midwestServer.addField("Players Online", players, false);					
+					if (status.equals("Online")) {
+						midwestServer.setColor(Color.green);
+					}
+					else {
+						midwestServer.setColor(Color.red);
+					}
+				}
+				
+				if (serverList.getJSONObject(i).get("server_id").toString().equals("3")) {	
+					wisconsinServer.setTitle(serverList.getJSONObject(i).get("name").toString());
+					wisconsinServer.addField("Status", status, false);		
+					wisconsinServer.addField("Memory Usage",  serverList.getJSONObject(i).get("memory_usage").toString(), false);
+					wisconsinServer.addField("SPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
+					wisconsinServer.addField("Players Online", players, false);					
+					if (status.equals("Online")) {
+						wisconsinServer.setColor(Color.green);
+					}
+					else {
+						wisconsinServer.setColor(Color.red);
+					}
 				}
 				
 			}		
+			event.getChannel().sendMessage(midwestServer.build()).queue();
+			event.getChannel().sendMessage(wisconsinServer.build()).queue();
 			event.getChannel().sendMessage(corruptServer.build()).queue();
 		/*	
 			//Wisconsin status		
