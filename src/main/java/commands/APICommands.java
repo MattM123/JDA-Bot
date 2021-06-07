@@ -91,9 +91,9 @@ public class APICommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
 			JSONObject obj = new JSONObject(crafty.getServerList());
 			JSONArray serverList = obj.getJSONArray("data");
-			int midwestIndex = 0;
-			int wisconsinIndex = 0;
 		
+			event.getChannel().sendMessage(serverList.getJSONObject(2).getString("server_running")).queue();
+			
 			//Tests API connection
 			crafty.getServerList();
 			if (crafty.stackTrace.contains("MalformedURLException") || crafty.stackTrace.contains("IOException") || crafty.stackTrace.contains("JSONException")
@@ -118,7 +118,6 @@ public class APICommands extends ListenerAdapter {
 				else {
 					players = players.substring(1, players.length() - 1);	
 				}
-					event.getChannel().sendMessage(serverList.getJSONObject(i).getString("server_running")).queue();
 				//------------------------------------------------------------------------------
 				if (serverList.getJSONObject(i).get("server_id").toString().equals("4")) {							
 					corruptServer.setTitle(serverList.getJSONObject(i).getString("name"));
