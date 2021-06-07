@@ -13,6 +13,7 @@ import com.stanjg.ptero4j.entities.panel.user.UserServer;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.MessageEmbed.Field;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -109,28 +110,39 @@ public class APICommands extends ListenerAdapter {
 			
 			for (int i = 0; i < serverList.length(); i++) {
 				
-				String players = serverList.getJSONObject(i).getString("players").toString();
-				
+				String players = serverList.getJSONObject(i).getString("players").toString();		
 					if (players.equals("[]")) {
 					players = "No Players Online";
 				}
 				else {
 					players = players.substring(1, players.length() - 1);	
 				}
+				
+					String status = serverList.getJSONObject(i).getString("server_running").toString();
+					if (status == "true") {
+						status = "Online";
+					}
+					else {
+						status = "Offline";
+					}
 				//------------------------------------------------------------------------------
-				if (serverList.getJSONObject(i).get("server_id").toString().equals("4")) {							
+				if (serverList.getJSONObject(i).get("server_id").toString().equals("4")) {	
 					corruptServer.setTitle(serverList.getJSONObject(i).getString("name"));
-				//	corruptServer.addField("Online", serverList.getJSONObject(i).getString("server_running"), false);
-					corruptServer.addField("Memory Usage", serverList.getJSONObject(i).getString("memory_usage") + "%", false);
-					corruptServer.addField("CPU Usage", serverList.getJSONObject(i).getString("cpu_usage"), false);
-					corruptServer.addField("Players Online", players, false);
+					Field running = new Field("Status", status, false);
+					corruptServer.addField(running);
+					Field memory = new Field("Memory Usage",  serverList.getJSONObject(i).getString("memory_usage") + "%", false);
+					corruptServer.addField(memory);
+					Field cpu = new Field("SPU Usage", serverList.getJSONObject(i).getString("cpu_usage"), false);
+					corruptServer.addField(cpu);
+					Field playersOnline = new Field("Players Online", players, false);
+					corruptServer.addField(playersOnline);
 					
 				}
 				else {
 					event.getChannel().sendMessage("Item Not Found").queue();
 				}
 				
-			}
+			}		
 			event.getChannel().sendMessage(corruptServer.build()).queue();
 		/*	
 			//Wisconsin status		
