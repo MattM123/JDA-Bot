@@ -108,7 +108,7 @@ public class APICommands extends ListenerAdapter {
 			EmbedBuilder corruptServer = new EmbedBuilder();
 			
 			for (int i = 0; i < serverList.length(); i++) {
-				event.getChannel().sendMessage(serverList.getJSONObject(i).getString("server_running")).queue();
+				event.getChannel().sendMessage(serverList.getJSONObject(i).getString("cpu_usage")).queue();
 				/*
 				String players = serverList.getJSONObject(i).getString("players").toString();
 				
