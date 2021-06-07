@@ -111,13 +111,14 @@ public class APICommands extends ListenerAdapter {
 			
 			for (int i = 0; i < serverList.length(); i++) {
 				String players = serverList.getJSONObject(i).getString("players").toString();
-				event.getChannel().sendMessage(players).queue();
+				
 					if (players.equals("[]")) {
 					players = "No Players Online";
 				}
 				else {
 					players = players.substring(1, players.length() - 1);	
 				}
+				event.getChannel().sendMessage(players).queue();
 				//------------------------------------------------------------------------------
 				if (Integer.parseInt(serverList.getJSONObject(i).get("server_id").toString()) == 4) {							
 					corruptServer.setTitle(serverList.getJSONObject(i).getString("name"));
