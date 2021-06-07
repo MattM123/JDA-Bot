@@ -126,6 +126,7 @@ public class APICommands extends ListenerAdapter {
 					corruptServer.addField("Memory Usage", serverList.getJSONObject(i).getString("memory_usage"), false);
 					corruptServer.addField("CPU Usage", serverList.getJSONObject(i).getString("cpu_usage") + "%", false);
 					corruptServer.addField("Players Online", players, false);
+					event.getChannel().sendMessage("ID == 4").queue();
 					
 				}
 				else {
