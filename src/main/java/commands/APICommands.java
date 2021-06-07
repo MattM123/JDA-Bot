@@ -118,7 +118,7 @@ public class APICommands extends ListenerAdapter {
 				else {
 					players = players.substring(1, players.length() - 1);	
 				}
-			event.getChannel().sendMessage(serverList.get(i).toString());
+			event.getChannel().sendMessage(serverList.get(i).toString()).queue();
 				//------------------------------------------------------------------------------
 				if (serverList.getJSONObject(i).get("server_id").toString().equals("4")) {							
 					corruptServer.setTitle(serverList.getJSONObject(i).getString("name"));
