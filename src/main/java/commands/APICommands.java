@@ -106,12 +106,13 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			
+			//Creation of embed that display stats
 			EmbedBuilder corruptServer = new EmbedBuilder();
 			
 			for (int i = 0; i < serverList.length(); i++) {
 				String players = serverList.getJSONObject(i).getString("players").toString();
 				
-				if (Integer.parseInt(serverList.getJSONObject(i).get("server_id").toString()) == 2) {				
+				if (Integer.parseInt(serverList.getJSONObject(i).get("server_id").toString()) == 4) {				
 			//		if (players == "[]") {
 			//			players = "No Players Online";
 			//		}
