@@ -107,10 +107,10 @@ public class APICommands extends ListenerAdapter {
 			
 			//Creation of embed that display stats
 			EmbedBuilder corruptServer = new EmbedBuilder();
-			
+			event.getChannel().sendMessage(serverList.getJSONObject(3).get("server_running").toString()).queue();
 			for (int i = 0; i < serverList.length(); i++) {
 				
-				String players = serverList.getJSONObject(i).getString("players").toString();		
+				String players = serverList.getJSONObject(i).get("players").toString();		
 					if (players.equals("[]")) {
 					players = "No Players Online";
 				}
@@ -118,7 +118,7 @@ public class APICommands extends ListenerAdapter {
 					players = players.substring(1, players.length() - 1);	
 				}
 				
-					String status = serverList.getJSONObject(i).getString("server_running").toString();
+					String status = serverList.getJSONObject(i).get("server_running").toString();
 					if (status == "true") {
 						status = "Online";
 					}
@@ -127,15 +127,11 @@ public class APICommands extends ListenerAdapter {
 					}
 				//------------------------------------------------------------------------------
 				if (serverList.getJSONObject(i).get("server_id").toString().equals("4")) {	
-					corruptServer.setTitle(serverList.getJSONObject(i).getString("name"));
-					Field running = new Field("Status", status, false);
-					corruptServer.addField(running);
-					Field memory = new Field("Memory Usage",  serverList.getJSONObject(i).getString("memory_usage") + "%", false);
-					corruptServer.addField(memory);
-					Field cpu = new Field("SPU Usage", serverList.getJSONObject(i).getString("cpu_usage"), false);
-					corruptServer.addField(cpu);
-					Field playersOnline = new Field("Players Online", players, false);
-					corruptServer.addField(playersOnline);
+					corruptServer.setTitle(serverList.getJSONObject(i).get("name").toString());
+					corruptServer.addField("Status", status, false);		
+					corruptServer.addField("Memory Usage",  serverList.getJSONObject(i).get("memory_usage") + "%", false);
+					corruptServer.addField("SPU Usage", serverList.getJSONObject(i).get("cpu_usage").toString(), false);
+					corruptServer.addField("Players Online", players, false);
 					
 				}
 				else {
