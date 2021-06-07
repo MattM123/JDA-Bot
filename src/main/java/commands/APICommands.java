@@ -108,7 +108,7 @@ public class APICommands extends ListenerAdapter {
 			
 			for (int i = 0; i < serverList.length(); i++) {
 				if (serverList.getJSONObject(i).get("server_id").toString() == "4") {
-					event.getChannel().sendMessage(serverList.getJSONObject(i).get("server_id").toString()).queue();
+					event.getChannel().sendMessage("Server ID is 4").queue();
 				}
 				else {
 					event.getChannel().sendMessage(serverList.getJSONObject(i).get("server_id").toString()).queue();
