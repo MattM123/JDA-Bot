@@ -112,13 +112,12 @@ public class APICommands extends ListenerAdapter {
 				String players = serverList.getJSONObject(i).getString("players").toString();
 				
 				if (Integer.parseInt(serverList.getJSONObject(i).get("server_id").toString()) == 2) {				
-					if (players == "[]") {
-						players = "No Players Online";
-					}
-					else {
-						players = players.substring(1, players.length() - 1);
-						
-					}
+			//		if (players == "[]") {
+			//			players = "No Players Online";
+			//		}
+			//		else {
+			//			players = players.substring(1, players.length() - 1);	
+			//		}
 					
 					corruptServer.setTitle(serverList.getJSONObject(i).getString("name"));
 					corruptServer.addField("Online", serverList.getJSONObject(i).getString("server_running"), false);
