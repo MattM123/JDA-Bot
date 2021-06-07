@@ -110,8 +110,21 @@ public class APICommands extends ListenerAdapter {
 			
 			for (int i = 0; i < serverList.length(); i++) {
 				if (Integer.parseInt(serverList.getJSONObject(i).get("server_id").toString()) == 4) {
+					String players = serverList.getJSONObject(i).getString("players").toString();
+					if (players == "[]") {
+						players = "No Players Online";
+					}
+					else {
+						players = players.substring(1, players.length() - 1);
+						
+					}
+					
 					corruptServer.setTitle(serverList.getJSONObject(i).getString("name"));
+					corruptServer.addField("Online", serverList.getJSONObject(i).getString("server_running"), false);
 					corruptServer.addField("Memory Usage", serverList.getJSONObject(i).getString("memory_usage"), false);
+					corruptServer.addField("CPU Usage", serverList.getJSONObject(i).getString("cpu_usage") + "%", false);
+					corruptServer.addField("Players Online", players + "%", false);
+					
 				}
 				else {
 					event.getChannel().sendMessage("Server ID not 4").queue();
