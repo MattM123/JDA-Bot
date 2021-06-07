@@ -116,13 +116,8 @@ public class APICommands extends ListenerAdapter {
 				else {
 					event.getChannel().sendMessage("Server ID not 4").queue();
 				}
-					
-			event.getChannel().sendMessage(corruptServer.build()).queue();
-				
-				//if (crafty.getServerList().get(i).getID() == 6) {
-				//	midwestIndex = i;
-				//}
 			}
+			event.getChannel().sendMessage(corruptServer.build()).queue();
 		/*	
 			//Wisconsin status		
 			if (crafty.stackTrace.contains("MalformedURLException") || crafty.stackTrace.contains("IOException") || crafty.stackTrace.contains("JSONException")
