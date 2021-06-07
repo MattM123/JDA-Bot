@@ -118,7 +118,7 @@ public class APICommands extends ListenerAdapter {
 					players = "No Players Online";
 				}
 				else {
-					players = players.substring(1, players.length() - 1);	
+					players = players.substring(1, players.length() - 1).replaceAll("'", "");	
 				}
 				
 					String status = serverList.getJSONObject(i).get("server_running").toString();
