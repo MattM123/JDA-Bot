@@ -106,15 +106,18 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			
+			EmbedBuilder corruptServer = new EmbedBuilder();
+			
 			for (int i = 0; i < serverList.length(); i++) {
 				if (Integer.parseInt(serverList.getJSONObject(i).get("server_id").toString()) == 4) {
-					event.getChannel().sendMessage("Server ID is 4").queue();
+					corruptServer.setTitle(serverList.getJSONObject(i).getString("name"));
+					corruptServer.addField("Memory Usage", serverList.getJSONObject(i).getString("memory_usage"), false);
 				}
 				else {
 					event.getChannel().sendMessage("Server ID not 4").queue();
 				}
-					//wisconsinIndex = i;
-			
+					
+			event.getChannel().sendMessage(corruptServer.build()).queue();
 				
 				//if (crafty.getServerList().get(i).getID() == 6) {
 				//	midwestIndex = i;
