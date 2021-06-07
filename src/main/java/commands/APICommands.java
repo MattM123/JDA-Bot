@@ -20,10 +20,10 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class APICommands extends ListenerAdapter {
 
-	private static String apikey = "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens";
-	private static String serverID = "8f401af5";
-	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
-	private static UserServer server = api.getServersController().getServer(serverID);
+	//private static String apikey = "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens";
+	//private static String serverID = "8f401af5";
+	//private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
+	//private static UserServer server = api.getServersController().getServer(serverID);
 	private CraftyControllerAPI crafty = new CraftyControllerAPI("XSRLSD2EHEI06MUZCY0UC5ET7FVZFBUE");
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
 	    
@@ -45,7 +45,7 @@ public class APICommands extends ListenerAdapter {
 				for (int i = 7; i < chararr.length; i++) {
 					namebuilder += chararr[i];
 				}			
-				server.sendCommand("lp user " + namebuilder + " parent add event-builder");
+			//	server.sendCommand("lp user " + namebuilder + " parent add event-builder");
 				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
