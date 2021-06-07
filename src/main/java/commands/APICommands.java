@@ -108,6 +108,8 @@ public class APICommands extends ListenerAdapter {
 			EmbedBuilder corruptServer = new EmbedBuilder();
 			
 			for (int i = 0; i < serverList.length(); i++) {
+				event.getChannel().sendMessage(serverList.getJSONObject(i).getString("server_running")).queue();
+				/*
 				String players = serverList.getJSONObject(i).getString("players").toString();
 				
 					if (players.equals("[]")) {
@@ -119,7 +121,7 @@ public class APICommands extends ListenerAdapter {
 				//------------------------------------------------------------------------------
 				if (serverList.getJSONObject(i).get("server_id").toString().equals("4")) {							
 					corruptServer.setTitle(serverList.getJSONObject(i).getString("name"));
-					//corruptServer.addField("Online", serverList.getJSONObject(i).getString("server_running"), false);
+					corruptServer.addField("Online", serverList.getJSONObject(i).getString("server_running"), false);
 					corruptServer.addField("Memory Usage", serverList.getJSONObject(i).getString("memory_usage") + "%", false);
 					corruptServer.addField("CPU Usage", serverList.getJSONObject(i).getString("cpu_usage"), false);
 					corruptServer.addField("Players Online", players, false);
@@ -128,6 +130,7 @@ public class APICommands extends ListenerAdapter {
 				else {
 					event.getChannel().sendMessage("Item Not Found").queue();
 				}
+				*/
 			}
 			event.getChannel().sendMessage(corruptServer.build()).queue();
 		/*	
