@@ -107,7 +107,12 @@ public class APICommands extends ListenerAdapter {
 			}
 			
 			for (int i = 0; i < serverList.length(); i++) {
-				event.getChannel().sendMessage(serverList.getJSONObject(3).toString()).queue();
+				if (serverList.getJSONObject(i).get("server_id").toString() == "4") {
+					event.getChannel().sendMessage(serverList.getJSONObject(i).get("server_id").toString()).queue();
+				}
+				else {
+					event.getChannel().sendMessage(serverList.getJSONObject(i).get("server_id").toString()).queue();
+				}
 					//wisconsinIndex = i;
 			
 				
