@@ -109,8 +109,9 @@ public class APICommands extends ListenerAdapter {
 			EmbedBuilder corruptServer = new EmbedBuilder();
 			
 			for (int i = 0; i < serverList.length(); i++) {
-				if (Integer.parseInt(serverList.getJSONObject(i).get("server_id").toString()) == 4) {
-					String players = serverList.getJSONObject(i).getString("players").toString();
+				String players = serverList.getJSONObject(i).getString("players").toString();
+				
+				if (Integer.parseInt(serverList.getJSONObject(i).get("server_id").toString()) == 2) {				
 					if (players == "[]") {
 						players = "No Players Online";
 					}
@@ -127,7 +128,7 @@ public class APICommands extends ListenerAdapter {
 					
 				}
 				else {
-					event.getChannel().sendMessage("Server ID not 4").queue();
+					event.getChannel().sendMessage("Item Not Found").queue();
 				}
 			}
 			event.getChannel().sendMessage(corruptServer.build()).queue();
