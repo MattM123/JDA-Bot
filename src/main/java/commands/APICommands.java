@@ -91,8 +91,6 @@ public class APICommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
 			JSONObject obj = new JSONObject(crafty.getServerList());
 			JSONArray serverList = obj.getJSONArray("data");
-		
-			event.getChannel().sendMessage(serverList.getJSONObject(2).getString("server_running")).queue();
 			
 			//Tests API connection
 			crafty.getServerList();
@@ -121,7 +119,7 @@ public class APICommands extends ListenerAdapter {
 				//------------------------------------------------------------------------------
 				if (serverList.getJSONObject(i).get("server_id").toString().equals("4")) {							
 					corruptServer.setTitle(serverList.getJSONObject(i).getString("name"));
-					corruptServer.addField("Online", Boolean.toString(serverList.getJSONObject(i).getBoolean("server_running")), false);
+					//corruptServer.addField("Online", serverList.getJSONObject(i).getString("server_running"), false);
 					corruptServer.addField("Memory Usage", serverList.getJSONObject(i).getString("memory_usage") + "%", false);
 					corruptServer.addField("CPU Usage", serverList.getJSONObject(i).getString("cpu_usage"), false);
 					corruptServer.addField("Players Online", players, false);
