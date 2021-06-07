@@ -3,7 +3,8 @@ package commands;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
- 
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.stanjg.ptero4j.PteroUserAPI;
@@ -89,7 +90,7 @@ public class APICommands extends ListenerAdapter {
 		//Server stats from crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
 			JSONObject obj = new JSONObject(crafty.getServerList());
-			JSONObject serverList = obj.getJSONObject("data");
+			JSONArray serverList = obj.getJSONArray("data");
 			int midwestIndex = 0;
 			int wisconsinIndex = 0;
 		
@@ -106,9 +107,9 @@ public class APICommands extends ListenerAdapter {
 			}
 			
 			for (int i = 0; i < serverList.length(); i++) {
-				event.getChannel().sendMessage(serverList.get("server_id").toString()).queue();
+				event.getChannel().sendMessage(serverList.getJSONObject(3).toString()).queue();
 					//wisconsinIndex = i;
-			         
+			
 				
 				//if (crafty.getServerList().get(i).getID() == 6) {
 				//	midwestIndex = i;
