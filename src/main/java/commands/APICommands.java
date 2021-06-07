@@ -118,9 +118,9 @@ public class APICommands extends ListenerAdapter {
 				else {
 					players = players.substring(1, players.length() - 1);	
 				}
-					event.getChannel().sendMessage(serverList.getJSONObject(i).get("server_id").toString()).queue();
+			
 				//------------------------------------------------------------------------------
-				if (Integer.parseInt(serverList.getJSONObject(i).get("server_id").toString()) == 4) {							
+				if ((serverList.getJSONObject(i).get("server_id").toString()).equals("4")) {							
 					corruptServer.setTitle(serverList.getJSONObject(i).getString("name"));
 					corruptServer.addField("Online", serverList.getJSONObject(i).getString("server_running"), false);
 					corruptServer.addField("Memory Usage", serverList.getJSONObject(i).getString("memory_usage"), false);
