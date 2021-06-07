@@ -118,12 +118,12 @@ public class APICommands extends ListenerAdapter {
 				else {
 					players = players.substring(1, players.length() - 1);	
 				}
-			event.getChannel().sendMessage(serverList.get(i).toString()).queue();
+
 				//------------------------------------------------------------------------------
 				if (serverList.getJSONObject(i).get("server_id").toString().equals("4")) {							
 					corruptServer.setTitle(serverList.getJSONObject(i).getString("name"));
-					corruptServer.addField("Online", serverList.getJSONObject(i).getString("server_running"), false);
-					corruptServer.addField("Memory Usage", serverList.getJSONObject(i).getString("memory_usage"), false);
+					corruptServer.addField("Online", Boolean.toString(serverList.getJSONObject(i).getBoolean("server_running")), false);
+					corruptServer.addField("Memory Usage", serverList.getJSONObject(i).getString("memory_usage") + "%", false);
 					corruptServer.addField("CPU Usage", serverList.getJSONObject(i).getString("cpu_usage"), false);
 					corruptServer.addField("Players Online", players, false);
 					
