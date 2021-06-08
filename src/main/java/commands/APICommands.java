@@ -177,48 +177,6 @@ public class APICommands extends ListenerAdapter {
 			event.getChannel().sendMessage(midwestServer.build()).queue();
 			event.getChannel().sendMessage(wisconsinServer.build()).queue();
 			event.getChannel().sendMessage(corruptServer.build()).queue();
-		/*	
-			//Wisconsin status		
-			if (crafty.stackTrace.contains("MalformedURLException") || crafty.stackTrace.contains("IOException") || crafty.stackTrace.contains("JSONException")
-					|| crafty.stackTrace.contains("NoSuchAlgorithmException") || crafty.stackTrace.contains("KeyManagementException")) {
-				
-				EmbedBuilder emb = new EmbedBuilder();
-				emb.setColor(Color.BLUE);
-				emb.setTitle("There was an error retrieveing the server stats");
-				emb.addField("", test, false);
-				event.getChannel().sendMessage(emb.build()).queue();
-				
-		
-			}
-			else {
-				
-			
-				//Midwest status			
-				EmbedBuilder stats = new EmbedBuilder();
-				stats.setTitle("Midwest Build Server Status");
-				stats.setColor(Color.BLUE);
-				stats.addField("Server Status", crafty.getServerList(), false);
-				stats.addField("test", test, false);
-			//	stats.addField("CPU Usage", crafty.getServerList().get(wisconsinIndex).getCpuUsage() + "%", false);
-			//	stats.addField("Memory Usage", crafty.getServerList().get(wisconsinIndex).getMemUsage(), false);
-			//	stats.addField("Players Online", crafty.getServerList().get(wisconsinIndex).getPlayerList().toString(), false);
-				stats.addField("ID", String.valueOf(wisconsinIndex), false);
-				
-				
-				EmbedBuilder stats2 = new EmbedBuilder();
-			
-				stats2.setTitle("Wisconsin Build Server Status");
-				stats2.setColor(Color.BLUE);
-			//	stats.addField("Server Status", crafty.getServerList().get(midwestIndex).getStatus(), false);
-			//	stats.addField("CPU Usage", crafty.getServerList().get(midwestIndex).getCpuUsage() + "%", false);
-			//	stats.addField("Memory Usage", crafty.getServerList().get(midwestIndex).getMemUsage(), false);
-			//	stats.addField("Players Online", crafty.getServerList().get(midwestIndex).getPlayerList().toString(), false);
-				stats.addField("ID", String.valueOf(wisconsinIndex), false);
-				
-				event.getChannel().sendMessage(stats2.build()).queue();
-				event.getChannel().sendMessage(stats.build()).queue();
-			}
-			*/
 		}
 		
 			
