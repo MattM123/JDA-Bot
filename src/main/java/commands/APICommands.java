@@ -185,6 +185,8 @@ public class APICommands extends ListenerAdapter {
 					
 			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
 			
+			//Tests API connection
+			crafty.sendCommand("ping");
 			if (!crafty.stackTrace.equals("")) {
 				
 				EmbedBuilder emb = new EmbedBuilder();
