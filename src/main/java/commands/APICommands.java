@@ -184,7 +184,7 @@ public class APICommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().startsWith("!test")) {
 					
 			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
-			
+			event.getChannel().sendMessage(command).queue();
 			//Tests API connection
 			crafty.sendCommand("ping");
 			if (!crafty.stackTrace.equals("")) {
@@ -192,7 +192,7 @@ public class APICommands extends ListenerAdapter {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("An error occured while sending the console command");
-				emb.addField("", crafty.stackTrace, false);
+				emb.addField(command, crafty.stackTrace, false);
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
