@@ -103,7 +103,7 @@ public class APICommands extends ListenerAdapter {
 			}
 			else {
 				for (int i = 0; i < serverList.length(); i++) {
-					if (serverList.getJSONObject(i).get("server_id").equals("2")) {
+					if (serverList.getJSONObject(i).getString("server_id").equals("2")) {
 						event.getChannel().sendMessage(serverList.getJSONObject(i).getString("server_running")).queue();
 					}
 					else {
