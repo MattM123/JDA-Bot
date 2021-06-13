@@ -103,7 +103,7 @@ public class APICommands extends ListenerAdapter {
 			}
 			else {
 			
-				event.getChannel().sendMessage(serverList.toString()).queue();
+				event.getChannel().sendMessage(serverList.toString().subSequence(0, 1000)).queue();
 			}
 		}
 		
