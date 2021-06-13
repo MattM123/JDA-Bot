@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.stanjg.ptero4j.PteroUserAPI;
@@ -20,10 +21,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class APICommands extends ListenerAdapter {
 
-	private static String apikey = "NXRD3enHrACazTV2sXDERw7e2pPJYNPmK1YzVYJJ4XzdWens";
-	private static String serverID = "8f401af5";
-	private static PteroUserAPI api = new PteroUserAPI("https://witherpanel.com/", apikey);	
-	private static UserServer server = api.getServersController().getServer(serverID);
 	private CraftyControllerAPI crafty = new CraftyControllerAPI("XSRLSD2EHEI06MUZCY0UC5ET7FVZFBUE");
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
 	    
@@ -45,7 +42,7 @@ public class APICommands extends ListenerAdapter {
 				for (int i = 7; i < chararr.length; i++) {
 					namebuilder += chararr[i];
 				}			
-				server.sendCommand("lp user " + namebuilder + " parent add event-builder");
+				//server.sendCommand("lp user " + namebuilder + " parent add event-builder");
 				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
@@ -88,10 +85,10 @@ public class APICommands extends ListenerAdapter {
 		
 		//Server stats from crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
-			JSONObject obj = new JSONObject(crafty.getServerList());
-			JSONObject serverList = obj.getJSONObject("data");
-			int midwestIndex = 0;
-			int wisconsinIndex = 0;
+			JSONObject obj = new JSONObject(crafty.getServerList()); 
+			JSONArray serverList = obj.getJSONArray("data");
+		
+			
 		
 			//Tests API connection
 			crafty.getServerList();
@@ -104,58 +101,10 @@ public class APICommands extends ListenerAdapter {
 				emb.addField("", "", false);
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
-			
-			for (int i = 0; i < serverList.length(); i++) {
-				event.getChannel().sendMessage(serverList.get("server_id").toString()).queue();
-					//wisconsinIndex = i;
-			         
-				
-				//if (crafty.getServerList().get(i).getID() == 6) {
-				//	midwestIndex = i;
-				//}
-			}
-		/*	
-			//Wisconsin status		
-			if (crafty.stackTrace.contains("MalformedURLException") || crafty.stackTrace.contains("IOException") || crafty.stackTrace.contains("JSONException")
-					|| crafty.stackTrace.contains("NoSuchAlgorithmException") || crafty.stackTrace.contains("KeyManagementException")) {
-				
-				EmbedBuilder emb = new EmbedBuilder();
-				emb.setColor(Color.BLUE);
-				emb.setTitle("There was an error retrieveing the server stats");
-				emb.addField("", test, false);
-				event.getChannel().sendMessage(emb.build()).queue();
-				
-		
-			}
 			else {
-				
 			
-				//Midwest status			
-				EmbedBuilder stats = new EmbedBuilder();
-				stats.setTitle("Midwest Build Server Status");
-				stats.setColor(Color.BLUE);
-				stats.addField("Server Status", crafty.getServerList(), false);
-				stats.addField("test", test, false);
-			//	stats.addField("CPU Usage", crafty.getServerList().get(wisconsinIndex).getCpuUsage() + "%", false);
-			//	stats.addField("Memory Usage", crafty.getServerList().get(wisconsinIndex).getMemUsage(), false);
-			//	stats.addField("Players Online", crafty.getServerList().get(wisconsinIndex).getPlayerList().toString(), false);
-				stats.addField("ID", String.valueOf(wisconsinIndex), false);
-				
-				
-				EmbedBuilder stats2 = new EmbedBuilder();
-			
-				stats2.setTitle("Wisconsin Build Server Status");
-				stats2.setColor(Color.BLUE);
-			//	stats.addField("Server Status", crafty.getServerList().get(midwestIndex).getStatus(), false);
-			//	stats.addField("CPU Usage", crafty.getServerList().get(midwestIndex).getCpuUsage() + "%", false);
-			//	stats.addField("Memory Usage", crafty.getServerList().get(midwestIndex).getMemUsage(), false);
-			//	stats.addField("Players Online", crafty.getServerList().get(midwestIndex).getPlayerList().toString(), false);
-				stats.addField("ID", String.valueOf(wisconsinIndex), false);
-				
-				event.getChannel().sendMessage(stats2.build()).queue();
-				event.getChannel().sendMessage(stats.build()).queue();
+				event.getChannel().sendMessage(serverList.get(1).toString()).queue();
 			}
-			*/
 		}
 		
 			

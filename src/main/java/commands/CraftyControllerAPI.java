@@ -109,7 +109,6 @@ public class CraftyControllerAPI {
 		StringBuilder json = new StringBuilder();
 		URL url;
 		HttpsURLConnection conn = null;
-		JsonArray jarray = null;
 
 		try {
 			fixUntrustCertificate();
@@ -140,10 +139,7 @@ public class CraftyControllerAPI {
 			}
 			in.close();	
 			
-			out = json.toString();  
-			
-			//serverList = data.toString();
-				
+			out = json.toString();  		
 			
 			
 		} catch (MalformedURLException e) {
