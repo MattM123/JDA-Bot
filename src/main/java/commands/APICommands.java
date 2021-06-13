@@ -106,6 +106,9 @@ public class APICommands extends ListenerAdapter {
 					if (serverList.getJSONObject(i).get("server_id").equals("2")) {
 						event.getChannel().sendMessage(serverList.getJSONObject(i).getString("server_running")).queue();
 					}
+					else {
+						event.getChannel().sendMessage("Not found").queue();
+					}
 				}
 				
 			}
