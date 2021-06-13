@@ -109,7 +109,6 @@ public class CraftyControllerAPI {
 		StringBuilder json = new StringBuilder();
 		URL url;
 		HttpsURLConnection conn = null;
-		JsonArray jarray = null;
 
 		try {
 			fixUntrustCertificate();
@@ -166,48 +165,39 @@ public class CraftyControllerAPI {
 	
 	
 	public String sendCommand(String command) {
-		String url;
-		HttpResponse resp = null;
-		HttpResponse response;
+		URL url;
+		StringBuilder response = null;
 
 		try {
 			fixUntrustCertificate();
-			url = "https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6";
-
-		    CloseableHttpClient client = HttpClients.createDefault();
+			url = new URL("https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "?id=2");
 
 		    //POST to be executed
-		    HttpPost post = new HttpPost("https://panel.<address>.com/api/v1/server/send_command?token=" + apikey + "&id=6");
+		    HttpURLConnection con = (HttpURLConnection)url.openConnection();
+		    con.setRequestMethod("POST");
+		    con.setRequestProperty("Content-Type", "application/json");
+		    con.setRequestProperty("Accept", "application/json");
+		    con.setDoOutput(true);
 
 
 		    //data to send in POST
-		    List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		    params.add(new BasicNameValuePair("command", command)); 
+		    String jsonInputString = "{command: " + command + "}";
 
-
-		    //Headers
-		    post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-		    post.setHeader("Accept", "text/html");
-		    post.setHeader("Host", "panel.<address>.com");
-		    post.setHeader("Content-Type", "multipart/form-data");
-
-		    //Entity to send
-		    post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-
-		    //POST execution
-		    response = client.execute(post);
-		    HttpEntity entity = response.getEntity();
-		    
-		    if (entity != null) {
-		    	InputStream instream = entity.getContent();
-		    	StringWriter writer = new StringWriter();
-		    	IOUtils.copy(instream, writer, "UTF-8");
-		    	stackTrace = writer.toString(); 
+		    //write to stream
+		    try(OutputStream os = con.getOutputStream()) {
+		        byte[] input = jsonInputString.getBytes("utf-8");
+		        os.write(input, 0, input.length);			
 		    }
-		    else {
-		    	stackTrace += " Null Response";
-		    }
-		    client.close();	
+
+		    //get response
+		    try(BufferedReader br = new BufferedReader(
+		    		  new InputStreamReader(con.getInputStream(), "utf-8"))) {
+		    		    response = new StringBuilder();
+		    		    String responseLine = null;
+		    		    while ((responseLine = br.readLine()) != null) {
+		    		        response.append(responseLine.trim());
+		    		    }	    		    
+		    		}
 
 					
 		} catch (MalformedURLException e) {
@@ -226,7 +216,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
 		}
-		return "Command sent to console: " + command;
+		return "Command sent to console: " + command + "\n" + response;
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
