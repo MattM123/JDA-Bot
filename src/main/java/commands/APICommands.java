@@ -98,12 +98,12 @@ public class APICommands extends ListenerAdapter {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("There was an error retrieveing the server stats");
-				emb.addField("", "", false);
+				emb.addField("", crafty.stackTrace, false);
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
 			
-				event.getChannel().sendMessage(serverList.get(1).toString()).queue();
+				event.getChannel().sendMessage(serverList.toString()).queue();
 			}
 		}
 		
