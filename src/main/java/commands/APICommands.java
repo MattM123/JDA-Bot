@@ -102,8 +102,12 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
-			
-				event.getChannel().sendMessage(serverList.toString().subSequence(0, 1000)).queue();
+				for (int i = 0; i < serverList.length(); i++) {
+					if (serverList.getJSONObject(i).get("server_id").equals("2")) {
+						event.getChannel().sendMessage(serverList.getJSONObject(i).getString("server_running")).queue();
+					}
+				}
+				
 			}
 		}
 		
