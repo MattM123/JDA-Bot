@@ -88,7 +88,8 @@ public class APICommands extends ListenerAdapter {
 			JSONObject obj = new JSONObject(crafty.getServerList()); 
 			JSONArray serverList = obj.getJSONArray("data");
 			
-			event.getChannel().sendMessage(serverList.getJSONObject(1).get("server_id").toString()).queue();
+			//server stat embeds
+			EmbedBuilder midwest = new EmbedBuilder();
 			
 		
 			//Tests API connection
@@ -103,10 +104,14 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
+				for (int i = 0; i < serverList.length(); i++) {
+					if (serverList.getJSONObject(1).get("server_id").toString().equals("2")) {
+						midwest.setTitle(serverList.getJSONObject(i).get("name").toString());
+					}
 					
-				
+					}
 				}
-							
+			event.getChannel().sendMessage(midwest.build()).queue();		
 		}
 		
 			
