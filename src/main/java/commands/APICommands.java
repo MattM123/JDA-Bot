@@ -113,16 +113,13 @@ public class APICommands extends ListenerAdapter {
 					else {
 						status = "Offline";
 					}
-					//players display
+					//player list display
 					String players = "";
 					if (serverList.getJSONObject(i).get("players").toString().equals("[]")) {
 						players = "No Players Online";
 					}
 					else {
-						players = serverList.getJSONObject(i).get("players").toString();
-						players.replaceAll("'", "");
-						players.replaceAll("[", "");
-						players.replaceAll("]", "");
+						players = serverList.getJSONObject(i).get("players").toString().substring(1, serverList.getJSONObject(i).get("players").toString().length() - 1).replaceAll("'", "");
 					}
 						
 						if (serverList.getJSONObject(i).get("server_id").toString().equals("2")) {
