@@ -153,7 +153,8 @@ public class APICommands extends ListenerAdapter {
 					
 					}
 				}
-			event.getChannel().sendMessage(midwest.build()).queue();		
+			event.getChannel().sendMessage(midwest.build()).queue();	
+			event.getChannel().sendMessage(corruptMidwest.build()).queue();
 		}
 		
 			
