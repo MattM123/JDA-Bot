@@ -91,6 +91,7 @@ public class APICommands extends ListenerAdapter {
 			//server stat embeds
 			EmbedBuilder midwest = new EmbedBuilder();
 			EmbedBuilder corruptMidwest = new EmbedBuilder();
+			EmbedBuilder wisconsin = new EmbedBuilder();
 			
 		
 			//Tests API connection
@@ -150,10 +151,25 @@ public class APICommands extends ListenerAdapter {
 								corruptMidwest.setColor(Color.red);
 							}
 						}
+						
+						if (serverList.getJSONObject(i).get("server_id").toString().equals("3")) {
+							wisconsin.setTitle(serverList.getJSONObject(i).get("name").toString());
+							wisconsin.addField("Status", status, false);
+							wisconsin.addField("Memory Usage", serverList.getJSONObject(i).get("memory_usage").toString(), false);
+							wisconsin.addField("CPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
+							wisconsin.addField("Players", players, false);
+							if (status.equals("Online")) {
+								wisconsin.setColor(Color.green);
+							}
+							else {
+								wisconsin.setColor(Color.red);
+							}
+						}
 					
 					}
 				}
 			event.getChannel().sendMessage(midwest.build()).queue();	
+			event.getChannel().sendMessage(wisconsin.build()).queue();
 			event.getChannel().sendMessage(corruptMidwest.build()).queue();
 		}
 		
