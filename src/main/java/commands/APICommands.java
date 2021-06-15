@@ -86,9 +86,9 @@ public class APICommands extends ListenerAdapter {
 		//Server stats from crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
 			JSONObject obj = new JSONObject(crafty.getServerList()); 
-			JSONArray jarr = obj.getJSONArray("data");
-			JSONObject serverList = (JSONObject) jarr.get(3);
-			event.getChannel().sendMessage(serverList.toString()).queue();
+			JSONArray serverList = obj.getJSONArray("data");
+			
+			event.getChannel().sendMessage(serverList.getJSONObject(1).toString()).queue();
 			
 		
 			//Tests API connection
