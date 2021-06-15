@@ -105,13 +105,26 @@ public class APICommands extends ListenerAdapter {
 			}
 			else {
 				for (int i = 0; i < serverList.length(); i++) {
-					if (serverList.getJSONObject(i).get("server_id").toString().equals("2")) {
-						midwest.setTitle(serverList.getJSONObject(i).get("name").toString());
-						midwest.addField("Status", serverList.getJSONObject(i).get("server_running").toString(), false);
-						midwest.addField("Memory Usage", serverList.getJSONObject(i).get("memory_usage").toString(), false);
-						midwest.addField("CPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
-						
+					//status display
+					String status = "";
+					if (serverList.getJSONObject(i).get("server_running").toString().equals("true")) {
+						status = "Online";
 					}
+					else {
+						status = "Offline";
+					}
+						if (serverList.getJSONObject(i).get("server_id").toString().equals("2")) {
+							midwest.setTitle(serverList.getJSONObject(i).get("name").toString());
+							midwest.addField("Status", status, false);
+							midwest.addField("Memory Usage", serverList.getJSONObject(i).get("memory_usage").toString(), false);
+							midwest.addField("CPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
+							if (status.equals("Online")) {
+								midwest.setColor(Color.green);
+							}
+							else {
+								midwest.setColor(Color.red);
+							}
+						}
 					
 					}
 				}
