@@ -90,6 +90,7 @@ public class APICommands extends ListenerAdapter {
 			
 			//server stat embeds
 			EmbedBuilder midwest = new EmbedBuilder();
+			EmbedBuilder corruptMidwest = new EmbedBuilder();
 			
 		
 			//Tests API connection
@@ -133,6 +134,20 @@ public class APICommands extends ListenerAdapter {
 							}
 							else {
 								midwest.setColor(Color.red);
+							}
+						}
+						
+						if (serverList.getJSONObject(i).get("server_id").toString().equals("4")) {
+							corruptMidwest.setTitle(serverList.getJSONObject(i).get("name").toString());
+							corruptMidwest.addField("Status", status, false);
+							corruptMidwest.addField("Memory Usage", serverList.getJSONObject(i).get("memory_usage").toString(), false);
+							corruptMidwest.addField("CPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
+							corruptMidwest.addField("Players", players, false);
+							if (status.equals("Online")) {
+								corruptMidwest.setColor(Color.green);
+							}
+							else {
+								corruptMidwest.setColor(Color.red);
 							}
 						}
 					
