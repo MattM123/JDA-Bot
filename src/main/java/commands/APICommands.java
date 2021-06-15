@@ -86,8 +86,9 @@ public class APICommands extends ListenerAdapter {
 		//Server stats from crafty
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
 			JSONObject obj = new JSONObject(crafty.getServerList()); 
-			JSONArray serverList = obj.getJSONArray("data");
-		
+			JSONArray jarr = obj.getJSONArray("data");
+			JSONObject serverList = (JSONObject) jarr.get(3);
+			event.getChannel().sendMessage(serverList.getString("server_running")).queue();
 			
 		
 			//Tests API connection
@@ -102,16 +103,10 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
-				for (int i = 0; i < serverList.length(); i++) {
-					if (serverList.getJSONObject(i).getString("server_id").equals("2")) {
-						event.getChannel().sendMessage(serverList.getJSONObject(i).getString("server_running")).queue();
-					}
-					else {
-						event.getChannel().sendMessage("Not found").queue();
-					}
-				}
+					
 				
-			}
+				}
+							
 		}
 		
 			
