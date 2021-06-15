@@ -119,7 +119,10 @@ public class APICommands extends ListenerAdapter {
 						players = "No Players Online";
 					}
 					else {
-						players = serverList.getJSONObject(i).get("players").toString().substring(1, serverList.getJSONObject(i).get("players").toString().length() - 1).replaceAll("'", "");
+						players = serverList.getJSONObject(i).get("players").toString();
+						players.replaceAll("'", "");
+						players.replaceAll("[", "");
+						players.replaceAll("]", "");
 					}
 						
 						if (serverList.getJSONObject(i).get("server_id").toString().equals("2")) {
