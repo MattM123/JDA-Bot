@@ -105,8 +105,12 @@ public class APICommands extends ListenerAdapter {
 			}
 			else {
 				for (int i = 0; i < serverList.length(); i++) {
-					if (serverList.getJSONObject(1).get("server_id").toString().equals("2")) {
+					if (serverList.getJSONObject(i).get("server_id").toString().equals("2")) {
 						midwest.setTitle(serverList.getJSONObject(i).get("name").toString());
+						midwest.addField("Status", serverList.getJSONObject(i).get("server_running").toString(), false);
+						midwest.addField("Memory Usage", serverList.getJSONObject(i).get("memory_usage").toString(), false);
+						midwest.addField("CPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
+						
 					}
 					
 					}
