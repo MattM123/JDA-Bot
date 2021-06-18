@@ -58,13 +58,16 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		//Tests if bot is working
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!ping")) {
-		    MessageChannel channel = event.getChannel();
-		     final long time = System.currentTimeMillis();
-		    RestAction<Message> action = channel.sendMessage("Pinging Discord API...");
-		     Consumer<Message> callback = (message) ->  {
-		        Message m = message; 
-		        m.editMessage("Ping took " + (System.currentTimeMillis() - time) + "ms to be ponged").queue();
+			final long time = System.currentTimeMillis();
+		    RestAction<Message> action = event.getChannel().sendMessage("Pinging Discord API...");
+		    Consumer<Message> callback = (message) ->  {
+		    	Message m = message; 	
+		        event.getChannel().sendMessage(message);
+		        m.editMessage("Ping took " + (System.currentTimeMillis() - time) + "ms to pong").queue();
 		      };
+		      action.queue();
+		    
+		      
 		}
 	}
 }
