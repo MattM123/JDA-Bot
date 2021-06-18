@@ -1,9 +1,14 @@
 package commands;
 
 import java.awt.Color;
+import java.util.function.Consumer;
+
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.RestAction;
 
 public class NonAPICommands extends ListenerAdapter {
 	   
@@ -15,7 +20,7 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.setColor(Color.blue);
 		embed.setTitle("Command Information");
 		embed.addField("***__Midwest Server Commands__***", "" ,false);
-		embed.addField("!server", "Displays the server status and resource usage.", false);
+		embed.addField("!server", "Displays server status and resource usage.", false);
 		embed.addField("!map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		embed.addField("!measure", "Measure tutorial derived from the BTE Support Bot", false);
 		embed.addField("!link <minecraft username>", "Automatically assigns build perms and Builder role if you are on the team", false);
@@ -51,9 +56,15 @@ public class NonAPICommands extends ListenerAdapter {
 			event.getChannel().sendMessage(embed1.build()).queue();
 		}
 		
-		//Tests if Discord API is working
+		//Tests if bot is working
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!ping")) {
-			event.getChannel().sendMessage("Pong!").queue();
+		    MessageChannel channel = event.getChannel();
+		     final long time = System.currentTimeMillis();
+		    RestAction<Message> action = channel.sendMessage("Pinging Discord API...");
+		     Consumer<Message> callback = (message) ->  {
+		        Message m = message; 
+		        m.editMessage("Ping took " + (System.currentTimeMillis() - time) + "ms to be ponged").queue();
+		      };
 		}
 	}
 }
