@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
@@ -57,14 +58,16 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		//Tests if bot is working
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!ping")) {
-			final long time = System.currentTimeMillis();
-		    RestAction<Message> action = event.getChannel().sendMessage("Pinging Discord API...");
+			MessageChannel channel = event.getChannel();
+		    final long time = System.currentTimeMillis();
+		    RestAction<Message> action = channel.sendMessage("Pinging Discord API...");
 		    Consumer<Message> callback = (message) ->  {
-		    	Message m = message; 	
-		        event.getChannel().sendMessage(message);
+		    	Message m = message;
 		        m.editMessage("Ping took " + (System.currentTimeMillis() - time) + "ms to pong").queue();
 		      };
-		      action.queue();
+
+		     action.queue(callback);
+		      
 		    
 		      
 		}
