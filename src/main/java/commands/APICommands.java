@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
@@ -477,9 +478,11 @@ public class APICommands extends ListenerAdapter {
 				e.printStackTrace();
 			}
 			
+			JSONObject obj = new JSONObject(jsonData);
+			String word = obj.get("word").toString();
 			
 			
-			event.getChannel().sendMessage(jsonData).queue();
+			event.getChannel().sendMessage(word).queue();
 		}
 	}
 		
