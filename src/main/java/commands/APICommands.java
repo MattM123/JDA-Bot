@@ -448,7 +448,7 @@ public class APICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!hangman")) {
-			event.getChannel().sendMessage(wordgen.getWord());
+			event.getChannel().sendMessage(wordgen.getWord()).queue();
 		}
 	}
 		
