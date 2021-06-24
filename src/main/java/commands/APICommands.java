@@ -482,12 +482,17 @@ public class APICommands extends ListenerAdapter {
 			String word = obj.getString("word");
 			
 			for (int i = 0; i < word.length(); i++) {
-				out += word.charAt(i);
+				if (word.charAt(i) == ' ') {
+					out += " ";
+				}
+				else {
+					out += word.charAt(i);
+				}
 			}
 				
 			
 			
-			event.getChannel().sendMessage(word).queue();
+			event.getChannel().sendMessage(out).queue();
 		}
 	}
 		
