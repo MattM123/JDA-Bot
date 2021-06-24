@@ -484,10 +484,10 @@ public class APICommands extends ListenerAdapter {
 			int marker = 1;
 			for (int i = 0; i < word.length(); i++) {
 				if (word.charAt(i) != ' ') {
-					hiddenWord.append("_");
+					hiddenWord.append(" _ ");
 				}
 				else {
-					hiddenWord.append(" ");
+					hiddenWord.append("  ");
 				}
 			}
 				
