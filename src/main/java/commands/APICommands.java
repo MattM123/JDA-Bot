@@ -470,7 +470,7 @@ public class APICommands extends ListenerAdapter {
 			
 			//------------Main message-------------------------------------------
 			int lives = 11;
-			String out = "";
+			StringBuilder out = new StringBuilder();
 			String jsonData = "";	
 			try {
 				jsonData = response.body().string();
@@ -483,10 +483,10 @@ public class APICommands extends ListenerAdapter {
 			
 			for (int i = 0; i < word.length(); i++) {
 				if (word.charAt(i) == ' ') {
-					out += " ";
+					out.append(" ");
 				}
 				else {
-					out += word.charAt(i);
+					out.append(word.charAt(i));
 				}
 			}
 				
