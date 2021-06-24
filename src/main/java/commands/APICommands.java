@@ -468,8 +468,9 @@ public class APICommands extends ListenerAdapter {
 				e.printStackTrace();
 			}
 			
-			//------------End of Authentication-------------------------------------------
+			//------------Main message-------------------------------------------
 			
+			String out = "";
 			String jsonData = "";	
 			try {
 				jsonData = response.body().string();
@@ -479,6 +480,11 @@ public class APICommands extends ListenerAdapter {
 			
 			JSONObject obj = new JSONObject(jsonData);
 			String word = obj.getString("word");
+			
+			for (int i = 0; i < word.length(); i++) {
+				out += word.charAt(i);
+			}
+				
 			
 			
 			event.getChannel().sendMessage(word).queue();
