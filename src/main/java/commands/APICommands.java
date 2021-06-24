@@ -455,6 +455,7 @@ public class APICommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!hangman")) {
 			OkHttpClient client = new OkHttpClient();
 			Response response = null;
+			String badreq = "";
 
 			Request request = new Request.Builder()
 				.url("https://wordsapiv1.p.rapidapi.com/words/?random=true")
@@ -466,40 +467,49 @@ public class APICommands extends ListenerAdapter {
 			try {
 				response = client.newCall(request).execute();
 			} catch (IOException e) {
-				e.printStackTrace();
+				badreq = "Bad Request";
 			}
 			
 			//------------Main message-------------------------------------------
-			EmbedBuilder hangman = new EmbedBuilder();
-			int lives = 10;
-			StringBuilder hiddenWord = new StringBuilder();
-			String jsonData = "";	
-			
-			JSONObject obj = new JSONObject(jsonData);
-			String word = obj.getString("word");
-			
-			try {
-				jsonData = response.body().string();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			
-			for (int i = 0; i < word.length(); i++) {
-				if (word.charAt(i) != ' ') {
-					hiddenWord.append("_");
+			if (!badreq.equals("Bad Request")) {
+				EmbedBuilder hangman = new EmbedBuilder();
+				int lives = 10;
+				StringBuilder hiddenWord = new StringBuilder();
+				String jsonData = "";	
+				
+				JSONObject obj = new JSONObject(jsonData);
+				String word = obj.getString("word");
+				
+				try {
+					jsonData = response.body().string();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-				else {
-					hiddenWord.append("  ");
+				
+	
+				for (int i = 0; i < word.length(); i++) {
+					if (word.charAt(i) != ' ') {
+						hiddenWord.append("_");
+					}
+					else {
+						hiddenWord.append("  ");
+					}
 				}
-			}
+			
 			hangman.setColor(Color.blue);
 			hangman.addField("Lives", String.valueOf(lives), false);
 			hangman.addField("Word", hiddenWord.toString(), false);
-				
-			
 			
 			event.getChannel().sendMessage(hangman.build()).queue();
+			}
+			else {
+				event.getChannel().sendMessage("Bad Request").queue();
+			}
+			
+			
+			
+			
+			
 		}
 	}
 		
