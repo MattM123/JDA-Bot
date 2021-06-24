@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import com.google.inject.spi.Message;
 import com.stanjg.ptero4j.PteroUserAPI;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
@@ -469,28 +470,32 @@ public class APICommands extends ListenerAdapter {
 			}
 			
 			//------------Main message-------------------------------------------
+			EmbedBuilder hangman = new EmbedBuilder();
 			int lives = 10;
 			StringBuilder hiddenWord = new StringBuilder();
 			String jsonData = "";	
+			
+			JSONObject obj = new JSONObject(jsonData);
+			String word = obj.getString("word");
+			
 			try {
 				jsonData = response.body().string();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
-			JSONObject obj = new JSONObject(jsonData);
-			String word = obj.getString("word");
 			
-			int marker = 1;
 			for (int i = 0; i < word.length(); i++) {
 				if (word.charAt(i) != ' ') {
 					hiddenWord.append("_");
-					hiddenWord.append(" ");
 				}
 				else {
 					hiddenWord.append("  ");
 				}
 			}
+			
+			hangman.addField("Lives", String.valueOf(lives), false);
+			hangman.addField("Word", hiddenWord.toString(), false);
 				
 			
 			
