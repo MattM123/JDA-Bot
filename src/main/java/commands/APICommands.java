@@ -491,7 +491,7 @@ public class APICommands extends ListenerAdapter {
 						hiddenWord.append("_");
 					}
 					else {
-						hiddenWord.append("  ");
+						hiddenWord.append(" ");
 					}
 				}
 			
