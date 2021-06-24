@@ -1,6 +1,7 @@
 package commands;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,9 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 public class APICommands extends ListenerAdapter {
@@ -448,7 +452,34 @@ public class APICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("!hangman")) {
-			event.getChannel().sendMessage(wordgen.getWord()).queue();
+			OkHttpClient client = new OkHttpClient();
+			Response response = null;
+
+			Request request = new Request.Builder()
+				.url("https://wordsapiv1.p.rapidapi.com/words/?random=true")
+				.get()
+				.addHeader("x-rapidapi-key", "c48982ebb1msh2d7538258cff917p115863jsn5851ee1dfaf2")
+				.addHeader("x-rapidapi-host", "wordsapiv1.p.rapidapi.com")
+				.build();
+
+			try {
+				response = client.newCall(request).execute();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			//------------End of Authentication-------------------------------------------
+			
+			String jsonData = "";	
+			try {
+				jsonData = response.body().string();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			event.getChannel().sendMessage(jsonData).queue();
 		}
 	}
 		
