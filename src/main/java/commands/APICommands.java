@@ -467,11 +467,10 @@ public class APICommands extends ListenerAdapter {
 			try {
 				response = client.newCall(request).execute();
 			} catch (IOException e) {
-				badreq = "Bad Request";
+				event.getChannel().sendMessage("Bad Request").queue();
 			}
 			
 			//------------Main message-------------------------------------------
-			if (!badreq.equals("Bad Request")) {
 				EmbedBuilder hangman = new EmbedBuilder();
 				int lives = 10;
 				StringBuilder hiddenWord = new StringBuilder();
@@ -502,15 +501,7 @@ public class APICommands extends ListenerAdapter {
 			
 			event.getChannel().sendMessage(hangman.build()).queue();
 			}
-			else {
-				event.getChannel().sendMessage("Bad Request").queue();
-			}
-			
-			
-			
-			
-			
-		}
+	
 	}
 		
 }	
