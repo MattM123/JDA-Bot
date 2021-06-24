@@ -1,6 +1,14 @@
 package commands;
 
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.CharBuffer;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
@@ -8,6 +16,7 @@ import org.apache.http.util.EntityUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class WordGenerator {
 
@@ -33,20 +42,30 @@ public class WordGenerator {
 	}
 	
 	public String getWord() {
-		StringBuilder resString = new StringBuilder();
-		byte[] byteArray;
+		StringBuilder resString = new StringBuilder();	
+		Reader charReader = null;
+		Writer charWriter = null;
+		CharBuffer charBuff = null;
+		ResponseBody body = response.body();
+		
 		try {
-			byteArray = response.body().bytes();
-			
-			for(int i = 0; i < byteArray.length; i++) {
-				resString.append(byteArray[i]);
-			}
-			
+			charBuff = CharBuffer.allocate(body.bytes().length);
+			charWriter = new FileWriter("/JDABot/src/main/java/commands/word.txt");
+			charReader = response.body().charStream();
+			charReader.transferTo(charWriter);
+			charWriter.write(charBuff.array());
+		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		response.body().close();
+
+		for (int i = 0; i < charBuff.capacity(); i++) {
+			resString.append(charBuff.array()[i]);
+		}
 		
+		response.close();
 		return resString.toString();
 
 	}
