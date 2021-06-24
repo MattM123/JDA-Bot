@@ -469,7 +469,7 @@ public class APICommands extends ListenerAdapter {
 			}
 			
 			//------------Main message-------------------------------------------
-			int lives = 11;
+			int lives = 10;
 			StringBuilder out = new StringBuilder();
 			String jsonData = "";	
 			try {
@@ -486,7 +486,7 @@ public class APICommands extends ListenerAdapter {
 					out.append(" ");
 				}
 				else {
-					out.append(word.charAt(i));
+					out.append("_");
 				}
 			}
 				
