@@ -493,13 +493,13 @@ public class APICommands extends ListenerAdapter {
 					hiddenWord.append("  ");
 				}
 			}
-			
+			hangman.setColor(Color.blue);
 			hangman.addField("Lives", String.valueOf(lives), false);
 			hangman.addField("Word", hiddenWord.toString(), false);
 				
 			
 			
-			event.getChannel().sendMessage("Lives: " + String.valueOf(lives) + "\n" + "Shown: " + word + "\nHidden: " + hiddenWord.toString()).queue();
+			event.getChannel().sendMessage(hangman.build()).queue();
 		}
 	}
 		
