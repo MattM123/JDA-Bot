@@ -23,6 +23,7 @@ public class APICommands extends ListenerAdapter {
 
 	private CraftyControllerAPI crafty = new CraftyControllerAPI("XSRLSD2EHEI06MUZCY0UC5ET7FVZFBUE");
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
+	private WordGenerator wordgen = new WordGenerator();
 	    
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -444,6 +445,10 @@ public class APICommands extends ListenerAdapter {
 				
 				event.getChannel().sendMessage(noperm.build()).queue();
 			}
+		}
+		
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("!hangman")) {
+			event.getChannel().sendMessage(wordgen.getWord());
 		}
 	}
 		
