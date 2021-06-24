@@ -483,7 +483,7 @@ public class APICommands extends ListenerAdapter {
 			
 			for (int i = 0; i < word.length(); i++) {
 				if (word.charAt(i) == ' ') {
-					out.append("  ");
+					out.append(' ');
 				}
 				else {
 					out.append('_');
