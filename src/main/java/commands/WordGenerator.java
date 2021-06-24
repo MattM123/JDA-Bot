@@ -42,30 +42,40 @@ public class WordGenerator {
 	}
 	
 	public String getWord() {
-		StringBuilder resString = new StringBuilder();	
-		Reader charReader = null;
+		String resString = "";	
+	
+	/*	Reader charReader = null;
 		Writer charWriter = null;
 		CharBuffer charBuff = null;
 		ResponseBody body = response.body();
 		
 		try {
-			charBuff = CharBuffer.allocate(body.bytes().length);
-			charWriter = new FileWriter("/JDABot/src/main/java/commands/word.txt");
-			charReader = response.body().charStream();
-			charReader.transferTo(charWriter);
-			charWriter.write(charBuff.array());
+			charBuff = CharBuffer.allocate(body.bytes().length); //allocates char buffer
+			charBuffer.
+			charWriter = new FileWriter("/JDABot/src/main/java/commands/word.txt");  //defines file writer
+			charReader = response.body().charStream(); //reads json from response
+			charWriter.write(charBuff.array(), 0, body.bytes().length);//writes response to the char buffer
+			charReader.
+			
 		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		response.body().close();
+		
 
 		for (int i = 0; i < charBuff.capacity(); i++) {
 			resString.append(charBuff.array()[i]);
 		}
-		
-		response.close();
+	
+	*/
+		try {
+			resString = response.body().string();
+		} catch (IOException e) {
+			stackTrace = "Bad Request";
+		}
+
 		return resString.toString();
 
 	}
