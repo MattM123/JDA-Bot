@@ -2,6 +2,9 @@ package commands;
 
 import java.io.IOException;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.util.EntityUtils;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -9,8 +12,9 @@ import okhttp3.Response;
 public class WordGenerator {
 
 	private Response response;
-	private String stackTrace = "";
+	public String stackTrace = "";
 	
+	//Constructor that authenticates to word generator API
 	public WordGenerator() {
 		OkHttpClient client = new OkHttpClient();
 
@@ -29,6 +33,21 @@ public class WordGenerator {
 	}
 	
 	public String getWord() {
-		return response.body().toString();
+		StringBuilder resString = new StringBuilder();
+		byte[] byteArray;
+		try {
+			byteArray = response.body().bytes();
+			
+			for(int i = 0; i < byteArray.length; i++) {
+				resString.append(byteArray[i]);
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return resString.toString();
+
 	}
 }
