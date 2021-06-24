@@ -29,6 +29,6 @@ public class WordGenerator {
 	}
 	
 	public String getWord() {
-		return response.toString();
+		return response.body().toString();
 	}
 }
