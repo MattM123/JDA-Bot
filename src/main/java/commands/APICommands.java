@@ -469,7 +469,7 @@ public class APICommands extends ListenerAdapter {
 			}
 			
 			//------------Main message-------------------------------------------
-			
+			int lives = 11;
 			String out = "";
 			String jsonData = "";	
 			try {
@@ -492,7 +492,7 @@ public class APICommands extends ListenerAdapter {
 				
 			
 			
-			event.getChannel().sendMessage(out).queue();
+			event.getChannel().sendMessage("Lives: " + String.valueOf(lives) + "\n" + out).queue();
 		}
 	}
 		
