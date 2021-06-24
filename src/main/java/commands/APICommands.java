@@ -470,7 +470,7 @@ public class APICommands extends ListenerAdapter {
 			
 			//------------Main message-------------------------------------------
 			int lives = 10;
-			StringBuilder out = new StringBuilder();
+			StringBuilder hiddenWord = new StringBuilder();
 			String jsonData = "";	
 			try {
 				jsonData = response.body().string();
@@ -481,18 +481,19 @@ public class APICommands extends ListenerAdapter {
 			JSONObject obj = new JSONObject(jsonData);
 			String word = obj.getString("word");
 			
+			int marker = 1;
 			for (int i = 0; i < word.length(); i++) {
-				if (word.charAt(i) == ' ') {
-					out.append(' ');
+				if (word.charAt(i) != ' ') {
+					hiddenWord.append("_");
 				}
 				else {
-					out.append('_');
+					hiddenWord.append(" ");
 				}
 			}
 				
 			
 			
-			event.getChannel().sendMessage("Lives: " + String.valueOf(lives) + "\n" + out).queue();
+			event.getChannel().sendMessage("Lives: " + String.valueOf(lives) + "\n" + "Shown: " + word + "\nHidden: " + hiddenWord.toString()).queue();
 		}
 	}
 		
