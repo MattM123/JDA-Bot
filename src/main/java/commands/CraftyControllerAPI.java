@@ -194,7 +194,7 @@ public class CraftyControllerAPI {
 		    //Headers
 		    post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
 		    post.setHeader("Accept", "text/html");
-		    post.setHeader("Host", "panel.<address>.com");
+		    post.setHeader("Host", "panel.richterent.com");
 		    post.setHeader("Content-Type", "multipart/form-data");
 
 		    //Entity to send
