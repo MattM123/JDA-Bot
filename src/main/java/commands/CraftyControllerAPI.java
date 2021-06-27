@@ -165,7 +165,7 @@ public class CraftyControllerAPI {
 		return out;
 	}
 	
-	public HttpResponse postWithFormData(String url, List<? extends org.apache.http.NameValuePair> params) throws IOException {
+	public HttpResponse postWithFormData(String url, List<BasicNameValuePair> params) throws IOException {
 		RequestConfig.Builder requestBuilder = RequestConfig.custom();
 		requestBuilder = requestBuilder.setConnectTimeout(100);
 		requestBuilder = requestBuilder.setConnectionRequestTimeout(100);
@@ -181,6 +181,7 @@ public class CraftyControllerAPI {
 	
 	public String sendCommand(String command) {
 		String url;
+		HttpResponse resp = null;
 		String responseString = "";
 
 		try {
@@ -198,12 +199,11 @@ public class CraftyControllerAPI {
 			
 
 		// add any number of form data
-		 List<NameValuePair> params = new ArrayList<NameValuePair>();
-		    params.add(new NameValuePair("command", command)); 
+		 List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		    params.add(new BasicNameValuePair("command", command)); 
 
 		// Getting the HTTP Response and processing it
-		@SuppressWarnings("unchecked")
-		HttpResponse response = postWithFormData(url, (List<? extends org.apache.http.NameValuePair>) params);
+		HttpResponse response = postWithFormData(url, params);
 		HttpEntity entity = response.getEntity();
 		// String of the response
 		responseString = EntityUtils.toString(entity);
