@@ -198,8 +198,9 @@ public class APICommands extends ListenerAdapter {
 				emb.setColor(Color.BLUE);
 				emb.setTitle(crafty.sendCommand(command));
 				event.getChannel().sendMessage(emb.build()).queue();
-				event.getChannel().sendMessage("Stack Trace: " + crafty.stackTrace).queue();
+				
 			}
+			event.getChannel().sendMessage("Stack Trace: " + crafty.stackTrace).queue();
 			
 		}
 //-----------------------------------------------------------------------------------------------------------------------------
