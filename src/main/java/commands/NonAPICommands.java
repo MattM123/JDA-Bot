@@ -63,7 +63,7 @@ public class NonAPICommands extends ListenerAdapter {
 		    RestAction<Message> action = channel.sendMessage("Pinging Discord API...");
 		    Consumer<Message> callback = (message) ->  {
 		    	Message m = message;
-		        m.editMessage("Discord API Response Time:" + (System.currentTimeMillis() - time) + "ms").queue();
+		        m.editMessage("Discord API Response Time: " + (System.currentTimeMillis() - time) + "ms").queue();
 		      };
 		      
 		     action.queue(callback);

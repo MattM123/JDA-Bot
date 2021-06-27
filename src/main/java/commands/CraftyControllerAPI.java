@@ -179,6 +179,7 @@ public class CraftyControllerAPI {
         post.setEntity(new UrlEncodedFormEntity(params));
         
         return ((org.apache.http.client.HttpClient) httpClient).execute(post);
+     
     }
 	
 	public String sendCommand(String command) {
@@ -212,6 +213,7 @@ public class CraftyControllerAPI {
 		// JSON of the response (use this only if the response is a JSON)
 		JSONObject responseObject = new JSONObject(responseString);
 		stackTrace = responseString;
+		
 		/*		
 		    CloseableHttpClient client = HttpClients.createDefault();
 
