@@ -184,6 +184,7 @@ public class APICommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().startsWith("=test")) {
 			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
 			event.getChannel().sendMessage(command).queue();
+			event.getChannel().sendMessage(crafty.stackTrace).queue();
 			
 			if (!crafty.stackTrace.equals("")) {		
 				EmbedBuilder emb = new EmbedBuilder();
