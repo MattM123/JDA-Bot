@@ -209,6 +209,7 @@ public class CraftyControllerAPI {
 		responseString = EntityUtils.toString(entity);
 		// JSON of the response (use this only if the response is a JSON)
 		JSONObject responseObject = new JSONObject(responseString);
+		stackTrace = responseString;
 		/*		
 		    CloseableHttpClient client = HttpClients.createDefault();
 
