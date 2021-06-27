@@ -179,7 +179,7 @@ public class APICommands extends ListenerAdapter {
 			event.getChannel().sendMessage(corruptMidwest.build()).queue();
 		}
 		
-			
+//----------------------------------------------------------------------------------------------------------------------------			
 		//Send command to console crafty
 		if (event.getMessage().getContentRaw().startsWith("!test")) {
 					
@@ -198,7 +198,7 @@ public class APICommands extends ListenerAdapter {
 				emb.setColor(Color.BLUE);
 				emb.setTitle(crafty.sendCommand(command));
 				event.getChannel().sendMessage(emb.build()).queue();
-				event.getChannel().sendMessage(crafty.stackTrace).queue();
+				event.getChannel().sendMessage("Stack Trace: " + crafty.stackTrace).queue();
 			}
 			
 		}
