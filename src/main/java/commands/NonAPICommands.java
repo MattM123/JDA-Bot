@@ -20,13 +20,13 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.setColor(Color.blue);
 		embed.setTitle("Command Information");
 		embed.addField("***__Midwest Server Commands__***", "" ,false);
-		embed.addField("!server", "Displays server status and resource usage.", false);
-		embed.addField("!map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
-		embed.addField("!measure", "Measure tutorial derived from the BTE Support Bot", false);
-		embed.addField("!link <minecraft username>", "Automatically assigns build perms and Builder role if you are on the team", false);
-		embed.addField("!applicant <minecraft username>", "Requires permissions to assign 'ApplicationInProgress' rank", false);
-		embed.addField("!event <minecraft username>", "Requires permissions to assign 'Event' rank", false);
-		embed.addField("!getapp -<DiscordID> -<number of app>", "Requires permissions to view players applications", false);
+		embed.addField("=server", "Displays server status and resource usage.", false);
+		embed.addField("=map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
+		embed.addField("=measure", "Measure tutorial derived from the BTE Support Bot", false);
+		embed.addField("=link <minecraft username>", "Automatically assigns build perms and Builder role if you are on the team", false);
+		embed.addField("=applicant <minecraft username>", "Requires permissions to assign 'ApplicationInProgress' rank", false);
+		embed.addField("=event <minecraft username>", "Requires permissions to assign 'Event' rank", false);
+		embed.addField("=getapp -<DiscordID> -<number of app>", "Requires permissions to view players applications", false);
 
 		
 		
@@ -37,12 +37,12 @@ public class NonAPICommands extends ListenerAdapter {
 		embed1.setImage("https://cdn.discordapp.com/attachments/735998501053530163/808887801432768552/path3233-86.png");
 		
 		//returns list of commands used by bot
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!commands")) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("=help")) {
 			event.getChannel().sendMessage(embed.build()).queue();
 		}
 		
 		//returns measure gif from BTE bot
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!measure")) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("=measure")) {
 			EmbedBuilder measure = new EmbedBuilder();
 			measure.setColor(Color.blue);
 			measure.setTitle("Google Earth Pro Measuring Tutotrial");
@@ -52,12 +52,12 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		//returns map image of states
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!map")) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("=map")) {
 			event.getChannel().sendMessage(embed1.build()).queue();
 		}
 		
 		//Pings Discord API
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!ping")) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("=ping")) {
 			MessageChannel channel = event.getChannel();
 		    final long time = System.currentTimeMillis();
 		    RestAction<Message> action = channel.sendMessage("Pinging Discord API...");

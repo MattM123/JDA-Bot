@@ -39,7 +39,7 @@ public class APICommands extends ListenerAdapter {
 		 ArrayList<Member> stateLeaders = (ArrayList<Member>) guild.getMembersWithRoles(leader);
 		
 		//event builder assign
-		if (event.getMessage().getContentRaw().startsWith("!event")) {
+		if (event.getMessage().getContentRaw().startsWith("=event")) {
 			if (stateLeaders.contains(event.getMessage().getMember())) {
 				
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
@@ -62,9 +62,9 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 		}
-		
+//-------------------------------------------------------------------------------------------------------------		
 		//Applicant builder assign
-		if (event.getMessage().getContentRaw().startsWith("!applicant")) {
+		if (event.getMessage().getContentRaw().startsWith("=applicant")) {
 			if (stateLeaders.contains(event.getMessage().getMember())) {
 				
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
@@ -88,9 +88,9 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 		}
-		
+//--------------------------------------------------------------------------------------------------------
 		//Server stats from crafty
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!server")) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
 			JSONObject obj = new JSONObject(crafty.getServerList()); 
 			JSONArray serverList = obj.getJSONArray("data");
 			
@@ -181,7 +181,7 @@ public class APICommands extends ListenerAdapter {
 		
 //----------------------------------------------------------------------------------------------------------------------------			
 		//Send command to console crafty
-		if (event.getMessage().getContentRaw().startsWith("!test")) {
+		if (event.getMessage().getContentRaw().startsWith("=test")) {
 			crafty.sendCommand("ping");
 			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
 			
@@ -204,7 +204,7 @@ public class APICommands extends ListenerAdapter {
 		}
 //-----------------------------------------------------------------------------------------------------------------------------
 		//give build perms based on presence on build team
-		if (event.getMessage().getContentRaw().startsWith("!link")) {		
+		if (event.getMessage().getContentRaw().startsWith("=link")) {		
 			
 			//Parses minecraft username for later use
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
@@ -369,9 +369,9 @@ public class APICommands extends ListenerAdapter {
 						}
 					}
 		}
-		
+//-------------------------------------------------------------------------------------------------------------------------------------------	
 		//Retrieves an application of user given a discord ID and an integer representing which application in the list to return
-		if (event.getMessage().getContentRaw().startsWith("!getapp")) { 
+		if (event.getMessage().getContentRaw().startsWith("=getapp")) { 
 			if (stateLeaders.contains(event.getMessage().getMember())) {
 				String message = event.getMessage().getContentRaw();
 				
@@ -452,8 +452,9 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(noperm.build()).queue();
 			}
 		}
-		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("!hangman")) {
+
+//-----------------------------------------------------------------------------------------------------------------------
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("=hangman")) {
 			OkHttpClient client = new OkHttpClient();
 			Response response = null;
 			String badreq = "";
