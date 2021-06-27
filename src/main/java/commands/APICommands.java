@@ -182,7 +182,6 @@ public class APICommands extends ListenerAdapter {
 //----------------------------------------------------------------------------------------------------------------------------			
 		//Send command to console crafty
 		if (event.getMessage().getContentRaw().startsWith("=test")) {
-			crafty.sendCommand("ping");
 			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
 			event.getChannel().sendMessage(command).queue();
 			
