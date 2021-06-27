@@ -185,14 +185,12 @@ public class APICommands extends ListenerAdapter {
 					
 			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
 			
-			if (!crafty.stackTrace.equals("")) {
-				
-				event.getChannel().sendMessage("Stack Trace: " + crafty.stackTrace.substring(0, 500)).queue();
-			//	EmbedBuilder emb = new EmbedBuilder();
-			//	emb.setColor(Color.BLUE);
-			//	emb.setTitle("An error occured while sending the console command");
-			//	emb.addField("", crafty.stackTrace.substring(0, 500), false);
-			//	event.getChannel().sendMessage(emb.build()).queue();
+			if (!crafty.stackTrace.equals("")) {		
+				EmbedBuilder emb = new EmbedBuilder();
+				emb.setColor(Color.BLUE);
+				emb.setTitle("An error occured while sending the console command");
+				emb.addField("", crafty.stackTrace.substring(0, 500), false);
+				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
 				EmbedBuilder emb = new EmbedBuilder();

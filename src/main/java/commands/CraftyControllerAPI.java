@@ -39,16 +39,19 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -162,14 +165,27 @@ public class CraftyControllerAPI {
 		return out;
 	}
 	
+	public HttpResponse postWithFormData(String url, List<? extends org.apache.http.NameValuePair> params) throws IOException {
+		RequestConfig.Builder requestBuilder = RequestConfig.custom();
+		requestBuilder = requestBuilder.setConnectTimeout(100);
+		requestBuilder = requestBuilder.setConnectionRequestTimeout(100);
+		
+        // building http client
+        HttpClientBuilder httpClient = HttpClientBuilder.create();
+        HttpPost request = new HttpPost(url);
+
+        // adding the form data
+        request.setEntity(new UrlEncodedFormEntity(params));
+        return ((org.apache.http.client.HttpClient) httpClient).execute(request);
+    }
 	
 	public String sendCommand(String command) {
 		String url;
-		HttpResponse resp = null;
+		String responseString = "";
 
 		try {
 			fixUntrustCertificate();
-		//	url = "https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6";
+			url = "https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6";
 	
 		//	HttpClient client = new HttpClient();
 		//	HttpPost request = new HttpPost(url);
@@ -179,7 +195,21 @@ public class CraftyControllerAPI {
 
 		//	request.setEntity(new UrlEncodedFormEntity(pairs ));
 		//	resp = ((org.apache.http.client.HttpClient) client).execute(request);
-				
+			
+
+		// add any number of form data
+		 List<NameValuePair> params = new ArrayList<NameValuePair>();
+		    params.add(new NameValuePair("command", command)); 
+
+		// Getting the HTTP Response and processing it
+		@SuppressWarnings("unchecked")
+		HttpResponse response = postWithFormData(url, (List<? extends org.apache.http.NameValuePair>) params);
+		HttpEntity entity = response.getEntity();
+		// String of the response
+		responseString = EntityUtils.toString(entity);
+		// JSON of the response (use this only if the response is a JSON)
+		JSONObject responseObject = new JSONObject(responseString);
+		/*		
 		    CloseableHttpClient client = HttpClients.createDefault();
 
 		    //POST to be executed
@@ -189,6 +219,7 @@ public class CraftyControllerAPI {
 		    //data to send in POST
 		    List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		    params.add(new BasicNameValuePair("command", command)); 
+		    
 
 
 		    //Headers
@@ -214,7 +245,7 @@ public class CraftyControllerAPI {
 		    	stackTrace += "Null Response";
 		    }
 		    client.close();	
-
+*/
 					
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
@@ -232,7 +263,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
 		}
-		return "Command sent to console: " + command;
+		return "Command sent to console: " + command + responseString;
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'
