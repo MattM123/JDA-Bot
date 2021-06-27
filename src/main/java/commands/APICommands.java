@@ -196,7 +196,8 @@ public class APICommands extends ListenerAdapter {
 			else {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
-				emb.addField("output", crafty.sendCommand(command), false);
+				emb.setTitle("Output");
+				emb.addField("Output", crafty.sendCommand(command), false);
 				event.getChannel().sendMessage(emb.build()).queue();
 				
 			}
