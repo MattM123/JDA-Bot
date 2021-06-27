@@ -198,10 +198,11 @@ public class APICommands extends ListenerAdapter {
 				emb.setColor(Color.BLUE);
 				emb.setTitle(crafty.sendCommand(command));
 				event.getChannel().sendMessage(emb.build()).queue();
+				event.getChannel().sendMessage(crafty.stackTrace).queue();
 			}
 			
 		}
-
+//-----------------------------------------------------------------------------------------------------------------------------
 		//give build perms based on presence on build team
 		if (event.getMessage().getContentRaw().startsWith("!link")) {		
 			

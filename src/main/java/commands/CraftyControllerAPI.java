@@ -169,17 +169,17 @@ public class CraftyControllerAPI {
 
 		try {
 			fixUntrustCertificate();
-			url = "https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6";
+		//	url = "https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=6";
 	
-			HttpClient client = new HttpClient();
-			HttpPost request = new HttpPost(url);
+		//	HttpClient client = new HttpClient();
+		//	HttpPost request = new HttpPost(url);
 
-			List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
-			pairs.add(new BasicNameValuePair("command", command));
+		//	List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
+		//	pairs.add(new BasicNameValuePair("command", command));
 
-			request.setEntity(new UrlEncodedFormEntity(pairs ));
-			resp = ((org.apache.http.client.HttpClient) client).execute(request);
-			/*	
+		//	request.setEntity(new UrlEncodedFormEntity(pairs ));
+		//	resp = ((org.apache.http.client.HttpClient) client).execute(request);
+				
 		    CloseableHttpClient client = HttpClients.createDefault();
 
 		    //POST to be executed
@@ -201,8 +201,8 @@ public class CraftyControllerAPI {
 		    post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 		    //POST execution
-		    response = client.execute(post);
-		    HttpEntity entity = response.getEntity();
+		    resp = client.execute(post);
+		    HttpEntity entity = resp.getEntity();
 		    
 		    if (entity != null) {
 		    	InputStream instream = entity.getContent();
@@ -211,10 +211,10 @@ public class CraftyControllerAPI {
 		    	stackTrace = writer.toString(); 
 		    }
 		    else {
-		    	stackTrace += " Null Response";
+		    	stackTrace += "Null Response";
 		    }
 		    client.close();	
-*/
+
 					
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
