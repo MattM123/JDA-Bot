@@ -203,6 +203,7 @@ public class CraftyControllerAPI {
 					  .build();
 					response = client.newCall(request).execute();
 					responseString += response.body().string();
+					fixUntrustCertificate();
 					
 			if (responseString.isEmpty()) {
 				responseString = "successful execution";
