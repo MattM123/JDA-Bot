@@ -41,7 +41,7 @@ public class CraftyControllerAPI {
 	}
 
 	private void trustCert() {	
-		final String CA_FILE = "ca-cert.pem";
+		final String CA_FILE = "serverCert.cer";
 	
 		try {
 		FileInputStream fis = new FileInputStream(CA_FILE);
