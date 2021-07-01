@@ -74,35 +74,41 @@ public class CraftyControllerAPI {
 		apikey = api;
 	}
 	
-	public void fixUntrustCertificate() throws KeyManagementException, NoSuchAlgorithmException{
-        TrustManager[] trustAllCerts = new TrustManager[]{
-            new X509TrustManager() {
-                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                    return null;
-                }
+	private static void disableSslVerification() {
+	    try
+	    {
+	        // Create a trust manager that does not validate certificate chains
+	        TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
+	            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+	                return null;
+	            }
+	            public void checkClientTrusted(X509Certificate[] certs, String authType) {
+	            }
+	            public void checkServerTrusted(X509Certificate[] certs, String authType) {
+	            }
+	        }
+	        };
 
-                public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                }
+	        // Install the all-trusting trust manager
+	        SSLContext sc = SSLContext.getInstance("SSL");
+	        sc.init(null, trustAllCerts, new java.security.SecureRandom());
+	        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 
-                public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                }
+	        // Create all-trusting host name verifier
+	        HostnameVerifier allHostsValid = new HostnameVerifier() {
+	            public boolean verify(String hostname, SSLSession session) {
+	                return true;
+	            }
+	        };
 
-            }
-        };
-
-        SSLContext sc = SSLContext.getInstance("SSL");
-        sc.init(null, trustAllCerts, new java.security.SecureRandom());
-        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-
-        HostnameVerifier allHostsValid = new HostnameVerifier() {
-            public boolean verify(String hostname, SSLSession session) {
-                return true;
-            }
-        };
-
-        // set the  allTrusting verifier
-        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-}
+	        // Install the all-trusting host verifier
+	        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+	    } catch (NoSuchAlgorithmException e) {
+	        e.printStackTrace();
+	    } catch (KeyManagementException e) {
+	        e.printStackTrace();
+	    }
+	}
 	
 	//returns the list of servers and their stats
 	public String getServerList() {
@@ -114,7 +120,7 @@ public class CraftyControllerAPI {
 		HttpsURLConnection conn = null;
 
 		try {
-			fixUntrustCertificate();
+			disableSslVerification();
 			url = new URL("https://panel.richterent.com/api/v1/server_stats?token=" + apikey);
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
@@ -154,12 +160,6 @@ public class CraftyControllerAPI {
 		} catch (JSONException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
-		} catch (NoSuchAlgorithmException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack;
-		} catch (KeyManagementException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack;
 		}
 		
 		return out;
@@ -171,7 +171,7 @@ public class CraftyControllerAPI {
 		String responseString = "";
 
 		try {
-			fixUntrustCertificate();
+			disableSslVerification();
 			url = "https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=2";
 	
 			OkHttpClient client = new OkHttpClient().newBuilder()
@@ -186,7 +186,6 @@ public class CraftyControllerAPI {
 					  .build();
 					response = client.newCall(request).execute();
 					responseString += response.body().string();
-					fixUntrustCertificate();
 					
 					
 		} catch (MalformedURLException e) {
@@ -196,12 +195,6 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
 		} catch (JSONException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack;
-		} catch (NoSuchAlgorithmException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack;
-		} catch (KeyManagementException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
 		}
