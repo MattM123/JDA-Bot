@@ -20,6 +20,10 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.json.JSONException;
 import okhttp3.MultipartBody;
@@ -35,38 +39,32 @@ public class CraftyControllerAPI {
 	public String certTrace = "No errors";
 	
 	public CraftyControllerAPI(String api) {
-		apikey = api;
-		
-	
-		FileInputStream in = null;
-		try {
-			in = new FileInputStream(new File("serverCert.cer"));
-		
-				  
-			
-			 
-		CertificateFactory certificateFactory = CertificateFactory.getInstance("X509");
-		Certificate cert = certificateFactory.generateCertificate(in);
-		
-
-		 
-		KeyStore ks = KeyStore.getInstance("JKS");
-		KeyStore.Entry newEntry = new KeyStore.TrustedCertificateEntry(cert);
-		ks.setEntry("validateController", newEntry, null);
-		
-		} catch (FileNotFoundException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			certTrace = stack;
-		} catch (CertificateException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			certTrace = stack;
-		} catch (KeyStoreException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			certTrace = stack;
-		}
-		
+		apikey = api;	
 	}
 	
+
+	private void trustCerts() {
+	TrustManager[] trustAllCerts = new TrustManager[]{
+			new X509TrustManager() {
+			    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+			        return null;
+			    }
+			    public void checkClientTrusted(
+			        java.security.cert.X509Certificate[] certs, String authType) {
+			    }
+			    public void checkServerTrusted(
+			        java.security.cert.X509Certificate[] certs, String authType) {
+			    }
+			}};
+
+			   try {
+			    SSLContext sc = SSLContext.getInstance("SSL");
+			    sc.init(null, trustAllCerts, new java.security.SecureRandom());
+			    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+			    } catch (Exception e) {
+			    }
+	}
+			   
 	//returns the list of servers and their stats
 	public String getServerList() {
 		String line;
@@ -79,6 +77,7 @@ public class CraftyControllerAPI {
 		
 
 		try {
+			trustCerts();
 			url = new URL("https://panel.richterent.com/api/v1/server_stats?token=" + apikey);
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
@@ -129,6 +128,7 @@ public class CraftyControllerAPI {
 		String responseString = "";
 
 		try {
+			trustCerts();
 			url = "https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=2";
 	
 			OkHttpClient client = new OkHttpClient().newBuilder()
