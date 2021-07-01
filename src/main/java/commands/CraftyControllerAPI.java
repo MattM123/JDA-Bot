@@ -41,7 +41,7 @@ public class CraftyControllerAPI {
 	}
 
 	private void trustCert() {	
-		final String CA_FILE = "/JDABot/src/main/java/commands/serverCert.cer";
+		final String CA_FILE = "JDABot/src/main/java/commands/serverCert.cer";
 	
 		try {
 		FileInputStream fis = new FileInputStream(CA_FILE);
