@@ -181,7 +181,7 @@ public class APICommands extends ListenerAdapter {
 		
 //----------------------------------------------------------------------------------------------------------------------------			
 		//Send command to console crafty
-		if (event.getMessage().getContentRaw().startsWith("=test")) {
+		if (event.getMessage().getContentRaw().startsWith("=console")) {
 			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
 			event.getChannel().sendMessage(command).queue();
 			

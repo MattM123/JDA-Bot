@@ -203,7 +203,7 @@ public class CraftyControllerAPI {
 					  .build();
 					response = client.newCall(request).execute();
 					responseString = response.body().string();
-					
+					fixUntrustCertificate();
 					
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
