@@ -1,10 +1,24 @@
 package commands;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.PublicKey;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+
 import javax.net.ssl.HttpsURLConnection;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.json.JSONException;
@@ -22,6 +36,35 @@ public class CraftyControllerAPI {
 	
 	public CraftyControllerAPI(String api) {
 		apikey = api;
+		
+	
+		FileInputStream in = null;
+		try {
+			in = new FileInputStream(new File("serverCert.cer"));
+		
+				  
+			
+			 
+		CertificateFactory certificateFactory = CertificateFactory.getInstance("X509");
+		Certificate cert = certificateFactory.generateCertificate(in);
+		
+
+		 
+		KeyStore ks = KeyStore.getInstance("JKS");
+		KeyStore.Entry newEntry = new KeyStore.TrustedCertificateEntry(cert);
+		ks.setEntry("validateController", newEntry, null);
+		
+		} catch (FileNotFoundException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			certTrace = stack;
+		} catch (CertificateException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			certTrace = stack;
+		} catch (KeyStoreException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			certTrace = stack;
+		}
+		
 	}
 	
 	//returns the list of servers and their stats
