@@ -1,10 +1,25 @@
 package commands;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+
 import javax.net.ssl.HttpsURLConnection;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.json.JSONException;
@@ -21,6 +36,43 @@ public class CraftyControllerAPI {
 	
 	public CraftyControllerAPI(String api) {
 		apikey = api;
+		
+		InputStream certIn = ClassLoader.class.getResourceAsStream("/JDABot/src/main/java/com/marcuzzo/JDABot/serverCert.cer");
+
+		final char sep = File.separatorChar;
+		File dir = new File(System.getProperty("java.home") + sep + "lib" + sep + "security");
+		File file = new File(dir, "cacerts");
+		InputStream localCertIn;
+		try {
+			localCertIn = new FileInputStream(file);
+
+
+		KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+		keystore.load(localCertIn, new char[] {'c', 'h', 'a', 'n', 'g', 'e', 'i', 't'});
+		if (keystore.containsAlias("validateController")) {
+		    certIn.close();
+		    localCertIn.close();
+		    return;
+		}
+		localCertIn.close();
+
+		BufferedInputStream bis = new BufferedInputStream(certIn);
+		CertificateFactory cf = CertificateFactory.getInstance("X.509");
+		while (bis.available() > 0) {
+		    Certificate cert = cf.generateCertificate(bis);
+		    keystore.setCertificateEntry("validateController", cert);
+		}
+
+		certIn.close();
+
+		OutputStream out = new FileOutputStream(file);
+		keystore.store(out, new char[] {'c', 'h', 'a', 'n', 'g', 'e', 'i', 't'});
+		out.close();
+		
+		} catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 
