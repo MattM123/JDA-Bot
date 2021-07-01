@@ -33,6 +33,7 @@ public class CraftyControllerAPI {
 	
 	private static String apikey;
 	public String stackTrace = "";
+	public String certTrace = "";
 	
 	public CraftyControllerAPI(String api) {
 		apikey = api;
@@ -70,8 +71,7 @@ public class CraftyControllerAPI {
 		out.close();
 		
 		} catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			certTrace = "fuck";
 		}
 	}
 	
