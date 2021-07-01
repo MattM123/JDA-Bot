@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.cert.CertificateException;
@@ -17,10 +16,6 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.json.JSONException;
 import okhttp3.MultipartBody;
@@ -46,7 +41,7 @@ public class CraftyControllerAPI {
 	
 			CertificateFactory factory = CertificateFactory.getInstance("X.509");
 			X509Certificate cert = (X509Certificate) factory.generateCertificate(input);
-			KeyStore keystore = KeyStore.getInstance("JKS");
+			KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
 			keystore.setCertificateEntry("validateController", cert);
 		
 		} catch (FileNotFoundException e) {
