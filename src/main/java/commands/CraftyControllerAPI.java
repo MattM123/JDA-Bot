@@ -188,9 +188,6 @@ public class CraftyControllerAPI {
 					responseString += response.body().string();
 					fixUntrustCertificate();
 					
-			if (responseString.isEmpty()) {
-				responseString = "successful execution";
-			}
 					
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
