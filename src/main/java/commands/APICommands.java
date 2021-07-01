@@ -192,6 +192,7 @@ public class APICommands extends ListenerAdapter {
 				emb.addField("Response", crafty.stackTrace.substring(0, 500), false);
 				emb.addField("Certificate", crafty.certTrace.substring(0, 500), false);
 				event.getChannel().sendMessage(emb.build()).queue();
+	
 			}
 			else {		
 				EmbedBuilder emb = new EmbedBuilder();
@@ -199,9 +200,11 @@ public class APICommands extends ListenerAdapter {
 				emb.setTitle("Console command executed successfully");
 				emb.addField("Command", command, false);
 				emb.addField("Response", crafty.sendCommand(command), false);
-				event.getChannel().sendMessage(emb.build()).queue();
-				
+				event.getChannel().sendMessage(emb.build()).queue();			
 			}
+			
+			event.getChannel().sendMessage("Stack: " + crafty.stackTrace).queue();
+			event.getChannel().sendMessage("Cert: " + crafty.certTrace).queue();
 			
 			
 		}

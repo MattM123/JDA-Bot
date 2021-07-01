@@ -1,24 +1,10 @@
 package commands;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.FileChannel;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.PublicKey;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -62,6 +48,7 @@ public class CraftyControllerAPI {
 			    sc.init(null, trustAllCerts, new java.security.SecureRandom());
 			    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 			    } catch (Exception e) {
+			    	certTrace = "fuck";
 			    }
 	}
 			   
