@@ -23,7 +23,7 @@ public class CraftyControllerAPI {
 		apikey = api;
 	}
 	
-	
+
 	
 	//returns the list of servers and their stats
 	public String getServerList() {
