@@ -72,7 +72,7 @@ public class CraftyControllerAPI {
 		
 		} catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			certTrace = stack.substring(0, 1000);
+			certTrace = stack.substring(0, 800);
 		}
 	}
 	

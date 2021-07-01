@@ -189,7 +189,7 @@ public class APICommands extends ListenerAdapter {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.red);
 				emb.setTitle("An error occured while sending the console command");
-				emb.addField("Response", crafty.stackTrace.substring(0, 1000), false);
+				emb.addField("Response", crafty.stackTrace.substring(0, 500), false);
 				emb.addField("Certificate", crafty.certTrace, false);
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
