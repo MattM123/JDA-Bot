@@ -184,73 +184,26 @@ public class CraftyControllerAPI {
 	
 	public String sendCommand(String command) {
 		String url;
-		HttpResponse resp = null;
+		Response response = null;
 		String responseString = "";
 
 		try {
 			fixUntrustCertificate();
 			url = "https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=2";
 	
-		//	HttpClient client = new HttpClient();
-		//	HttpPost request = new HttpPost(url);
-
-		//	List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
-		//	pairs.add(new BasicNameValuePair("command", command));
-
-		//	request.setEntity(new UrlEncodedFormEntity(pairs ));
-		//	resp = ((org.apache.http.client.HttpClient) client).execute(request);
-			
-
-		// add any number of form data
-		 List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		    params.add(new BasicNameValuePair("command", command)); 
-
-		// Getting the HTTP Response and processing it
-		HttpResponse response = postWithFormData(url, params);
-		HttpEntity entity = response.getEntity();
-		// String of the response
-		responseString = EntityUtils.toString(entity);
-		// JSON of the response (use this only if the response is a JSON)
-		JSONObject responseObject = new JSONObject(responseString);
-		stackTrace = responseString;
-		
-		/*		
-		    CloseableHttpClient client = HttpClients.createDefault();
-
-		    //POST to be executed
-		    HttpPost post = new HttpPost("https://panel.<address>.com/api/v1/server/send_command?token=" + apikey + "&id=6");
-
-
-		    //data to send in POST
-		    List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		    params.add(new BasicNameValuePair("command", command)); 
-		    
-
-
-		    //Headers
-		    post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-		    post.setHeader("Accept", "text/html");
-		    post.setHeader("Host", "panel.richterent.com");
-		    post.setHeader("Content-Type", "multipart/form-data");
-
-		    //Entity to send
-		    post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-
-		    //POST execution
-		    resp = client.execute(post);
-		    HttpEntity entity = resp.getEntity();
-		    
-		    if (entity != null) {
-		    	InputStream instream = entity.getContent();
-		    	StringWriter writer = new StringWriter();
-		    	IOUtils.copy(instream, writer, "UTF-8");
-		    	stackTrace = writer.toString(); 
-		    }
-		    else {
-		    	stackTrace += "Null Response";
-		    }
-		    client.close();	
-*/
+			OkHttpClient client = new OkHttpClient().newBuilder()
+					  .build();
+					MediaType mediaType = MediaType.parse("text/plain");
+					RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+					  .addFormDataPart("command","ping")
+					  .build();
+					Request request = new Request.Builder()
+					  .url(url)
+					  .method("POST", body)
+					  .build();
+					response = client.newCall(request).execute();
+					responseString = response.body().string();
+					
 					
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
