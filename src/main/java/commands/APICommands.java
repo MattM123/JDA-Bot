@@ -194,7 +194,7 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
-				event.getChannel().sendMessage("empty stack: " + crafty.stackTrace).queue();
+				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("Output");
