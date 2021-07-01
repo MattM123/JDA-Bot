@@ -2,63 +2,12 @@ package commands;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.StringWriter;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
-
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.HttpState;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.params.HttpMethodParams;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -74,41 +23,7 @@ public class CraftyControllerAPI {
 		apikey = api;
 	}
 	
-	private static void disableSslVerification() {
-	    try
-	    {
-	        // Create a trust manager that does not validate certificate chains
-	        TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
-	            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-	                return null;
-	            }
-	            public void checkClientTrusted(X509Certificate[] certs, String authType) {
-	            }
-	            public void checkServerTrusted(X509Certificate[] certs, String authType) {
-	            }
-	        }
-	        };
-
-	        // Install the all-trusting trust manager
-	        SSLContext sc = SSLContext.getInstance("SSL");
-	        sc.init(null, trustAllCerts, new java.security.SecureRandom());
-	        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-
-	        // Create all-trusting host name verifier
-	        HostnameVerifier allHostsValid = new HostnameVerifier() {
-	            public boolean verify(String hostname, SSLSession session) {
-	                return true;
-	            }
-	        };
-
-	        // Install the all-trusting host verifier
-	        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-	    } catch (NoSuchAlgorithmException e) {
-	        e.printStackTrace();
-	    } catch (KeyManagementException e) {
-	        e.printStackTrace();
-	    }
-	}
+	
 	
 	//returns the list of servers and their stats
 	public String getServerList() {
@@ -120,7 +35,6 @@ public class CraftyControllerAPI {
 		HttpsURLConnection conn = null;
 
 		try {
-			disableSslVerification();
 			url = new URL("https://panel.richterent.com/api/v1/server_stats?token=" + apikey);
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
@@ -171,7 +85,6 @@ public class CraftyControllerAPI {
 		String responseString = "";
 
 		try {
-			disableSslVerification();
 			url = "https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=2";
 	
 			OkHttpClient client = new OkHttpClient().newBuilder()
