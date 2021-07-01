@@ -42,7 +42,7 @@ public class CraftyControllerAPI {
 	public CraftyControllerAPI(String api) {
 		apikey = api;
 		
-		final String CA_FILE = "/JDABot/src/main/java/com/marcuzzo/JDABot/serverCert.cer";
+		final String CA_FILE = "/JDABot/src/main/java/commands/serverCert.cer";
 		
 
 		FileInputStream fis;
