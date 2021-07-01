@@ -165,23 +165,6 @@ public class CraftyControllerAPI {
 		return out;
 	}
 	
-	public HttpResponse postWithFormData(String url, List<BasicNameValuePair> params) throws IOException {
-		
-        // building http client
-        HttpClient httpClient = new HttpClient();
-        HttpPost post = new HttpPost(url);
-
-        // adding the form data
-	    post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
-	    post.setHeader("Accept", "text/html");
-	    post.setHeader("Host", "panel.richterent.com");
-	    post.setHeader("Content-Type", "multipart/form-data");
-        post.setEntity(new UrlEncodedFormEntity(params));
-        
-        return ((org.apache.http.client.HttpClient) httpClient).execute(post);
-     
-    }
-	
 	public String sendCommand(String command) {
 		String url;
 		Response response = null;
