@@ -204,6 +204,9 @@ public class CraftyControllerAPI {
 					response = client.newCall(request).execute();
 					responseString += response.body().string();
 					
+			if (responseString.isEmpty()) {
+				responseString = "successful execution";
+			}
 					
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
