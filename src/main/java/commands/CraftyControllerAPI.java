@@ -36,9 +36,10 @@ public class CraftyControllerAPI {
 	public String certTrace = "No errors";
 	
 	public CraftyControllerAPI(String api) {
-		apikey = api;	
-		
-		
+		apikey = api;			
+	}
+
+	private void trustCert() {	
 		InputStream input = null;
 		try {
 			input = new FileInputStream(new File("serverCert.cer"));
@@ -58,9 +59,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			certTrace = stack;
 		}
-		
 	}
-
 			   
 	//returns the list of servers and their stats
 	public String getServerList() {
@@ -74,6 +73,7 @@ public class CraftyControllerAPI {
 		
 
 		try {
+			trustCert();
 			url = new URL("https://panel.richterent.com/api/v1/server_stats?token=" + apikey);
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
@@ -124,6 +124,7 @@ public class CraftyControllerAPI {
 		String responseString = "";
 
 		try {
+			trustCert();
 			url = "https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=2";
 	
 			OkHttpClient client = new OkHttpClient().newBuilder()
