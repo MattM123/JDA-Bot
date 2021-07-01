@@ -34,51 +34,11 @@ public class CraftyControllerAPI {
 	
 	private static String apikey;
 	public String stackTrace = "";
-	public String certTrace = "No errors";
 	
 	public CraftyControllerAPI(String api) {
 		apikey = api;			
 	}
 
-	private void trustCert() {	
-		final String CA_FILE = "serverCert.cer";
-	
-		try {
-		FileInputStream fis = new FileInputStream(CA_FILE);
-		X509Certificate ca = (X509Certificate) CertificateFactory.getInstance("X.509")
-		                        .generateCertificate(new BufferedInputStream(fis));
-
-		KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
-		ks.load(null, null);
-		ks.setCertificateEntry(Integer.toString(1), ca);
-
-		TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-		tmf.init(ks);
-
-		SSLContext context = SSLContext.getInstance("TLS");
-		
-		context.init(null, tmf.getTrustManagers(), null);
-		} catch (KeyManagementException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			certTrace = stack;
-		} catch (NoSuchAlgorithmException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			certTrace = stack;
-		} catch (KeyStoreException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			certTrace = stack;
-		} catch (FileNotFoundException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			certTrace = stack;
-		} catch (CertificateException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			certTrace = stack;
-		} catch (IOException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			certTrace = stack;
-		}
-		
-	}
 			   
 	//returns the list of servers and their stats
 	public String getServerList() {
@@ -92,7 +52,6 @@ public class CraftyControllerAPI {
 		
 
 		try {
-			trustCert();
 			url = new URL("https://panel.richterent.com/api/v1/server_stats?token=" + apikey);
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
@@ -143,7 +102,6 @@ public class CraftyControllerAPI {
 		String responseString = "";
 
 		try {
-			trustCert();
 			url = "https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=2";
 	
 			OkHttpClient client = new OkHttpClient().newBuilder()
