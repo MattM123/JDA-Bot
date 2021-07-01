@@ -71,7 +71,8 @@ public class CraftyControllerAPI {
 		out.close();
 		
 		} catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException e) {
-			certTrace = "fuck";
+			String stack = ExceptionUtils.getStackTrace(e);
+			certTrace = stack.substring(0, 1000);
 		}
 	}
 	
