@@ -193,9 +193,9 @@ public class CraftyControllerAPI {
 	
 			OkHttpClient client = new OkHttpClient().newBuilder()
 					  .build();
-					MediaType mediaType = MediaType.parse("text/plain");
+					
 					RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-					  .addFormDataPart("command","ping")
+					  .addFormDataPart("command", command)
 					  .build();
 					Request request = new Request.Builder()
 					  .url(url)
