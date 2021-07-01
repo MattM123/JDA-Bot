@@ -34,6 +34,7 @@ public class CraftyControllerAPI {
 		URL url;
 		HttpsURLConnection conn = null;
 		
+		
 
 		try {
 			url = new URL("https://panel.richterent.com/api/v1/server_stats?token=" + apikey);
