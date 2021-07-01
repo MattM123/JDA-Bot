@@ -37,7 +37,7 @@ public class CraftyControllerAPI {
 	
 	private static String apikey;
 	public String stackTrace = "";
-	public String certTrace = "";
+	public String certTrace = "No errors";
 	
 	public CraftyControllerAPI(String api) {
 		apikey = api;
