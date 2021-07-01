@@ -62,7 +62,6 @@ public class CraftyControllerAPI {
 		
 
 		try {
-			trustCerts();
 			url = new URL("https://panel.richterent.com/api/v1/server_stats?token=" + apikey);
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36");
@@ -113,7 +112,6 @@ public class CraftyControllerAPI {
 		String responseString = "";
 
 		try {
-			trustCerts();
 			url = "https://panel.richterent.com/api/v1/server/send_command?token=" + apikey + "&id=2";
 	
 			OkHttpClient client = new OkHttpClient().newBuilder()
