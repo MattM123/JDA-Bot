@@ -183,6 +183,7 @@ public class APICommands extends ListenerAdapter {
 		//Send command to console crafty
 		if (event.getMessage().getContentRaw().startsWith("=console")) {
 			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
+			crafty.sendCommand(command);
 			
 			if (!crafty.stackTrace.isEmpty()) {					
 				EmbedBuilder emb = new EmbedBuilder();
@@ -200,7 +201,7 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 				
 			}
-			event.getChannel().sendMessage("Stack Trace: " + crafty.stackTrace).queue();
+			
 			
 		}
 //-----------------------------------------------------------------------------------------------------------------------------
