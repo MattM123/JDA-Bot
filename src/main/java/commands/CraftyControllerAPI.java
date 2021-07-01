@@ -33,6 +33,7 @@ public class CraftyControllerAPI {
 		StringBuilder json = new StringBuilder();
 		URL url;
 		HttpsURLConnection conn = null;
+		
 
 		try {
 			url = new URL("https://panel.richterent.com/api/v1/server_stats?token=" + apikey);
