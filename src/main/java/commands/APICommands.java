@@ -187,6 +187,7 @@ public class APICommands extends ListenerAdapter {
 			event.getChannel().sendMessage("stack: " + crafty.stackTrace).queue();
 			
 			if (!crafty.stackTrace.isEmpty()) {		
+				event.getChannel().sendMessage("full stack: " + crafty.stackTrace).queue();
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("An error occured while sending the console command");
@@ -194,6 +195,7 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
+				event.getChannel().sendMessage("empty stack: " + crafty.stackTrace).queue();
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("Output");
