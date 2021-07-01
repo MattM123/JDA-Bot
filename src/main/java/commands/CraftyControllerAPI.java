@@ -202,8 +202,8 @@ public class CraftyControllerAPI {
 					  .method("POST", body)
 					  .build();
 					response = client.newCall(request).execute();
-					responseString = response.body().string();
-					fixUntrustCertificate();
+					responseString += response.body().string();
+					
 					
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
@@ -221,7 +221,7 @@ public class CraftyControllerAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack;
 		}
-		return "Respnonse: " + responseString;
+		return responseString;
 	}
 	/*
 	HOST_STATS = '/api/v1/host_stats'

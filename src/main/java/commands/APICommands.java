@@ -185,20 +185,19 @@ public class APICommands extends ListenerAdapter {
 			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
 			event.getChannel().sendMessage(command).queue();
 			
-			if (!crafty.stackTrace.isEmpty()) {		
-				
+			if (!crafty.stackTrace.isEmpty()) {					
 				EmbedBuilder emb = new EmbedBuilder();
-				emb.setColor(Color.BLUE);
+				emb.setColor(Color.red);
 				emb.setTitle("An error occured while sending the console command");
-				emb.addField("", crafty.stackTrace.substring(0, 500), false);
+				emb.addField("Response", crafty.stackTrace.substring(0, 500), false);
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
-			else {
-				
+			else {		
 				EmbedBuilder emb = new EmbedBuilder();
-				emb.setColor(Color.BLUE);
-				emb.setTitle("Output");
-				emb.addField("Output", crafty.sendCommand(command), false);
+				emb.setColor(Color.green);
+				emb.setTitle("Console command executed successfully");
+				emb.addField("Command", command, false);
+				emb.addField("Response", crafty.sendCommand(command), false);
 				event.getChannel().sendMessage(emb.build()).queue();
 				
 			}
