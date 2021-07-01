@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,13 +10,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
+
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.json.JSONException;
 import okhttp3.MultipartBody;
@@ -35,25 +41,43 @@ public class CraftyControllerAPI {
 	}
 
 	private void trustCert() {	
-		InputStream input = null;
-		try {
-			input = new FileInputStream(new File("serverCert.cer"));
+		final String CA_FILE = "ca-cert.pem";
 	
-			CertificateFactory factory = CertificateFactory.getInstance("X.509");
-			X509Certificate cert = (X509Certificate) factory.generateCertificate(input);
-			KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
-			keystore.setCertificateEntry("validateController", cert);
+		try {
+		FileInputStream fis = new FileInputStream(CA_FILE);
+		X509Certificate ca = (X509Certificate) CertificateFactory.getInstance("X.509")
+		                        .generateCertificate(new BufferedInputStream(fis));
+
+		KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+		ks.load(null, null);
+		ks.setCertificateEntry(Integer.toString(1), ca);
+
+		TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+		tmf.init(ks);
+
+		SSLContext context = SSLContext.getInstance("TLS");
 		
+		context.init(null, tmf.getTrustManagers(), null);
+		} catch (KeyManagementException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			certTrace = stack;
+		} catch (NoSuchAlgorithmException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			certTrace = stack;
+		} catch (KeyStoreException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			certTrace = stack;
 		} catch (FileNotFoundException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			certTrace = stack;
 		} catch (CertificateException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			certTrace = stack;
-		} catch (KeyStoreException e) {
+		} catch (IOException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			certTrace = stack;
 		}
+		
 	}
 			   
 	//returns the list of servers and their stats
