@@ -184,10 +184,9 @@ public class APICommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().startsWith("=test")) {
 			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
 			event.getChannel().sendMessage(command).queue();
-			event.getChannel().sendMessage("stack: " + crafty.stackTrace).queue();
 			
 			if (!crafty.stackTrace.isEmpty()) {		
-				event.getChannel().sendMessage("full stack: " + crafty.stackTrace).queue();
+				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("An error occured while sending the console command");
