@@ -27,7 +27,7 @@ import okhttp3.Response;
 
 public class APICommands extends ListenerAdapter {
 
-	private CraftyControllerAPI crafty = new CraftyControllerAPI("XSRLSD2EHEI06MUZCY0UC5ET7FVZFBUE");
+	private CraftyControllerAPI crafty = new CraftyControllerAPI("IJXTBD2FNUWWAXL5A8CH3TA4XBIFBGYG");
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
 	    
 	@Override
@@ -183,7 +183,7 @@ public class APICommands extends ListenerAdapter {
 		//Send command to console crafty
 		if (event.getMessage().getContentRaw().startsWith("=console")) {
 			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
-			crafty.sendCommand(command);
+			//crafty.sendCommand(command);
 			
 			if (!crafty.stackTrace.isEmpty()) {					
 				EmbedBuilder emb = new EmbedBuilder();
