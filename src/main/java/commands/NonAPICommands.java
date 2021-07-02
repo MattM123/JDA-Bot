@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
@@ -66,10 +67,31 @@ public class NonAPICommands extends ListenerAdapter {
 		        m.editMessage("Discord API Response Time: " + (System.currentTimeMillis() - time) + "ms").queue();
 		      };
 		      
-		     action.queue(callback);
-		      
-		    
-		      
+		     action.queue(callback);      
+		}
+		
+		//Opt in/out of announcement pings by self assigning a @Notify role.
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("=notify")) {
+			Role notify = event.getGuild().getRoleById(783330424805261342L);
+			
+			if (event.getGuild().getMemberById(event.getAuthor().getIdLong()).getRoles().contains(notify)) {
+				event.getGuild().getMemberById(event.getAuthor().getIdLong()).getRoles().remove(notify);
+				
+				EmbedBuilder emb = new EmbedBuilder();
+				emb.setColor(Color.blue);
+				emb.setTitle(event.getGuild().getRoleById(783330424805261342L).getAsMention() + "has been removed from " + event.getAuthor().getAsMention());
+				
+				event.getChannel().sendMessage(emb.build()).queue();
+			}
+			else {
+				event.getGuild().getMemberById(event.getAuthor().getIdLong()).getRoles().add(notify);
+				
+				EmbedBuilder emb = new EmbedBuilder();
+				emb.setColor(Color.blue);
+				emb.setTitle(event.getGuild().getRoleById(783330424805261342L).getAsMention() + "has been given to " + event.getAuthor().getAsMention());
+				
+				event.getChannel().sendMessage(emb.build()).queue();
+			}
 		}
 	}
 }
