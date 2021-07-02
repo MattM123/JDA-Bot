@@ -75,20 +75,20 @@ public class NonAPICommands extends ListenerAdapter {
 			Role notify = event.getGuild().getRoleById(783330424805261342L);
 			
 			if (event.getGuild().getMemberById(event.getAuthor().getIdLong()).getRoles().contains(notify)) {
-				event.getGuild().removeRoleFromMember(event.getGuild().getMemberById(event.getAuthor().getId()), notify);
+				event.getGuild().removeRoleFromMember(event.getGuild().getMemberById(event.getAuthor().getId()), notify).queue();
 				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.blue);
-				emb.setTitle(event.getGuild().getRoleById(783330424805261342L).getAsMention() + "has been removed from " + event.getAuthor().getAsMention());
+				emb.setTitle(event.getGuild().getRoleById(783330424805261342L).getName() + "role has been removed from " + event.getAuthor().getName());
 				
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
-				event.getGuild().addRoleToMember(event.getGuild().getMemberById(event.getAuthor().getId()), notify);
+				event.getGuild().addRoleToMember(event.getGuild().getMemberById(event.getAuthor().getId()), notify).queue();
 				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.blue);
-				emb.setTitle(event.getGuild().getRoleById(783330424805261342L).getAsMention() + "has been given to " + event.getAuthor().getAsMention());
+				emb.setTitle(event.getGuild().getRoleById(783330424805261342L).getName() + "role has been given to " + event.getAuthor().getName());
 				
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
