@@ -75,7 +75,7 @@ public class NonAPICommands extends ListenerAdapter {
 			Role notify = event.getGuild().getRoleById(783330424805261342L);
 			
 			if (event.getGuild().getMemberById(event.getAuthor().getIdLong()).getRoles().contains(notify)) {
-				event.getGuild().getMemberById(event.getAuthor().getIdLong()).getRoles().remove(notify);
+				event.getGuild().removeRoleFromMember(event.getGuild().getMemberById(event.getAuthor().getId()), notify);
 				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.blue);
@@ -84,7 +84,7 @@ public class NonAPICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			else {
-				event.getGuild().getMemberById(event.getAuthor().getIdLong()).getRoles().add(notify);
+				event.getGuild().addRoleToMember(event.getGuild().getMemberById(event.getAuthor().getId()), notify);
 				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.blue);
