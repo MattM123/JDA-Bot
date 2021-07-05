@@ -27,7 +27,7 @@ import okhttp3.Response;
 
 public class APICommands extends ListenerAdapter {
 
-	private CraftyControllerAPI crafty = new CraftyControllerAPI("IJXTBD2FNUWWAXL5A8CH3TA4XBIFBGYG");
+	private CraftyControllerAPI crafty = new CraftyControllerAPI("K7SYOJTCMHAFKSTE60J7TGXGFS3BWJW8");
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
 	    
 	@Override
