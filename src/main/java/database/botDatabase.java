@@ -19,6 +19,9 @@ public class botDatabase {
 	                output = "The driver name is " + meta.getDriverName() + "\n"
 	                + "A new database has been created.";
 	            }
+	            else {
+	            	output = "Null connection to database";
+	            }
 
 	        } catch (SQLException e) {
 	            output = e.getMessage().substring(0, 1000);
