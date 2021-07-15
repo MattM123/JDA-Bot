@@ -21,7 +21,7 @@ public class botDatabase {
 	            }
 
 	        } catch (SQLException e) {
-	            System.out.println(e.getMessage());
+	            output = e.getMessage().substring(0, 1000);
 	        }
 	        return output;
 	    }

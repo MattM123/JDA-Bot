@@ -96,7 +96,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("=members")) {
-			event.getChannel().sendMessage("Test Info: \n" + botDatabase.createNewDatabase("bot.db"));
+			event.getChannel().sendMessage("Test Info: \n" + botDatabase.createNewDatabase("bot.db")).queue();
 		}
 	}
 }
