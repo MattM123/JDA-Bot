@@ -2,6 +2,7 @@ package commands;
 
 import database.botDatabase;
 import java.awt.Color;
+import java.io.File;
 import java.util.function.Consumer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -97,6 +98,9 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
 			event.getChannel().sendMessage("Test Info: \n" + botDatabase.createNewDatabase("bot.db").substring(0, 1000)).queue();
+			
+			File f = new File("/JDABot/bot.db");
+			event.getChannel().sendMessage("File Exists: " + f.exists()).queue();
 		}
 	}
 }
