@@ -1,5 +1,6 @@
 package commands;
 
+import database.botDatabase;
 import java.awt.Color;
 import java.util.function.Consumer;
 
@@ -13,10 +14,10 @@ import net.dv8tion.jda.api.requests.RestAction;
 
 public class NonAPICommands extends ListenerAdapter {
 	   
+	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
-				
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setColor(Color.blue);
 		embed.setTitle("Command Information");
@@ -92,6 +93,10 @@ public class NonAPICommands extends ListenerAdapter {
 				
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
+		}
+		
+		if (event.getMessage().getContentRaw().equals("=members")) {
+			event.getChannel().sendMessage("Test Info: \n" + botDatabase.createNewDatabase("bot.db"));
 		}
 	}
 }
