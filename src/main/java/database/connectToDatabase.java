@@ -11,22 +11,28 @@ public class connectToDatabase {
 	
 	    public static String Connect(String fileName) {
 
-	       // String url = "jdbc:sqlite:/" + fileName;
-
-	        Connection conn = null;  
 	        try {  
 	            Class.forName("org.sqlite.JDBC");
-	            String url = "jdbc:sqlite:" + fileName;  
+	            String dbURL = "jdbc:sqlite:" + fileName;
+	            
 	            // create a connection to the database  
-	            conn = DriverManager.getConnection(url);  
+	            Connection conn = DriverManager.getConnection(dbURL); 
+	            
+	            if (conn != null) {  
+	                DatabaseMetaData meta = conn.getMetaData();  
+	                output = "The driver name is " + meta.getDriverName() + "\n" 
+	                + "A new database has been created.";  
+	            }  
 	              
-	            System.out.println("Connection to SQLite has been established.");  
+	            else {
+	            	output = "Null connection";
+	            }
 
 	        } catch (SQLException e) {
 	            output = e.getMessage().substring(0, 1000);
 	        } catch (ClassNotFoundException e) {
 				output = e.getMessage().substring(0, 1000);
-			}
+        	}
 	        return output;
 	    }
 }
