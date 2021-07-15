@@ -99,7 +99,7 @@ public class NonAPICommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
 			//event.getChannel().sendMessage("Test Info: \n" + botDatabase.createNewDatabase("bot.db").substring(0, 1000)).queue();
 			
-			File f = new File("/JDABot/bot.db");
+			File f = new File("bot.db");
 			event.getChannel().sendMessage("File Exists: " + f.exists()).queue();
 		}
 	}
