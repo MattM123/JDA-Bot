@@ -11,7 +11,7 @@ public class botDatabase {
 	
 	    public static String createNewDatabase(String fileName) {
 
-	        String url = "jdbc:sqlite:" + fileName;
+	        String url = "jdbc:sqlite:/" + fileName;
 
 	        try (Connection conn = DriverManager.getConnection(url)) {
 	            if (conn != null) {
