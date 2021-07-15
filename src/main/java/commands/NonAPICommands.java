@@ -1,6 +1,6 @@
 package commands;
 
-import database.botDatabase;
+import database.connectToDatabase;
 import java.awt.Color;
 import java.io.File;
 import java.util.function.Consumer;
@@ -97,7 +97,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
-			event.getChannel().sendMessage("Test Info: \n" + botDatabase.createNewDatabase("bot.db").substring(0, 1000)).queue();
+			event.getChannel().sendMessage("Test Info: \n" + connectToDatabase.createNewDatabase("bot.db").substring(0, 1000)).queue();
 			
 			File f = new File("bot.db");
 			event.getChannel().sendMessage("File Exists: " + f.exists()).queue();
