@@ -1,12 +1,7 @@
 package commands;
 
-import database.connectToDatabase;
+import database.databaseManipulator;
 import java.awt.Color;
-import java.io.File;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.function.Consumer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -101,7 +96,12 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
-			event.getChannel().sendMessage(connectToDatabase.Connect("bot.db")).queue();
+			event.getChannel().sendMessage(String.valueOf(event.getGuild().getMemberCount())).queue();
+			String sql = "CREATE TABLE IF NOT EXISTS members (\n"
+						+ "	id integer PRIMARY KEY,\n"
+						+ "	memberCount integer NOT NULL\n"
+		                + ");";
+			databaseManipulator.sendSQLStatement(sql);
 		    
 		}
 	}

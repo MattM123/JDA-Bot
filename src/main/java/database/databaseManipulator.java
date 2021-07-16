@@ -4,16 +4,18 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 //connects to sqlite database
-public class connectToDatabase {
+public class databaseManipulator {
 	private static String output = "";
+	private static String dbURL = "jdbc:sqlite:bot.db";
 	
-	    public static String Connect(String fileName) {
+	    public static String connect() {
 
 	        try {  
 	            Class.forName("org.sqlite.JDBC");
-	            String dbURL = "jdbc:sqlite:" + fileName;
+	      
 	            
 	            // create a connection to the database  
 	            Connection conn = DriverManager.getConnection(dbURL); 
@@ -34,5 +36,16 @@ public class connectToDatabase {
 				output = e.getMessage().substring(0, 1000);
         	}
 	        return output;
+	    }
+	    
+	    public static void sendSQLStatement(String sql) {
+	    	try (Connection conn = DriverManager.getConnection(dbURL);
+	    			Statement stmt = conn.createStatement()){
+	    		
+	    		stmt.execute(sql);
+	    		
+	    	} catch (SQLException e) {
+				output = e.getMessage();
+			}
 	    }
 }
