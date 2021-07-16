@@ -16,8 +16,9 @@ public class databaseManipulator {
 	
 	        Connection conn = null;
 	        try {
+	        	Class.forName("org.sqlite.JDBC"); 
 	            conn = DriverManager.getConnection(dbURL);
-	        } catch (SQLException e) {
+	        } catch (SQLException | ClassNotFoundException e) {
 	            output = e.getMessage();
 	        }
 	        return conn;

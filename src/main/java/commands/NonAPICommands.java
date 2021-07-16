@@ -101,7 +101,7 @@ public class NonAPICommands extends ListenerAdapter {
 
 		//Retrieves member count data from database
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
-			//gets memberCount column
+			//gets memberCount column from table
 			String select = "SELECT memberCount FROM members";
 			 
 			//creates table if it does not exist
@@ -110,7 +110,7 @@ public class NonAPICommands extends ListenerAdapter {
 						+ "	memberCount integer NOT NULL\n"
 			            + ");";
 			event.getChannel().sendMessage("1").queue();
-	        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:bot.db");
+	        try (Connection conn = databaseManipulator.connect();
 	             Statement stmt  = conn.createStatement();
 	        	 Statement table = conn.createStatement();
 	             ResultSet rs    = stmt.executeQuery(select)){
