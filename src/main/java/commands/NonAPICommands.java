@@ -5,16 +5,19 @@ import java.awt.Color;
 import java.util.function.Consumer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
 
 public class NonAPICommands extends ListenerAdapter {
-	   
 	
+	private String memberCountSQL = "INSERT INTO members (memberCount)\n"
+							+ "VALUES(";
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
@@ -94,9 +97,9 @@ public class NonAPICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 		}
-		
+
+		//Creates table to track member count if not already created and returns latest data in table.
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
-			event.getChannel().sendMessage(String.valueOf(event.getGuild().getMemberCount())).queue();
 			String sql = "CREATE TABLE IF NOT EXISTS members (\n"
 						+ "	id integer PRIMARY KEY,\n"
 						+ "	memberCount integer NOT NULL\n"
