@@ -109,7 +109,7 @@ public class NonAPICommands extends ListenerAdapter {
 						+ "	id integer PRIMARY KEY,\n"
 						+ "	memberCount integer NOT NULL\n"
 			            + ");";
-	
+			event.getChannel().sendMessage("1").queue();
 	        try (Connection conn = databaseManipulator.connect();
 	             Statement stmt  = conn.createStatement();
 	        	 Statement table = conn.createStatement();
@@ -127,7 +127,7 @@ public class NonAPICommands extends ListenerAdapter {
 		        } catch (SQLException e) {
 		            event.getChannel().sendMessage(e.getMessage().subSequence(0, 1000)).queue();
 		        }
-		    event.getChannel().sendMessage(databaseManipulator.output).queue();
+		    event.getChannel().sendMessage(databaseManipulator.output.subSequence(0, 1000)).queue();
 		}
 	}
 }
