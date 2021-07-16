@@ -38,7 +38,7 @@ public class database {
 	    }
 	    
 	    public static String getMemberData() {
-	    	String select = "SELECT memberCount FROM members";
+	    	String select = "SELECT memberCount FROM countmembers";
 	    	boolean i = false;
 	    	int o = 0;
 	    	
@@ -48,6 +48,7 @@ public class database {
 	            ResultSet rs    = stmt.executeQuery(select);
 
 	            i = rs.first();
+	            
 	            
 				// loop through the result set of member counts
 				while (rs.next()) {
