@@ -18,6 +18,7 @@ public class databaseManipulator {
 	        try {
 	        	Class.forName("org.sqlite.JDBC"); 
 	            conn = DriverManager.getConnection(dbURL);
+	            output = "Driver Connected: " + conn.getMetaData().getDriverName();
 	        } catch (SQLException | ClassNotFoundException e) {
 	            output = e.getMessage();
 	        }

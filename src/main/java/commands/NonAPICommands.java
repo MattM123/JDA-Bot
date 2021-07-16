@@ -101,7 +101,8 @@ public class NonAPICommands extends ListenerAdapter {
 
 		//Retrieves member count data from database
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
-			
+			databaseManipulator.connect();
+			event.getChannel().sendMessage(databaseManipulator.output).queue();
 			//gets memberCount column from table
 			String select = "SELECT memberCount FROM members";
 
