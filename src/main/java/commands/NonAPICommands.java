@@ -111,7 +111,6 @@ public class NonAPICommands extends ListenerAdapter {
 	        	Class.forName("org.sqlite.JDBC"); 
 	        	Connection conn = DriverManager.getConnection("jdbc:sqlite:bot.db");
 	            Statement stmt  = conn.createStatement();
-	        	Statement table = conn.createStatement();
 	            ResultSet rs    = stmt.executeQuery(select);
 				if (rs.getFetchSize() == 0) {
 					event.getChannel().sendMessage("No data in table").queue();
