@@ -104,7 +104,7 @@ public class NonAPICommands extends ListenerAdapter {
 		//Retrieves member count data from database
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
 			//gets memberCount column
-			 String select = "SELECT memberCount FROM members";
+			String select = "SELECT memberCount FROM members";
 			 
 			//creates table if it does not exist
 			String sql = "CREATE TABLE IF NOT EXISTS members (\n"
@@ -127,7 +127,7 @@ public class NonAPICommands extends ListenerAdapter {
 		            }
 		            
 		        } catch (SQLException e) {
-		            System.out.println(e.getMessage());
+		            event.getChannel().sendMessage(e.getMessage());
 		        }
 		    
 		}
