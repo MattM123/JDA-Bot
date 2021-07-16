@@ -3,6 +3,10 @@ package commands;
 import database.connectToDatabase;
 import java.awt.Color;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.function.Consumer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -97,10 +101,34 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
-			event.getChannel().sendMessage("Test Info: \n" + connectToDatabase.Connect("bot.db").substring(0, 1000)).queue();
-			
-			File f = new File("bot.db");
-			event.getChannel().sendMessage("File Exists: " + f.exists()).queue();
+			String output = "";
+			event.getChannel().sendMessage("1").queue();
+			 try {  
+		            Class.forName("org.sqlite.JDBC");
+		            String dbURL = "jdbc:sqlite:bot.db";
+		            event.getChannel().sendMessage("2").queue();
+		            // create a connection to the database  
+		            Connection conn = DriverManager.getConnection(dbURL); 
+		            
+		            if (conn != null) {  
+		            	event.getChannel().sendMessage("3").queue();
+		                DatabaseMetaData meta = conn.getMetaData();  
+		                output = "The driver name is " + meta.getDriverName() + "\n" 
+		                + "A new database has been created.";  
+		            }  
+		              
+		            else {
+		            	event.getChannel().sendMessage("4").queue();
+		            	output = "Null connection";
+		            }
+
+		        } catch (SQLException e) {
+		            output = e.getMessage().substring(0, 1000);
+		        } catch (ClassNotFoundException e) {
+					output = e.getMessage().substring(0, 1000);
+	        	}
+		        event.getChannel().sendMessage(output).queue();
+		    
 		}
 	}
 }
