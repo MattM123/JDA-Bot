@@ -101,12 +101,13 @@ public class NonAPICommands extends ListenerAdapter {
 
 		//Retrieves member count data from database
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
-			database.connect();
-			event.getChannel().sendMessage(database.output).queue();
+		//	database.connect();
+			//event.getChannel().sendMessage(database.output).queue();
 			//gets memberCount column from table
 		//	String select = "SELECT memberCount FROM members";
-
+			database.getMemberData();
 			event.getChannel().sendMessage(database.getMemberData()).queue();
+			event.getChannel().sendMessage(database.output).queue();
 		/*	
 	        try {
 	        	Class.forName("org.sqlite.JDBC"); 
