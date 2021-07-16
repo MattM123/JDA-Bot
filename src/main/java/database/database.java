@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 import java.sql.Statement;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
+
 //connects to sqlite database
 public class database {
 	public static String output = "";
@@ -64,6 +66,7 @@ public class database {
 	            ResultSet rs    = stmt.executeQuery(select);
 	            
 	            output = "Driver Connected: " + conn.getMetaData().getDriverName();
+	            rs.
 	            i = rs.first();
 	            label =  rs.getMetaData().getColumnLabel(1);
 	           
@@ -74,7 +77,9 @@ public class database {
     	
 		            
 		        } catch (SQLException | ClassNotFoundException e) {
-		            output = e.getMessage();
+		        	String stack = ExceptionUtils.getStackTrace(e);
+					output = stack.subSequence(0, 1000).toString();
+		           
 		        }
 	        return i + ":" + o + ":" + label;
 	    }
