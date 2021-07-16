@@ -66,7 +66,7 @@ public class database {
 	            ResultSet rs    = stmt.executeQuery(select);
 	            
 	            output = "Driver Connected: " + conn.getMetaData().getDriverName();
-	            rs.
+	            
 	            i = rs.first();
 	            label =  rs.getMetaData().getColumnLabel(1);
 	           
