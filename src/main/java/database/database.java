@@ -54,10 +54,8 @@ public class database {
 			}
 	    }
 	    
-	    public static ArrayList getMemberData() {
-	    	String select = "SELECT memberCount FROM countmembers";
-	    	int o = 0;
-	    	String label = "";
+	    public static ArrayList<Integer> getMemberData() {
+	    	String select = "SELECT memberCount FROM countmembers";   
 	    	ArrayList<Integer> count = new ArrayList<Integer>();
 	    	
 	        try {
