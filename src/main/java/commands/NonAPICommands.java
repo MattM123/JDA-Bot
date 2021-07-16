@@ -110,21 +110,25 @@ public class NonAPICommands extends ListenerAdapter {
 						+ "	memberCount integer NOT NULL\n"
 			            + ");";
 			event.getChannel().sendMessage("1").queue();
-	        try (Connection conn = databaseManipulator.connect();
-	             Statement stmt  = conn.createStatement();
-	        	 Statement table = conn.createStatement();
-	             ResultSet rs    = stmt.executeQuery(select)){
-	        		
-	        		event.getChannel().sendMessage("Creating Table").queue();
-	        		table.execute(sql);
-	        		event.getChannel().sendMessage("New Table Created").queue();
-		                   
-		            // loop through the result set of member counts
-		            while (rs.next()) {
-		                event.getChannel().sendMessage(String.valueOf(rs.getInt("memberCount"))).queue();
-		            }
+			
+	        try {
+	        	Class.forName("org.sqlite.JDBC"); 
+	        	Connection conn = DriverManager.getConnection("jdbc:sqlite:bot.db");
+	            Statement stmt  = conn.createStatement();
+	        	Statement table = conn.createStatement();
+	            ResultSet rs    = stmt.executeQuery(select);
+					
+				event.getChannel().sendMessage("Creating Table").queue();
+				table.execute(sql);
+				event.getChannel().sendMessage("New Table Created").queue();
+				       
+				// loop through the result set of member counts
+				while (rs.next()) {
+				    event.getChannel().sendMessage(String.valueOf(rs.getInt("memberCount"))).queue();
+				} 
+    	
 		            
-		        } catch (SQLException e) {
+		        } catch (SQLException | ClassNotFoundException e) {
 		            event.getChannel().sendMessage(e.getMessage().subSequence(0, 1000)).queue();
 		        }
 		    event.getChannel().sendMessage(databaseManipulator.output.subSequence(0, 1000)).queue();
