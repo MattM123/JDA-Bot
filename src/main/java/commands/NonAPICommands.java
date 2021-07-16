@@ -110,7 +110,7 @@ public class NonAPICommands extends ListenerAdapter {
 						+ "	memberCount integer NOT NULL\n"
 			            + ");";
 			event.getChannel().sendMessage("1").queue();
-	        try (Connection conn = databaseManipulator.connect();
+	        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:bot.db");
 	             Statement stmt  = conn.createStatement();
 	        	 Statement table = conn.createStatement();
 	             ResultSet rs    = stmt.executeQuery(select)){
