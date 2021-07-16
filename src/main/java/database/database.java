@@ -54,10 +54,11 @@ public class database {
 			}
 	    }
 	    
-	    public static String getMemberData() {
+	    public static ArrayList getMemberData() {
 	    	String select = "SELECT memberCount FROM countmembers";
 	    	int o = 0;
 	    	String label = "";
+	    	ArrayList<Integer> count = new ArrayList<Integer>();
 	    	
 	        try {
 	        	Class.forName("org.sqlite.JDBC");
@@ -65,7 +66,6 @@ public class database {
 	            Statement stmt  = conn.createStatement();
 	            ResultSet rs    = stmt.executeQuery(select);
 	            
-	            ArrayList<Integer> count = new ArrayList<Integer>();
 	           
 				// loop through the result set of member counts
 
@@ -79,7 +79,7 @@ public class database {
 					output = stack.subSequence(0, 1000).toString();
 		           
 		        }
-	        return o + ":" + label;
+	        return count;
 	    }
 	    
 	    

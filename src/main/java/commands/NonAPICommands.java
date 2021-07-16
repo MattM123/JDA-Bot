@@ -106,7 +106,11 @@ public class NonAPICommands extends ListenerAdapter {
 			//gets memberCount column from table
 		//	String select = "SELECT memberCount FROM members";
 			database.getMemberData();
-			event.getChannel().sendMessage(database.getMemberData()).queue();
+			
+			for (int i = 0; i < database.getMemberData().size(); i++) {
+				event.getChannel().sendMessage(String.valueOf(database.getMemberData().get(i))).queue();
+			}
+			
 			event.getChannel().sendMessage(database.output).queue();
 		/*	
 	        try {
