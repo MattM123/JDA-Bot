@@ -37,9 +37,10 @@ public class database {
 			}
 	    }
 	    
-	    public static boolean getMemberData() {
+	    public static String getMemberData() {
 	    	String select = "SELECT memberCount FROM members";
 	    	boolean i = false;
+	    	int o = 0;
 	    	
 	        try {
 	        	Connection conn = database.connect();
@@ -47,16 +48,17 @@ public class database {
 	            ResultSet rs    = stmt.executeQuery(select);
 
 	            i = rs.first();
+	            
 				// loop through the result set of member counts
-			//	while (rs.next()) {
-				//  i = rs.getInt("memberCount");
-				//} 
+				while (rs.next()) {
+				  o = rs.getInt("memberCount");
+				} 
     	
 		            
 		        } catch (Exception e) {
 		            output = e.getMessage();
 		        }
-	        return i;
+	        return i + ":" + o;
 	    }
 	    
 	    
