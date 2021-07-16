@@ -5,6 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLTimeoutException;
 import java.sql.Statement;
 
 //connects to sqlite database
@@ -22,6 +23,19 @@ public class database {
 	            output = "Driver Connected: " + conn.getMetaData().getDriverName();
 	        } catch (SQLException | ClassNotFoundException e) {
 	            output = e.getMessage();
+	        }
+	        
+	        finally
+	        {
+	          try
+	          {
+	            if(conn != null)
+	              conn.close();
+	          }
+	          catch(SQLException e)
+	          {	  
+	            output = e.getMessage();
+	          }	       
 	        }
 	        return conn;
 	    }
@@ -47,17 +61,18 @@ public class database {
 	        	Connection conn = database.connect();
 	            Statement stmt  = conn.createStatement();
 	            ResultSet rs    = stmt.executeQuery(select);
-
+	            
+	   
 	            i = rs.first();
 	            label =  rs.getMetaData().getColumnLabel(1);
-	            
+	           
 				// loop through the result set of member counts
 				while (rs.next()) {
 				  o = rs.getInt("memberCount");
 				} 
     	
 		            
-		        } catch (Exception e) {
+		        } catch (SQLException e) {
 		            output = e.getMessage();
 		        }
 	        return i + ":" + o + ":" + label;
