@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 import commands.APICommands;
 import commands.NonAPICommands;
-import database.databaseManipulator;
+import database.database;
 
 public class Bot {	
 	private static String token = "NzMyMjkwMTUzNjg2NDk5MzY4.XwycWQ.DV6g4DyHxlI01yxROtKMggZFW_Q"; //token used to hook into the Discord bot (bot token)
@@ -32,7 +32,7 @@ public class Bot {
 			            	String memberCountSQL = "INSERT INTO members (memberCount)\n"
 													+ "VALUES(" + String.valueOf(jda.getGuildById(735990134583066679L).getMemberCount()) + ")";
 			            	
-			            	databaseManipulator.sendSQLStatement(memberCountSQL);
+			            	database.sendSQLStatement(memberCountSQL);
 			            }
 			        }, 
 			        10000

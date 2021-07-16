@@ -3,11 +3,12 @@ package database;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 //connects to sqlite database
-public class databaseManipulator {
+public class database {
 	public static String output = "";
 	private static String dbURL = "jdbc:sqlite:bot.db";
 	
@@ -35,4 +36,28 @@ public class databaseManipulator {
 				output = e.getMessage();
 			}
 	    }
+	    
+	    public static int getMemberData() {
+	    	String select = "SELECT memberCount FROM members";
+	    	int i = 0;
+	    	
+	        try {
+	        	Class.forName("org.sqlite.JDBC"); 
+	        	Connection conn = DriverManager.getConnection("jdbc:sqlite:bot.db");
+	            Statement stmt  = conn.createStatement();
+	            ResultSet rs    = stmt.executeQuery(select);
+
+				// loop through the result set of member counts
+				while (rs.next()) {
+				  i = rs.getInt("memberCount");
+				} 
+    	
+		            
+		        } catch (Exception e) {
+		            output = e.getMessage();
+		        }
+	        return i;
+	    }
+	    
+	    
 }

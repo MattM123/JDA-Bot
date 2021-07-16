@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.function.Consumer;
 
-import database.databaseManipulator;
+import database.database;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -101,13 +101,12 @@ public class NonAPICommands extends ListenerAdapter {
 
 		//Retrieves member count data from database
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
-			databaseManipulator.connect();
-			event.getChannel().sendMessage(databaseManipulator.output).queue();
-			//gets memberCount column from table
-			String select = "SELECT memberCount FROM members";
 
-			event.getChannel().sendMessage("1").queue();
-			
+			//gets memberCount column from table
+		//	String select = "SELECT memberCount FROM members";
+
+			event.getChannel().sendMessage(String.valueOf(database.getMemberData())).queue();
+		/*	
 	        try {
 	        	Class.forName("org.sqlite.JDBC"); 
 	        	Connection conn = DriverManager.getConnection("jdbc:sqlite:bot.db");
@@ -125,7 +124,8 @@ public class NonAPICommands extends ListenerAdapter {
 		        } catch (Exception e) {
 		            event.getChannel().sendMessage(e.getMessage().subSequence(0, 1000)).queue();
 		        }
-		    event.getChannel().sendMessage(databaseManipulator.output.subSequence(0, 1000)).queue();
+		        */
+		    event.getChannel().sendMessage(database.output.subSequence(0, 1000)).queue();
 		}
 	}
 }
