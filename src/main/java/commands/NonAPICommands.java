@@ -122,7 +122,7 @@ public class NonAPICommands extends ListenerAdapter {
 				} 
     	
 		            
-		        } catch (SQLException | ClassNotFoundException e) {
+		        } catch (Exception e) {
 		            event.getChannel().sendMessage(e.getMessage().subSequence(0, 1000)).queue();
 		        }
 		    event.getChannel().sendMessage(databaseManipulator.output.subSequence(0, 1000)).queue();
