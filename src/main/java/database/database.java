@@ -41,6 +41,7 @@ public class database {
 	    	String select = "SELECT memberCount FROM countmembers";
 	    	boolean i = false;
 	    	int o = 0;
+	    	String label = "";
 	    	
 	        try {
 	        	Connection conn = database.connect();
@@ -48,7 +49,7 @@ public class database {
 	            ResultSet rs    = stmt.executeQuery(select);
 
 	            i = rs.first();
-	            
+	            label =  rs.getMetaData().getColumnLabel(1);
 	            
 				// loop through the result set of member counts
 				while (rs.next()) {
@@ -59,7 +60,7 @@ public class database {
 		        } catch (Exception e) {
 		            output = e.getMessage();
 		        }
-	        return i + ":" + o;
+	        return i + ":" + o + ":" + label;
 	    }
 	    
 	    
