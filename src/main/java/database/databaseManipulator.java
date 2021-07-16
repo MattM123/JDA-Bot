@@ -8,38 +8,23 @@ import java.sql.Statement;
 
 //connects to sqlite database
 public class databaseManipulator {
-	private static String output = "";
+	public static String output = "";
 	private static String dbURL = "jdbc:sqlite:bot.db";
 	
-	    public static String connect() {
-
-	        try {  
-	            Class.forName("org.sqlite.JDBC");
-	      
-	            
-	            // create a connection to the database  
-	            Connection conn = DriverManager.getConnection(dbURL); 
-	            
-	            if (conn != null) {  
-	                DatabaseMetaData meta = conn.getMetaData();  
-	                output = "The driver name is " + meta.getDriverName() + "\n" 
-	                + "A new database has been created.";  
-	            }  
-	              
-	            else {
-	            	output = "Null connection";
-	            }
-
+	 public static Connection connect() {
+	        // SQLite connection string
+	
+	        Connection conn = null;
+	        try {
+	            conn = DriverManager.getConnection(dbURL);
 	        } catch (SQLException e) {
-	            output = e.getMessage().substring(0, 1000);
-	        } catch (ClassNotFoundException e) {
-				output = e.getMessage().substring(0, 1000);
-        	}
-	        return output;
+	            output = e.getMessage();
+	        }
+	        return conn;
 	    }
 	    
 	    public static void sendSQLStatement(String sql) {
-	    	try (Connection conn = DriverManager.getConnection(dbURL);
+	    	try (Connection conn = connect();
 	    			Statement stmt = conn.createStatement()){
 	    		
 	    		stmt.execute(sql);

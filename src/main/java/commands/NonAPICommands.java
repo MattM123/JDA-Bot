@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.function.Consumer;
 
+import database.databaseManipulator;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -108,8 +109,8 @@ public class NonAPICommands extends ListenerAdapter {
 						+ "	id integer PRIMARY KEY,\n"
 						+ "	memberCount integer NOT NULL\n"
 			            + ");";
-			 
-	        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:bot.db");
+	
+	        try (Connection conn = databaseManipulator.connect();
 	             Statement stmt  = conn.createStatement();
 	        	 Statement table = conn.createStatement();
 	             ResultSet rs    = stmt.executeQuery(select)){
@@ -126,7 +127,7 @@ public class NonAPICommands extends ListenerAdapter {
 		        } catch (SQLException e) {
 		            event.getChannel().sendMessage(e.getMessage().subSequence(0, 1000)).queue();
 		        }
-		    
+		    event.getChannel().sendMessage(databaseManipulator.output).queue();
 		}
 	}
 }
