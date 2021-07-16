@@ -110,14 +110,16 @@ public class NonAPICommands extends ListenerAdapter {
 			String sql = "CREATE TABLE IF NOT EXISTS members (\n"
 						+ "	id integer PRIMARY KEY,\n"
 						+ "	memberCount integer NOT NULL\n"
-			               + ");";
+			            + ");";
 			 
 	        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:bot.db");
 	             Statement stmt  = conn.createStatement();
 	        	 Statement table = conn.createStatement();
 	             ResultSet rs    = stmt.executeQuery(select)){
-
+	        		
+	        		event.getChannel().sendMessage("Creating Table");
 	        		table.execute(sql);
+	        		event.getChannel().sendMessage("New Table Created");
 		                   
 		            // loop through the result set of member counts
 		            while (rs.next()) {
