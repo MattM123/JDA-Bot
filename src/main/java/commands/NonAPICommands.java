@@ -127,7 +127,7 @@ public class NonAPICommands extends ListenerAdapter {
 		            }
 		            
 		        } catch (SQLException e) {
-		            event.getChannel().sendMessage(e.getMessage());
+		            event.getChannel().sendMessage(e.getMessage().subSequence(0, 1000)).queue();
 		        }
 		    
 		}
