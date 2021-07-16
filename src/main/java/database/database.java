@@ -37,20 +37,20 @@ public class database {
 			}
 	    }
 	    
-	    public static int getMemberData() {
+	    public static boolean getMemberData() {
 	    	String select = "SELECT memberCount FROM members";
-	    	int i = 0;
+	    	boolean i = false;
 	    	
 	        try {
-	        	Class.forName("org.sqlite.JDBC"); 
 	        	Connection conn = database.connect();
 	            Statement stmt  = conn.createStatement();
 	            ResultSet rs    = stmt.executeQuery(select);
 
+	            i = rs.first();
 				// loop through the result set of member counts
-				while (rs.next()) {
-				  i = rs.getInt("memberCount");
-				} 
+			//	while (rs.next()) {
+				//  i = rs.getInt("memberCount");
+				//} 
     	
 		            
 		        } catch (Exception e) {
