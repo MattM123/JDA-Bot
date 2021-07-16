@@ -101,33 +101,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
-			String output = "";
-			event.getChannel().sendMessage("1").queue();
-			 try {  
-		            Class.forName("org.sqlite.JDBC");
-		            String dbURL = "jdbc:sqlite:bot.db";
-		            event.getChannel().sendMessage("2").queue();
-		            // create a connection to the database  
-		            Connection conn = DriverManager.getConnection(dbURL); 
-		            
-		            if (conn != null) {  
-		            	event.getChannel().sendMessage("3").queue();
-		                DatabaseMetaData meta = conn.getMetaData();  
-		                output = "The driver name is " + meta.getDriverName() + "\n" 
-		                + "A new database has been created.";  
-		            }  
-		              
-		            else {
-		            	event.getChannel().sendMessage("4").queue();
-		            	output = "Null connection";
-		            }
-
-		        } catch (SQLException e) {
-		            output = e.getMessage().substring(0, 1000);
-		        } catch (ClassNotFoundException e) {
-					output = e.getMessage().substring(0, 1000);
-	        	}
-		        event.getChannel().sendMessage(output).queue();
+			event.getChannel().sendMessage(connectToDatabase.Connect("bot.db")).queue();
 		    
 		}
 	}
