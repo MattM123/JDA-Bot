@@ -101,14 +101,10 @@ public class NonAPICommands extends ListenerAdapter {
 
 		//Retrieves member count data from database
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
+			
 			//gets memberCount column from table
 			String select = "SELECT memberCount FROM members";
-			 
-			//creates table if it does not exist
-			String sql = "CREATE TABLE IF NOT EXISTS members (\n"
-						+ "	id integer PRIMARY KEY,\n"
-						+ "	memberCount integer NOT NULL\n"
-			            + ");";
+
 			event.getChannel().sendMessage("1").queue();
 			
 	        try {
@@ -117,11 +113,9 @@ public class NonAPICommands extends ListenerAdapter {
 	            Statement stmt  = conn.createStatement();
 	        	Statement table = conn.createStatement();
 	            ResultSet rs    = stmt.executeQuery(select);
-					
-				event.getChannel().sendMessage("Creating Table").queue();
-				table.execute(sql);
-				event.getChannel().sendMessage("New Table Created").queue();
-				       
+				if (rs.getFetchSize() == 0) {
+					event.getChannel().sendMessage("No data in table").queue();
+				}
 				// loop through the result set of member counts
 				while (rs.next()) {
 				    event.getChannel().sendMessage(String.valueOf(rs.getInt("memberCount"))).queue();
