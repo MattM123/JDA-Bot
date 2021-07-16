@@ -10,7 +10,7 @@ import java.sql.Statement;
 //connects to sqlite database
 public class database {
 	public static String output = "";
-	private static String dbURL = "jdbc:sqlite:bot.db";
+	private static String dbURL = "jdbc:sqlite:/src/main/java/commands/bot.db";
 	
 	 public static Connection connect() {
 	        // SQLite connection string
