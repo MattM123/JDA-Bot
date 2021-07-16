@@ -454,57 +454,6 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(noperm.build()).queue();
 			}
 		}
-
-//-----------------------------------------------------------------------------------------------------------------------
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("=hangman")) {
-			OkHttpClient client = new OkHttpClient();
-			Response response = null;
-			String badreq = "";
-
-			Request request = new Request.Builder()
-				.url("https://wordsapiv1.p.rapidapi.com/words/?random=true")
-				.get()
-				.addHeader("x-rapidapi-key", "c48982ebb1msh2d7538258cff917p115863jsn5851ee1dfaf2")
-				.addHeader("x-rapidapi-host", "wordsapiv1.p.rapidapi.com")
-				.build();
-
-			try {
-				response = client.newCall(request).execute();
-			} catch (IOException e) {
-				event.getChannel().sendMessage("Bad Request").queue();
-			}
-			
-			//------------Main message-------------------------------------------
-				EmbedBuilder hangman = new EmbedBuilder();
-				int lives = 10;
-				StringBuilder hiddenWord = new StringBuilder();
-				String jsonData = "";	
-				
-				JSONObject obj = new JSONObject(jsonData);
-				String word = obj.getString("word");
-				
-				try {
-					jsonData = response.body().string();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-	
-				for (int i = 0; i < word.length(); i++) {
-					if (word.charAt(i) != ' ') {
-						hiddenWord.append("_");
-					}
-					else {
-						hiddenWord.append(" ");
-					}
-				}
-			
-			hangman.setColor(Color.blue);
-			hangman.addField("Lives", String.valueOf(lives), false);
-			hangman.addField("Word", hiddenWord.toString(), false);
-			
-			event.getChannel().sendMessage(hangman.build()).queue();
-			}
 	
 	}
 		

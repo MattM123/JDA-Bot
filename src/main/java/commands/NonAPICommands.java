@@ -2,6 +2,11 @@ package commands;
 
 import database.databaseManipulator;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.function.Consumer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -16,8 +21,6 @@ import net.dv8tion.jda.api.requests.RestAction;
 
 public class NonAPICommands extends ListenerAdapter {
 	
-	private String memberCountSQL = "INSERT INTO members (memberCount)\n"
-							+ "VALUES(";
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
@@ -100,11 +103,27 @@ public class NonAPICommands extends ListenerAdapter {
 
 		//Creates table to track member count if not already created and returns latest data in table.
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
+			
 			String sql = "CREATE TABLE IF NOT EXISTS members (\n"
 						+ "	id integer PRIMARY KEY,\n"
 						+ "	memberCount integer NOT NULL\n"
 		                + ");";
 			databaseManipulator.sendSQLStatement(sql);
+			
+			//gets memberCount column
+			 String select = "SELECT memberCount FROM members";
+		        
+		        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:bot.db");
+		             Statement stmt  = conn.createStatement();
+		             ResultSet rs    = stmt.executeQuery(select)){
+		            
+		            // loop through the result set of member counts
+		            while (rs.next()) {
+		                event.getChannel().sendMessage(String.valueOf(rs.getInt("memberCount"))).queue();
+		            }
+		        } catch (SQLException e) {
+		            System.out.println(e.getMessage());
+		        }
 		    
 		}
 	}
