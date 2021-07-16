@@ -58,11 +58,12 @@ public class database {
 	    	String label = "";
 	    	
 	        try {
-	        	Connection conn = database.connect();
+	        	Class.forName("org.sqlite.JDBC");
+	        	Connection conn = DriverManager.getConnection(dbURL);
 	            Statement stmt  = conn.createStatement();
 	            ResultSet rs    = stmt.executeQuery(select);
 	            
-	   
+	            output = "Driver Connected: " + conn.getMetaData().getDriverName();
 	            i = rs.first();
 	            label =  rs.getMetaData().getColumnLabel(1);
 	           
@@ -72,7 +73,7 @@ public class database {
 				} 
     	
 		            
-		        } catch (SQLException e) {
+		        } catch (SQLException | ClassNotFoundException e) {
 		            output = e.getMessage();
 		        }
 	        return i + ":" + o + ":" + label;
