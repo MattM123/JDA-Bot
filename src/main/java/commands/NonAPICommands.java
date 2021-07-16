@@ -101,26 +101,29 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 		}
 
-		//Creates table to track member count if not already created and returns latest data in table.
+		//Retrieves member count data from database
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
-			
+			//gets memberCount column
+			 String select = "SELECT memberCount FROM members";
+			 
+			//creates table if it does not exist
 			String sql = "CREATE TABLE IF NOT EXISTS members (\n"
 						+ "	id integer PRIMARY KEY,\n"
 						+ "	memberCount integer NOT NULL\n"
-		                + ");";
-			databaseManipulator.sendSQLStatement(sql);
-			
-			//gets memberCount column
-			 String select = "SELECT memberCount FROM members";
-		        
-		        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:bot.db");
-		             Statement stmt  = conn.createStatement();
-		             ResultSet rs    = stmt.executeQuery(select)){
-		            
+			               + ");";
+			 
+	        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:bot.db");
+	             Statement stmt  = conn.createStatement();
+	        	 Statement table = conn.createStatement();
+	             ResultSet rs    = stmt.executeQuery(select)){
+
+	        		table.execute(sql);
+		                   
 		            // loop through the result set of member counts
 		            while (rs.next()) {
 		                event.getChannel().sendMessage(String.valueOf(rs.getInt("memberCount"))).queue();
 		            }
+		            
 		        } catch (SQLException e) {
 		            System.out.println(e.getMessage());
 		        }
