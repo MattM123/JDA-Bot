@@ -29,7 +29,7 @@ public class Bot {
 			        new java.util.TimerTask() {
 			            @Override
 			            public void run() {
-			            	String memberCountSQL = "INSERT INTO members (memberCount)\n"
+			            	String memberCountSQL = "INSERT INTO countmembers (memberCount)\n"
 													+ "VALUES(" + String.valueOf(jda.getGuildById(735990134583066679L).getMemberCount()) + ")";
 			            	
 			            	database.sendSQLStatement(memberCountSQL);

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 
@@ -64,14 +65,12 @@ public class database {
 	            Statement stmt  = conn.createStatement();
 	            ResultSet rs    = stmt.executeQuery(select);
 	            
-	            output = "Driver Connected: " + conn.getMetaData().getDriverName();
-	            
-	      
-	            label =  rs.getMetaData().getColumnLabel(1);
+	            ArrayList<Integer> count = new ArrayList<Integer>();
 	           
 				// loop through the result set of member counts
+
 				while (rs.next()) {
-				  o = rs.getInt("memberCount");
+					count.add(rs.getInt("memberCount"));
 				} 
     	
 		            
