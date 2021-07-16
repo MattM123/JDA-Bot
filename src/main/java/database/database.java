@@ -55,7 +55,6 @@ public class database {
 	    
 	    public static String getMemberData() {
 	    	String select = "SELECT memberCount FROM countmembers";
-	    	boolean i = false;
 	    	int o = 0;
 	    	String label = "";
 	    	
@@ -67,7 +66,7 @@ public class database {
 	            
 	            output = "Driver Connected: " + conn.getMetaData().getDriverName();
 	            
-	            i = rs.first();
+	      
 	            label =  rs.getMetaData().getColumnLabel(1);
 	           
 				// loop through the result set of member counts
@@ -81,7 +80,7 @@ public class database {
 					output = stack.subSequence(0, 1000).toString();
 		           
 		        }
-	        return i + ":" + o + ":" + label;
+	        return o + ":" + label;
 	    }
 	    
 	    
