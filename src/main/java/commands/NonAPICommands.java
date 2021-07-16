@@ -1,6 +1,5 @@
 package commands;
 
-import database.databaseManipulator;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,11 +9,9 @@ import java.sql.Statement;
 import java.util.function.Consumer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
@@ -117,9 +114,9 @@ public class NonAPICommands extends ListenerAdapter {
 	        	 Statement table = conn.createStatement();
 	             ResultSet rs    = stmt.executeQuery(select)){
 	        		
-	        		event.getChannel().sendMessage("Creating Table");
+	        		event.getChannel().sendMessage("Creating Table").queue();
 	        		table.execute(sql);
-	        		event.getChannel().sendMessage("New Table Created");
+	        		event.getChannel().sendMessage("New Table Created").queue();
 		                   
 		            // loop through the result set of member counts
 		            while (rs.next()) {
