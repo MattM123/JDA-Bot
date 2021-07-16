@@ -43,7 +43,7 @@ public class database {
 	    	
 	        try {
 	        	Class.forName("org.sqlite.JDBC"); 
-	        	Connection conn = DriverManager.getConnection("jdbc:sqlite:bot.db");
+	        	Connection conn = database.connect();
 	            Statement stmt  = conn.createStatement();
 	            ResultSet rs    = stmt.executeQuery(select);
 
