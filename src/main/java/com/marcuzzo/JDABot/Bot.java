@@ -24,7 +24,7 @@ public class Bot {
 			
 			jda.addEventListener(new APICommands()); //The ServerCommands object contains classes with calls to the other 2 API's
 			jda.addEventListener(new NonAPICommands()); //Basic commands with no API authentication
-		/*	
+			
 			new java.util.Timer().schedule( 
 			        new java.util.TimerTask() {
 			            @Override
@@ -38,7 +38,7 @@ public class Bot {
 			        10000
 			);
 			
-		*/	
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
