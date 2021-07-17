@@ -7,11 +7,10 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 import commands.APICommands;
 import commands.NonAPICommands;
-import database.database;
 
 public class Bot {	
-	private static String token = "NzMyMjkwMTUzNjg2NDk5MzY4.XwycWQ.DV6g4DyHxlI01yxROtKMggZFW_Q"; //token used to hook into the Discord bot (bot token)
-	private static JDA jda;
+	private static String token = "NzMyMjkwMTUzNjg2NDk5MzY4.XwycWQ.sro0wc0HUIAO1dNvbh7LgMtK3_k"; //token used to hook into the Discord bot (bot token)
+	public static JDA jda;
 
 	public static void main (String[] args) {
         
@@ -24,21 +23,7 @@ public class Bot {
 			
 			jda.addEventListener(new APICommands()); //The ServerCommands object contains classes with calls to the other 2 API's
 			jda.addEventListener(new NonAPICommands()); //Basic commands with no API authentication
-			
-			new java.util.Timer().schedule( 
-			        new java.util.TimerTask() {
-			            @Override
-			            public void run() {
-			            	String memberCountSQL = "INSERT INTO countmembers (memberCount)\n"
-													+ "VALUES(" + String.valueOf(jda.getGuildById(735990134583066679L).getMemberCount()) + ")";
-			            	
-			            	database.sendSQLStatement(memberCountSQL);
-			            }
-			        }, 
-			        10000
-			);
-			
-			
+		
 			
 		} catch (Exception e) {
 			e.printStackTrace();

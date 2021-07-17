@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.function.Consumer;
 
+import com.marcuzzo.JDABot.Bot;
+
 import database.database;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -18,6 +20,21 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
 
 public class NonAPICommands extends ListenerAdapter {
+	
+	public NonAPICommands() {
+		new java.util.Timer().schedule( 
+		        new java.util.TimerTask() {
+		            @Override
+		            public void run() {
+		            	String memberCountSQL = "INSERT INTO countmembers (memberCount)\n"
+												+ "VALUES(" + String.valueOf(Bot.jda.getGuildById(735990134583066679L).getMemberCount()) + ")";
+		            	
+		            	database.sendSQLStatement(memberCountSQL);
+		            }
+		        }, 
+		        10000
+		);
+	}
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
