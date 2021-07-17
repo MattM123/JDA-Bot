@@ -1,16 +1,9 @@
 package commands;
 
 import java.awt.Color;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.function.Consumer;
 
-import com.marcuzzo.JDABot.Bot;
-
-import database.database;
+import database.data;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -21,20 +14,7 @@ import net.dv8tion.jda.api.requests.RestAction;
 
 public class NonAPICommands extends ListenerAdapter {
 	
-	public NonAPICommands() {
-		new java.util.Timer().schedule( 
-		        new java.util.TimerTask() {
-		            @Override
-		            public void run() {
-		            	String memberCountSQL = "INSERT INTO countmembers (memberCount)\n"
-												+ "VALUES(" + String.valueOf(Bot.jda.getGuildById(735990134583066679L).getMemberCount()) + ")";
-		            	
-		            	database.sendSQLStatement(memberCountSQL);
-		            }
-		        }, 
-		        10000
-		);
-	}
+
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -118,13 +98,13 @@ public class NonAPICommands extends ListenerAdapter {
 
 		//Retrieves member count data from database
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
-			database.getMemberData();
+			data.getMemberData();
 			
-			for (int i = 0; i < database.getMemberData().size(); i++) {
-				event.getChannel().sendMessage(String.valueOf(database.getMemberData().get(i))).queue();
+			for (int i = 0; i < data.getMemberData().size(); i++) {
+				event.getChannel().sendMessage(String.valueOf(data.getMemberData().get(i))).queue();
 			}
 			
-			event.getChannel().sendMessage(database.output).queue();	        
+			event.getChannel().sendMessage(data.output).queue();	        
 		}
 	}
 }
