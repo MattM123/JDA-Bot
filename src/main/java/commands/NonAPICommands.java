@@ -101,37 +101,13 @@ public class NonAPICommands extends ListenerAdapter {
 
 		//Retrieves member count data from database
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
-		//	database.connect();
-			//event.getChannel().sendMessage(database.output).queue();
-			//gets memberCount column from table
-		//	String select = "SELECT memberCount FROM members";
 			database.getMemberData();
 			
 			for (int i = 0; i < database.getMemberData().size(); i++) {
 				event.getChannel().sendMessage(String.valueOf(database.getMemberData().get(i))).queue();
 			}
 			
-			event.getChannel().sendMessage(database.output).queue();
-		/*	
-	        try {
-	        	Class.forName("org.sqlite.JDBC"); 
-	        	Connection conn = DriverManager.getConnection("jdbc:sqlite:bot.db");
-	            Statement stmt  = conn.createStatement();
-	            ResultSet rs    = stmt.executeQuery(select);
-				if (rs.getFetchSize() == 0) {
-					event.getChannel().sendMessage("No data in table").queue();
-				}
-				// loop through the result set of member counts
-				while (rs.next()) {
-				    event.getChannel().sendMessage(String.valueOf(rs.getInt("memberCount"))).queue();
-				} 
-    	
-		            
-		        } catch (Exception e) {
-		            event.getChannel().sendMessage(e.getMessage().subSequence(0, 1000)).queue();
-		        }
-		        */
-		    event.getChannel().sendMessage(database.output.subSequence(0, 1000)).queue();
+			event.getChannel().sendMessage(database.output).queue();	        
 		}
 	}
 }

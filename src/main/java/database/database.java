@@ -66,7 +66,7 @@ public class database {
 	            
 	           
 				// loop through the result set of member counts
-
+//rs.getArray(columnLabel);
 				while (rs.next()) {
 					count.add(rs.getInt("memberCount"));
 				} 

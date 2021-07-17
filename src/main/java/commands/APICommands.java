@@ -35,12 +35,12 @@ public class APICommands extends ListenerAdapter {
 		super.onGuildMessageReceived(event);
 		
 		 Guild guild = event.getGuild(); 
-		 Role leader = guild.getRoleById("735991787734433802");
-		 ArrayList<Member> stateLeaders = (ArrayList<Member>) guild.getMembersWithRoles(leader);
+		 Role staffRole = guild.getRoleById(735991904352731176L);
+		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole);
 		
 		//event builder assign
 		if (event.getMessage().getContentRaw().startsWith("=event")) {
-			if (stateLeaders.contains(event.getMessage().getMember())) {
+			if (staff.contains(event.getMessage().getMember())) {
 				
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
@@ -65,7 +65,7 @@ public class APICommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------		
 		//Applicant builder assign
 		if (event.getMessage().getContentRaw().startsWith("=applicant")) {
-			if (stateLeaders.contains(event.getMessage().getMember())) {
+			if (staff.contains(event.getMessage().getMember())) {
 				
 				char[] chararr = event.getMessage().getContentRaw().toCharArray();
 				String namebuilder = "";
@@ -374,7 +374,7 @@ public class APICommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 		//Retrieves an application of user given a discord ID and an integer representing which application in the list to return
 		if (event.getMessage().getContentRaw().startsWith("=getapp")) { 
-			if (stateLeaders.contains(event.getMessage().getMember())) {
+			if (staff.contains(event.getMessage().getMember())) {
 				String message = event.getMessage().getContentRaw();
 				
 				char[] charArr = event.getMessage().getContentRaw().toCharArray();
@@ -449,7 +449,7 @@ public class APICommands extends ListenerAdapter {
 			else {
 				EmbedBuilder noperm = new EmbedBuilder();
 				noperm.setColor(Color.BLUE);
-				noperm.setTitle("You must be a Midest State Leader to use this command");
+				noperm.setTitle("You must be a staff member to use this command");
 				
 				event.getChannel().sendMessage(noperm.build()).queue();
 			}
