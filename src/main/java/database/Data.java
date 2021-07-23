@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 //connects to sqlite database
-public class data {
+public class Data {
 	public static String output = "";
 	private static String dbURL = "jdbc:sqlite:src/main/java/database/bot.db";
 	
