@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 
 import database.Data;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
@@ -19,6 +20,8 @@ public class NonAPICommands extends ListenerAdapter {
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
+		
+		Guild guild = event.getGuild(); 
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setColor(Color.blue);
 		embed.setTitle("Command Information");
@@ -105,6 +108,16 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 			
 			event.getChannel().sendMessage(Data.output).queue();	        
+		}
+		
+		if (event.getMessage().getContentRaw().equals("@loser") && event.getMessage().getAuthor().getId() == "387330197420113930") {
+			try {
+				wait(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			event.getChannel().sendMessage("<@loser>").queue();
 		}
 	}
 }
