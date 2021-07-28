@@ -126,7 +126,7 @@ public class APICommands extends ListenerAdapter {
 			event.getChannel().sendMessage(MCusername).queue();
 			
 				//Getting username from application for input validation	
-				String usernameApplied = BTE.getUsernameAppliedWith("778033246998364160");//(event.getAuthor().getId());
+				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") 
 						|| usernameApplied.contains("IOException") || usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:"))) {
@@ -138,20 +138,19 @@ public class APICommands extends ListenerAdapter {
 					event.getChannel().sendMessage(emb.build()).queue();
 				}
 				
-				event.getChannel().sendMessage(usernameApplied).queue();
-				
 					List<Role> roles = event.getMember().getRoles();
 					int temp = 0;
 					
-					//retreieves the member list test
+					//retrieves the member list test
 					BTE.getMemberList(); 
-					//if theres an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
+					//if there's an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
 					if (!BTE.stackTrace.equals("")) {
-						event.getChannel().sendMessage(BTE.stackTrace).queue();
+						EmbedBuilder emb = new EmbedBuilder();
+						emb.setTitle(BTE.stackTrace);
+						event.getChannel().sendMessage(emb.build()).queue();
 					}
 					
 					else {
-						event.getChannel().sendMessage("2").queue();
 						//If user ID exists in member list and builder role is not already assigned, give builder role
 						
 						for (int i = 0; i < BTE.getMemberList().size(); i++) {	
