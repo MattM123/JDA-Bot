@@ -123,7 +123,7 @@ public class APICommands extends ListenerAdapter {
 				MCusername += chararr[i];
 			}
 
-			event.getChannel().sendMessage(MCusername).queue();
+			
 			
 				//Getting username from application for input validation	
 				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
