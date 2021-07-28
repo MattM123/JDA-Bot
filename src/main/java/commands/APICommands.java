@@ -35,7 +35,7 @@ public class APICommands extends ListenerAdapter {
 	private String apikey = "ocOQoS7GAfsHJVQVEUL4QroU3N43c7gxQJLUb4kmtumkkAbq";
 	private PteroAdminAPI api = new PteroAdminAPI("https://panel.pterodactyl.io/", apikey);
 	private ServersController serverController = api.getServersController();
-	private Server server = serverController.getServer(1);
+	private Server server = serverController.getServer(0);
 	
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
 	    
