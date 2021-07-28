@@ -24,11 +24,11 @@
     	<version>1.6.2</version>
    	 	<scope>test</scope>
 	</dependency>
-        <dependency>
-            <groupId>com.github.stanjg</groupId>
-            <artifactId>Ptero4J</artifactId>
-            <version>master-SNAPSHOT</version>
-        </dependency>
+<dependency>
+    <groupId>com.mattmalec</groupId>
+    <artifactId>Pterodactyl4J</artifactId>
+    <version>2.BETA_59</version>
+</dependency>
   <dependency>
     <groupId>com.jagrosh</groupId>
     <artifactId>jda-utilities</artifactId>
@@ -95,11 +95,10 @@
     <name>jcenter-bintray</name>
     <url>https://jcenter.bintray.com</url>
 </repository>
-<!-- Jitpack repo -->
-        <repository>
-            <id>jitpack</id>
-            <url>https://jitpack.io</url>
-        </repository>
+<repository>
+    <id>mattmalec-repo</id>
+    <url>https://repo.mattmalec.com/repository/releases</url>
+</repository>
   </repositories>
   
     <build>

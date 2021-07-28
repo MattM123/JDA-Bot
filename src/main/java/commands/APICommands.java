@@ -8,15 +8,13 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import com.google.inject.spi.Message;
-import com.stanjg.ptero4j.PteroAdminAPI;
-import com.stanjg.ptero4j.PteroUserAPI;
-import com.stanjg.ptero4j.controllers.admin.ServersController;
-import com.stanjg.ptero4j.controllers.admin.UsersController;
-import com.stanjg.ptero4j.controllers.user.UserServersController;
-import com.stanjg.ptero4j.entities.panel.admin.Server;
-import com.stanjg.ptero4j.entities.panel.user.UserServer;
+import com.mattmalec.pterodactyl4j.DataType;
+import com.mattmalec.pterodactyl4j.PowerAction;
+import com.mattmalec.pterodactyl4j.PteroAction;
+import com.mattmalec.pterodactyl4j.PteroBuilder;
+import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
+import com.mattmalec.pterodactyl4j.client.entities.PteroClient;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -32,86 +30,11 @@ import okhttp3.Response;
 
 public class APICommands extends ListenerAdapter {
 
-	private String apikey = "ocOQoS7GAfsHJVQVEUL4QroU3N43c7gxQJLUb4kmtumkkAbq";
-	private String serverID = "7c5eec7c-78c2-48e4-bf8d-4058d62afd37";
-	private PteroUserAPI api = new PteroUserAPI("https://panel.richterent.com/", apikey);
-	private UserServersController controller = api.getServersController();
-	private UserServer server = controller.getServer(serverID);
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-	    
-	
-	public String getPowerState() {
-		if (server.getPowerState().toString().equals("ON")) {
-			return "Online";
-		}
-		else if (server.getPowerState().toString().equals("OFF")) {
-			return "Offline";
-		}
-		else if (server.getPowerState().toString().equals("STARTING")) {
-			return "Starting";
-		}
-		else if (server.getPowerState().toString().equals("STOPPING")) {
-			return "Stopping";
-		}
-		else {
-			return "There was an error retrieving the servers power state";
-		}
-	}
-	
-	public String getCpuUsage() {
-		if (server.getServerUsage() == null) {
-			return "Unable to retrieve CPU usage";
-		}
-		else {
-			return String.valueOf(server.getServerUsage().getCpuUsage()) + "%";
-		}
-	}
-	
-	public String getMemoryUsage() {
-		if (server.getServerUsage() == null) {
-			return "Unable to retrieve memory usage";
-		}
-		else {
-			return String.valueOf(server.getServerUsage().getMemoryUsage() / 1000) + "GB";
-		}
-	}
-	
-	public String getDiskUsage() {
-		if (server.getServerUsage() == null) {
-			return "Unable to retrieve disk usage";
-		}
-		else {
-			return String.valueOf(server.getServerUsage().getDiskUsage() / 1000) + "GB";
-		}
-
-	}
-	
-	public String getCpuMax() {
-		if (server.getLimits().getCpu() == 0) {
-			return "Unlimited";
-		}
-		else {
-			return String.valueOf(server.getLimits().getCpu()) + "%";
-		}
-	}
-	
-	public String getMemoryMax() {
-		if (server.getLimits().getMemory() == 0) {
-			return "Unlimited";
-		}
-		else {
-			return String.valueOf(server.getLimits().getMemory() / 1000) + "GB";
-		}
-	}
-	
-	public String getDiskMax() {
-		if (server.getLimits().getDisk() == 0) {
-			return "Unlimited";
-		}
-		else {
-			return String.valueOf(server.getLimits().getDisk() / 1000) + "GB";
-		}
-	}
+	private String apikey = "ocOQoS7GAfsHJVQVEUL4QroU3N43c7gxQJLUb4kmtumkkAbq";
+	private String midwestServerID = "7c5eec7c";
+	private PteroClient api = PteroBuilder.createClient("https://panel.richterent.com/", apikey);
+	private ClientServer midwestServer = (ClientServer) api.retrieveServerByIdentifier(midwestServerID);
 	
 	
 	@Override
@@ -132,7 +55,7 @@ public class APICommands extends ListenerAdapter {
 				for (int i = 7; i < chararr.length; i++) {
 					namebuilder += chararr[i];
 				}			
-				server.sendCommand("lp user " + namebuilder + " parent add event-builder");
+				midwestServer.sendCommand("lp user " + namebuilder + " parent add event-builder");
 				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
@@ -157,7 +80,7 @@ public class APICommands extends ListenerAdapter {
 				namebuilder += chararr[i];
 			}		
 			
-			server.sendCommand("lp user " + namebuilder + " parent add applicants");
+			midwestServer.sendCommand("lp user " + namebuilder + " parent add applicants");
 	
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.BLUE);
@@ -169,20 +92,20 @@ public class APICommands extends ListenerAdapter {
 		//test API
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
 			EmbedBuilder midwest = new EmbedBuilder();
-			if (getPowerState().equals("Online")) {
+			if (midwestServer.retrieveUtilization().execute().getState().toString().equals("RUNNING")) {
 				midwest.setColor(Color.green);
 			}
-			else if (getPowerState().equals("Offline")) {
+			else if (midwestServer.retrieveUtilization().execute().getState().toString().equals("OFFLINE")) {
 				midwest.setColor(Color.red);
 			}
 			else {
 				midwest.setColor(Color.yellow);
 			}
-			midwest.setTitle(server.getName());
-			midwest.addField("Status", getPowerState(), false);
-			midwest.addField("CPU Usage", getCpuUsage() + "/" + getCpuMax(), false);
-			midwest.addField("Memory Usage", getMemoryUsage() + "/" + getMemoryMax(), false);
-			midwest.addField("Server Size", getDiskUsage() + "/" + getDiskMax(), false);
+			midwest.setTitle(midwestServer.getName());
+			midwest.addField("Status", midwestServer.retrieveUtilization().execute().getState().toString(), false);
+			midwest.addField("CPU Usage", midwestServer.retrieveUtilization().execute().getCPU() + "/" + midwestServer.getLimits().getCPU(), false);
+			midwest.addField("Memory Usage", midwestServer.retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + midwestServer.getLimits().getMemory(), false);
+			midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/" + midwestServer.getLimits().getDisk(), false);
 	
 			event.getChannel().sendMessage(midwest.build()).queue();
 		}
@@ -265,7 +188,7 @@ public class APICommands extends ListenerAdapter {
 						if (temp == 1) {
 							if (roles.contains(guild.getRoleById(735995176165834756L))) {
 								
-								server.sendCommand("lp user " + MCusername + " parent add kansas-builder");
+								midwestServer.sendCommand("lp user " + MCusername + " parent add kansas-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Kansas Builder for user " + MCusername);
@@ -274,7 +197,7 @@ public class APICommands extends ListenerAdapter {
 							}
 							else if (roles.contains(guild.getRoleById(735995164493086720L))) {								
 								
-								server.sendCommand("lp user " + MCusername + " parent add iowa-builder");
+								midwestServer.sendCommand("lp user " + MCusername + " parent add iowa-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Iowa Builder for user " + MCusername);
@@ -283,7 +206,7 @@ public class APICommands extends ListenerAdapter {
 							}
 							else if (roles.contains(guild.getRoleById(735995136978321541L))) {
 
-								server.sendCommand("lp user " + MCusername + " parent add nebraska-builder");
+								midwestServer.sendCommand("lp user " + MCusername + " parent add nebraska-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Nebraska Builder for user " + MCusername);
@@ -292,7 +215,7 @@ public class APICommands extends ListenerAdapter {
 							}
 							else if (roles.contains(guild.getRoleById(735995095773609986L))) {
 								
-								server.sendCommand("lp user " + MCusername + " parent add illinois-builder");
+								midwestServer.sendCommand("lp user " + MCusername + " parent add illinois-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Illinois Builder for user " + MCusername);
@@ -300,7 +223,7 @@ public class APICommands extends ListenerAdapter {
 							}
 							else if (roles.contains(guild.getRoleById(735995115113414656L))) {
 
-								server.sendCommand("lp user " + MCusername + " parent add missouri-builder");
+								midwestServer.sendCommand("lp user " + MCusername + " parent add missouri-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Missouri Builder for user " + MCusername);
@@ -309,7 +232,7 @@ public class APICommands extends ListenerAdapter {
 							}
 							else if (roles.contains(guild.getRoleById(735995196738633819L))) {
 
-								server.sendCommand("lp user " + MCusername + " parent add minnesota-builder");
+								midwestServer.sendCommand("lp user " + MCusername + " parent add minnesota-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Minnesota Builder for user " + MCusername);
@@ -317,7 +240,7 @@ public class APICommands extends ListenerAdapter {
 							}
 							else if (roles.contains(guild.getRoleById(808415301799641119L))) {
 
-								server.sendCommand("lp user " + MCusername + " parent add oklahoma-builder");
+								midwestServer.sendCommand("lp user " + MCusername + " parent add oklahoma-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Oklahoma Builder for user " + MCusername);
