@@ -135,8 +135,8 @@ public class APICommands extends ListenerAdapter {
 				midwest.setColor(Color.yellow);
 			}
 			midwest.setTitle(server.getName());
-			midwest.addField("Statue", getPowerState(), false);
-			midwest.addField("Usage", server.getServerUsage().toString(), false);
+			midwest.addField("Status", getPowerState(), false);
+			//midwest.addField("Usage", server.getServerUsage().toString(), false);
 	
 			event.getChannel().sendMessage(midwest.build()).queue();
 		}
@@ -166,6 +166,7 @@ public class APICommands extends ListenerAdapter {
 					emb.addField("", usernameApplied.toString().substring(0, 1000), false);
 					event.getChannel().sendMessage(emb.build()).queue();
 				}
+				event.getChannel().sendMessage("1").queue();
 				
 					List<Role> roles = event.getMember().getRoles();
 					int temp = 0;
@@ -178,6 +179,7 @@ public class APICommands extends ListenerAdapter {
 					}
 					
 					else {
+						event.getChannel().sendMessage("2").queue();
 						//If user ID exists in member list and builder role is not already assigned, give builder role
 						
 						for (int i = 0; i < BTE.getMemberList().size(); i++) {	
