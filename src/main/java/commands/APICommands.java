@@ -104,8 +104,8 @@ public class APICommands extends ListenerAdapter {
 			}
 			midwest.setTitle(midwestServer.getName());
 			midwest.addField("Status", midwestServer.retrieveUtilization().execute().getState().toString(), false);
-			midwest.addField("CPU Usage", midwestServer.retrieveUtilization().execute().getCPU() + "/" + midwestServer.getLimits().getCPU(), false);
-			midwest.addField("Memory Usage", midwestServer.retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + midwestServer.getLimits().getMemory(), false);
+			midwest.addField("CPU Usage", midwestServer.retrieveUtilization().execute().getCPU() + "%/100%", false);
+			midwest.addField("Memory Usage", midwestServer.retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + Integer.parseInt(midwestServer.getLimits().getMemory()) / 1000 + " GB", false);
 			midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/" + midwestServer.getLimits().getDisk(), false);
 	
 			event.getChannel().sendMessage(midwest.build()).queue();
@@ -136,7 +136,7 @@ public class APICommands extends ListenerAdapter {
 					emb.addField("", usernameApplied.toString().substring(0, 1000), false);
 					event.getChannel().sendMessage(emb.build()).queue();
 				}
-				event.getChannel().sendMessage("1").queue();
+				event.getChannel().sendMessage(usernameApplied).queue();
 				
 					List<Role> roles = event.getMember().getRoles();
 					int temp = 0;
