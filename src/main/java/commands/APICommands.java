@@ -44,11 +44,17 @@ public class APICommands extends ListenerAdapter {
 		if (server.getPowerState().toString().equals("ON")) {
 			return "Online";
 		}
-		else if (server.getPowerState().toString().equals("ERROR")) {
-			return "There was an error retrieving the servers power state";
+		else if (server.getPowerState().toString().equals("OFF")) {
+			return "Offline";
+		}
+		else if (server.getPowerState().toString().equals("STARTING")) {
+			return "Starting";
+		}
+		else if (server.getPowerState().toString().equals("STOPPING")) {
+			return "Stopping";
 		}
 		else {
-			return "Offline";
+			return "There was an error retrieving the servers power state";
 		}
 	}
 	
@@ -156,7 +162,7 @@ public class APICommands extends ListenerAdapter {
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setColor(Color.BLUE);
 					emb.setTitle("There was an error with retrieveing the users' application data.");
-					emb.addField("", usernameApplied, false);
+					emb.addField("", usernameApplied.toString().substring(0, 1000), false);
 					event.getChannel().sendMessage(emb.build()).queue();
 				}
 				
