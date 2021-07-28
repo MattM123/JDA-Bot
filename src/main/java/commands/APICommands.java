@@ -126,8 +126,8 @@ public class APICommands extends ListenerAdapter {
 			event.getChannel().sendMessage(MCusername).queue();
 			
 				//Getting username from application for input validation	
-				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
-		/*		
+				String usernameApplied = BTE.getUsernameAppliedWith("778033246998364160");//(event.getAuthor().getId());
+				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") 
 						|| usernameApplied.contains("IOException") || usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:"))) {
 					
@@ -137,7 +137,7 @@ public class APICommands extends ListenerAdapter {
 					emb.addField("", usernameApplied.toString().substring(0, 1000), false);
 					event.getChannel().sendMessage(emb.build()).queue();
 				}
-			*/	
+				
 				event.getChannel().sendMessage(usernameApplied).queue();
 				
 					List<Role> roles = event.getMember().getRoles();
