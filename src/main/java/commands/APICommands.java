@@ -123,6 +123,7 @@ public class APICommands extends ListenerAdapter {
 //-----------------------------------------------------------------------------------------------------------------------------
 		//test API
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
+			event.getChannel().sendMessage(getPowerState()).queue();
 			EmbedBuilder midwest = new EmbedBuilder();
 			if (getPowerState().equals("Online")) {
 				midwest.setColor(Color.green);
