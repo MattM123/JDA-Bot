@@ -91,6 +91,7 @@ public class APICommands extends ListenerAdapter {
 //-----------------------------------------------------------------------------------------------------------------------------
 		//test API
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
+			event.getChannel().sendMessage(midwestServer.getName()).queue();
 			EmbedBuilder midwest = new EmbedBuilder();
 			if (midwestServer.retrieveUtilization().execute().getState().toString().equals("RUNNING")) {
 				midwest.setColor(Color.green);
@@ -102,7 +103,7 @@ public class APICommands extends ListenerAdapter {
 				midwest.setColor(Color.yellow);
 			}
 			midwest.setTitle(midwestServer.getName());
-			midwest.addField("Status", midwestServer.retrieveUtilization().execute().getState().toString(), false);
+			midwest.addField("Status", "test", false);//midwestServer.retrieveUtilization().execute().getState().toString(), false);
 		//	midwest.addField("CPU Usage", midwestServer.retrieveUtilization().execute().getCPU() + "/" + midwestServer.getLimits().getCPU(), false);
 		//	midwest.addField("Memory Usage", midwestServer.retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + midwestServer.getLimits().getMemory(), false);
 			//midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/" + midwestServer.getLimits().getDisk(), false);
