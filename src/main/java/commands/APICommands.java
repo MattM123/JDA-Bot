@@ -10,7 +10,12 @@ import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import com.google.inject.spi.Message;
+import com.stanjg.ptero4j.PteroAdminAPI;
 import com.stanjg.ptero4j.PteroUserAPI;
+import com.stanjg.ptero4j.controllers.admin.ServersController;
+import com.stanjg.ptero4j.controllers.admin.UsersController;
+import com.stanjg.ptero4j.controllers.user.UserServersController;
+import com.stanjg.ptero4j.entities.panel.admin.Server;
 import com.stanjg.ptero4j.entities.panel.user.UserServer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -27,7 +32,11 @@ import okhttp3.Response;
 
 public class APICommands extends ListenerAdapter {
 
-	private CraftyControllerAPI crafty = new CraftyControllerAPI("K7SYOJTCMHAFKSTE60J7TGXGFS3BWJW8");
+	private String apikey = "ocOQoS7GAfsHJVQVEUL4QroU3N43c7gxQJLUb4kmtumkkAbq";
+	private PteroAdminAPI api = new PteroAdminAPI("https://panel.pterodactyl.io/", apikey);
+	private ServersController serverController = api.getServersController();
+	private Server server = serverController.getServer(1);
+	
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
 	    
 	@Override
@@ -88,123 +97,14 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 		}
-//--------------------------------------------------------------------------------------------------------
-		//Server stats from crafty
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
-			JSONObject obj = new JSONObject(crafty.getServerList()); 
-			JSONArray serverList = obj.getJSONArray("data");
-			
-			//server stat embeds
-			EmbedBuilder midwest = new EmbedBuilder();
-			EmbedBuilder corruptMidwest = new EmbedBuilder();
-			EmbedBuilder wisconsin = new EmbedBuilder();
-			
-		
-			//Tests API connection
-			crafty.getServerList();
-			if (crafty.stackTrace.contains("MalformedURLException") || crafty.stackTrace.contains("IOException") || crafty.stackTrace.contains("JSONException")
-					|| crafty.stackTrace.contains("NoSuchAlgorithmException") || crafty.stackTrace.contains("KeyManagementException")) {
-				
-				EmbedBuilder emb = new EmbedBuilder();
-				emb.setColor(Color.BLUE);
-				emb.setTitle("There was an error retrieveing the server stats");
-				emb.addField("", crafty.stackTrace, false);
-				event.getChannel().sendMessage(emb.build()).queue();
-			}
-			else {
-				for (int i = 0; i < serverList.length(); i++) {
-					//status display
-					String status = "";
-					if (serverList.getJSONObject(i).get("server_running").toString().equals("true")) {
-						status = "Online";
-					}
-					else {
-						status = "Offline";
-					}
-					//player list display
-					String players = "";
-					if (serverList.getJSONObject(i).get("players").toString().equals("[]")) {
-						players = "No Players Online";
-					}
-					else {
-						players = serverList.getJSONObject(i).get("players").toString().substring(1, serverList.getJSONObject(i).get("players").toString().length() - 1).replaceAll("'", "");
-					}
-						
-						if (serverList.getJSONObject(i).get("server_id").toString().equals("2")) {
-							midwest.setTitle(serverList.getJSONObject(i).get("name").toString());
-							midwest.addField("Status", status, false);
-							midwest.addField("Memory Usage", serverList.getJSONObject(i).get("memory_usage").toString(), false);
-							midwest.addField("CPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
-							midwest.addField("Players", players, false);
-							if (status.equals("Online")) {
-								midwest.setColor(Color.green);
-							}
-							else {
-								midwest.setColor(Color.red);
-							}
-						}
-						
-						if (serverList.getJSONObject(i).get("server_id").toString().equals("4")) {
-							corruptMidwest.setTitle(serverList.getJSONObject(i).get("name").toString());
-							corruptMidwest.addField("Status", status, false);
-							corruptMidwest.addField("Memory Usage", serverList.getJSONObject(i).get("memory_usage").toString(), false);
-							corruptMidwest.addField("CPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
-							corruptMidwest.addField("Players", players, false);
-							if (status.equals("Online")) {
-								corruptMidwest.setColor(Color.green);
-							}
-							else {
-								corruptMidwest.setColor(Color.red);
-							}
-						}
-						
-						if (serverList.getJSONObject(i).get("server_id").toString().equals("3")) {
-							wisconsin.setTitle(serverList.getJSONObject(i).get("name").toString());
-							wisconsin.addField("Status", status, false);
-							wisconsin.addField("Memory Usage", serverList.getJSONObject(i).get("memory_usage").toString(), false);
-							wisconsin.addField("CPU Usage", serverList.getJSONObject(i).get("cpu_usage") + "%", false);
-							wisconsin.addField("Players", players, false);
-							if (status.equals("Online")) {
-								wisconsin.setColor(Color.green);
-							}
-							else {
-								wisconsin.setColor(Color.red);
-							}
-						}
-					
-					}
-				}
-			event.getChannel().sendMessage(midwest.build()).queue();	
-			event.getChannel().sendMessage(wisconsin.build()).queue();
-			event.getChannel().sendMessage(corruptMidwest.build()).queue();
-		}
-		
-//----------------------------------------------------------------------------------------------------------------------------			
-		//Send command to console crafty
-		if (event.getMessage().getContentRaw().startsWith("=console")) {
-			String command = event.getMessage().getContentRaw().substring(event.getMessage().getContentRaw().indexOf(' '));
-			crafty.sendCommand(command);
-			
-			if (!crafty.stackTrace.isEmpty()) {					
-				EmbedBuilder emb = new EmbedBuilder();
-				emb.setColor(Color.red);
-				emb.setTitle("An error occured while sending the console command");
-				emb.addField("Response", crafty.stackTrace.substring(0, 500), false);
-				event.getChannel().sendMessage(emb.build()).queue();
-	
-			}
-			else {		
-				EmbedBuilder emb = new EmbedBuilder();
-				emb.setColor(Color.green);
-				emb.setTitle("Console command executed successfully");
-				emb.addField("Command", command, false);
-				emb.addField("Response", crafty.sendCommand(command), false);
-				event.getChannel().sendMessage(emb.build()).queue();			
-			}
-			
-			
+
+//-----------------------------------------------------------------------------------------------------------------------------
+//test
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("=test")) {
+			event.getChannel().sendMessage(server.getName()).queue();
 		}
 //-----------------------------------------------------------------------------------------------------------------------------
+
 		//give build perms based on presence on build team
 		if (event.getMessage().getContentRaw().startsWith("=link")) {		
 			

@@ -24,7 +24,7 @@
     	<version>1.6.2</version>
    	 	<scope>test</scope>
 	</dependency>
-     <dependency>
+        <dependency>
             <groupId>com.github.stanjg</groupId>
             <artifactId>Ptero4J</artifactId>
             <version>master-SNAPSHOT</version>

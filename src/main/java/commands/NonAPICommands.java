@@ -110,14 +110,5 @@ public class NonAPICommands extends ListenerAdapter {
 			event.getChannel().sendMessage(Data.output).queue();	        
 		}
 		
-		if (event.getMessage().getContentRaw().equals("@loser") && event.getMessage().getAuthor().getId() == "387330197420113930") {
-			try {
-				wait(5000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			event.getChannel().sendMessage("<@loser>").queue();
-		}
 	}
 }
