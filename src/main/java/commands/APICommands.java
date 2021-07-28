@@ -137,6 +137,7 @@ public class APICommands extends ListenerAdapter {
 //-----------------------------------------------------------------------------------------------------------------------------
 		//test API
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
+			event.getChannel().sendMessage(getPowerState()).queue();
 			event.getChannel().sendMessage(getCpuUsage()).queue();
 			EmbedBuilder midwest = new EmbedBuilder();
 			if (getPowerState().equals("Online")) {
