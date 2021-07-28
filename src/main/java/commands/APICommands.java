@@ -59,15 +59,31 @@ public class APICommands extends ListenerAdapter {
 	}
 	
 	public String getCpuUsage() {
-		return String.valueOf(server.getServerUsage().getCpuUsage()) + "%";
+		if (server.getServerUsage() == null) {
+			return "Unable to retrieve CPU usage";
+		}
+		else {
+			return String.valueOf(server.getServerUsage().getCpuUsage()) + "%";
+		}
 	}
 	
 	public String getMemoryUsage() {
-		return String.valueOf(server.getServerUsage().getMemoryUsage() / 1000) + "GB";
+		if (server.getServerUsage() == null) {
+			return "Unable to retrieve memory usage";
+		}
+		else {
+			return String.valueOf(server.getServerUsage().getMemoryUsage() / 1000) + "GB";
+		}
 	}
 	
 	public String getDiskUsage() {
-		return String.valueOf(server.getServerUsage().getDiskUsage() / 1000) + "GB";
+		if (server.getServerUsage() == null) {
+			return "Unable to retrieve disk usage";
+		}
+		else {
+			return String.valueOf(server.getServerUsage().getDiskUsage() / 1000) + "GB";
+		}
+
 	}
 	
 	public String getCpuMax() {
@@ -137,8 +153,6 @@ public class APICommands extends ListenerAdapter {
 //-----------------------------------------------------------------------------------------------------------------------------
 		//test API
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
-			event.getChannel().sendMessage(getPowerState()).queue();
-			event.getChannel().sendMessage("CPU: " + String.valueOf(server.getServerUsage().getCpuUsage())).queue();
 			EmbedBuilder midwest = new EmbedBuilder();
 			if (getPowerState().equals("Online")) {
 				midwest.setColor(Color.green);
