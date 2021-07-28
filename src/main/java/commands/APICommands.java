@@ -33,9 +33,10 @@ import okhttp3.Response;
 public class APICommands extends ListenerAdapter {
 
 	private String apikey = "ocOQoS7GAfsHJVQVEUL4QroU3N43c7gxQJLUb4kmtumkkAbq";
+	private String serverID = "7c5eec7c-78c2-48e4-bf8d-4058d62afd37";
 	private PteroAdminAPI api = new PteroAdminAPI("https://panel.pterodactyl.io/", apikey);
 	private ServersController serverController = api.getServersController();
-	private Server server = serverController.getServer(0);
+	private UserServer server = (UserServer) serverController.getServers(serverID);
 	
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
 	    
