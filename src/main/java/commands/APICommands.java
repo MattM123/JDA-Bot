@@ -102,6 +102,7 @@ public class APICommands extends ListenerAdapter {
 //-----------------------------------------------------------------------------------------------------------------------------
 		//test API
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=test")) {
+			event.getChannel().sendMessage("test").queue();
 			event.getChannel().sendMessage("Server Name: " + server.getName()).queue();
 			event.getChannel().sendMessage("Power State: " + server.getPowerState().toString()).queue();
 		}
