@@ -95,29 +95,21 @@ public class APICommands extends ListenerAdapter {
 		}
 //-------------------------------------------------------------------------------------------------------------		
 		//Applicant builder assign
-		if (event.getMessage().getContentRaw().startsWith("=applicant")) {
-			if (staff.contains(event.getMessage().getMember())) {
+		if (event.getMessage().getContentRaw().startsWith("=applicant")) {	
 				
-				char[] chararr = event.getMessage().getContentRaw().toCharArray();
-				String namebuilder = "";
-			
-				for (int i = 11; i < chararr.length; i++) {
-					namebuilder += chararr[i];
-				}		
-				
-				server.sendCommand("lp user " + namebuilder + " parent add applicants");
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			String namebuilder = "";
 		
-				EmbedBuilder emb = new EmbedBuilder();
-				emb.setColor(Color.BLUE);
-				emb.setTitle("Rank updated to Application In Progress for user " + namebuilder);
-				event.getChannel().sendMessage(emb.build()).queue();
-			}
-			else {
-				EmbedBuilder emb = new EmbedBuilder();
-				emb.setColor(Color.BLUE);
-				emb.setTitle("Invalid Permissions");
-				event.getChannel().sendMessage(emb.build()).queue();
-			}
+			for (int i = 11; i < chararr.length; i++) {
+				namebuilder += chararr[i];
+			}		
+			
+			server.sendCommand("lp user " + namebuilder + " parent add applicants");
+	
+			EmbedBuilder emb = new EmbedBuilder();
+			emb.setColor(Color.BLUE);
+			emb.setTitle("Rank updated to Application In Progress for user " + namebuilder);
+			event.getChannel().sendMessage(emb.build()).queue();
 		}
 
 //-----------------------------------------------------------------------------------------------------------------------------
@@ -153,7 +145,7 @@ public class APICommands extends ListenerAdapter {
 				MCusername += chararr[i];
 			}
 			
-			
+			event.getChannel().sendMessage(MCusername).queue();
 				//Getting username from application for input validation	
 				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
