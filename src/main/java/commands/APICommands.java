@@ -15,6 +15,7 @@ import com.mattmalec.pterodactyl4j.PteroAction;
 import com.mattmalec.pterodactyl4j.PteroBuilder;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
 import com.mattmalec.pterodactyl4j.client.entities.PteroClient;
+import com.mattmalec.pterodactyl4j.entities.Server;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -34,7 +35,7 @@ public class APICommands extends ListenerAdapter {
 	private String apikey = "ocOQoS7GAfsHJVQVEUL4QroU3N43c7gxQJLUb4kmtumkkAbq";
 	private String midwestServerID = "7c5eec7c";
 	private PteroClient api = PteroBuilder.createClient("https://panel.richterent.com/", apikey);
-	private ClientServer midwestServer = (ClientServer) api.retrieveServerByIdentifier(midwestServerID);
+	private PteroAction<ClientServer> midwestServer = api.retrieveServerByIdentifier(midwestServerID);
 	
 	
 	@Override
@@ -55,7 +56,7 @@ public class APICommands extends ListenerAdapter {
 				for (int i = 7; i < chararr.length; i++) {
 					namebuilder += chararr[i];
 				}			
-				midwestServer.sendCommand("lp user " + namebuilder + " parent add event-builder");
+				((ClientServer) midwestServer).sendCommand("lp user " + namebuilder + " parent add event-builder");
 				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
@@ -80,7 +81,7 @@ public class APICommands extends ListenerAdapter {
 				namebuilder += chararr[i];
 			}		
 			
-			midwestServer.sendCommand("lp user " + namebuilder + " parent add applicants");
+			((ClientServer) midwestServer).sendCommand("lp user " + namebuilder + " parent add applicants");
 	
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.BLUE);
@@ -91,22 +92,22 @@ public class APICommands extends ListenerAdapter {
 //-----------------------------------------------------------------------------------------------------------------------------
 		//test API
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
-			event.getChannel().sendMessage(midwestServer.getName()).queue();
+	
 			EmbedBuilder midwest = new EmbedBuilder();
-			if (midwestServer.retrieveUtilization().execute().getState().toString().equals("RUNNING")) {
+			if (((ClientServer) midwestServer).retrieveUtilization().execute().getState().toString().equals("RUNNING")) {
 				midwest.setColor(Color.green);
 			}
-			else if (midwestServer.retrieveUtilization().execute().getState().toString().equals("OFFLINE")) {
+			else if (((ClientServer) midwestServer).retrieveUtilization().execute().getState().toString().equals("OFFLINE")) {
 				midwest.setColor(Color.red);
 			}
 			else {
 				midwest.setColor(Color.yellow);
 			}
-			midwest.setTitle(midwestServer.getName());
-			midwest.addField("Status", "test", false);//midwestServer.retrieveUtilization().execute().getState().toString(), false);
-		//	midwest.addField("CPU Usage", midwestServer.retrieveUtilization().execute().getCPU() + "/" + midwestServer.getLimits().getCPU(), false);
-		//	midwest.addField("Memory Usage", midwestServer.retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + midwestServer.getLimits().getMemory(), false);
-			//midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/" + midwestServer.getLimits().getDisk(), false);
+			midwest.setTitle(((Server) midwestServer).getName());
+			midwest.addField("Status", ((ClientServer) midwestServer).retrieveUtilization().execute().getState().toString(), false);
+			midwest.addField("CPU Usage", ((ClientServer) midwestServer).retrieveUtilization().execute().getCPU() + "/" + ((Server) midwestServer).getLimits().getCPU(), false);
+			midwest.addField("Memory Usage", ((ClientServer) midwestServer).retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + ((Server) midwestServer).getLimits().getMemory(), false);
+			midwest.addField("Server Size", ((ClientServer) midwestServer).retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/" + ((Server) midwestServer).getLimits().getDisk(), false);
 	
 			event.getChannel().sendMessage(midwest.build()).queue();
 		}
@@ -189,7 +190,7 @@ public class APICommands extends ListenerAdapter {
 						if (temp == 1) {
 							if (roles.contains(guild.getRoleById(735995176165834756L))) {
 								
-								midwestServer.sendCommand("lp user " + MCusername + " parent add kansas-builder");
+								((ClientServer) midwestServer).sendCommand("lp user " + MCusername + " parent add kansas-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Kansas Builder for user " + MCusername);
@@ -198,7 +199,7 @@ public class APICommands extends ListenerAdapter {
 							}
 							else if (roles.contains(guild.getRoleById(735995164493086720L))) {								
 								
-								midwestServer.sendCommand("lp user " + MCusername + " parent add iowa-builder");
+								((ClientServer) midwestServer).sendCommand("lp user " + MCusername + " parent add iowa-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Iowa Builder for user " + MCusername);
@@ -207,7 +208,7 @@ public class APICommands extends ListenerAdapter {
 							}
 							else if (roles.contains(guild.getRoleById(735995136978321541L))) {
 
-								midwestServer.sendCommand("lp user " + MCusername + " parent add nebraska-builder");
+								((ClientServer) midwestServer).sendCommand("lp user " + MCusername + " parent add nebraska-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Nebraska Builder for user " + MCusername);
@@ -216,7 +217,7 @@ public class APICommands extends ListenerAdapter {
 							}
 							else if (roles.contains(guild.getRoleById(735995095773609986L))) {
 								
-								midwestServer.sendCommand("lp user " + MCusername + " parent add illinois-builder");
+								((ClientServer) midwestServer).sendCommand("lp user " + MCusername + " parent add illinois-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Illinois Builder for user " + MCusername);
@@ -224,7 +225,7 @@ public class APICommands extends ListenerAdapter {
 							}
 							else if (roles.contains(guild.getRoleById(735995115113414656L))) {
 
-								midwestServer.sendCommand("lp user " + MCusername + " parent add missouri-builder");
+								((ClientServer) midwestServer).sendCommand("lp user " + MCusername + " parent add missouri-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Missouri Builder for user " + MCusername);
@@ -233,7 +234,7 @@ public class APICommands extends ListenerAdapter {
 							}
 							else if (roles.contains(guild.getRoleById(735995196738633819L))) {
 
-								midwestServer.sendCommand("lp user " + MCusername + " parent add minnesota-builder");
+								((ClientServer) midwestServer).sendCommand("lp user " + MCusername + " parent add minnesota-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Minnesota Builder for user " + MCusername);
@@ -241,7 +242,7 @@ public class APICommands extends ListenerAdapter {
 							}
 							else if (roles.contains(guild.getRoleById(808415301799641119L))) {
 
-								midwestServer.sendCommand("lp user " + MCusername + " parent add oklahoma-builder");
+								((ClientServer) midwestServer).sendCommand("lp user " + MCusername + " parent add oklahoma-builder");
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Oklahoma Builder for user " + MCusername);
