@@ -122,8 +122,6 @@ public class APICommands extends ListenerAdapter {
 			for (int i = 6; i < chararr.length; i++) {
 				MCusername += chararr[i];
 			}
-
-			
 			
 				//Getting username from application for input validation	
 				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
@@ -252,7 +250,7 @@ public class APICommands extends ListenerAdapter {
 							else {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Go to #role-menu to select one and run the command again to get server build perms.");
+								emb.setTitle("Select a role from " + guild.getGuildChannelById(736010885738266674L) + " and run the command again to get server build perms.");
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 						}
