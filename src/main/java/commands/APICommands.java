@@ -87,15 +87,30 @@ public class APICommands extends ListenerAdapter {
 	}
 	
 	public String getCpuMax() {
-		return String.valueOf(server.getLimits().getCpu()) + "%";
+		if (server.getLimits().getCpu() == 0) {
+			return "Unlimited";
+		}
+		else {
+			return String.valueOf(server.getLimits().getCpu()) + "%";
+		}
 	}
 	
 	public String getMemoryMax() {
-		return String.valueOf(server.getLimits().getMemory() / 1000) + "GB";
+		if (server.getLimits().getMemory() == 0) {
+			return "Unlimited";
+		}
+		else {
+			return String.valueOf(server.getLimits().getMemory() / 1000) + "GB";
+		}
 	}
 	
 	public String getDiskMax() {
-		return String.valueOf(server.getLimits().getDisk() / 1000) + "GB";
+		if (server.getLimits().getDisk() == 0) {
+			return "Unlimited";
+		}
+		else {
+			return String.valueOf(server.getLimits().getDisk() / 1000) + "GB";
+		}
 	}
 	
 	
