@@ -79,7 +79,7 @@ public class APICommands extends ListenerAdapter {
 				for (int i = 7; i < chararr.length; i++) {
 					namebuilder += chararr[i];
 				}			
-				//server.sendCommand("lp user " + namebuilder + " parent add event-builder");
+				server.sendCommand("lp user " + namebuilder + " parent add event-builder");
 				
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
@@ -105,7 +105,7 @@ public class APICommands extends ListenerAdapter {
 					namebuilder += chararr[i];
 				}		
 				
-				//server.sendCommand("lp user " + namebuilder + " parent add applicants");
+				server.sendCommand("lp user " + namebuilder + " parent add applicants");
 		
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
