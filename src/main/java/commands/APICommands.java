@@ -106,7 +106,7 @@ public class APICommands extends ListenerAdapter {
 			midwest.addField("Status", midwestServer.retrieveUtilization().execute().getState().toString(), false);
 			midwest.addField("CPU Usage", midwestServer.retrieveUtilization().execute().getCPU() + "%/100%", false);
 			midwest.addField("Memory Usage", midwestServer.retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + Integer.parseInt(midwestServer.getLimits().getMemory()) / 1000 + " GB", false);
-			midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/" + midwestServer.getLimits().getDisk(), false);
+			midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/Unlimited", false);
 	
 			event.getChannel().sendMessage(midwest.build()).queue();
 		}
@@ -122,8 +122,9 @@ public class APICommands extends ListenerAdapter {
 			for (int i = 6; i < chararr.length; i++) {
 				MCusername += chararr[i];
 			}
-			
+			event.getChannel().sendMessage(BTE.getUsernameAppliedWith("778033246998364160")).queue();
 			event.getChannel().sendMessage(MCusername).queue();
+			
 				//Getting username from application for input validation	
 				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
