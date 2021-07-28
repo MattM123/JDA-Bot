@@ -174,13 +174,6 @@ public class APICommands extends ListenerAdapter {
 								temp = 1;
 								break;
 							}
-							else if (!(MCusername.equalsIgnoreCase(usernameApplied))) {
-								EmbedBuilder emb = new EmbedBuilder();
-								emb.setColor(Color.BLUE);
-								emb.setTitle("The username you applied with and the one you used to run this command do not match.");
-								event.getChannel().sendMessage(emb.build()).queue();
-								break;
-							}
 						}
 		
 						//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
