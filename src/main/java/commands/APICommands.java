@@ -165,9 +165,9 @@ public class APICommands extends ListenerAdapter {
 			}
 			midwest.setTitle(server.getName());
 			midwest.addField("Status", getPowerState(), false);
-		//	midwest.addField("CPU Usage", getCpuUsage() + "/" + getCpuMax(), false);
-		//	midwest.addField("Memory Usage", getMemoryUsage() + "/" + getMemoryMax(), false);
-		//	midwest.addField("Server Size", getDiskUsage() + "/" + getDiskMax(), false);
+			midwest.addField("CPU Usage", getCpuUsage() + "/" + getCpuMax(), false);
+			midwest.addField("Memory Usage", getMemoryUsage() + "/" + getMemoryMax(), false);
+			midwest.addField("Server Size", getDiskUsage() + "/" + getDiskMax(), false);
 	
 			event.getChannel().sendMessage(midwest.build()).queue();
 		}
