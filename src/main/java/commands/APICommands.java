@@ -103,9 +103,9 @@ public class APICommands extends ListenerAdapter {
 			}
 			midwest.setTitle(midwestServer.getName());
 			midwest.addField("Status", midwestServer.retrieveUtilization().execute().getState().toString(), false);
-			midwest.addField("CPU Usage", midwestServer.retrieveUtilization().execute().getCPU() + "/" + midwestServer.getLimits().getCPU(), false);
-			midwest.addField("Memory Usage", midwestServer.retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + midwestServer.getLimits().getMemory(), false);
-			midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/" + midwestServer.getLimits().getDisk(), false);
+		//	midwest.addField("CPU Usage", midwestServer.retrieveUtilization().execute().getCPU() + "/" + midwestServer.getLimits().getCPU(), false);
+		//	midwest.addField("Memory Usage", midwestServer.retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + midwestServer.getLimits().getMemory(), false);
+			//midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/" + midwestServer.getLimits().getDisk(), false);
 	
 			event.getChannel().sendMessage(midwest.build()).queue();
 		}
