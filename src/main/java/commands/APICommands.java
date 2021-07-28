@@ -33,8 +33,8 @@ import okhttp3.Response;
 public class APICommands extends ListenerAdapter {
 
 	private String apikey = "ocOQoS7GAfsHJVQVEUL4QroU3N43c7gxQJLUb4kmtumkkAbq";
-	private String serverID = "7c5eec7c";
-	private PteroUserAPI api = new PteroUserAPI("https://panel.pterodactyl.io/", apikey);
+	private String serverID = "7c5eec7c-78c2-48e4-bf8d-4058d62afd37";
+	private PteroUserAPI api = new PteroUserAPI("https://panel.richterent.com/", apikey);
 	private UserServersController controller = api.getServersController();
 	private UserServer server = controller.getServer(serverID);
 	
