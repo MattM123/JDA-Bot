@@ -137,7 +137,7 @@ public class APICommands extends ListenerAdapter {
 //-----------------------------------------------------------------------------------------------------------------------------
 		//test API
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
-			event.getChannel().sendMessage(getPowerState()).queue();
+			event.getChannel().sendMessage(getCpuUsage()).queue();
 			EmbedBuilder midwest = new EmbedBuilder();
 			if (getPowerState().equals("Online")) {
 				midwest.setColor(Color.green);
@@ -150,7 +150,7 @@ public class APICommands extends ListenerAdapter {
 			}
 			midwest.setTitle(server.getName());
 			midwest.addField("Status", getPowerState(), false);
-			midwest.addField("CPU Usage", getCpuUsage() + "/" + getCpuMax(), false);
+		//	midwest.addField("CPU Usage", getCpuUsage() + "/" + getCpuMax(), false);
 		//	midwest.addField("Memory Usage", getMemoryUsage() + "/" + getMemoryMax(), false);
 		//	midwest.addField("Server Size", getDiskUsage() + "/" + getDiskMax(), false);
 	
