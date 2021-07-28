@@ -58,9 +58,31 @@ public class APICommands extends ListenerAdapter {
 		}
 	}
 	
-	//public String getUsage() {
-	//	return server.get
-	//}
+	public String getCpuUsage() {
+		return String.valueOf(server.getServerUsage().getCpuUsage()) + "%";
+	}
+	
+	public String getMemoryUsage() {
+		return String.valueOf(server.getServerUsage().getMemoryUsage() / 1000) + "GB";
+	}
+	
+	public String getDiskUsage() {
+		return String.valueOf(server.getServerUsage().getDiskUsage() / 1000) + "GB";
+	}
+	
+	public String getCpuMax() {
+		return String.valueOf(server.getLimits().getCpu()) + "%";
+	}
+	
+	public String getMemoryMax() {
+		return String.valueOf(server.getLimits().getMemory() / 1000) + "GB";
+	}
+	
+	public String getDiskMax() {
+		return String.valueOf(server.getLimits().getDisk() / 1000) + "GB";
+	}
+	
+	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
@@ -128,7 +150,9 @@ public class APICommands extends ListenerAdapter {
 			}
 			midwest.setTitle(server.getName());
 			midwest.addField("Status", getPowerState(), false);
-			//midwest.addField("Usage", server.getServerUsage().toString(), false);
+			midwest.addField("CPU Usage", getCpuUsage() + "/" + getCpuMax(), false);
+			midwest.addField("Memory Usage", getMemoryUsage() + "/" + getMemoryMax(), false);
+			midwest.addField("Server Size", getDiskUsage() + "/" + getDiskMax(), false);
 	
 			event.getChannel().sendMessage(midwest.build()).queue();
 		}
