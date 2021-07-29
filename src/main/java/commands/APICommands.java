@@ -174,13 +174,6 @@ public class APICommands extends ListenerAdapter {
 								temp = 1;
 								break;
 							}
-							else if (!(MCusername.equalsIgnoreCase(usernameApplied))) {
-								EmbedBuilder emb = new EmbedBuilder();
-								emb.setColor(Color.BLUE);
-								emb.setTitle("The username you applied with and the one you used to run this command do not match.");
-								event.getChannel().sendMessage(emb.build()).queue();
-								break;
-							}
 						}
 		
 						//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
@@ -260,7 +253,7 @@ public class APICommands extends ListenerAdapter {
 						else if (temp == 0) {
 							EmbedBuilder emb = new EmbedBuilder();
 							emb.setColor(Color.BLUE);
-							emb.setTitle("Looks like you're not on the team or your username was invalid. If this is wrong, then ping mattress#1852");
+							emb.setTitle("You're not on the team or your username was invalid. If this is wrong, then ping mattress#1852");
 							event.getChannel().sendMessage(emb.build()).queue();
 						}
 					}
