@@ -243,7 +243,7 @@ public class APICommands extends ListenerAdapter {
 							else {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Select a role from " + guild.getGuildChannelById(736010885738266674L) + " and run the command again to get server build perms.");
+								emb.setTitle("Select a role from " + guild.getGuildChannelById(736010885738266674L).getName() + " and run the command again to get server build perms.");
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 						}
