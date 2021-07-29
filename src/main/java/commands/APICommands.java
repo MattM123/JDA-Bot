@@ -79,7 +79,7 @@ public class APICommands extends ListenerAdapter {
 				namebuilder += chararr[i];
 			}		
 			
-			midwestServer.sendCommand("lp user " + namebuilder + " parent add applicants");
+			midwestServer.sendCommand("lp user " + namebuilder + " parent add applicants").execute();
 	
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.BLUE);
