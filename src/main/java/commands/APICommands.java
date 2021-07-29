@@ -249,7 +249,7 @@ public class APICommands extends ListenerAdapter {
 							}
 						}
 						
-						//if user is not on the team at all, print this
+						//if user is not on the team at all or invalid username, print this
 						
 						else if (temp == 0) {
 							EmbedBuilder emb = new EmbedBuilder();
