@@ -68,7 +68,25 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 		}
+//-------------------------------------------------------------------------------------------------------------	
+		//send command to server console
+		if (event.getMessage().getContentRaw().startsWith("=sendcmd") && staff.contains(event.getMessage().getMember())) {
+			String cmdBuilder = "";
+			for (int i = 9; i < event.getMessage().getContentRaw().length(); i++) {
+				cmdBuilder += event.getMessage().getContentRaw().charAt(i);
+			}
+			
+			midwestServer.sendCommand(cmdBuilder).execute();
+			
+			EmbedBuilder emb = new EmbedBuilder();
+			emb.setColor(Color.blue);
+			emb.setTitle("Command Executed");
+			emb.addField(cmdBuilder, "", false);
+			
+			event.getChannel().sendMessage(emb.build()).queue();
+		}
 //-------------------------------------------------------------------------------------------------------------		
+		
 		//Applicant builder assign
 		if (event.getMessage().getContentRaw().startsWith("=applicant")) {	
 				
@@ -281,7 +299,7 @@ public class APICommands extends ListenerAdapter {
 					EmbedBuilder notOnTeam = new EmbedBuilder();
 					notOnTeam.setColor(Color.BLUE);
 					notOnTeam.setTitle("No data on user");
-					notOnTeam.addField(BTE.stackTrace, "This error resulted from a FileNotFoundException, meaning the Discord ID does not exist on the team.", false);
+					notOnTeam.addField(BTE.stackTrace, "User account does not exist on the team", false);
 					event.getChannel().sendMessage(notOnTeam.build()).queue();
 					
 				
