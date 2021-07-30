@@ -161,7 +161,8 @@ public class APICommands extends ListenerAdapter {
 					//if there's an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
 					if (!BTE.stackTrace.equals("")) {
 						EmbedBuilder emb = new EmbedBuilder();
-						emb.setTitle(BTE.stackTrace);
+						emb.setColor(Color.BLUE);
+						emb.setTitle("There was an exception when retrieving the member list");
 						event.getChannel().sendMessage(emb.build()).queue();
 					}
 					
