@@ -162,6 +162,7 @@ public class APICommands extends ListenerAdapter {
 						EmbedBuilder emb = new EmbedBuilder();
 						emb.setColor(Color.BLUE);
 						emb.setTitle("There was an exception when retrieving the member list");
+						emb.addField("Exception", BTE.stackTrace, false);
 						event.getChannel().sendMessage(emb.build()).queue();
 					}
 					
