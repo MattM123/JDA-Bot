@@ -136,7 +136,7 @@ public class APICommands extends ListenerAdapter {
 				}
 				
 					List<Role> roles = event.getMember().getRoles();
-					int temp = 0;
+					int isBuilder = 0;
 					
 					//retrieves the member list test
 					BTE.getMemberList(); 
@@ -153,12 +153,7 @@ public class APICommands extends ListenerAdapter {
 						for (int i = 0; i < BTE.getMemberList().size(); i++) {	
 							if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {
 								
-								EmbedBuilder emb = new EmbedBuilder();
-								emb.setColor(Color.BLUE);
-								emb.setTitle("You already have builder role! Assigning server rank.");
-								event.getChannel().sendMessage(emb.build()).queue();
-								
-								temp = 1;
+								isBuilder = 1;
 								break;
 							}
 										
@@ -171,14 +166,14 @@ public class APICommands extends ListenerAdapter {
 								emb.setTitle("You now have Builder role!");
 								event.getChannel().sendMessage(emb.build()).queue();
 								
-								temp = 1;
+								isBuilder = 1;
 								break;
 							}
 						}
 		
 						//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
 			
-						if (temp == 1) {
+						if (isBuilder == 1) {
 							if (roles.contains(guild.getRoleById(735995176165834756L))) {
 								
 								midwestServer.sendCommand("lp user " + MCusername + " parent add kansas-builder").execute();
@@ -250,7 +245,7 @@ public class APICommands extends ListenerAdapter {
 						
 						//if user is not on the team at all or invalid username, print this
 						
-						else if (temp == 0) {
+						else if (isBuilder == 0) {
 							EmbedBuilder emb = new EmbedBuilder();
 							emb.setColor(Color.BLUE);
 							emb.setTitle("You're not on the team or your username was invalid. If this is wrong, then ping mattress#1852");
@@ -301,7 +296,7 @@ public class APICommands extends ListenerAdapter {
 						
 						EmbedBuilder noinfo = new EmbedBuilder();
 						noinfo.setColor(Color.BLUE);
-						noinfo.setTitle("No data on user");
+						noinfo.setTitle("No applications found for user");
 						noinfo.addField("This user was most likely merged into the team", "", false);
 						event.getChannel().sendMessage(noinfo.build()).queue();
 					}
