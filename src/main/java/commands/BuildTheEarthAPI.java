@@ -89,6 +89,7 @@ public class BuildTheEarthAPI {
 	
 	//returns a list of all users discord IDs that are on the team
 	public ArrayList<Long> getMemberList() {
+		stackTrace = "";
 		String line;
 		BufferedReader in; 
 		StringBuilder json = new StringBuilder();
@@ -144,6 +145,7 @@ public class BuildTheEarthAPI {
 	}
 	
 	public ApplicationInfo getApplicationHistory(String userID) {	
+		stackTrace = "";
 		String line;
 		BufferedReader in; 
 		StringBuilder json = new StringBuilder();
