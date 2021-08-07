@@ -1,17 +1,10 @@
 package commands;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
-import com.google.inject.spi.Message;
 import com.mattmalec.pterodactyl4j.DataType;
-import com.mattmalec.pterodactyl4j.PowerAction;
-import com.mattmalec.pterodactyl4j.PteroAction;
 import com.mattmalec.pterodactyl4j.PteroBuilder;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
 import com.mattmalec.pterodactyl4j.client.entities.PteroClient;
@@ -20,12 +13,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 
 public class APICommands extends ListenerAdapter {
@@ -106,7 +95,7 @@ public class APICommands extends ListenerAdapter {
 		}
 
 //-----------------------------------------------------------------------------------------------------------------------------
-		//test API
+		//get server stats
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
 	
 			EmbedBuilder midwest = new EmbedBuilder();
@@ -251,6 +240,14 @@ public class APICommands extends ListenerAdapter {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Oklahoma Builder for user " + MCusername);
+								event.getChannel().sendMessage(emb.build()).queue();
+							}
+							else if (roles.contains(guild.getRoleById(798079627360337970L))) {
+
+								midwestServer.sendCommand("lp user " + MCusername + " parent add wisconsin-builder").execute();
+								EmbedBuilder emb = new EmbedBuilder();
+								emb.setColor(Color.BLUE);
+								emb.setTitle("Minecraft server rank updated to Wisconsin Builder for user " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 							

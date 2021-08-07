@@ -3,7 +3,6 @@ package commands;
 import java.awt.Color;
 import java.util.function.Consumer;
 
-import database.Data;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
@@ -98,17 +97,5 @@ public class NonAPICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 		}
-
-		//Retrieves member count data from database
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("=members")) {
-			Data.getMemberData();
-			
-			for (int i = 0; i < Data.getMemberData().size(); i++) {
-				event.getChannel().sendMessage(String.valueOf(Data.getMemberData().get(i))).queue();
-			}
-			
-			event.getChannel().sendMessage(Data.output).queue();	        
-		}
-		
 	}
 }
