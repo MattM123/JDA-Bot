@@ -158,7 +158,7 @@ public class APICommands extends ListenerAdapter {
 						event.getChannel().sendMessage("error1").queue();
 					}
 					
-					else {
+					else {  //c
 						//If user ID exists in member list and builder role is not already assigned, give builder role
 						event.getChannel().sendMessage("test1").queue();
 						for (int i = 0; i < BTE.getMemberList().size(); i++) {	
