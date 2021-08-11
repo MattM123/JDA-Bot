@@ -341,8 +341,6 @@ public class APICommands extends ListenerAdapter {
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(3).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(3).getAnswer(), false);
 						app.addBlankField(false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(4).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(4).getAnswer(), false);
-						app.addBlankField(false);
-						app.addField(application.getApplications().get(appIndex).getAnswerList().get(5).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(5).getAnswer(), false);
 						
 						event.getChannel().sendMessage(app.build()).queue();
 					}
