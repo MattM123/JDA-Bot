@@ -84,7 +84,7 @@ public class BuildTheEarthAPI {
 			return stack.subSequence(0, 1000).toString();
 		} catch (IndexOutOfBoundsException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
-			return stack.subSequence(0, 1000).toString();
+			return stack.subSequence(0, 1000).toString() + answers.get(2).getAnswer();
 		}
 		return usernameAppliedWith;
 	}
