@@ -131,8 +131,8 @@ public class APICommands extends ListenerAdapter {
 				//Getting username from application for input validation	
 				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
-				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") 
-						|| usernameApplied.contains("IOException") || usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:"))) {
+				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") || usernameApplied.contains("IOException") 
+						|| usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:") || usernameApplied.isEmpty())) {
 					
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setColor(Color.BLUE);
@@ -141,9 +141,8 @@ public class APICommands extends ListenerAdapter {
 					event.getChannel().sendMessage(emb.build()).queue();
 					event.getChannel().sendMessage("error").queue();
 				}
-				
+				event.getChannel().sendMessage("Applied: " + usernameApplied).queue();
 					List<Role> roles = guild.getMemberById(event.getAuthor().getId()).getRoles();
-					event.getChannel().sendMessage(roles.toString()).queue();
 					int isBuilder = 0;
 					
 					//retrieves the member list test
