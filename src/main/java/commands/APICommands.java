@@ -143,7 +143,7 @@ public class APICommands extends ListenerAdapter {
 					event.getChannel().sendMessage("error").queue();
 				}
 				event.getChannel().sendMessage("Applied: " + usernameApplied).queue();
-					List<Role> roles = guild.getMemberById(event.getAuthor().getId()).getRoles();
+					List<Role> roles = event.getMember().getRoles();
 					int isBuilder = 0;
 					
 					//retrieves the member list test
@@ -158,7 +158,7 @@ public class APICommands extends ListenerAdapter {
 						event.getChannel().sendMessage("error1").queue();
 					}
 					
-					else {  //c
+					else { 
 						//If user ID exists in member list and builder role is not already assigned, give builder role
 						event.getChannel().sendMessage("test1").queue();
 						for (int i = 0; i < BTE.getMemberList().size(); i++) {	
