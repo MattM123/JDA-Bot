@@ -127,7 +127,7 @@ public class APICommands extends ListenerAdapter {
 			for (int i = 6; i < chararr.length; i++) {
 				MCusername += chararr[i];
 			}
-			
+			event.getChannel().sendMessage(MCusername);
 				//Getting username from application for input validation	
 				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
@@ -139,6 +139,7 @@ public class APICommands extends ListenerAdapter {
 					emb.setTitle("There was an error with retrieveing the users' application data.");
 					emb.addField("", usernameApplied.toString().substring(0, 1000), false);
 					event.getChannel().sendMessage(emb.build()).queue();
+					event.getChannel().sendMessage("error");
 				}
 				
 					List<Role> roles = event.getMember().getRoles();
@@ -153,7 +154,7 @@ public class APICommands extends ListenerAdapter {
 						emb.setTitle("There was an exception when retrieving the member list");
 						emb.addField("Exception", BTE.stackTrace, false);
 						event.getChannel().sendMessage(emb.build()).queue();
-						event.getChannel().sendMessage("error");
+						event.getChannel().sendMessage("error1");
 					}
 					
 					else {
