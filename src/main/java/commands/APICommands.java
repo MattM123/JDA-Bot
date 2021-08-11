@@ -126,7 +126,7 @@ public class APICommands extends ListenerAdapter {
 		
 			for (int i = 6; i < chararr.length; i++) {
 				MCusername += chararr[i];
-			}
+			} 
 				//Getting username from application for input validation	
 				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
