@@ -129,10 +129,11 @@ public class APICommands extends ListenerAdapter {
 			}
 			event.getChannel().sendMessage(MCusername).queue();
 				//Getting username from application for input validation	
-				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
+				String usernameApplied = BTE.getUsernameAppliedWith("348607684297097216");//event.getAuthor().getId());
 				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") || usernameApplied.contains("IOException") 
-						|| usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:") || usernameApplied.isEmpty())) {
+						|| usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:") || usernameApplied.contains("IndexOutOfBounds"))) {
+	
 					
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setColor(Color.BLUE);
