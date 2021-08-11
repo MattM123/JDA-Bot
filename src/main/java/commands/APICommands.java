@@ -120,6 +120,7 @@ public class APICommands extends ListenerAdapter {
 
 		//give build perms based on presence on build team
 		if (event.getMessage().getContentRaw().startsWith("=link")) {		
+			event.getChannel().sendMessage("test");
 			//Parses minecraft username for later use
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String MCusername = "";
