@@ -129,7 +129,7 @@ public class APICommands extends ListenerAdapter {
 			}
 			event.getChannel().sendMessage(MCusername).queue();
 				//Getting username from application for input validation	
-				String usernameApplied = BTE.getUsernameAppliedWith("348607684297097216");//event.getAuthor().getId());
+				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") || usernameApplied.contains("IOException") 
 						|| usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:") || usernameApplied.contains("IndexOutOfBounds"))) {
@@ -170,8 +170,8 @@ public class APICommands extends ListenerAdapter {
 										
 							else if (348607684297097216L == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
 								&& (MCusername.equalsIgnoreCase(usernameApplied))) {
-								guild.addRoleToMember(guild.getMemberById(348607684297097216L), guild.getRoleById(735991952931160104L)).queue();
-				//event.getMember()
+								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
+				
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("You now have Builder role!");
