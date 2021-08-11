@@ -135,7 +135,7 @@ public class APICommands extends ListenerAdapter {
 	
 					
 					EmbedBuilder emb = new EmbedBuilder();
-					emb.setColor(Color.BLUE);
+					emb.setColor(Color.BLUE);  
 					emb.setTitle("There was an error retrieveing the users application data.");
 					emb.addField("", usernameApplied.toString().substring(0, 1000), false);
 					event.getChannel().sendMessage(emb.build()).queue();
