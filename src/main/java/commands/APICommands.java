@@ -170,8 +170,8 @@ public class APICommands extends ListenerAdapter {
 										
 							else if (348607684297097216L == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
 								&& (MCusername.equalsIgnoreCase(usernameApplied))) {
-								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
-				
+								guild.addRoleToMember(guild.getMemberById(348607684297097216L), guild.getRoleById(735991952931160104L)).queue();
+				//event.getMember()
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("You now have Builder role!");
