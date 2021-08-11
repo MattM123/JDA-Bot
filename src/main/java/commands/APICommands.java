@@ -120,7 +120,6 @@ public class APICommands extends ListenerAdapter {
 
 		//give build perms based on presence on build team
 		if (event.getMessage().getContentRaw().startsWith("=link")) {		
-			event.getChannel().sendMessage("test");
 			//Parses minecraft username for later use
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String MCusername = "";
@@ -128,7 +127,7 @@ public class APICommands extends ListenerAdapter {
 			for (int i = 6; i < chararr.length; i++) {
 				MCusername += chararr[i];
 			}
-			event.getChannel().sendMessage(MCusername);
+			event.getChannel().sendMessage(MCusername).queue();
 				//Getting username from application for input validation	
 				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
@@ -140,7 +139,7 @@ public class APICommands extends ListenerAdapter {
 					emb.setTitle("There was an error with retrieveing the users' application data.");
 					emb.addField("", usernameApplied.toString().substring(0, 1000), false);
 					event.getChannel().sendMessage(emb.build()).queue();
-					event.getChannel().sendMessage("error");
+					event.getChannel().sendMessage("error").queue();
 				}
 				
 					List<Role> roles = event.getMember().getRoles();
@@ -155,12 +154,12 @@ public class APICommands extends ListenerAdapter {
 						emb.setTitle("There was an exception when retrieving the member list");
 						emb.addField("Exception", BTE.stackTrace, false);
 						event.getChannel().sendMessage(emb.build()).queue();
-						event.getChannel().sendMessage("error1");
+						event.getChannel().sendMessage("error1").queue();
 					}
 					
 					else {
 						//If user ID exists in member list and builder role is not already assigned, give builder role
-						event.getChannel().sendMessage("test");
+						event.getChannel().sendMessage("test1").queue();
 						for (int i = 0; i < BTE.getMemberList().size(); i++) {	
 							if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {
 								
@@ -183,7 +182,7 @@ public class APICommands extends ListenerAdapter {
 						}
 		
 						//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
-			event.getChannel().sendMessage("test");
+			event.getChannel().sendMessage("test2").queue();
 						if (isBuilder == 1) {
 							if (roles.contains(guild.getRoleById(735995176165834756L))) {
 								
