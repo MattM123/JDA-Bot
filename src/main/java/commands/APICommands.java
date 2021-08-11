@@ -137,12 +137,10 @@ public class APICommands extends ListenerAdapter {
 					
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setColor(Color.BLUE);
-					emb.setTitle("There was an error with retrieveing the users' application data.");
+					emb.setTitle("There was an error retrieveing the users application data.");
 					emb.addField("", usernameApplied.toString().substring(0, 1000), false);
 					event.getChannel().sendMessage(emb.build()).queue();
-					event.getChannel().sendMessage("error").queue();
 				}
-				event.getChannel().sendMessage("Applied: " + usernameApplied).queue();
 					List<Role> roles = event.getMember().getRoles();
 					int isBuilder = 0;
 					
@@ -155,7 +153,6 @@ public class APICommands extends ListenerAdapter {
 						emb.setTitle("There was an exception when retrieving the member list");
 						emb.addField("Exception", BTE.stackTrace, false);
 						event.getChannel().sendMessage(emb.build()).queue();
-						event.getChannel().sendMessage("error1").queue();
 					}
 					
 					else { 
