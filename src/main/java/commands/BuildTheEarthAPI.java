@@ -72,6 +72,7 @@ public class BuildTheEarthAPI {
 			//retrieving username value from application answers	
 			answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
 			usernameAppliedWith = answers.get(1).getAnswer();		
+			System.out.println(answers.get(1).getAnswer());
 			
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
