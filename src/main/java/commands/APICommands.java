@@ -153,11 +153,12 @@ public class APICommands extends ListenerAdapter {
 						emb.setTitle("There was an exception when retrieving the member list");
 						emb.addField("Exception", BTE.stackTrace, false);
 						event.getChannel().sendMessage(emb.build()).queue();
+						event.getChannel().sendMessage("error");
 					}
 					
 					else {
 						//If user ID exists in member list and builder role is not already assigned, give builder role
-						
+						event.getChannel().sendMessage("test");
 						for (int i = 0; i < BTE.getMemberList().size(); i++) {	
 							if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {
 								
@@ -180,7 +181,7 @@ public class APICommands extends ListenerAdapter {
 						}
 		
 						//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
-			
+			event.getChannel().sendMessage("test");
 						if (isBuilder == 1) {
 							if (roles.contains(guild.getRoleById(735995176165834756L))) {
 								
