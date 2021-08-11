@@ -142,7 +142,7 @@ public class APICommands extends ListenerAdapter {
 					event.getChannel().sendMessage("error").queue();
 				}
 				
-					List<Role> roles = event.getMember().getRoles();
+					List<Role> roles = guild.getMemberById(event.getAuthor().getId()).getRoles();
 					int isBuilder = 0;
 					
 					//retrieves the member list test
