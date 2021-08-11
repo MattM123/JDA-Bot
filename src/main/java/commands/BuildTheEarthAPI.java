@@ -72,7 +72,6 @@ public class BuildTheEarthAPI {
 			//retrieving username value from application answers	
 			answers = (ArrayList<AnswerInfo>) applicationArray.getApplications().get(0).getAnswerList();
 			usernameAppliedWith = answers.get(1).getAnswer();		
-			System.out.println(answers.get(1).getAnswer());
 			
 		} catch (MalformedURLException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
@@ -83,8 +82,10 @@ public class BuildTheEarthAPI {
 		} catch (JSONException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			return stack.subSequence(0, 1000).toString();
+		} catch (IndexOutOfBoundsException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			return stack.subSequence(0, 1000).toString();
 		}
-		
 		return usernameAppliedWith;
 	}
 	
