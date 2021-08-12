@@ -23,6 +23,7 @@ public class APICommands extends ListenerAdapter {
 	private String apikey = "ocOQoS7GAfsHJVQVEUL4QroU3N43c7gxQJLUb4kmtumkkAbq";
 	private PteroClient api = PteroBuilder.createClient("https://panel.richterent.com/", apikey);
 	private ClientServer midwestServer = api.retrieveServers().execute().get(0);
+	private List<Role> roles;
 	
 	
 	@Override
@@ -140,7 +141,7 @@ public class APICommands extends ListenerAdapter {
 					emb.addField("", usernameApplied.toString().substring(0, 1000), false);
 					event.getChannel().sendMessage(emb.build()).queue();
 				}
-					List<Role> roles = event.getMember().getRoles();
+					roles = event.getMember().getRoles();
 					int isBuilder = 0;
 					
 					//retrieves the member list test
@@ -350,7 +351,13 @@ public class APICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=test")) {
-			event.getChannel().sendMessage(staff.toString()).queue();
+			for (int i = 0; i < staff.size(); i++) {
+				event.getChannel().sendMessage(staff.get(i).toString()).queue();
+			}
+			
+			for (int i = 0; i < roles.size(); i++) {
+				event.getChannel().sendMessage(roles.get(i).toString()).queue();
+			}
 		}
 	
 	}
