@@ -348,6 +348,10 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(noperm.build()).queue();
 			}
 		}
+		
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("=test")) {
+			event.getChannel().sendMessage(staff.toString());
+		}
 	
 	}
 		
