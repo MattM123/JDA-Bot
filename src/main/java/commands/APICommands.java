@@ -361,7 +361,10 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Null List").queue();
 			else {
 				for (int i = 0; i < roles.size(); i++) { 
-					event.getChannel().sendMessage(roles.get(i).toString()).queue();
+					if (roles.get(i) == null)
+						event.getChannel().sendMessage("Null Item").queue();
+					else
+						event.getChannel().sendMessage(roles.get(i).toString()).queue();
 						
 				}
 			}
