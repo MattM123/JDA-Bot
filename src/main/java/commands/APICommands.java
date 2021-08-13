@@ -129,7 +129,7 @@ public class APICommands extends ListenerAdapter {
 				MCusername += chararr[i];
 			} 
 				//Getting username from application for input validation	
-				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
+				String usernameApplied = BTE.getUsernameAppliedWith("348607684297097216");//event.getAuthor().getId());
 				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") || usernameApplied.contains("IOException") 
 						|| usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:") || usernameApplied.contains("IndexOutOfBounds"))) {
@@ -141,7 +141,7 @@ public class APICommands extends ListenerAdapter {
 					emb.addField("", usernameApplied.toString().substring(0, 1000), false);
 					event.getChannel().sendMessage(emb.build()).queue();
 				}
-					roles = (ArrayList<Role>) event.getMember().getRoles();
+					roles = (ArrayList<Role>) guild.getMemberById("348607684297097216").getRoles();//event.getMember().getRoles();
 					int isBuilder = 0;
 					
 					//retrieves the member list test
@@ -163,11 +163,11 @@ public class APICommands extends ListenerAdapter {
 								isBuilder = 1;
 								break;
 							}
-										
+										//change
 							else if (348607684297097216L == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
 								&& (MCusername.equalsIgnoreCase(usernameApplied))) {
-								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
-				
+								guild.addRoleToMember(guild.getMemberById("348607684297097216"), guild.getRoleById(735991952931160104L)).queue();
+				//(event.getMember()
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("You now have Builder role!");
@@ -356,9 +356,9 @@ public class APICommands extends ListenerAdapter {
 			}
 			
 			if (roles == null) 
-				event.getChannel().sendMessage("Empty List").queue();
-			else if (roles.isEmpty())
 				event.getChannel().sendMessage("Null List").queue();
+			else if (roles.isEmpty())
+				event.getChannel().sendMessage("Empty List").queue();
 			else {
 				for (int i = 0; i < roles.size(); i++) { 
 					if (roles.get(i) == null)
