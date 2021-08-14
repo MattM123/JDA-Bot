@@ -374,10 +374,6 @@ public class APICommands extends ListenerAdapter {
 						
 				}
 			}
-			
-			for (int i = 0; i < guild.getMemberCache().size(); i++) {
-				event.getChannel().sendMessage(guild.getMemberCache().getElementsWithRoles(staffRole).toString()).queue();
-			}
 		}
 	
 	}
