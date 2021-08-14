@@ -32,7 +32,7 @@ public class APICommands extends ListenerAdapter {
 		
 		 Guild guild = event.getGuild(); 
 		 Role staffRole = guild.getRoleById(735991904352731176L);
-		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole);
+		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole, guild.getRoleById(736002669130547211L));
 		
 		//event builder assign
 		if (event.getMessage().getContentRaw().startsWith("=event")) {
