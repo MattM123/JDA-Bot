@@ -33,7 +33,7 @@ public class APICommands extends ListenerAdapter {
 		 Guild guild = event.getGuild(); 
 		 Role staffRole = guild.getRoleById(735991904352731176L);
 		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole, guild.getRoleById(736002669130547211L));
-		
+	
 		//event builder assign
 		if (event.getMessage().getContentRaw().startsWith("=event")) {
 			if (staff.contains(event.getMessage().getMember())) {
@@ -373,6 +373,10 @@ public class APICommands extends ListenerAdapter {
 						event.getChannel().sendMessage(roles.get(i).toString()).queue();
 						
 				}
+			}
+			
+			for (int i = 0; i < guild.getMemberCache().size(); i++) {
+				event.getChannel().sendMessage(guild.getMemberCache().getElementsWithRoles(staffRole).toString());
 			}
 		}
 	
