@@ -23,7 +23,6 @@ public class APICommands extends ListenerAdapter {
 	private String apikey = "ocOQoS7GAfsHJVQVEUL4QroU3N43c7gxQJLUb4kmtumkkAbq";
 	private PteroClient api = PteroBuilder.createClient("https://panel.richterent.com/", apikey);
 	private ClientServer midwestServer = api.retrieveServers().execute().get(0);
-	private ArrayList<Role> roles;
 	
 	
 	@Override
@@ -142,7 +141,7 @@ public class APICommands extends ListenerAdapter {
 					event.getChannel().sendMessage(emb.build()).queue();
 				}
 				else {
-					roles = (ArrayList<Role>) guild.getMember(event.getAuthor()).getRoles();
+					ArrayList<Role> roles = (ArrayList<Role>) event.getMember().getRoles();
 					int isBuilder = 0;
 					
 					//retrieves the member list test
