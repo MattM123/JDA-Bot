@@ -143,7 +143,6 @@ public class APICommands extends ListenerAdapter {
 				}
 				else {
 					roles = (ArrayList<Role>) guild.getMember(event.getAuthor()).getRoles();
-					event.getChannel().sendMessage(roles.toString());				//test
 					int isBuilder = 0;
 					
 					//retrieves the member list test
@@ -356,7 +355,10 @@ public class APICommands extends ListenerAdapter {
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=test")) {
 			for (int i = 0; i < staff.size(); i++) {
-				event.getChannel().sendMessage(staff.get(i).toString()).queue();
+				if (staff.get(i) == null)
+					event.getChannel().sendMessage("Null Member").queue();
+				else 
+					event.getChannel().sendMessage(staff.get(i).toString()).queue();
 			}
 			
 			if (roles == null) 
