@@ -129,7 +129,7 @@ public class APICommands extends ListenerAdapter {
 				MCusername += chararr[i];
 			} 
 				//Getting username from application for input validation	
-				String usernameApplied = BTE.getUsernameAppliedWith("348607684297097216");//event.getAuthor().getId());
+				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") || usernameApplied.contains("IOException") 
 						|| usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:") || usernameApplied.contains("IndexOutOfBounds"))) {
@@ -141,7 +141,9 @@ public class APICommands extends ListenerAdapter {
 					emb.addField("", usernameApplied.toString().substring(0, 1000), false);
 					event.getChannel().sendMessage(emb.build()).queue();
 				}
-					roles = (ArrayList<Role>) guild.getMemberById("348607684297097216").getRoles();//event.getMember().getRoles();
+				else {
+					roles = (ArrayList<Role>) event.getMember().getRoles();
+					event.getChannel().sendMessage(roles.toString());				//test
 					int isBuilder = 0;
 					
 					//retrieves the member list test
@@ -164,10 +166,10 @@ public class APICommands extends ListenerAdapter {
 								break;
 							}
 										//change
-							else if (348607684297097216L == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
+							else if (event.getMember().getIdLong() == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
 								&& (MCusername.equalsIgnoreCase(usernameApplied))) {
-								guild.addRoleToMember(guild.getMemberById("348607684297097216"), guild.getRoleById(735991952931160104L)).queue();
-				//(event.getMember()
+								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
+				
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("You now have Builder role!");
@@ -177,6 +179,7 @@ public class APICommands extends ListenerAdapter {
 								break;
 							}
 						}
+					
 		
 						//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
 						if (isBuilder == 1) {
@@ -265,6 +268,7 @@ public class APICommands extends ListenerAdapter {
 							emb.setTitle("You're not on the team or your username was invalid. If this is wrong, then ping mattress#1852");
 							event.getChannel().sendMessage(emb.build()).queue();
 						}
+					}
 					}
 		}
 //-------------------------------------------------------------------------------------------------------------------------------------------	
