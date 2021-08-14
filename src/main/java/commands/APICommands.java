@@ -60,7 +60,7 @@ public class APICommands extends ListenerAdapter {
 		}
 //-------------------------------------------------------------------------------------------------------------	
 		//send command to server console
-		if (event.getMessage().getContentRaw().startsWith("/") && staff.contains(event.getMessage().getMember())) {
+		if (event.getMessage().getContentRaw().startsWith("//") && staff.contains(event.getMessage().getMember())) {
 			String cmdBuilder = "";
 			for (int i = 1; i < event.getMessage().getContentRaw().length(); i++) {
 				cmdBuilder += event.getMessage().getContentRaw().charAt(i);
@@ -142,7 +142,7 @@ public class APICommands extends ListenerAdapter {
 					event.getChannel().sendMessage(emb.build()).queue();
 				}
 				else {
-					roles = (ArrayList<Role>) event.getMember().getRoles();
+					roles = (ArrayList<Role>) guild.getMember(event.getAuthor()).getRoles();
 					event.getChannel().sendMessage(roles.toString());				//test
 					int isBuilder = 0;
 					
