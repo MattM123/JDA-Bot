@@ -31,7 +31,7 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.addField("=applicant <minecraft username>", "Assigns user application build perms on the server", false);
 		embed.addField("=event <minecraft username>", "Requires permissions to assign 'Event' rank", false);
 		embed.addField("=getapp -<DiscordID> -<number of app>", "Requires permissions to view players applications", false);
-		embed.addField("=notify", "Get pinged when there is a new annoucement", false);
+		embed.addField("=notify", "Toggle command: Execute this command to get pinged when there is a new annoucement. Execute this command a again to have the @Notify role removed ", false);
 
 		
 		
