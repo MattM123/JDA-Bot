@@ -24,14 +24,14 @@ public class NonAPICommands extends ListenerAdapter {
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setColor(Color.blue);
 		embed.setTitle("Command Information");
-		embed.addField("***__Midwest Server Commands__***", "" ,false);
 		embed.addField("=server", "Displays server status and resource usage.", false);
 		embed.addField("=map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		embed.addField("=measure", "Measure tutorial derived from the BTE Support Bot", false);
-		embed.addField("=link <minecraft username>", "Automatically assigns build perms and Builder role if you are on the team", false);
+		embed.addField("=link <minecraft username>", "Automatically assigns build perms and Builder role if user is on the team", false);
 		embed.addField("=applicant <minecraft username>", "Assigns user application build perms on the server", false);
 		embed.addField("=event <minecraft username>", "Requires permissions to assign 'Event' rank", false);
 		embed.addField("=getapp -<DiscordID> -<number of app>", "Requires permissions to view players applications", false);
+		embed.addField("=notify", "Get pinged when there is a new annoucement", false);
 
 		
 		
