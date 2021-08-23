@@ -60,9 +60,9 @@ public class APICommands extends ListenerAdapter {
 		}
 //-------------------------------------------------------------------------------------------------------------	
 		//send command to server console
-		if (event.getMessage().getContentRaw().startsWith("//") && staff.contains(event.getMessage().getMember())) {
+		if (event.getMessage().getContentRaw().startsWith("=/") && staff.contains(event.getMessage().getMember())) {
 			String cmdBuilder = "";
-			for (int i = 1; i < event.getMessage().getContentRaw().length(); i++) {
+			for (int i = 2; i < event.getMessage().getContentRaw().length(); i++) {
 				cmdBuilder += event.getMessage().getContentRaw().charAt(i);
 			}
 			
