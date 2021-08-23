@@ -21,7 +21,8 @@ public class APICommands extends ListenerAdapter {
 
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI(System.getenv("BTE_API"));
 	private String apikey = System.getenv("PTERO_API");
-	private PteroClient api = PteroBuilder.createClient("https://panel.richterent.com/", apikey);
+	private String panelurl = System.getenv("PANEL_URL");
+	private PteroClient api = PteroBuilder.createClient(panelurl, apikey);
 	private ClientServer midwestServer = api.retrieveServers().execute().get(0);
 	private List<Role> roles;
 	
@@ -67,7 +68,6 @@ public class APICommands extends ListenerAdapter {
 			}
 			
 			midwestServer.sendCommand(cmdBuilder).execute();
-			
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.blue);
 			emb.setTitle("Command Executed");
