@@ -1,2 +1,2 @@
 # JDA-Bot
-Java Discord Bot using JDA test
+Java Discord Bot using JDA
