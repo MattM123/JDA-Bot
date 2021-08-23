@@ -19,8 +19,8 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class APICommands extends ListenerAdapter {
 
-	private BuildTheEarthAPI BTE = new BuildTheEarthAPI("6d83c36acd1bb7301e64749b46ebddc2e3b64a67");
-	private String apikey = "ocOQoS7GAfsHJVQVEUL4QroU3N43c7gxQJLUb4kmtumkkAbq";
+	private BuildTheEarthAPI BTE = new BuildTheEarthAPI(System.getenv("BTE_API"));
+	private String apikey = System.getenv("PTERO_API");
 	private PteroClient api = PteroBuilder.createClient("https://panel.richterent.com/", apikey);
 	private ClientServer midwestServer = api.retrieveServers().execute().get(0);
 	private List<Role> roles;

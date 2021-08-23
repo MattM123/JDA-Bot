@@ -10,7 +10,7 @@ import commands.APICommands;
 import commands.NonAPICommands;
 
 public class Bot {	
-	private static String token = System.getenv("BOT_TOKEN"); //"NzMyMjkwMTUzNjg2NDk5MzY4.XwycWQ.sro0wc0HUIAO1dNvbh7LgMtK3_k"; //token used to hook into the Discord bot (bot token)	
+	private static String token = System.getenv("BOT_TOKEN"); //token used to hook into the Discord bot (bot token)	
 	public static JDA jda;
 
 	
