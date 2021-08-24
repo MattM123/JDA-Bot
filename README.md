@@ -2,7 +2,7 @@
 JDA Bot used with BTE Midwest. Helps automate the application process.
 
 | Command       | Description   | Staff command |
-|:-------------:|:-------------:|:-------------:|
+|:--------------|:-------------:|:-------------:|
 | `=ping`         | Pings Discord API| false|
 | `=notify`       | Toggleable: Opt into/out of annoucement pings| false|
 | `=measure`      | Shows tutorial GEP tutorial on measuring vertical distances| false|
