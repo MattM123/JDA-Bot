@@ -17,3 +17,5 @@ JDA Bot used with BTE Midwest. Helps automate the application process among othe
 This bot was not made with the intent for other build teams to use but if you can read my source code and use Pterodactyl 
 it is doable. If you self host or use a hosting service with Pterodactyl you will be able to host it alongside your Minecraft server.
 If there's enough interest in using it then I may make notes on what needs to be changed within the code and other steps to use it yourself.
+
+You can reach me in our discord discord.gg/a3GEGEf
