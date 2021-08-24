@@ -35,30 +35,6 @@ public class APICommands extends ListenerAdapter {
 		 Role staffRole = guild.getRoleById(735991904352731176L); 
 		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole, guild.getRoleById(736002669130547211L));
 	
-		//event builder assign
-		if (event.getMessage().getContentRaw().startsWith("=event")) {
-			if (staff.contains(event.getMessage().getMember())) {
-				
-				char[] chararr = event.getMessage().getContentRaw().toCharArray();
-				String namebuilder = "";
-			
-				for (int i = 7; i < chararr.length; i++) {
-					namebuilder += chararr[i];
-				}			
-				midwestServer.sendCommand("lp user " + namebuilder + " parent add event-builder").execute();
-				
-				EmbedBuilder emb = new EmbedBuilder();
-				emb.setColor(Color.BLUE);
-				emb.setTitle("Rank updated to Event Builder for user " + namebuilder);
-				event.getChannel().sendMessage(emb.build()).queue();
-			}
-			else {
-				EmbedBuilder emb = new EmbedBuilder();
-				emb.setColor(Color.BLUE);
-				emb.setTitle("Invalid Permissions");
-				event.getChannel().sendMessage(emb.build()).queue();
-			}
-		}
 //-------------------------------------------------------------------------------------------------------------	
 		//send command to server console
 		if (event.getMessage().getContentRaw().startsWith("=/") && staff.contains(event.getMessage().getMember())) {
@@ -128,7 +104,7 @@ public class APICommands extends ListenerAdapter {
 			for (int i = 6; i < chararr.length; i++) {
 				MCusername += chararr[i];
 			} 
-				//Getting username from application for input validation	
+				//Getting username from builder application 
 				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") || usernameApplied.contains("IOException") 
@@ -325,6 +301,7 @@ public class APICommands extends ListenerAdapter {
 						
 						event.getChannel().sendMessage(noApp.build()).queue();
 					}
+					
 					else {
 						EmbedBuilder app = new EmbedBuilder();
 						app.setColor(Color.BLUE);

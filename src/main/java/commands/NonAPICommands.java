@@ -32,7 +32,6 @@ public class NonAPICommands extends ListenerAdapter {
 		embed.addField("=server", "Displays server status and resource usage.", false);
 		embed.addField("=map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		embed.addField("=measure", "Measure tutorial derived from the BTE Support Bot", false);
-		embed.addField("=event <minecraft username>", "Requires Staff role to assign 'Event' rank", false);
 		embed.addField("=/<command>", "Requires Staff role to send console command to Minecraft server", false);
 		
 		
