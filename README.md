@@ -1,5 +1,5 @@
 # JDA-Bot
-JDA Bot used with BTE Midwest. Helps automate the application process.
+JDA Bot used with BTE Midwest. Helps automate the application process among other things
 
 | Command       | Description   | Staff command |
 |:--------------|:-------------:|:-------------:|
