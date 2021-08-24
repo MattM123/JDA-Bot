@@ -19,11 +19,14 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class APICommands extends ListenerAdapter {
 
+	//API authentication
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI(System.getenv("BTE_API"));
-	private String apikey = System.getenv("PTERO_API");
-	private String panelurl = System.getenv("PANEL_URL");
-	private PteroClient api = PteroBuilder.createClient(panelurl, apikey);
+	private PteroClient api = PteroBuilder.createClient(System.getenv("PANEL_URL"), System.getenv("PTERO_API"));
+	
+	//The minecraft server
 	private ClientServer midwestServer = api.retrieveServers().execute().get(0);
+	
+	//User role list
 	private List<Role> roles;
 	
 	
@@ -36,7 +39,8 @@ public class APICommands extends ListenerAdapter {
 		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole, guild.getRoleById(736002669130547211L));
 	
 //-------------------------------------------------------------------------------------------------------------	
-		//send command to server console
+//send command to server console
+		 
 		if (event.getMessage().getContentRaw().startsWith("=/") && staff.contains(event.getMessage().getMember())) {
 			String cmdBuilder = "";
 			for (int i = 2; i < event.getMessage().getContentRaw().length(); i++) {
@@ -52,8 +56,8 @@ public class APICommands extends ListenerAdapter {
 			event.getChannel().sendMessage(emb.build()).queue();
 		}
 //-------------------------------------------------------------------------------------------------------------		
+//Gives applicant builder permissions
 		
-		//Applicant builder assign
 		if (event.getMessage().getContentRaw().startsWith("=applicant")) {	
 				
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
@@ -72,7 +76,8 @@ public class APICommands extends ListenerAdapter {
 		}
 
 //-----------------------------------------------------------------------------------------------------------------------------
-		//get server stats
+//get server stats
+		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
 	
 			EmbedBuilder midwest = new EmbedBuilder();
@@ -94,8 +99,8 @@ public class APICommands extends ListenerAdapter {
 			event.getChannel().sendMessage(midwest.build()).queue();
 		}
 //-----------------------------------------------------------------------------------------------------------------------------
-
-		//give build perms based on presence on build team
+//give build perms based on presence on build team
+		
 		if (event.getMessage().getContentRaw().startsWith("=link")) {		
 			//Parses minecraft username for later use
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
@@ -140,7 +145,7 @@ public class APICommands extends ListenerAdapter {
 								isBuilder = 1;
 								break;
 							}
-										//change
+
 							else if (event.getMember().getIdLong() == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
 								&& (MCusername.equalsIgnoreCase(usernameApplied))) {
 								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
@@ -235,19 +240,19 @@ public class APICommands extends ListenerAdapter {
 							}
 						}
 						
-						//if user is not on the team at all or invalid username, print this
-						
+						//if user is not on the team at all or invalid username, print this						
 						else if (isBuilder == 0) {
 							EmbedBuilder emb = new EmbedBuilder();
 							emb.setColor(Color.BLUE);
-							emb.setTitle("You're not on the team or your username was invalid. If this is wrong, then ping mattress#1852");
+							emb.setTitle("You're not on the team or your username was invalid");
 							event.getChannel().sendMessage(emb.build()).queue();
 						}
 					}
-					}
+				}
 		}
 //-------------------------------------------------------------------------------------------------------------------------------------------	
-		//Retrieves an application of user given a discord ID and an integer representing which application in the list to return
+//Retrieves an application of user given a discord ID and an integer representing which application in the list to return
+		
 		if (event.getMessage().getContentRaw().startsWith("=getapp")) { 
 			if (staff.contains(event.getMessage().getMember())) {
 				String message = event.getMessage().getContentRaw();
@@ -270,6 +275,7 @@ public class APICommands extends ListenerAdapter {
 					event.getChannel().sendMessage(BTE.stackTrace).queue();
 				}
 				
+				//If user not found on team
 				else if (BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")) {
 					EmbedBuilder notOnTeam = new EmbedBuilder();
 					notOnTeam.setColor(Color.BLUE);
@@ -280,13 +286,12 @@ public class APICommands extends ListenerAdapter {
 				
 				}
 				
-				//else everything will run as it should
 				else {
 					ApplicationInfo application = BTE.getApplicationHistory(user);
 					int appIndex = Integer.parseInt(appNum) - 1;
 					
-					if ((application.getApplications().isEmpty())) {
-						
+					//If user exists on team but no applications exist for them, user was merged into the team
+					if ((application.getApplications().isEmpty())) {		
 						EmbedBuilder noinfo = new EmbedBuilder();
 						noinfo.setColor(Color.BLUE);
 						noinfo.setTitle("No applications found for user");
@@ -294,6 +299,7 @@ public class APICommands extends ListenerAdapter {
 						event.getChannel().sendMessage(noinfo.build()).queue();
 					}
 					
+					//If you are trying to retrieve an application that does not exist
 					else if (appIndex >= application.getApplications().size()) {
 						EmbedBuilder noApp = new EmbedBuilder();
 						noApp.setColor(Color.BLUE);
@@ -302,6 +308,7 @@ public class APICommands extends ListenerAdapter {
 						event.getChannel().sendMessage(noApp.build()).queue();
 					}
 					
+					//Returns application
 					else {
 						EmbedBuilder app = new EmbedBuilder();
 						app.setColor(Color.BLUE);
