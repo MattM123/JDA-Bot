@@ -5,7 +5,7 @@ JDA Bot used with BTE Midwest. Helps automate the application process among othe
 |:--------------|:-------------:|:-------------:|
 | `=ping`         | Pings Discord API| false|
 | `=notify`       | Toggleable: Opt into/out of annoucement pings| false|
-| `=measure`      | Shows tutorial GEP tutorial on measuring vertical distances| false|
+| `=measure`      | Shows GEP tutorial on measuring vertical distances| false|
 | `=server`		| Shows server status and resource usage| false|
 | `=map`			| Shows map of states included in BTE Midwest| false|
 | `=applicant`	| Gives user permissions on the server for the applicant building area| false|
