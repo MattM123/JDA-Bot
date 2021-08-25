@@ -9,7 +9,7 @@ JDA Bot used with BTE Midwest. Helps automate the application process among othe
 | `=server`		| Shows server status and resource usage| false|
 | `=map`			| Shows map of states included in BTE Midwest| false|
 | `=applicant`	| Gives user permissions on the server for the applicant building area| false|
-| `=link <mcusername>`| Gives full build permissions on server if user has been accepted to the team.| false|
+| `=link <mcusername>`| If user has been accepted to the team, assigns state builder rank on server based on state discord role and gives Builder discord role, | false|
 | `=getapp -<discordID> -<n>`    | n > 0, Retrieves the n<sup>th</sup> application for the specified discord user ID.| true|
 | `=/<command>`  | Sends console command to the Midwest server| true|
 
