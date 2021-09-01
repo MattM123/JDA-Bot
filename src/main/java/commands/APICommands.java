@@ -124,7 +124,7 @@ public class APICommands extends ListenerAdapter {
 				}
 				else {
 					roles = event.getMember().getRoles();
-					int isBuilder = 0;
+					boolean isBuilder = false;
 					
 					//retrieves the member list test
 					BTE.getMemberList(); 
@@ -140,12 +140,15 @@ public class APICommands extends ListenerAdapter {
 					else { 
 						//If user ID exists in member list and builder role is not already assigned, give builder role
 						for (int i = 0; i < BTE.getMemberList().size(); i++) {	
+							
+							//if user has builder role and username is valid, assign builder role
 							if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {
 								
-								isBuilder = 1;
+								isBuilder = true;
 								break;
 							}
 
+							//if user already has builder role
 							else if (event.getMember().getIdLong() == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
 								&& (MCusername.equalsIgnoreCase(usernameApplied))) {
 								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
@@ -155,14 +158,23 @@ public class APICommands extends ListenerAdapter {
 								emb.setTitle("You now have Builder role!");
 								event.getChannel().sendMessage(emb.build()).queue();
 								
-								isBuilder = 1;
+								isBuilder = true;
 								break;
 							}
+							
+							//if user has been merged into the team, i.e do not have a username they applied with but on the team
+							if (BTE.getApplicationHistory(event.getMember().getId()).applications.size() <= 0 && BTE.getMemberList().contains(event.getMember().getIdLong())) {
+								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
+								EmbedBuilder emb = new EmbedBuilder();
+								emb.setColor(Color.BLUE);
+								emb.setTitle("User has been merged into the team");
+								
+								isBuilder = true;
 						}
 					
 		
 						//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
-						if (isBuilder == 1) {
+						if (isBuilder) {
 							if (roles.contains(guild.getRoleById(735995176165834756L))) {
 								
 								midwestServer.sendCommand("lp user " + MCusername + " parent add kansas-builder").execute();
@@ -241,14 +253,15 @@ public class APICommands extends ListenerAdapter {
 						}
 						
 						//if user is not on the team at all or invalid username, print this						
-						else if (isBuilder == 0) {
+						else {
 							EmbedBuilder emb = new EmbedBuilder();
 							emb.setColor(Color.BLUE);
 							emb.setTitle("You're not on the team or your username was invalid");
 							event.getChannel().sendMessage(emb.build()).queue();
-						}
-					}
+						}							
+					}						
 				}
+			}
 		}
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Retrieves an application of user given a discord ID and an integer representing which application in the list to return
