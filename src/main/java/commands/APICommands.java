@@ -3,6 +3,7 @@ package commands;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.mattmalec.pterodactyl4j.DataType;
 import com.mattmalec.pterodactyl4j.PteroBuilder;
@@ -349,7 +350,23 @@ public class APICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(noperm.build()).queue();
 			}
 		}
-	}	
+		
+//------------------------------------------------------------------------------------------------------------------------------------
+//sends users to getting started channel
+		
+		ArrayList<Pattern> phrases = new ArrayList<Pattern>();
+		phrases.add(Pattern.compile("how do i apply", Pattern.CASE_INSENSITIVE));
+		phrases.add(Pattern.compile("how to be builder|how do i be a builder|how do i become a builder", Pattern.CASE_INSENSITIVE));
+		phrases.add(Pattern.compile("how do i get builder role|how do i get builder", Pattern.CASE_INSENSITIVE));
+		
+		
+		for (int i = 0; i < phrases.size(); i++) {
+			if (phrases.get(i).matcher(event.getMessage().getContentRaw()).matches()) {
+				event.getChannel().sendMessage("Go to <#new-players-please-read> for info on how to get started").queue();
+			}
+		}
+
+	}
 }	
 
 	
