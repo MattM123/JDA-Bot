@@ -354,14 +354,18 @@ public class APICommands extends ListenerAdapter {
 //------------------------------------------------------------------------------------------------------------------------------------
 //sends users to getting started channel
 		
-		ArrayList<Pattern> phrases = new ArrayList<Pattern>();
-		phrases.add(Pattern.compile("how do i apply", Pattern.CASE_INSENSITIVE));
-		phrases.add(Pattern.compile("how to be builder|how do i be a builder|how do i become a builder", Pattern.CASE_INSENSITIVE));
-		phrases.add(Pattern.compile("how do i get builder role|how do i get builder", Pattern.CASE_INSENSITIVE));
+		ArrayList<String> phrases = new ArrayList<String>();
+		phrases.add("how do i apply");
+		phrases.add("how to be builder");
+		phrases.add("how do i be a builder");
+		phrases.add("how do i become a builder");
+		phrases.add("how do i get builder role");
+		phrases.add("how do i get builder");
+		phrases.add("where do i apply");
 		
 		
 		for (int i = 0; i < phrases.size(); i++) {
-			if (phrases.get(i).matcher(event.getMessage().getContentRaw()).matches()) {
+			if (event.getMessage().getContentRaw().contains(phrases.get(i)) || event.getMessage().getContentRaw().equalsIgnoreCase(phrases.get(i))) {
 				event.getChannel().sendMessage("Go to <#new-players-please-read> for info on how to get started").queue();
 			}
 		}
