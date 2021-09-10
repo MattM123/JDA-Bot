@@ -362,11 +362,14 @@ public class APICommands extends ListenerAdapter {
 		phrases.add("how do i get builder role");
 		phrases.add("how do i get builder");
 		phrases.add("where do i apply");
+		phrases.add("how do i join");
+		phrases.add("how to get builder");
+		phrases.add("how to apply");
 		
 		
 		for (int i = 0; i < phrases.size(); i++) {
 			if (event.getMessage().getContentRaw().contains(phrases.get(i)) || event.getMessage().getContentRaw().equalsIgnoreCase(phrases.get(i))) {
-				event.getChannel().sendMessage("Go to <#new-players-please-read> for info on how to get started").queue();
+				event.getChannel().sendMessage("Go to <#776963885739409458> for info on how to get started").queue();
 			}
 		}
 
