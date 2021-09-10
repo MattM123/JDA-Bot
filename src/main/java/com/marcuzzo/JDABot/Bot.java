@@ -33,9 +33,9 @@ public class Bot {
 			
 			//Arraylist containing arrays of activities
 			ArrayList<String[]> activities = new ArrayList<String[]>();
-			String[] watch = {"into the abyss", "you", "Rick and Morty", "the singularity come"};
+			String[] watch = {"the abyss", "you", "Rick and Morty", "the singularity come"};
 			String[] play = {"buildtheearth.net", "Minecraft", "the bongos", "Generation Zero", "Roko's Basilisk"};
-			String[] listen = {"to lofi", "to the screams", "to a dial-up internet connection sounds"};
+			String[] listen = {"lofi", "the screams", "dial-up"};
 			activities.add(watch);
 			activities.add(play);
 			activities.add(listen);
