@@ -42,19 +42,27 @@ public class APICommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------	
 //send command to server console
 		 
-		if (event.getMessage().getContentRaw().startsWith("=/") && staff.contains(event.getMessage().getMember())) {
-			String cmdBuilder = "";
-			for (int i = 2; i < event.getMessage().getContentRaw().length(); i++) {
-				cmdBuilder += event.getMessage().getContentRaw().charAt(i);
+		if (event.getMessage().getContentRaw().startsWith("=/")) {
+			if (staff.contains(event.getMessage().getMember())) {
+				String cmdBuilder = "";
+				for (int i = 2; i < event.getMessage().getContentRaw().length(); i++) {
+					cmdBuilder += event.getMessage().getContentRaw().charAt(i);
+				}
+				
+				midwestServer.sendCommand(cmdBuilder).execute();
+				EmbedBuilder emb = new EmbedBuilder();
+				emb.setColor(Color.blue);
+				emb.setTitle("Command Executed");
+				emb.addField(cmdBuilder, "", false);	
+				event.getChannel().sendMessage(emb.build()).queue();
+				}
+			
+			else {
+				EmbedBuilder emb = new EmbedBuilder();
+				emb.setColor(Color.blue);
+				emb.setTitle("Only staff can execute this command");
+				event.getChannel().sendMessage(emb.build());
 			}
-			
-			midwestServer.sendCommand(cmdBuilder).execute();
-			EmbedBuilder emb = new EmbedBuilder();
-			emb.setColor(Color.blue);
-			emb.setTitle("Command Executed");
-			emb.addField(cmdBuilder, "", false);
-			
-			event.getChannel().sendMessage(emb.build()).queue();
 		}
 //-------------------------------------------------------------------------------------------------------------		
 //Gives applicant builder permissions
@@ -345,7 +353,7 @@ public class APICommands extends ListenerAdapter {
 			else {
 				EmbedBuilder noperm = new EmbedBuilder();
 				noperm.setColor(Color.BLUE);
-				noperm.setTitle("You must be a staff member to use this command");
+				noperm.setTitle("Only staff can execute this command");
 				
 				event.getChannel().sendMessage(noperm.build()).queue();
 			}
