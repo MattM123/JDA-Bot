@@ -5,7 +5,7 @@ public class AnswerInfo {
 	final int id;
 	final String question;
 	final String answer;
-	
+	 
 	public AnswerInfo(int aID, String q, String a) {
 		id = aID;
 		question = q;
