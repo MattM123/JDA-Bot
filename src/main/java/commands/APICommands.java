@@ -119,8 +119,8 @@ public class APICommands extends ListenerAdapter {
 				MCusername += chararr[i];
 			} 
 				//Getting username from builder application 
-				String usernameApplied = BTE.getUsernameAppliedWith("501116787501301760"); //test case for specific user
-				//String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
+				//String usernameApplied = BTE.getUsernameAppliedWith("501116787501301760"); //test case for specific user
+				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") || usernameApplied.contains("IOException") 
 						|| usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:") || usernameApplied.contains("IndexOutOfBounds"))) {
@@ -133,8 +133,8 @@ public class APICommands extends ListenerAdapter {
 					event.getChannel().sendMessage(emb.build()).queue();
 				}
 				else {
-					roles = guild.getMemberById("501116787501301760").getRoles(); //test case for specific user
-					//roles = event.getMember().getRoles();
+					//roles = guild.getMemberById("501116787501301760").getRoles(); //test case for specific user
+					roles = event.getMember().getRoles();
 					boolean isBuilder = false;
 					
 					//retrieves the member list test
@@ -152,21 +152,19 @@ public class APICommands extends ListenerAdapter {
 						//If user ID exists in member list and builder role is not already assigned, give builder role
 						for (int i = 0; i < BTE.getMemberList().size(); i++) {	
 							
-							//if user has builder role and username is valid, assign builder role
-							if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {
-								
+							//if user already has builder role						
+							if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {						
 								isBuilder = true;
-								break;
-								
+								break;						
 							}
 
-							//if user already has builder role
-							if ("501116787501301760" == BTE.getMemberList().get(i).toString() && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
-									&& (MCusername.equalsIgnoreCase(usernameApplied))) { //test case for specific user
+							//if user has builder role and username is valid, assign builder role
+					//		if (501116787501301760L == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
+					//				&& (MCusername.equalsIgnoreCase(usernameApplied))) { //test case for specific user
 								
 							
-							//if (event.getMember().getIdLong() == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
-							//	&& (MCusername.equalsIgnoreCase(usernameApplied))) {
+							if (event.getMember().getIdLong() == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
+								&& (MCusername.equalsIgnoreCase(usernameApplied))) {
 								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 				
 								EmbedBuilder emb = new EmbedBuilder();
