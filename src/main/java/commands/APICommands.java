@@ -163,7 +163,7 @@ public class APICommands extends ListenerAdapter {
 							else if (501116787501301760L == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
 									&& (MCusername.equalsIgnoreCase(usernameApplied))) { //test case for specific user
 								
-							}
+							
 						//	else if (event.getMember().getIdLong() == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
 						//		&& (MCusername.equalsIgnoreCase(usernameApplied))) {
 								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
