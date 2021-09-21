@@ -30,38 +30,7 @@ public class Bot {
 			
 			jda.addEventListener(new APICommands()); //The ServerCommands object contains classes with calls to the other 2 API's
 			jda.addEventListener(new NonAPICommands()); //Basic commands with no API authentication
-			
-			//Arraylist containing arrays of activities
-			ArrayList<String[]> activities = new ArrayList<String[]>();
-			String[] watch = {"the abyss", "you", "Rick and Morty", "the singularity come"};
-			String[] play = {"buildtheearth.net", "Minecraft", "the bongos", "Generation Zero", "Roko's Basilisk"};
-			String[] listen = {"lofi", "the screams", "dial-up"};
-			activities.add(watch);
-			activities.add(play);
-			activities.add(listen);
-			
-			//random array
-			Random rand1 = new Random();
-			
-			//random index inside array
-			Random rand = new Random();
-		
-			while (true) {
-				int getarray = rand1.nextInt(activities.size() - 0 + 1) + 0;
-				int activity = rand.nextInt(activities.get(getarray).length - 0 + 1) + 0;
-				
-				if (activities.get(getarray) == watch) {
-					jda.getPresence().setActivity(Activity.watching(watch[activity]));
-				}
-				else if (activities.get(getarray) == play) {
-					jda.getPresence().setActivity(Activity.playing(play[activity]));
-				}
-				else if (activities.get(getarray) == listen) {
-					jda.getPresence().setActivity(Activity.listening(watch[activity]));
-				}
-				jda.wait(60000);
-			}
-			
+					
 
 		} catch (Exception e) {
 			e.printStackTrace();
