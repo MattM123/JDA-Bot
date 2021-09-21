@@ -119,7 +119,8 @@ public class APICommands extends ListenerAdapter {
 				MCusername += chararr[i];
 			} 
 				//Getting username from builder application 
-				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
+				String usernameApplied = BTE.getUsernameAppliedWith("501116787501301760"); //test case for specific user
+				//String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") || usernameApplied.contains("IOException") 
 						|| usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:") || usernameApplied.contains("IndexOutOfBounds"))) {
@@ -132,7 +133,8 @@ public class APICommands extends ListenerAdapter {
 					event.getChannel().sendMessage(emb.build()).queue();
 				}
 				else {
-					roles = event.getMember().getRoles();
+					roles = guild.getMemberById("501116787501301760").getRoles(); //test case for specific user
+					//roles = event.getMember().getRoles();
 					boolean isBuilder = false;
 					
 					//retrieves the member list test
@@ -158,8 +160,12 @@ public class APICommands extends ListenerAdapter {
 							}
 
 							//if user already has builder role
-							else if (event.getMember().getIdLong() == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
-								&& (MCusername.equalsIgnoreCase(usernameApplied))) {
+							else if (501116787501301760L == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
+									&& (MCusername.equalsIgnoreCase(usernameApplied))) { //test case for specific user
+								
+							}
+						//	else if (event.getMember().getIdLong() == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
+						//		&& (MCusername.equalsIgnoreCase(usernameApplied))) {
 								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 				
 								EmbedBuilder emb = new EmbedBuilder();
