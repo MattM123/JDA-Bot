@@ -157,15 +157,16 @@ public class APICommands extends ListenerAdapter {
 								
 								isBuilder = true;
 								break;
+								
 							}
 
 							//if user already has builder role
-							else if (501116787501301760L == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
+							if ("501116787501301760" == BTE.getMemberList().get(i).toString() && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
 									&& (MCusername.equalsIgnoreCase(usernameApplied))) { //test case for specific user
 								
 							
-						//	else if (event.getMember().getIdLong() == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
-						//		&& (MCusername.equalsIgnoreCase(usernameApplied))) {
+							//if (event.getMember().getIdLong() == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
+							//	&& (MCusername.equalsIgnoreCase(usernameApplied))) {
 								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 				
 								EmbedBuilder emb = new EmbedBuilder();
@@ -185,7 +186,9 @@ public class APICommands extends ListenerAdapter {
 								emb.setTitle("User has been merged into the team");
 								
 								isBuilder = true;
+								break;
 						}
+					}
 					
 		
 						//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
@@ -273,9 +276,8 @@ public class APICommands extends ListenerAdapter {
 							emb.setColor(Color.BLUE);
 							emb.setTitle("You're not on the team or your username was invalid");
 							event.getChannel().sendMessage(emb.build()).queue();  
-							break;
 						}							
-					}						
+											
 				}
 			}
 		}
