@@ -96,5 +96,17 @@ public class NonAPICommands extends ListenerAdapter {
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 		}
+//------------------------------------------------------------------------------------------------------------------------------------
+//detect users who are unfamiliar with how to get started and sends them to the info channel
+				
+		String[] phrases = {"how do i apply","how to be builder","how do i be a builder","how do i become a builder","how do i get builder role",
+							"how do i get builder", "where do i apply", "how do i join", "how to get builder", "how to apply", "submit my build application", 
+							"submit my application"};								
+				
+		for (int i = 0; i < phrases.length; i++) {
+			if (event.getMessage().getContentRaw().contains(phrases[i]) || event.getMessage().getContentRaw().equalsIgnoreCase(phrases[i])) {
+				event.getChannel().sendMessage("Go to <#776963885739409458> for info on how to get started").queue();
+			}
+		}			
 	}
 }
