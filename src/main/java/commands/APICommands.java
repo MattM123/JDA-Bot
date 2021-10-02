@@ -176,8 +176,10 @@ public class APICommands extends ListenerAdapter {
 								break;
 							}
 							/*
-							//if user has been merged into the team, i.e do not have a username they applied with but on the team
-							if (BTE.getApplicationHistory(event.getMember().getId()).applications.size() <= 0 && BTE.getMemberList().contains(event.getMember().getIdLong())) {
+							//if user has been merged into the team, i.e does has not submitted an application but is on the team
+							if (BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")
+								&& BTE.getMemberList().contains(event.getMember().getIdLong())
+								
 								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
