@@ -175,7 +175,7 @@ public class APICommands extends ListenerAdapter {
 								isBuilder = true;
 								break;
 							}
-							
+							/*
 							//if user has been merged into the team, i.e do not have a username they applied with but on the team
 							if (BTE.getApplicationHistory(event.getMember().getId()).applications.size() <= 0 && BTE.getMemberList().contains(event.getMember().getIdLong())) {
 								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
@@ -187,6 +187,7 @@ public class APICommands extends ListenerAdapter {
 								isBuilder = true;
 								break;
 						}
+						*/
 					}
 					
 		
