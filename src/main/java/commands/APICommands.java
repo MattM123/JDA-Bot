@@ -175,10 +175,10 @@ public class APICommands extends ListenerAdapter {
 								isBuilder = true;
 								break;
 							}
-							/*
+							
 							//if user has been merged into the team, i.e does has not submitted an application but is on the team
 							if (BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")
-								&& BTE.getMemberList().contains(event.getMember().getIdLong())
+								&& BTE.getMemberList().contains(event.getMember().getIdLong())) {
 								
 								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 								EmbedBuilder emb = new EmbedBuilder();
@@ -189,7 +189,7 @@ public class APICommands extends ListenerAdapter {
 								isBuilder = true;
 								break;
 						}
-						*/
+						
 					}
 					
 		
