@@ -150,20 +150,18 @@ public class APICommands extends ListenerAdapter {
 					
 					else { 
 						//If user ID exists in member list and builder role is not already assigned, give builder role
-						for (int i = 0; i < BTE.getMemberList().size(); i++) {	
 							
 							//if user already has builder role						
 							if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {						
-								isBuilder = true;
-								break;						
+								isBuilder = true;					
 							}
 
-							//if user has builder role and username is valid, assign builder role
+							//if user does not have builder role and username is valid, assign builder role
 					//		if (501116787501301760L == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
 					//				&& (MCusername.equalsIgnoreCase(usernameApplied))) { //test case for specific user
 								
 							
-							if (event.getMember().getIdLong() == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
+							if (BTE.getMemberList().contains(event.getMember().getIdLong()) && !roles.contains(guild.getRoleById(735991952931160104L)) 
 								&& (MCusername.equalsIgnoreCase(usernameApplied))) {
 								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 				
@@ -173,7 +171,7 @@ public class APICommands extends ListenerAdapter {
 								event.getChannel().sendMessage(emb.build()).queue();
 								
 								isBuilder = true;
-								break;
+								
 							}
 							
 							//if user has been merged into the team, i.e does has not submitted an application but is on the team
@@ -187,10 +185,8 @@ public class APICommands extends ListenerAdapter {
 								event.getChannel().sendMessage(emb.build()).queue();
 								
 								isBuilder = true;
-								break;
 						}
 						
-					}
 					
 		
 						//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
