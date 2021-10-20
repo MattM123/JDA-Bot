@@ -386,6 +386,7 @@ public class APICommands extends ListenerAdapter {
 				
 			    if (BTE.getPendingApplications().getApplications().size() > 0 && staff.getHistory().getRetrievedHistory().size() == 1
 			    		&& !staff.getHistory().getRetrievedHistory().get(0).getAuthor().isBot()) {
+			    	
 			    	EmbedBuilder emb = new EmbedBuilder();
 			    	emb.setTitle("There is " + BTE.getPendingApplications().getApplications().size() + " new application(s) to review");
 			    	emb.setColor(Color.blue);
@@ -393,7 +394,7 @@ public class APICommands extends ListenerAdapter {
 			    	staff.sendMessage(emb.build()).queue();
 			    }
 			}
-		}, 100000, 100000);
+		}, 10000, 100000);
 	}
 	
 	
