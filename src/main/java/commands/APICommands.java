@@ -387,8 +387,10 @@ public class APICommands extends ListenerAdapter {
 				
 			  	int applications = BTE.getPendingApplications().getApplications().size() - 1;
 				
-		    	EmbedBuilder emb = new EmbedBuilder();
-		    	emb.setTitle(" " + applications);
+			  	
+		    	EmbedBuilder emb = new EmbedBuilder();		    	
+		    	emb.setTitle(staff.getHistory().getRetrievedHistory().get(0).getContentDisplay());
+		    	emb.addField("Author", staff.getHistory().getRetrievedHistory().get(0).getAuthor().getName() + " " + staff.getHistory().getRetrievedHistory().get(0).getAuthor().isBot(), false);
 		    	emb.setColor(Color.blue);
 				testing.sendMessage(emb.build()).queue();
 				
