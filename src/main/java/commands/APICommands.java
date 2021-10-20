@@ -386,12 +386,9 @@ public class APICommands extends ListenerAdapter {
 				
 			    if (BTE.getPendingApplications().getApplications().size() > 0 && staff.getHistory().getRetrievedHistory().size() == 1
 			    		&& !staff.getHistory().getRetrievedHistory().get(0).getAuthor().isBot()) {
-			    	event.getJDA().getUserById(387330197420113930L).openPrivateChannel().flatMap(channel -> channel.sendMessage("There is " + BTE.getPendingApplications().getApplications().size() + " new application(s) to review!")).queue();
+			    	staff.sendMessage(("There is " + BTE.getPendingApplications().getApplications().size() + " new application(s) to review!")).queue();
 			    }
-			    else {
-			    	staff.sendMessage("Last message was sent by a bot").queue();
-			    }
-			  }
+			}
 		}, 100000, 100000);
 	}
 	
