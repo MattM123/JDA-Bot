@@ -382,8 +382,10 @@ public class APICommands extends ListenerAdapter {
 			@Override
 			public void run() {
 				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(735992503408263229L);
-				if (staff.getHistory().getRetrievedHistory().size() < 1)
-					staff.getHistory().retrievePast(1).queue();
+				staff.getHistory().retrievePast(1).queue();
+				
+				event.getJDA().getGuildById(735990134583066679L).getMemberById(387330197420113930L).getUser().openPrivateChannel()
+				.flatMap(channel -> channel.sendMessage(staff.getHistory().getRetrievedHistory().get(0))).queue();
 				
 			    if (BTE.getPendingApplications().getApplications().size() > 0 && !staff.getHistory().getRetrievedHistory().get(0).getAuthor().isBot()) {
 			    
@@ -395,6 +397,7 @@ public class APICommands extends ListenerAdapter {
 			    	emb.setColor(Color.blue);
 			    	
 			    	staff.sendMessage(emb.build()).queue();
+			    	staff.getHistory().getRetrievedHistory().clear();
 			    }
 			}
 		}, 10000, 100000);
