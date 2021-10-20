@@ -382,17 +382,14 @@ public class APICommands extends ListenerAdapter {
 			@Override
 			public void run() {
 				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(735992503408263229L);
+				TextChannel testing = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);
 				staff.getHistory().retrievePast(1).queue();
 				
-				event.getJDA().getGuildById(735990134583066679L).getMemberById(387330197420113930L).getUser().openPrivateChannel()
-				.flatMap(channel -> channel.sendMessage("Test: " + staff.getHistory().getRetrievedHistory().get(0))).queue();
+				testing.sendMessage(" " + BTE.getPendingApplications().getApplications().size()).queue();
 				
 				
 			    if (BTE.getPendingApplications().getApplications().size() > 0 && !staff.getHistory().getRetrievedHistory().get(0).getAuthor().isBot()) {
 			    
-			    	event.getJDA().getGuildById(735990134583066679L).getMemberById(387330197420113930L).getUser().openPrivateChannel()
-					.flatMap(channel -> channel.sendMessage(" " + BTE.getPendingApplications().getApplications().size())).queue();
-			    	
 			    	EmbedBuilder emb = new EmbedBuilder();
 			    	emb.setTitle("There is " + BTE.getPendingApplications().getApplications().size() + " new application(s) to review");
 			    	emb.setColor(Color.blue);
@@ -401,7 +398,7 @@ public class APICommands extends ListenerAdapter {
 			    	staff.getHistory().getRetrievedHistory().clear();
 			    }
 			}
-		}, 10000, 100000);
+		}, 10000, 10000);
 	}
 	
 	
