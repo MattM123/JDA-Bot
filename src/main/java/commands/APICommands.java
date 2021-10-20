@@ -382,7 +382,8 @@ public class APICommands extends ListenerAdapter {
 			@Override
 			public void run() {
 				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(735992503408263229L);
-				staff.getHistory().retrievePast(1).queue();
+				if (staff.getHistory().getRetrievedHistory().size() < 1)
+					staff.getHistory().retrievePast(1).queue();
 				
 			    if (BTE.getPendingApplications().getApplications().size() > 0 && staff.getHistory().getRetrievedHistory().size() == 1
 			    		&& !staff.getHistory().getRetrievedHistory().get(0).getAuthor().isBot()) {
