@@ -386,7 +386,11 @@ public class APICommands extends ListenerAdapter {
 				
 			    if (BTE.getPendingApplications().getApplications().size() > 0 && staff.getHistory().getRetrievedHistory().size() == 1
 			    		&& !staff.getHistory().getRetrievedHistory().get(0).getAuthor().isBot()) {
-			    	staff.sendMessage(("There is " + BTE.getPendingApplications().getApplications().size() + " new application(s) to review!")).queue();
+			    	EmbedBuilder emb = new EmbedBuilder();
+			    	emb.setTitle("There is " + BTE.getPendingApplications().getApplications().size() + " new application(s) to review");
+			    	emb.setColor(Color.blue);
+			    	
+			    	staff.sendMessage(emb.build());
 			    }
 			}
 		}, 100000, 100000);
