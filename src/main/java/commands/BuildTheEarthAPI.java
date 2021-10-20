@@ -190,4 +190,56 @@ public class BuildTheEarthAPI {
 		
 		return applicationArray;
 	}
+	
+	//Returns list of pending applications
+	public ApplicationInfo getPendingApplications() {	
+		stackTrace = "";
+		String line;
+		BufferedReader in; 
+		StringBuilder json = new StringBuilder();
+		URL url;
+		HttpsURLConnection conn = null;
+		ApplicationInfo applicationArray = null;
+		
+		try {
+			url = new URL("https://buildtheearth.net/api/v1/applications/pending");
+			conn = (HttpsURLConnection) url.openConnection();
+			conn.setRequestProperty("Host","buildtheearth.net");
+			conn.setRequestProperty("Authorization", "Bearer " + apikey);
+			conn.setRequestProperty("Accept", "application/json");
+			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36");
+			conn.setRequestMethod("GET");
+			
+			if (conn.getResponseCode() > 200) { 			
+				in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				while ((line = in.readLine()) != null) {
+					json.append(line);
+				}
+				in.close();
+				stackTrace = "Error Code: " + String.valueOf(conn.getResponseCode()) + " " + json.toString();
+			}		
+			
+			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			if ((line = in.readLine()) != null) {
+				json.append(line);
+			}
+			in.close();
+						
+			//Application is deserialized
+			Gson gson = new Gson();
+			applicationArray = gson.fromJson(json.toString(), ApplicationInfo.class); 		
+				
+		} catch (MalformedURLException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			stackTrace = stack.subSequence(0, 1000).toString();
+		} catch (IOException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			stackTrace = stack.subSequence(0, 1000).toString();
+		} catch (JSONException e) {
+			String stack = ExceptionUtils.getStackTrace(e);
+			stackTrace = stack.subSequence(0, 1000).toString();
+		}
+		
+		return applicationArray;
+	}
 }

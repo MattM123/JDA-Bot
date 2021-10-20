@@ -3,6 +3,8 @@ package commands;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Pattern;
 
 import com.mattmalec.pterodactyl4j.DataType;
@@ -13,7 +15,10 @@ import com.mattmalec.pterodactyl4j.client.entities.PteroClient;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -29,6 +34,9 @@ public class APICommands extends ListenerAdapter {
 	
 	//User role list
 	private List<Role> roles;
+	
+	//Timer to tell bot when to check pending applications
+	Timer timer = new Timer();
 	
 	
 	@Override
@@ -366,6 +374,25 @@ public class APICommands extends ListenerAdapter {
 			}
 		}
 	}
+//-------------------------------------------------------------------------------------------------------------------------------------------	
+//Notifies staff members of new applications since BTE bot stopped doing it
+	@Override
+	public void onReady(ReadyEvent event) {
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(735992503408263229L);
+				
+				
+			//    if (BTE.getPendingApplications().getApplications().size() > 0) {
+
+			    	event.getJDA().getUserById(387330197420113930L).openPrivateChannel().flatMap(channel -> channel.sendMessage("There is " + BTE.getPendingApplications().getApplications().size() + " new application to review!")).queue();
+			  //  }
+			  }
+		}, 10000);
+	}
+	
+	
 }	
 
 	
