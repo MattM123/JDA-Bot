@@ -382,14 +382,17 @@ public class APICommands extends ListenerAdapter {
 			@Override
 			public void run() {
 				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(735992503408263229L);
+				staff.getHistory().retrievePast(1).queue();
 				
-				
-			//    if (BTE.getPendingApplications().getApplications().size() > 0) {
-
-			    	event.getJDA().getUserById(387330197420113930L).openPrivateChannel().flatMap(channel -> channel.sendMessage("There is " + BTE.getPendingApplications().getApplications().size() + " new application to review!")).queue();
-			  //  }
+			    if (BTE.getPendingApplications().getApplications().size() > 0 && staff.getHistory().getRetrievedHistory().size() == 1
+			    		&& !staff.getHistory().getRetrievedHistory().get(0).getAuthor().isBot()) {
+			    	event.getJDA().getUserById(387330197420113930L).openPrivateChannel().flatMap(channel -> channel.sendMessage("There is " + BTE.getPendingApplications().getApplications().size() + " new application(s) to review!")).queue();
+			    }
+			    else {
+			    	staff.sendMessage("Last message was sent by a bot").queue();
+			    }
 			  }
-		}, 10000, 10000);
+		}, 100000, 100000);
 	}
 	
 	
