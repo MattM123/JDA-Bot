@@ -385,16 +385,21 @@ public class APICommands extends ListenerAdapter {
 				TextChannel testing = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);
 				staff.getHistory().retrievePast(1).queue();
 				
-				testing.sendMessage(" " + BTE.getPendingApplications().getApplications().size()).queue();
+			  	int applications = BTE.getPendingApplications().getApplications().size() - 1;
+				
+		    	EmbedBuilder emb = new EmbedBuilder();
+		    	emb.setTitle(" " + applications);
+		    	emb.setColor(Color.blue);
+				testing.sendMessage(emb.build()).queue();
 				
 				
 			    if (BTE.getPendingApplications().getApplications().size() > 0 && !staff.getHistory().getRetrievedHistory().get(0).getAuthor().isBot()) {
-			    
-			    	EmbedBuilder emb = new EmbedBuilder();
-			    	emb.setTitle("There is " + BTE.getPendingApplications().getApplications().size() + " new application(s) to review");
-			    	emb.setColor(Color.blue);
+			  
+			    	EmbedBuilder emb1 = new EmbedBuilder();
+			    	emb1.setTitle("There is " + applications  + " new application(s) to review");
+			    	emb1.setColor(Color.blue);
 			    	
-			    	staff.sendMessage(emb.build()).queue();
+			    	staff.sendMessage(emb1.build()).queue();
 			    	staff.getHistory().getRetrievedHistory().clear();
 			    }
 			}
