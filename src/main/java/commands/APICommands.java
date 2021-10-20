@@ -386,7 +386,7 @@ public class APICommands extends ListenerAdapter {
 				staff.getHistory().retrievePast(1).queue();
 				
 			  	int applications = BTE.getPendingApplications().getApplications().size() - 1;
-				
+				staff.sendMessage(" " + staff.getHistory().getRetrievedHistory().size()).queue();
 			  	
 		    	EmbedBuilder emb = new EmbedBuilder();		    	
 		    	emb.setTitle(staff.getHistory().getRetrievedHistory().get(0).getContentDisplay());
