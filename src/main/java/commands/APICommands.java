@@ -378,7 +378,7 @@ public class APICommands extends ListenerAdapter {
 //Notifies staff members of new applications since BTE bot stopped doing it
 	@Override
 	public void onReady(ReadyEvent event) {
-		timer.schedule(new TimerTask() {
+		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
 				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(735992503408263229L);
@@ -389,7 +389,7 @@ public class APICommands extends ListenerAdapter {
 			    	event.getJDA().getUserById(387330197420113930L).openPrivateChannel().flatMap(channel -> channel.sendMessage("There is " + BTE.getPendingApplications().getApplications().size() + " new application to review!")).queue();
 			  //  }
 			  }
-		}, 10000);
+		}, 10000, 10000);
 	}
 	
 	
