@@ -390,7 +390,7 @@ public class APICommands extends ListenerAdapter {
 			    	emb.setTitle("There is " + BTE.getPendingApplications().getApplications().size() + " new application(s) to review");
 			    	emb.setColor(Color.blue);
 			    	
-			    	staff.sendMessage(emb.build());
+			    	staff.sendMessage(emb.build()).queue();
 			    }
 			}
 		}, 100000, 100000);
