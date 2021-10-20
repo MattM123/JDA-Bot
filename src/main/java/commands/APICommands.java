@@ -385,8 +385,10 @@ public class APICommands extends ListenerAdapter {
 				if (staff.getHistory().getRetrievedHistory().size() < 1)
 					staff.getHistory().retrievePast(1).queue();
 				
-			    if (BTE.getPendingApplications().getApplications().size() > 0 && staff.getHistory().getRetrievedHistory().size() == 1
-			    		&& !staff.getHistory().getRetrievedHistory().get(0).getAuthor().isBot()) {
+			    if (BTE.getPendingApplications().getApplications().size() > 0 && !staff.getHistory().getRetrievedHistory().get(0).getAuthor().isBot()) {
+			    
+			    	event.getJDA().getGuildById(735990134583066679L).getMemberById(387330197420113930L).getUser().openPrivateChannel()
+					.flatMap(channel -> channel.sendMessage(" " + BTE.getPendingApplications().getApplications().size())).queue();
 			    	
 			    	EmbedBuilder emb = new EmbedBuilder();
 			    	emb.setTitle("There is " + BTE.getPendingApplications().getApplications().size() + " new application(s) to review");
