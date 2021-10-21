@@ -336,11 +336,20 @@ public class APICommands extends ListenerAdapter {
 						event.getChannel().sendMessage(noinfo.build()).queue();
 					}
 					
-					//If you are trying to retrieve an application that does not exist
-					else if (appIndex >= application.getApplications().size()) {
+					//If you are trying to retrieve more applications then the user has
+					else if (appIndex >= application.getApplications().size() && application.getApplications().size() > 0) {
 						EmbedBuilder noApp = new EmbedBuilder();
 						noApp.setColor(Color.BLUE);
 						noApp.setTitle("User does not have that many applications, try a lower number.");
+						
+						event.getChannel().sendMessage(noApp.build()).queue();
+					}
+					
+					//If you are trying to retrieve an application that does not exist
+					else if (application.getApplications().size() < 1) {
+						EmbedBuilder noApp = new EmbedBuilder();
+						noApp.setColor(Color.BLUE);
+						noApp.setTitle("User does not have any applications");
 						
 						event.getChannel().sendMessage(noApp.build()).queue();
 					}
@@ -396,8 +405,7 @@ public class APICommands extends ListenerAdapter {
 					     .queue(historyMessage -> {
 					    	 isBot = historyMessage.getAuthor().isBot();
 					     });
-					
-			    
+							    
 			    	emb.setTitle("There is " + applications  + " new application(s) to review");
 			    	emb.setColor(Color.blue);
 			    	
