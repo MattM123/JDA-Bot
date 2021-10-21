@@ -386,7 +386,7 @@ public class APICommands extends ListenerAdapter {
 				if (staff.getHistory().getRetrievedHistory().size() < 1) 
 					testing.sendMessage("Size = 0").queue();
 					staff.getHistory().retrievePast(1).queue();
-					testing.sendMessage("Size = 1, " + testing.getHistory().getRetrievedHistory().get(0).getContentDisplay()).queue();
+					testing.sendMessage("Size = 1, " + staff.getHistory().getRetrievedHistory().get(0).getContentDisplay()).queue();
 				
 			  	int applications = BTE.getPendingApplications().getApplications().size() - 1;
 				
