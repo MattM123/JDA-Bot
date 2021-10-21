@@ -386,6 +386,7 @@ public class APICommands extends ListenerAdapter {
 			@Override
 			public void run() {
 				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(735992503408263229L);
+				TextChannel testing = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);
 							
 				
 				int applications = BTE.getPendingApplications().getApplications().size() - 1;
@@ -402,12 +403,13 @@ public class APICommands extends ListenerAdapter {
 			    
 			    	emb.setTitle("There is " + applications  + " new application(s) to review");
 			    	emb.setColor(Color.blue);
+			    	testing.sendMessage(isBot + " ").queue();
 			    	
 			    	if (!isBot && applications > 0)
-			    		staff.sendMessage(emb.build()).queue();
+			    		testing.sendMessage(emb.build()).queue();
 			    }
 			}
-		}, 1000, 600000);
+		}, 1000, 10000);
 	}
 	
 	
