@@ -383,7 +383,10 @@ public class APICommands extends ListenerAdapter {
 			public void run() {
 				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(735992503408263229L);
 				TextChannel testing = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);
-				staff.getHistory().retrievePast(1).queue();
+				if (staff.getHistory().getRetrievedHistory().size() < 1) 
+					testing.sendMessage("Size = 0").queue();
+					staff.getHistory().retrievePast(1).queue();
+					testing.sendMessage("Size = 1, " + testing.getHistory().getRetrievedHistory().get(0).getContentDisplay()).queue();
 				
 			  	int applications = BTE.getPendingApplications().getApplications().size() - 1;
 				
@@ -402,7 +405,6 @@ public class APICommands extends ListenerAdapter {
 			    	emb1.setColor(Color.blue);
 			    	
 			    	staff.sendMessage(emb1.build()).queue();
-			    	staff.getHistory().getRetrievedHistory().clear();
 			    }
 			}
 		}, 10000, 10000);
