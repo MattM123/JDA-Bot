@@ -376,38 +376,37 @@ public class APICommands extends ListenerAdapter {
 	}
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Notifies staff members of new applications since BTE bot stopped doing it
+	
+	private boolean isBot = false;
+	
 	@Override
 	public void onReady(ReadyEvent event) {
+		
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
 				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(735992503408263229L);
-				TextChannel testing = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);
-				if (staff.getHistory().getRetrievedHistory().size() < 1) 
-					testing.sendMessage("Size = 0").queue();
-					staff.getHistory().retrievePast(1).queue();
-					testing.sendMessage("Size = 1, " + staff.getHistory().getRetrievedHistory().get(0).getContentDisplay()).queue();
-				
-			  	int applications = BTE.getPendingApplications().getApplications().size() - 1;
-				
-			  	
-		    	EmbedBuilder emb = new EmbedBuilder();		    	
-		    	emb.setTitle(staff.getHistory().getRetrievedHistory().get(0).getContentDisplay());
-		    	emb.addField("Author", staff.getHistory().getRetrievedHistory().get(0).getAuthor().getName() + " " + staff.getHistory().getRetrievedHistory().get(0).getAuthor().isBot(), false);
-		    	emb.setColor(Color.blue);
-				testing.sendMessage(emb.build()).queue();
-				
-				
-			    if (BTE.getPendingApplications().getApplications().size() > 0 && !staff.getHistory().getRetrievedHistory().get(0).getAuthor().isBot()) {
-			  
-			    	EmbedBuilder emb1 = new EmbedBuilder();
-			    	emb1.setTitle("There is " + applications  + " new application(s) to review");
-			    	emb1.setColor(Color.blue);
+							
+				int applications = BTE.getPendingApplications().getApplications().size();		
+			    if (BTE.getPendingApplications().getApplications().size() > 0) {
+			    	EmbedBuilder emb = new EmbedBuilder();
 			    	
-			    	staff.sendMessage(emb1.build()).queue();
+			    	staff.getHistory().retrievePast(1)
+			    		 .map(historyMessages -> historyMessages.get(0))
+					     .queue(historyMessage -> {
+					    	 isBot = historyMessage.getAuthor().isBot();
+					     });
+					
+			    
+			    	emb.setTitle("There is " + applications  + " new application(s) to review");
+			    	emb.setColor(Color.blue);
+			    	
+			    	if (!isBot)
+			    		staff.sendMessage(emb.build()).queue();
 			    }
+			    staff.getHistory().getRetrievedHistory().clear();
 			}
-		}, 10000, 10000);
+		}, 1000, 600000);
 	}
 	
 	
