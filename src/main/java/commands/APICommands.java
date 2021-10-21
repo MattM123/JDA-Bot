@@ -377,7 +377,7 @@ public class APICommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Notifies staff members of new applications since BTE bot stopped doing it
 	
-	private boolean isBot = false;
+	private boolean isBot = true;
 	
 	@Override
 	public void onReady(ReadyEvent event) {
@@ -385,10 +385,7 @@ public class APICommands extends ListenerAdapter {
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(735992503408263229L);
-				TextChannel testing = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);
-							
-				
+				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(735992503408263229L);									
 				int applications = BTE.getPendingApplications().getApplications().size() - 1;
 				
 			    if (BTE.getPendingApplications().getApplications().size() > 0) {
@@ -403,13 +400,12 @@ public class APICommands extends ListenerAdapter {
 			    
 			    	emb.setTitle("There is " + applications  + " new application(s) to review");
 			    	emb.setColor(Color.blue);
-			    	testing.sendMessage(isBot + " ").queue();
 			    	
 			    	if (!isBot && applications > 0)
-			    		testing.sendMessage(emb.build()).queue();
+			    		staff.sendMessage(emb.build()).queue();
 			    }
 			}
-		}, 1000, 10000);
+		}, 1000, 600000);
 	}
 	
 	
