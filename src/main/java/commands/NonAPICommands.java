@@ -88,7 +88,7 @@ public class NonAPICommands extends ListenerAdapter {
 //------------------------------------------------------------------------------------------------------------------------------------
 //command for self-assigning roles
 		
-		List<Role> userRoles = guild.getMemberById(event.getAuthor().getIdLong()).getRoles();
+		List<Role> userRoles = event.getMember().getRoles();
 		
 		Role[] stateRoles = {
 			guild.getRoleById(735995136978321541L), //nebraska
@@ -128,38 +128,39 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 			
 			else {
+				event.getChannel().sendMessage("test").queue();
 				//if user is obtaining state role when they already have one removes current state roles and assigns new one they chose				
 				for (int i = 0; i < stateRoles.length; i++) {
 					if (userRoles.contains(stateRoles[i])) {
-						guild.removeRoleFromMember(event.getMessage().getAuthor().getIdLong(), stateRoles[i]).queue();
+						guild.removeRoleFromMember(event.getMember().getIdLong(), stateRoles[i]).queue();
 					}
 				}
 				event.getChannel().sendMessage("Role: " + rolebuilder).queue();
 				
 				switch (rolebuilder) {
 				case "nebraska": 
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[0]).queue();
+					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[0]).queue();
 				case "wisconsin":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[1]).queue();
+					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[1]).queue();
 				case "iowa":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[2]).queue();
+					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[2]).queue();
 					EmbedBuilder emb1 = new EmbedBuilder();
 					emb1.setTitle("role: " + rolebuilder);
 					event.getChannel().sendMessage(emb1.build()).queue();
 				case "kansas":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[3]).queue();
+					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[3]).queue();
 				case "michigan":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[4]).queue();
+					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[4]).queue();
 				case "missouri":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[5]).queue();
+					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[5]).queue();
 				case "oklahoma":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[6]).queue();
+					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[6]).queue();
 				case "illinois":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[7]).queue();
+					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[7]).queue();
 				case "minnesota":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[8]).queue();
+					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[8]).queue();
 				case "event":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(781973005223854120L)).queue();
+					guild.addRoleToMember(event.getMember().getIdLong(), guild.getRoleById(781973005223854120L)).queue();
 				default: 
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setTitle("Role does not exist or is not able to be self-assigned");
