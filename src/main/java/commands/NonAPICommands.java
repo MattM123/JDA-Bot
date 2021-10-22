@@ -127,7 +127,7 @@ public class NonAPICommands extends ListenerAdapter {
 				
 			}
 			
-			else {
+			else if (!rolebuilder.isEmpty()) {
 				event.getChannel().sendMessage("test").queue();
 				//if user is obtaining state role when they already have one removes current state roles and assigns new one they chose				
 				for (int i = 0; i < stateRoles.length; i++) {
