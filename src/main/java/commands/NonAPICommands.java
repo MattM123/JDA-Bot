@@ -101,8 +101,6 @@ public class NonAPICommands extends ListenerAdapter {
 			guild.getRoleById(735995095773609986L), //illinois
 			guild.getRoleById(735995196738633819L) //minnesota
 		};
-		
-		String[] stateNames = {"nebraska", "wisconsin", "iowa", "kansas", "michigan", "missouri", "oklahoma", "illinois","minnesota"};
 				
 		if (event.getMessage().getContentRaw().equals("=role")) {
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
@@ -141,6 +139,9 @@ public class NonAPICommands extends ListenerAdapter {
 					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[1]).queue();
 				case "iowa":
 					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[2]).queue();
+					EmbedBuilder emb = new EmbedBuilder();
+					emb.setTitle("role: " + rolebuilder);
+					event.getChannel().sendMessage(emb.build());
 				case "kansas":
 					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[3]).queue();
 				case "michigan":
