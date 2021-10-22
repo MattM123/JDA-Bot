@@ -267,11 +267,19 @@ public class APICommands extends ListenerAdapter {
 								emb.setTitle("Minecraft server rank updated to Wisconsin Builder for user " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
+							else if (roles.contains(guild.getRoleById(900746635427053678L))) {
+
+								midwestServer.sendCommand("lp user " + MCusername + " parent add michigan-builder").execute();
+								EmbedBuilder emb = new EmbedBuilder();
+								emb.setColor(Color.BLUE);
+								emb.setTitle("Minecraft server rank updated to Michigan Builder for user " + MCusername);
+								event.getChannel().sendMessage(emb.build()).queue();
+							}
 							
 							else {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Select a role from #" + guild.getGuildChannelById(736010885738266674L).getName() + " and run the command again.");
+								emb.setTitle("Select a role from <#736010885738266674> and run the command again.");
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 						}
@@ -349,7 +357,7 @@ public class APICommands extends ListenerAdapter {
 					else if (application.getApplications().size() < 1) {
 						EmbedBuilder noApp = new EmbedBuilder();
 						noApp.setColor(Color.BLUE);
-						noApp.setTitle("User does not have any applications");
+						noApp.setTitle("User does not have any applications. They were most likely merged into the team");
 						
 						event.getChannel().sendMessage(noApp.build()).queue();
 					}
