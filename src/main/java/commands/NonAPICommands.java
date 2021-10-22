@@ -19,8 +19,7 @@ public class NonAPICommands extends ListenerAdapter {
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
-		
-		Guild guild = event.getGuild(); 
+
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setColor(Color.blue);
 		embed.setTitle("Command Information");
@@ -73,29 +72,6 @@ public class NonAPICommands extends ListenerAdapter {
 		     action.queue(callback);      
 		}
 		
-		//Opt in/out of announcement pings by self assigning a @Notify role.
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("=notify")) {
-			Role notify = event.getGuild().getRoleById(783330424805261342L);
-			
-			if (event.getGuild().getMemberById(event.getAuthor().getIdLong()).getRoles().contains(notify)) {
-				event.getGuild().removeRoleFromMember(event.getGuild().getMemberById(event.getAuthor().getId()), notify).queue();
-				
-				EmbedBuilder emb = new EmbedBuilder();
-				emb.setColor(Color.blue);
-				emb.setTitle(event.getGuild().getRoleById(783330424805261342L).getName() + " role has been removed from @" + event.getAuthor().getName());
-				
-				event.getChannel().sendMessage(emb.build()).queue();
-			}
-			else {
-				event.getGuild().addRoleToMember(event.getGuild().getMemberById(event.getAuthor().getId()), notify).queue();
-				
-				EmbedBuilder emb = new EmbedBuilder();
-				emb.setColor(Color.blue);
-				emb.setTitle(event.getGuild().getRoleById(783330424805261342L).getName() + " role has been given to @" + event.getAuthor().getName());
-				
-				event.getChannel().sendMessage(emb.build()).queue();
-			}
-		}
 //------------------------------------------------------------------------------------------------------------------------------------
 //detect users who are unfamiliar with how to get started and sends them to the info channel
 				
