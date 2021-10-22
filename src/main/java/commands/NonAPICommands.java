@@ -132,6 +132,7 @@ public class NonAPICommands extends ListenerAdapter {
 				for (int i = 0; i < stateRoles.length; i++) {
 					if (userRoles.contains(stateRoles[i])) {
 						guild.removeRoleFromMember(event.getMember().getIdLong(), stateRoles[i]).queue();
+						break;
 					}
 				}
 				
