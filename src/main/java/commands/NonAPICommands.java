@@ -141,7 +141,7 @@ public class NonAPICommands extends ListenerAdapter {
 					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[2]).queue();
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setTitle("role: " + rolebuilder);
-					event.getChannel().sendMessage(emb.build());
+					event.getChannel().sendMessage(emb.build()).queue();
 				case "kansas":
 					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[3]).queue();
 				case "michigan":
