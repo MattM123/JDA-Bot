@@ -131,8 +131,11 @@ public class NonAPICommands extends ListenerAdapter {
 						guild.removeRoleFromMember(event.getAuthor().getIdLong(), stateRoles[i]).queue();
 					}
 				}
+			
+				rolebuilder = rolebuilder.toLowerCase();
 				event.getChannel().sendMessage(rolebuilder).queue();
-				switch (rolebuilder.toLowerCase()) {
+				
+				switch (rolebuilder) {
 				case "nebraska": 
 					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[0]).queue();
 				case "wisconsin":
