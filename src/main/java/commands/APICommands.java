@@ -30,14 +30,13 @@ public class APICommands extends ListenerAdapter {
 	private PteroClient api = PteroBuilder.createClient(System.getenv("PANEL_URL"), System.getenv("PTERO_API"));
 	
 	//The minecraft server
-	private ClientServer midwestServer = api.retrieveServers().execute().get(0);
+	private ClientServer midwestServer = (ClientServer) api.retrieveServerByIdentifier("e6fc33d8-0a5c-4764-b449-e77b5a5fd3ce");
 	
 	//User role list
 	private List<Role> roles;
 	
 	//Timer to tell bot when to check pending applications
 	Timer timer = new Timer();
-	
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
