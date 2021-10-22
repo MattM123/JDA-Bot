@@ -288,7 +288,7 @@ public class APICommands extends ListenerAdapter {
 							else {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Select a role from <#736010885738266674> and run the command again.");
+								emb.setTitle("Choose a state with `=role` in <#736441998109704224> and run the command again.");
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 						}
