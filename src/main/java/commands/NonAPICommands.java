@@ -26,12 +26,12 @@ public class NonAPICommands extends ListenerAdapter {
 
 		embed.addField("=link <minecraft username>", "Automatically assigns build perms and Builder role if user is on the team", false);
 		embed.addField("=applicant <minecraft username>", "Assigns user application build perms on the server", false);
-		embed.addField("=notify", "Toggle command: Execute this command to get pinged when there is a new annoucement. Execute this command a again to have the @Notify role removed ", false);
 		embed.addField("=getapp -<DiscordID> -<number of app>", "Requires Staff role to view players applications", false);
 		embed.addField("=server", "Displays server status and resource usage.", false);
 		embed.addField("=map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		embed.addField("=measure", "Measure tutorial derived from the BTE Support Bot", false);
-		embed.addField("=/<command>", "Requires Staff role to send console command to Minecraft server", false);
+		embed.addField("=role <nameOfRole>", "Self assigns certain roles, use with no parameters for list of roles", false);
+		embed.addField("=/<command>", "Requires Admin role to send console command to Minecraft server", false);
 		
 		
 		EmbedBuilder embed1 = new EmbedBuilder();
@@ -83,6 +83,37 @@ public class NonAPICommands extends ListenerAdapter {
 			if (event.getMessage().getContentRaw().contains(phrases[i]) || event.getMessage().getContentRaw().equalsIgnoreCase(phrases[i])) {
 				event.getChannel().sendMessage("Go to <#776963885739409458> for info on how to get started").queue();
 			}
-		}			
+		}				
+//------------------------------------------------------------------------------------------------------------------------------------
+//command for self-assigning roles
+		
+		if (event.getMessage().getContentRaw().equals("=role")) {
+			char[] chararr = event.getMessage().getContentRaw().toCharArray();
+			String rolebuilder = "";
+		
+			for (int i = 6; i < chararr.length; i++) {
+				rolebuilder += chararr[i];
+			}
+			
+			if (rolebuilder.isEmpty()) {
+				EmbedBuilder roleMenu = new EmbedBuilder();
+				
+				roleMenu.addField("Command Usage", "=role nameOfRole", false);
+				roleMenu.addField("State Roles", "Nebraska\nIowa\nKansas\nMinnesota\nMichigan\nWisconsin\nMissouri\nIllinois\nOklahoma", false);
+				roleMenu.addField("Other Roles", "Event - This role is notified of build events", false);
+				
+				event.getChannel().sendMessage(roleMenu.build()).queue();
+				
+			}
+		}
+	
+
+	
 	}
+	
+	
+	
+	
+	
+	
 }
