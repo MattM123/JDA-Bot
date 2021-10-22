@@ -109,7 +109,7 @@ public class NonAPICommands extends ListenerAdapter {
 			for (int i = 6; i < chararr.length; i++) {
 				rolebuilder += chararr[i];
 			}
-			rolebuilder = rolebuilder.toLowerCase();
+			//rolebuilder = rolebuilder.toLowerCase();
 			event.getChannel().sendMessage("Role: " + rolebuilder).queue();
 			
 			
@@ -127,7 +127,8 @@ public class NonAPICommands extends ListenerAdapter {
 				
 			}
 			
-			else if (!rolebuilder.isEmpty()) {
+			//if role name is not empty
+			else {
 				event.getChannel().sendMessage("test").queue();
 				//if user is obtaining state role when they already have one removes current state roles and assigns new one they chose				
 				for (int i = 0; i < stateRoles.length; i++) {
