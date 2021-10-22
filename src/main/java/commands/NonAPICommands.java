@@ -102,13 +102,16 @@ public class NonAPICommands extends ListenerAdapter {
 			guild.getRoleById(735995196738633819L) //minnesota
 		};
 				
-		if (event.getMessage().getContentRaw().equals("=role")) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("=role")) {
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String rolebuilder = "";
 		
 			for (int i = 6; i < chararr.length; i++) {
 				rolebuilder += chararr[i];
 			}
+			rolebuilder = rolebuilder.toLowerCase();
+			event.getChannel().sendMessage(rolebuilder).queue();
+			
 			
 			//if user provides no role name to obtain
 			if (rolebuilder.isEmpty()) {
@@ -132,8 +135,7 @@ public class NonAPICommands extends ListenerAdapter {
 					}
 				}
 			
-				rolebuilder = rolebuilder.toLowerCase();
-				event.getChannel().sendMessage(rolebuilder).queue();
+
 				
 				switch (rolebuilder) {
 				case "nebraska": 
