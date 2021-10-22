@@ -102,14 +102,14 @@ public class NonAPICommands extends ListenerAdapter {
 			guild.getRoleById(735995196738633819L) //minnesota
 		};
 				
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("=role")) {
+		if (event.getMessage().getContentRaw().startsWith("=role")) {
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String rolebuilder = "";
 		
 			for (int i = 6; i < chararr.length; i++) {
 				rolebuilder += chararr[i];
 			}
-			//rolebuilder = rolebuilder.toLowerCase();
+			rolebuilder = rolebuilder.toLowerCase();
 			event.getChannel().sendMessage("Role: " + rolebuilder).queue();
 			
 			
@@ -129,14 +129,12 @@ public class NonAPICommands extends ListenerAdapter {
 			
 			//if role name is not empty
 			else {
-				event.getChannel().sendMessage("test").queue();
 				//if user is obtaining state role when they already have one removes current state roles and assigns new one they chose				
 				for (int i = 0; i < stateRoles.length; i++) {
 					if (userRoles.contains(stateRoles[i])) {
 						guild.removeRoleFromMember(event.getMember().getIdLong(), stateRoles[i]).queue();
 					}
 				}
-				event.getChannel().sendMessage("Role: " + rolebuilder).queue();
 				
 				switch (rolebuilder) {
 				case "nebraska": 
@@ -145,9 +143,6 @@ public class NonAPICommands extends ListenerAdapter {
 					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[1]).queue();
 				case "iowa":
 					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[2]).queue();
-					EmbedBuilder emb1 = new EmbedBuilder();
-					emb1.setTitle("role: " + rolebuilder);
-					event.getChannel().sendMessage(emb1.build()).queue();
 				case "kansas":
 					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[3]).queue();
 				case "michigan":
