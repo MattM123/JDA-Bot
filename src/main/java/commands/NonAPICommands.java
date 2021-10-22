@@ -130,31 +130,31 @@ public class NonAPICommands extends ListenerAdapter {
 				//if user is obtaining state role when they already have one removes current state roles and assigns new one they chose				
 				for (int i = 0; i < stateRoles.length; i++) {
 					if (userRoles.contains(stateRoles[i])) {
-						guild.removeRoleFromMember(event.getAuthor().getIdLong(), stateRoles[i]);
+						guild.removeRoleFromMember(event.getAuthor().getIdLong(), stateRoles[i]).queue();
 					}
 				}
 				
 				switch (rolebuilder.toLowerCase()) {
 				case "nebraska": 
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[0]);
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[0]).queue();
 				case "wisconsin":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[1]);
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[1]).queue();
 				case "iowa":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[2]);
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[2]).queue();
 				case "kansas":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[3]);
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[3]).queue();
 				case "michigan":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[4]);
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[4]).queue();
 				case "missouri":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[5]);
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[5]).queue();
 				case "oklahoma":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[6]);
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[6]).queue();
 				case "illinois":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[7]);
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[7]).queue();
 				case "minnesota":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[8]);
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[8]).queue();
 				case "event":
-					guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(781973005223854120L));
+					guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(781973005223854120L)).queue();
 				}
 				
 			}
