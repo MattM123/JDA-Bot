@@ -114,7 +114,7 @@ public class NonAPICommands extends ListenerAdapter {
 			
 			
 			//if user provides no role name to obtain
-			if (rolebuilder.isEmpty()) {
+			if (!rolebuilder.isEmpty()) {
 				EmbedBuilder roleMenu = new EmbedBuilder();
 				
 				roleMenu.setColor(Color.blue);
