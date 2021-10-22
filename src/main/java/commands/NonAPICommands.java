@@ -1,6 +1,7 @@
 package commands;
 
 import java.awt.Color;
+import java.util.List;
 import java.util.function.Consumer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -14,34 +15,34 @@ import net.dv8tion.jda.api.requests.RestAction;
 
 public class NonAPICommands extends ListenerAdapter {
 	
-
-	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 
-		EmbedBuilder embed = new EmbedBuilder();
-		embed.setColor(Color.blue);
-		embed.setTitle("Command Information");
+		Guild guild = event.getGuild();
+		
+		EmbedBuilder helpMenu = new EmbedBuilder();
+		helpMenu.setColor(Color.blue);
+		helpMenu.setTitle("Command Information");
 
-		embed.addField("=link <minecraft username>", "Automatically assigns build perms and Builder role if user is on the team", false);
-		embed.addField("=applicant <minecraft username>", "Assigns user application build perms on the server", false);
-		embed.addField("=getapp -<DiscordID> -<number of app>", "Requires Staff role to view players applications", false);
-		embed.addField("=server", "Displays server status and resource usage.", false);
-		embed.addField("=map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
-		embed.addField("=measure", "Measure tutorial derived from the BTE Support Bot", false);
-		embed.addField("=role <nameOfRole>", "Self assigns certain roles, use with no parameters for list of roles", false);
-		embed.addField("=/<command>", "Requires Admin role to send console command to Minecraft server", false);
+		helpMenu.addField("=link <minecraft username>", "Automatically assigns build perms and Builder role if user is on the team", false);
+		helpMenu.addField("=applicant <minecraft username>", "Assigns user application build perms on the server", false);
+		helpMenu.addField("=getapp -<DiscordID> -<number of app>", "Requires Staff role to view players applications", false);
+		helpMenu.addField("=server", "Displays server status and resource usage.", false);
+		helpMenu.addField("=map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
+		helpMenu.addField("=measure", "Measure tutorial derived from the BTE Support Bot", false);
+		helpMenu.addField("=role <nameOfRole>", "Self assigns certain roles, use with no parameters for list of roles", false);
+		helpMenu.addField("=/<command>", "Requires Admin role to send console command to Minecraft server", false);
 		
 		
-		EmbedBuilder embed1 = new EmbedBuilder();
-		embed1.setTitle("BTE Midwest Map");
-		embed1.setColor(Color.blue);
-		embed1.setImage("https://cdn.discordapp.com/attachments/735998501053530163/808887801432768552/path3233-86.png");
+		EmbedBuilder map = new EmbedBuilder();
+		map.setTitle("BTE Midwest Map");
+		map.setColor(Color.blue);
+		map.setImage("https://cdn.discordapp.com/attachments/735998501053530163/808887801432768552/path3233-86.png");
 		
 		//returns list of commands used by bot
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=help")) {
-			event.getChannel().sendMessage(embed.build()).queue();
+			event.getChannel().sendMessage(helpMenu.build()).queue();
 		}
 		
 		//returns measure gif from BTE bot
@@ -56,7 +57,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		//returns map image of states
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=map")) {
-			event.getChannel().sendMessage(embed1.build()).queue();
+			event.getChannel().sendMessage(map.build()).queue();
 		}
 		
 		//Pings Discord API
@@ -87,6 +88,22 @@ public class NonAPICommands extends ListenerAdapter {
 //------------------------------------------------------------------------------------------------------------------------------------
 //command for self-assigning roles
 		
+		List<Role> userRoles = guild.getMemberById(event.getAuthor().getIdLong()).getRoles();
+		
+		Role[] stateRoles = {
+			guild.getRoleById(735995136978321541L), //nebraska
+			guild.getRoleById(798079627360337970L), //wisconsin
+			guild.getRoleById(735995164493086720L), //iowa
+			guild.getRoleById(735995176165834756L), //kasnas
+			guild.getRoleById(900746635427053678L), //michigan
+			guild.getRoleById(735995115113414656L), //missouri
+			guild.getRoleById(808415301799641119L), //oklahoma
+			guild.getRoleById(735995095773609986L), //illinois
+			guild.getRoleById(735995196738633819L) //minnesota
+		};
+		
+		String[] stateNames = {"nebraska", "wisconsin", "iowa", "kansas", "michigan", "missouri", "oklahoma", "illinois","minnesota"};
+				
 		if (event.getMessage().getContentRaw().equals("=role")) {
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String rolebuilder = "";
@@ -95,6 +112,7 @@ public class NonAPICommands extends ListenerAdapter {
 				rolebuilder += chararr[i];
 			}
 			
+			//if user provides no role name to obtain
 			if (rolebuilder.isEmpty()) {
 				EmbedBuilder roleMenu = new EmbedBuilder();
 				
@@ -105,6 +123,39 @@ public class NonAPICommands extends ListenerAdapter {
 				roleMenu.setFooter("You can only have one state role at a time!");
 				
 				event.getChannel().sendMessage(roleMenu.build()).queue();
+				
+			}
+			
+			else {
+				//if user is obtaining state role when they already have one removes current state roles and assigns new one they chose				
+				for (int i = 0; i < stateRoles.length; i++) {
+					if (userRoles.contains(stateRoles[i])) {
+						guild.removeRoleFromMember(event.getAuthor().getIdLong(), stateRoles[i]);
+					}
+				}
+				
+				switch (rolebuilder.toLowerCase()) {
+				case "nebraska": 
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[0]);
+				case "wisconsin":
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[1]);
+				case "iowa":
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[2]);
+				case "kansas":
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[3]);
+				case "michigan":
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[4]);
+				case "missouri":
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[5]);
+				case "oklahoma":
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[6]);
+				case "illinois":
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[7]);
+				case "minnesota":
+					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[8]);
+				case "event":
+					guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(781973005223854120L));
+				}
 				
 			}
 		}
