@@ -30,13 +30,22 @@ public class APICommands extends ListenerAdapter {
 	private PteroClient api = PteroBuilder.createClient(System.getenv("PANEL_URL"), System.getenv("PTERO_API"));
 	
 	//The minecraft server
-	private ClientServer midwestServer = (ClientServer) api.retrieveServerByIdentifier("e6fc33d8-0a5c-4764-b449-e77b5a5fd3ce");
+	private ClientServer midwestServer;
 	
 	//User role list
 	private List<Role> roles;
 	
 	//Timer to tell bot when to check pending applications
 	Timer timer = new Timer();
+	
+	
+	public void getMidwestServer() {
+		for (int i = 0; i < api.retrieveServers().execute().size(); i++) {
+			if (api.retrieveServers().execute().get(i).getIdentifier().equals("e6fc33d8-0a5c-4764-b449-e77b5a5fd3ce")) {
+				midwestServer = api.retrieveServers().execute().get(i);
+			}
+		}
+	}
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -95,7 +104,8 @@ public class APICommands extends ListenerAdapter {
 //get server stats
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
-	
+			getMidwestServer();
+			
 			EmbedBuilder midwest = new EmbedBuilder();
 			if (midwestServer.retrieveUtilization().execute().getState().toString().equals("RUNNING")) {
 				midwest.setColor(Color.green);
