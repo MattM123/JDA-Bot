@@ -110,7 +110,7 @@ public class NonAPICommands extends ListenerAdapter {
 				rolebuilder += chararr[i];
 			}
 			rolebuilder = rolebuilder.toLowerCase();
-			event.getChannel().sendMessage(rolebuilder).queue();
+			event.getChannel().sendMessage("Role: " + rolebuilder).queue();
 			
 			
 			//if user provides no role name to obtain
