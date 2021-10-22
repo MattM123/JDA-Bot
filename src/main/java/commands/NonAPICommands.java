@@ -98,9 +98,11 @@ public class NonAPICommands extends ListenerAdapter {
 			if (rolebuilder.isEmpty()) {
 				EmbedBuilder roleMenu = new EmbedBuilder();
 				
+				roleMenu.setColor(Color.blue);
 				roleMenu.addField("Command Usage", "=role nameOfRole", false);
-				roleMenu.addField("State Roles", "Nebraska\nIowa\nKansas\nMinnesota\nMichigan\nWisconsin\nMissouri\nIllinois\nOklahoma", false);
-				roleMenu.addField("Other Roles", "Event - This role is notified of build events", false);
+				roleMenu.addField("*__State Roles__*", "Nebraska\nIowa\nKansas\nMinnesota\nMichigan\nWisconsin\nMissouri\nIllinois\nOklahoma", false);
+				roleMenu.addField("*__Other Roles__*", "Event - This role is notified of build events", false);
+				roleMenu.setFooter("You can only have one state role at a time!");
 				
 				event.getChannel().sendMessage(roleMenu.build()).queue();
 				
