@@ -110,9 +110,7 @@ public class NonAPICommands extends ListenerAdapter {
 				rolebuilder += chararr[i];
 			}
 			rolebuilder = rolebuilder.toLowerCase();
-			event.getChannel().sendMessage("Role: " + rolebuilder).queue();
-			
-			
+						
 			//if user provides no role name to obtain
 			if (rolebuilder.isEmpty()) {
 				EmbedBuilder roleMenu = new EmbedBuilder();
@@ -130,6 +128,7 @@ public class NonAPICommands extends ListenerAdapter {
 			//if role name is not empty
 			else {
 				//if user is obtaining state role when they already have one removes current state roles and assigns new one they chose				
+				
 				for (int i = 0; i < stateRoles.length; i++) {
 					if (userRoles.contains(stateRoles[i])) {
 						guild.removeRoleFromMember(event.getMember().getIdLong(), stateRoles[i]).queue();
@@ -156,11 +155,7 @@ public class NonAPICommands extends ListenerAdapter {
 				case "minnesota":
 					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[8]).queue();
 				case "event":
-					guild.addRoleToMember(event.getMember().getIdLong(), guild.getRoleById(781973005223854120L)).queue();
-				default: 
-					EmbedBuilder emb = new EmbedBuilder();
-					emb.setTitle("Role does not exist or is not able to be self-assigned");
-					event.getChannel().sendMessage(emb.build()).queue();
+					guild.addRoleToMember(event.getMember().getIdLong(), guild.getRoleById(781973005223854120L)).queue(); 
 				}
 				
 			}
