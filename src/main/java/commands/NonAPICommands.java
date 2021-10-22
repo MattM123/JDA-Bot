@@ -131,7 +131,7 @@ public class NonAPICommands extends ListenerAdapter {
 						guild.removeRoleFromMember(event.getAuthor().getIdLong(), stateRoles[i]).queue();
 					}
 				}
-				
+				event.getChannel().sendMessage(rolebuilder).queue();
 				switch (rolebuilder.toLowerCase()) {
 				case "nebraska": 
 					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[0]).queue();
@@ -139,9 +139,9 @@ public class NonAPICommands extends ListenerAdapter {
 					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[1]).queue();
 				case "iowa":
 					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[2]).queue();
-					EmbedBuilder emb = new EmbedBuilder();
-					emb.setTitle("role: " + rolebuilder);
-					event.getChannel().sendMessage(emb.build()).queue();
+					EmbedBuilder emb1 = new EmbedBuilder();
+					emb1.setTitle("role: " + rolebuilder);
+					event.getChannel().sendMessage(emb1.build()).queue();
 				case "kansas":
 					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[3]).queue();
 				case "michigan":
@@ -156,6 +156,10 @@ public class NonAPICommands extends ListenerAdapter {
 					guild.addRoleToMember(event.getAuthor().getIdLong(), stateRoles[8]).queue();
 				case "event":
 					guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(781973005223854120L)).queue();
+				default: 
+					EmbedBuilder emb = new EmbedBuilder();
+					emb.setTitle("Role does not exist or is not able to be self-assigned");
+					event.getChannel().sendMessage(emb.build()).queue();
 				}
 				
 			}
