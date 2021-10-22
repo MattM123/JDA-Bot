@@ -114,7 +114,7 @@ public class NonAPICommands extends ListenerAdapter {
 			
 			
 			//if user provides no role name to obtain
-			if (!rolebuilder.isEmpty()) {
+			if (rolebuilder.isEmpty()) {
 				EmbedBuilder roleMenu = new EmbedBuilder();
 				
 				roleMenu.setColor(Color.blue);
@@ -131,7 +131,7 @@ public class NonAPICommands extends ListenerAdapter {
 				//if user is obtaining state role when they already have one removes current state roles and assigns new one they chose				
 				for (int i = 0; i < stateRoles.length; i++) {
 					if (userRoles.contains(stateRoles[i])) {
-						guild.removeRoleFromMember(event.getAuthor().getIdLong(), stateRoles[i]).queue();
+						guild.removeRoleFromMember(event.getMessage().getAuthor().getIdLong(), stateRoles[i]).queue();
 					}
 				}
 				event.getChannel().sendMessage("Role: " + rolebuilder).queue();
