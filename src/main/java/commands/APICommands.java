@@ -166,7 +166,7 @@ public class APICommands extends ListenerAdapter {
 					}
 					
 					//if user has been merged into the team, i.e has not submitted an application but is on the team
-					else if (!BTE.stackTrace.contains("IndexOutOfBoundsException")
+					else if (BTE.stackTrace.contains("IndexOutOfBoundsException")
 						&& BTE.getMemberList().contains(event.getMember().getIdLong())) {
 						
 						guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
