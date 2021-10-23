@@ -430,7 +430,7 @@ public class APICommands extends ListenerAdapter {
 			    		staff.sendMessage(emb.build()).queue();
 			    }
 			}
-		}, 1000, 600000);
+		}, 1000, 60000);
 	}
 	
 	
