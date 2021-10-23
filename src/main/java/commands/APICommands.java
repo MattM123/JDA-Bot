@@ -157,7 +157,7 @@ public class APICommands extends ListenerAdapter {
 					//retrieves the member list test
 					BTE.getMemberList(); 
 					//if there's an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
-					if (!BTE.stackTrace.isEmpty() && !BTE.stackTrace.contains("IndexOutOfBoundsException")) {
+					if (!BTE.stackTrace.isEmpty()) {
 						EmbedBuilder emb = new EmbedBuilder();
 						emb.setColor(Color.BLUE);
 						emb.setTitle("There was an exception when retrieving the member list");
@@ -166,7 +166,7 @@ public class APICommands extends ListenerAdapter {
 					}
 					
 					//if user has been merged into the team, i.e has not submitted an application but is on the team
-					else if (BTE.stackTrace.contains("IndexOutOfBoundsException")
+					else if (usernameApplied.contains("IndexOutOfBoundsException")
 						&& BTE.getMemberList().contains(event.getMember().getIdLong())) {
 						
 						guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
@@ -176,11 +176,12 @@ public class APICommands extends ListenerAdapter {
 						event.getChannel().sendMessage(emb.build()).queue();
 						
 						isBuilder = true;
-				}
+					}
 					
-					else { 
-						//If user ID exists in member list and builder role is not already assigned, give builder role
-							
+					else {
+						//No errors
+						if (BTE.stackTrace.isEmpty()) {
+
 							//if user already has builder role						
 							if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {						
 								isBuilder = true;					
@@ -201,7 +202,8 @@ public class APICommands extends ListenerAdapter {
 								event.getChannel().sendMessage(emb.build()).queue();
 								
 								isBuilder = true;					
-							}						
+							}	
+						}
 					}
 						
 					
@@ -298,7 +300,6 @@ public class APICommands extends ListenerAdapter {
 							EmbedBuilder emb = new EmbedBuilder();
 							emb.setColor(Color.BLUE);
 							emb.setTitle("You're not on the team or your username was invalid");
-							emb.addField("Stacktrace", BTE.stackTrace, false);
 							event.getChannel().sendMessage(emb.build()).queue();  
 						}							
 											
