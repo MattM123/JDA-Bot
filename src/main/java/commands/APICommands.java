@@ -298,6 +298,7 @@ public class APICommands extends ListenerAdapter {
 							EmbedBuilder emb = new EmbedBuilder();
 							emb.setColor(Color.BLUE);
 							emb.setTitle("You're not on the team or your username was invalid");
+							emb.addField("Stacktrace", BTE.stackTrace, false);
 							event.getChannel().sendMessage(emb.build()).queue();  
 						}							
 											
