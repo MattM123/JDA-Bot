@@ -50,6 +50,7 @@ public class APICommands extends ListenerAdapter {
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
+		getMidwestServer();
 		
 		 Guild guild = event.getGuild(); 
 		 Role staffRole = guild.getRoleById(735991904352731176L); 
@@ -84,7 +85,6 @@ public class APICommands extends ListenerAdapter {
 //Gives applicant builder permissions
 		
 		if (event.getMessage().getContentRaw().startsWith("=applicant")) {	
-				
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String namebuilder = "";
 		
@@ -104,7 +104,6 @@ public class APICommands extends ListenerAdapter {
 //get server stats
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
-			getMidwestServer();
 			
 			EmbedBuilder midwest = new EmbedBuilder();
 			if (midwestServer.retrieveUtilization().execute().getState().toString().equals("RUNNING")) {
@@ -127,7 +126,8 @@ public class APICommands extends ListenerAdapter {
 //-----------------------------------------------------------------------------------------------------------------------------
 //give build perms based on presence on build team
 		
-		if (event.getMessage().getContentRaw().startsWith("=link")) {		
+		if (event.getMessage().getContentRaw().startsWith("=link")) {	
+			
 			//Parses minecraft username for later use
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String MCusername = "";
