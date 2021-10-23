@@ -157,13 +157,26 @@ public class APICommands extends ListenerAdapter {
 					//retrieves the member list test
 					BTE.getMemberList(); 
 					//if there's an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
-					if (!BTE.stackTrace.equals("")) {
+					if (!BTE.stackTrace.equals("") && !BTE.stackTrace.contains("IndexOutOfBoundsException")) {
 						EmbedBuilder emb = new EmbedBuilder();
 						emb.setColor(Color.BLUE);
 						emb.setTitle("There was an exception when retrieving the member list");
 						emb.addField("Exception", BTE.stackTrace, false);
 						event.getChannel().sendMessage(emb.build()).queue();
 					}
+					
+					//if user has been merged into the team, i.e has not submitted an application but is on the team
+					else if (BTE.stackTrace.contains("IndexOutOfBoundsException")
+						&& BTE.getMemberList().contains(event.getMember().getIdLong())) {
+						
+						guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
+						EmbedBuilder emb = new EmbedBuilder();
+						emb.setColor(Color.BLUE);
+						emb.setTitle("User has been merged into the team");
+						event.getChannel().sendMessage(emb.build()).queue();
+						
+						isBuilder = true;
+				}
 					
 					else { 
 						//If user ID exists in member list and builder role is not already assigned, give builder role
@@ -187,22 +200,9 @@ public class APICommands extends ListenerAdapter {
 								emb.setTitle("You now have Builder role!");
 								event.getChannel().sendMessage(emb.build()).queue();
 								
-								isBuilder = true;
-								
-							}
-							
-							//if user has been merged into the team, i.e does has not submitted an application but is on the team
-							if (BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")
-								&& BTE.getMemberList().contains(event.getMember().getIdLong())) {
-								
-								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
-								EmbedBuilder emb = new EmbedBuilder();
-								emb.setColor(Color.BLUE);
-								emb.setTitle("User has been merged into the team");
-								event.getChannel().sendMessage(emb.build()).queue();
-								
-								isBuilder = true;
-						}
+								isBuilder = true;					
+							}						
+					}
 						
 					
 		
@@ -303,7 +303,7 @@ public class APICommands extends ListenerAdapter {
 											
 				}
 			}
-		}
+		
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Retrieves an application of user given a discord ID and an integer representing which application in the list to return
 		
