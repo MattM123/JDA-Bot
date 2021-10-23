@@ -140,7 +140,7 @@ public class APICommands extends ListenerAdapter {
 				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") || usernameApplied.contains("IOException") 
-						|| usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:") || usernameApplied.contains("IndexOutOfBounds"))) {
+						|| usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:"))) {
 	
 					
 					EmbedBuilder emb = new EmbedBuilder();
@@ -157,7 +157,7 @@ public class APICommands extends ListenerAdapter {
 					//retrieves the member list test
 					BTE.getMemberList(); 
 					//if there's an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
-					if (!BTE.stackTrace.equals("") && !BTE.stackTrace.contains("IndexOutOfBoundsException")) {
+					if (!BTE.stackTrace.isEmpty() && !BTE.stackTrace.contains("IndexOutOfBoundsException")) {
 						EmbedBuilder emb = new EmbedBuilder();
 						emb.setColor(Color.BLUE);
 						emb.setTitle("There was an exception when retrieving the member list");
@@ -166,7 +166,7 @@ public class APICommands extends ListenerAdapter {
 					}
 					
 					//if user has been merged into the team, i.e has not submitted an application but is on the team
-					else if (BTE.stackTrace.contains("IndexOutOfBoundsException")
+					else if (!BTE.stackTrace.contains("IndexOutOfBoundsException")
 						&& BTE.getMemberList().contains(event.getMember().getIdLong())) {
 						
 						guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
