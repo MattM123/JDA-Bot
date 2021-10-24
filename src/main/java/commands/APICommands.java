@@ -78,7 +78,7 @@ public class APICommands extends ListenerAdapter {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.blue);
 				emb.setTitle("Only staff can execute this command");
-				event.getChannel().sendMessage(emb.build());
+				event.getChannel().sendMessage(emb.build()).queue();
 			}
 		}
 //-------------------------------------------------------------------------------------------------------------		
