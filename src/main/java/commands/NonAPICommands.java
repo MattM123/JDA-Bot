@@ -89,8 +89,6 @@ public class NonAPICommands extends ListenerAdapter {
 //------------------------------------------------------------------------------------------------------------------------------------
 //command for self-assigning roles
 		
-		List<Role> userRoles = event.getMember().getRoles();
-		
 		Role[] stateRoles = {
 			guild.getRoleById(735995136978321541L), //nebraska
 			guild.getRoleById(798079627360337970L), //wisconsin
@@ -131,7 +129,7 @@ public class NonAPICommands extends ListenerAdapter {
 				//if user is obtaining state role when they already have one removes current state roles and assigns new one they chose				
 				
 				for (int i = 0; i < stateRoles.length; i++) {
-					if (userRoles.contains(stateRoles[i])) {
+					if (event.getMember().getRoles() != null && event.getMember().getRoles().contains(stateRoles[i])) {
 						guild.removeRoleFromMember(event.getMember().getIdLong(), stateRoles[i]).queue();
 						break;
 					}
