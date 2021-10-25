@@ -38,9 +38,8 @@ public class APICommands extends ListenerAdapter {
 	
 	public void getMidwestServer() {
 		for (int i = 0; i < api.retrieveServers().execute().size(); i++) {
-			if (api.retrieveServers().execute().get(i).getName().equals("Midwest")) {
-				midwestServer = api.retrieveServers().execute().get(i);
-			}
+			if (api.retrieveServers().execute().get(i).getIdentifier().equals("e6fc33d8"))
+				midwestServer = api.retrieveServers().execute().get(i);		
 		}
 	}
 	
@@ -429,7 +428,7 @@ public class APICommands extends ListenerAdapter {
 			    		staff.sendMessage(emb.build()).queue();
 			    }
 			}
-		}, 1000, 60000);
+		}, 1000, 600000);
 	}
 	
 	
