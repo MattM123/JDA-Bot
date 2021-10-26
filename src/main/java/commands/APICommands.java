@@ -401,6 +401,7 @@ public class APICommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Notifies staff members of new applications since BTE bot stopped doing it
 	
+/*            //BROKEN, cannot differentiate between bot message author and human message author
 	private boolean isBot = true;
 	
 	@Override
@@ -430,7 +431,7 @@ public class APICommands extends ListenerAdapter {
 			}
 		}, 1000, 600000);
 	}
-	
+*/	
 	
 }	
 
