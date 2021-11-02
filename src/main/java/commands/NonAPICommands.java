@@ -79,7 +79,7 @@ public class NonAPICommands extends ListenerAdapter {
 				
 		String[] phrases = {"how do i apply","how to be builder","how do i be a builder","how do i become a builder","how do i get builder role",
 							"how do i get builder", "where do i apply", "how do i join", "how to get builder", "how to apply", "submit my build application", 
-							"submit my application"};								
+							"submit my application", "how can i start building"};								
 				
 		for (int i = 0; i < phrases.length; i++) {
 			if (event.getMessage().getContentRaw().contains(phrases[i]) || event.getMessage().getContentRaw().equalsIgnoreCase(phrases[i])) {
