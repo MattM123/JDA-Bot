@@ -77,7 +77,7 @@ public class NonAPICommands extends ListenerAdapter {
 //------------------------------------------------------------------------------------------------------------------------------------
 //detect users who are unfamiliar with how to get started and sends them to the info channel
 				
-		String[] phrases = {"how do i apply","how to be builder","how do i be a builder","how do i become a builder","how do i get builder role",
+		String[] phrases = {"how do i apply","how to be builder","how do i be a builder","how do i become a builder",
 							"how do i get builder", "where do i apply", "how do i join", "how to get builder", "how to apply", "submit my build application", 
 							"submit my application", "how can i start building"};								
 				
@@ -135,7 +135,7 @@ public class NonAPICommands extends ListenerAdapter {
 					}
 				}
 				
-				switch (rolebuilder) {
+				switch (rolebuilder.toLowerCase()) {
 				case "nebraska": 
 					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[0]).queue();
 					break;
