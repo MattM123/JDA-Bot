@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 import com.mattmalec.pterodactyl4j.DataType;
 import com.mattmalec.pterodactyl4j.PteroBuilder;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
@@ -14,8 +13,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -38,7 +35,7 @@ public class APICommands extends ListenerAdapter {
 	
 	public void getMidwestServer() {
 		for (int i = 0; i < api.retrieveServers().execute().size(); i++) {
-			if (api.retrieveServers().execute().get(i).getIdentifier().equals("e6fc33d8"))
+			if (api.retrieveServers().execute().get(i).getIdentifier().equals("2eb8c467"))
 				midwestServer = api.retrieveServers().execute().get(i);		
 		}
 	}
