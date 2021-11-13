@@ -46,8 +46,8 @@ public class APICommands extends ListenerAdapter {
 		getMidwestServer();
 		
 		 Guild guild = event.getGuild(); 
-		 Role staffRole = guild.getRoleById(735991904352731176L); 
-		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole, guild.getRoleById(736002669130547211L));
+		 Role staffRole = guild.getRoleById(901162820484333610L);                                             
+		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole);
 	
 //-------------------------------------------------------------------------------------------------------------	
 //send command to server console
