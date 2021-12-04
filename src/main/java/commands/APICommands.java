@@ -128,6 +128,15 @@ public class APICommands extends ListenerAdapter {
 			for (int i = 6; i < chararr.length; i++) {
 				MCusername += chararr[i];
 			} 
+			
+			//if they actually type 'mcusername' instead of their mc username lol
+			if (MCusername.equals("mcusername") || MCusername.equals("<mcusername>")) {
+				EmbedBuilder emb = new EmbedBuilder();
+				emb.setColor(Color.BLUE);
+				emb.setTitle("Please replace `<mcusername>` with your acutal in-game username");
+				event.getChannel().sendMessage(emb.build()).queue();
+			}
+			
 				//Getting username from builder application 
 				//String usernameApplied = BTE.getUsernameAppliedWith("501116787501301760"); //test case for specific user
 				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
