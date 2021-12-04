@@ -85,6 +85,14 @@ public class APICommands extends ListenerAdapter {
 				namebuilder += chararr[i];
 			}		
 			
+			//if they actually type 'mcusername' instead of their mc username lol
+			if (namebuilder.equals("mcusername") || namebuilder.equals("<mcusername>") || (namebuilder.contains(">") && namebuilder.contains("<"))) {
+				EmbedBuilder emb = new EmbedBuilder();
+				emb.setColor(Color.BLUE);
+				emb.setTitle("Replace `<mcusername>` with your acutal in-game username exluding the <>");
+				event.getChannel().sendMessage(emb.build()).queue();
+			}
+			
 			midwestServer.sendCommand("lp user " + namebuilder + " parent add applicants").execute();
 	
 			EmbedBuilder emb = new EmbedBuilder();
@@ -130,10 +138,10 @@ public class APICommands extends ListenerAdapter {
 			} 
 			
 			//if they actually type 'mcusername' instead of their mc username lol
-			if (MCusername.equals("mcusername") || MCusername.equals("<mcusername>")) {
+			if (MCusername.equals("mcusername") || MCusername.equals("<mcusername>") || (MCusername.contains(">") && MCusername.contains("<"))) {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
-				emb.setTitle("Please replace `<mcusername>` with your acutal in-game username");
+				emb.setTitle("Replace `<mcusername>` with your acutal in-game username exluding the <>");
 				event.getChannel().sendMessage(emb.build()).queue();
 			}
 			
