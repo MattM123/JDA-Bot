@@ -1,4 +1,4 @@
-#Overview
+# Overview
 * User application information serialised into multiple class files
 * Role based execution control using Discord's built-in user roles
 * Keeps track users of and allows them to assign their own permissions
@@ -11,7 +11,7 @@
 	* If a users application can be referenced and the user is not on the team, the user is added to the team and permissions are assigned
 	* All other cases result in failure to add user to the team and assign permissions
 
-*`=getapp -<discordUserID> -<n>`
+* `=getapp -<discordUserID> -<n>`
 	* Retrieves `n` application in submitted by a given `discordUserID`
 	* `n` > 0
 	* If a user is identified to have been merged into the team, a message is returned in the channel the command was executed instad of an application
