@@ -35,7 +35,7 @@ public class APICommands extends ListenerAdapter {
 	
 	public void getMidwestServer() {
 		for (int i = 0; i < api.retrieveServers().execute().size(); i++) {
-			if (api.retrieveServers().execute().get(i).getIdentifier().equals("766e4abc"));
+			if (api.retrieveServers().execute().get(i).getName().contains("Midwest"));
 				midwestServer = api.retrieveServers().execute().get(i);		
 		}
 	}
