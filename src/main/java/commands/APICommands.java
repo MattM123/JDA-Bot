@@ -35,7 +35,7 @@ public class APICommands extends ListenerAdapter {
 	
 	public void getMidwestServer() {
 		for (int i = 0; i < api.retrieveServers().execute().size(); i++) {
-			if (api.retrieveServers().execute().get(i).getName().contains("Midwest"));
+			if (api.retrieveServers().execute().get(i).getIdentifier().equals("766e4abc"))
 				midwestServer = api.retrieveServers().execute().get(i);		
 		}
 	}
@@ -105,8 +105,6 @@ public class APICommands extends ListenerAdapter {
 //get server stats
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
-			getMidwestServer();
-			
 			EmbedBuilder midwest = new EmbedBuilder();
 			if (midwestServer.retrieveUtilization().execute().getState().toString().equals("RUNNING")) {
 				midwest.setColor(Color.green);
