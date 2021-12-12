@@ -105,6 +105,7 @@ public class APICommands extends ListenerAdapter {
 //get server stats
 		
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
+			getMidwestServer();
 			
 			EmbedBuilder midwest = new EmbedBuilder();
 			if (midwestServer.retrieveUtilization().execute().getState().toString().equals("RUNNING")) {
