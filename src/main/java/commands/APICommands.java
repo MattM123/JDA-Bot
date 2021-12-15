@@ -299,7 +299,7 @@ public class APICommands extends ListenerAdapter {
 							else {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Choose a state with `=role` in <#736441998109704224> and run the command again.");
+								emb.setTitle("Could not assign build permissions. Please choose a state with `=role` and run the command again.");
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 						}
