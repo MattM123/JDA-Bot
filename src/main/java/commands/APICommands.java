@@ -85,19 +85,20 @@ public class APICommands extends ListenerAdapter {
 				namebuilder += chararr[i];
 			}		
 			
-			//if they actually type 'mcusername' instead of their mc username lol
+			//if they actually type 'mcusername' instead of their mc username lol. Or if they include <>
 			if (namebuilder.equals("mcusername") || namebuilder.equals("<mcusername>") || (namebuilder.contains(">") && namebuilder.contains("<"))) {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
-				emb.setTitle("Replace `<mcusername>` with your acutal in-game username exluding the <>");
+				emb.setTitle("Replace `<mcusername>` with your acutal in-game username excluding the `<>`");
 				event.getChannel().sendMessage(emb.build()).queue();
+				return;
 			}
 			
 			midwestServer.sendCommand("lp user " + namebuilder + " parent add applicants").execute();
 	
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.BLUE);
-			emb.setTitle("Rank updated to Application In Progress for user " + namebuilder);
+			emb.setTitle("Applicant build permissions assigned to " + namebuilder);
 			event.getChannel().sendMessage(emb.build()).queue();
 		}
 

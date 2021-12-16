@@ -111,7 +111,10 @@ public class NonAPICommands extends ListenerAdapter {
 			rolebuilder = rolebuilder.toLowerCase();
 						
 			//if user provides no role name to obtain
-			if (rolebuilder.isEmpty()) {
+			if (rolebuilder.isEmpty() || (!rolebuilder.equalsIgnoreCase("nebraska") && !rolebuilder.equalsIgnoreCase("iowa") && !rolebuilder.equalsIgnoreCase("kansas")
+					&& !rolebuilder.equalsIgnoreCase("oklahoma") && !rolebuilder.equalsIgnoreCase("missouri") && !rolebuilder.equalsIgnoreCase("michigan") 
+					&& !rolebuilder.equalsIgnoreCase("minnesota"))) {
+				
 				EmbedBuilder roleMenu = new EmbedBuilder();
 				
 				roleMenu.setColor(Color.blue);
