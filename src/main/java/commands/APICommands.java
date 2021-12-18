@@ -32,7 +32,6 @@ public class APICommands extends ListenerAdapter {
 	//API authentication
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI(System.getenv("BTE_API"));
 	private PteroClient pteroAPI = PteroBuilder.createClient(System.getenv("PANEL_URL"), System.getenv("PTERO_API"));
-	private RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
 	
 	
 	
@@ -82,6 +81,7 @@ public class APICommands extends ListenerAdapter {
 		 
 		 
 		 if (event.getMessage().getContentRaw().equals("=test")) {
+			 RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
 			 if (provider != null) {
 				    LuckPerms lpapi = provider.getProvider();
 			 }
