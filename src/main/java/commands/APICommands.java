@@ -86,6 +86,9 @@ public class APICommands extends ListenerAdapter {
 					event.getChannel().sendMessage((Bukkit.getServer().getName())).queue();
 					
 				}
+				else {
+					event.getChannel().sendMessage((Bukkit.getServer().getName())).queue();
+				}
 		 }
 //-------------------------------------------------------------------------------------------------------------	
 //send command to server console
