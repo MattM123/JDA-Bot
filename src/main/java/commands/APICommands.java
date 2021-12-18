@@ -4,6 +4,11 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
+import java.util.TimerTask;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Server;
+
 import com.mattmalec.pterodactyl4j.DataType;
 import com.mattmalec.pterodactyl4j.PteroBuilder;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
@@ -13,6 +18,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.luckperms.api.LuckPerms;
@@ -23,12 +30,13 @@ public class APICommands extends ListenerAdapter {
 
 	//API authentication
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI(System.getenv("BTE_API"));
-	private PteroClient api = PteroBuilder.createClient(System.getenv("PANEL_URL"), System.getenv("PTERO_API"));
+	private PteroClient pteroAPI = PteroBuilder.createClient(System.getenv("PANEL_URL"), System.getenv("PTERO_API"));
 	private LuckPerms lpapi = LuckPermsProvider.get();
 	
 	
 	//The minecraft server
 	private ClientServer midwestServer;
+	
 	
 	//User role list
 	private List<Role> roles;
@@ -37,13 +45,30 @@ public class APICommands extends ListenerAdapter {
 	Timer timer = new Timer();
 	
 	
-	public void getMidwestServer() {
-		for (int i = 0; i < api.retrieveServers().execute().size(); i++) {
-			if (api.retrieveServers().execute().get(i).getIdentifier().equals("766e4abc"))
-				midwestServer = api.retrieveServers().execute().get(i);		
+	public void getMidwestServer() {	
+		for (int i = 0; i < pteroAPI.retrieveServers().execute().size(); i++) {
+			if (pteroAPI.retrieveServers().execute().get(i).getIdentifier().equals("766e4abc"))
+				midwestServer = pteroAPI.retrieveServers().execute().get(i);		
 		}
 	}
 	
+//-------------------------------------------------------------------------------------------------------------	
+//onReady =link command testing
+	@Override
+	public void onReady(ReadyEvent e) {
+		timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				if (Bukkit.getServer() == null) {
+				//	System.out.println(Bukkit.getServer());
+				//	Bukkit.setServer((Server) midwestServer);
+				//	System.out.println(Bukkit.getServer());
+					
+				}
+			}
+		}, 0, 10000);
+	}
+		
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
@@ -52,13 +77,16 @@ public class APICommands extends ListenerAdapter {
 		 Guild guild = event.getGuild(); 
 		 Role staffRole = guild.getRoleById(901162820484333610L);                                             
 		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole);
-	
-//-------------------------------------------------------------------------------------------------------------	
-//onReady =link command testing
-		if (event.getMessage().getContentRaw().equals("!test")) {
-			event.getChannel().sendMessage(lpapi.getPlatform().getType().getFriendlyName()).queue();
-		}
 		 
+		 
+		 if (event.getMessage().getContentRaw().equals("=test")) {
+				if (Bukkit.getServer() == null) {
+					event.getChannel().sendMessage((Bukkit.getServer().getName())).queue();
+					Bukkit.setServer((Server) midwestServer);
+					event.getChannel().sendMessage((Bukkit.getServer().getName())).queue();
+					
+				}
+		 }
 //-------------------------------------------------------------------------------------------------------------	
 //send command to server console
 		 
