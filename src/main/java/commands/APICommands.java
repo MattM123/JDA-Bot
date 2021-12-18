@@ -35,8 +35,10 @@ public class APICommands extends ListenerAdapter {
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI(System.getenv("BTE_API"));
 	private PteroClient pteroAPI = PteroBuilder.createClient(System.getenv("PANEL_URL"), System.getenv("PTERO_API"));
 	
-	//The minecraft server
+	//The minecraft server thats represented by a Ptero API instance
 	private ClientServer midwestServer;
+	
+	//The minecraft server represented by a Bukkit API instance
 			
 	//User role list
 	private List<Role> roles;
@@ -80,8 +82,8 @@ public class APICommands extends ListenerAdapter {
 		 
 		 
 		 if (event.getMessage().getContentRaw().equals("=test")) {
-			 Server bukkitServer = (Server) midwestServer;
-			 LuckPerms lpapi = bukkitServer.getServicesManager().load(LuckPerms.class);
+
+			 LuckPerms lpapi = Bukkit.getServer().getServicesManager().load(LuckPerms.class);
 		
 			 
 				if (Bukkit.getServer() == null) {
