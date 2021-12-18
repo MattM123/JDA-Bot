@@ -13,6 +13,12 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+        <dependency>
+        <groupId>net.luckperms</groupId>
+        <artifactId>api</artifactId>
+        <version>5.3</version>
+        <scope>provided</scope>
+    </dependency>
     <dependency>
     	<groupId>net.dv8tion</groupId>
     	<artifactId>JDA</artifactId>

@@ -15,6 +15,8 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 
 
 public class APICommands extends ListenerAdapter {
@@ -22,6 +24,8 @@ public class APICommands extends ListenerAdapter {
 	//API authentication
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI(System.getenv("BTE_API"));
 	private PteroClient api = PteroBuilder.createClient(System.getenv("PANEL_URL"), System.getenv("PTERO_API"));
+	private LuckPerms lpapi = LuckPermsProvider.get();
+	
 	
 	//The minecraft server
 	private ClientServer midwestServer;
@@ -49,6 +53,12 @@ public class APICommands extends ListenerAdapter {
 		 Role staffRole = guild.getRoleById(901162820484333610L);                                             
 		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole);
 	
+//-------------------------------------------------------------------------------------------------------------	
+//onReady =link command testing
+		if (event.getMessage().getContentRaw().equals("!test")) {
+			event.getChannel().sendMessage(lpapi.getPlatform().getType().getFriendlyName()).queue();
+		}
+		 
 //-------------------------------------------------------------------------------------------------------------	
 //send command to server console
 		 
