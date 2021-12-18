@@ -82,10 +82,6 @@ public class APICommands extends ListenerAdapter {
 		 
 		 if (event.getMessage().getContentRaw().equals("=test")) {
 			 LuckPerms lpapi = LuckPermsProvider.get();
-			 RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
-			 if (provider != null) {
-				    lpapi = provider.getProvider();
-			 }
 			 
 				if (Bukkit.getServer() == null) {
 					event.getChannel().sendMessage((Bukkit.getServer().getName())).queue();
