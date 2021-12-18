@@ -8,6 +8,8 @@ import java.util.TimerTask;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import com.mattmalec.pterodactyl4j.DataType;
@@ -33,12 +35,9 @@ public class APICommands extends ListenerAdapter {
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI(System.getenv("BTE_API"));
 	private PteroClient pteroAPI = PteroBuilder.createClient(System.getenv("PANEL_URL"), System.getenv("PTERO_API"));
 	
-	
-	
 	//The minecraft server
 	private ClientServer midwestServer;
-	
-	
+			
 	//User role list
 	private List<Role> roles;
 	
@@ -81,12 +80,15 @@ public class APICommands extends ListenerAdapter {
 		 
 		 
 		 if (event.getMessage().getContentRaw().equals("=test")) {
-			 LuckPerms lpapi = LuckPermsProvider.get();
+			 Server bukkitServer = (Server) midwestServer;
+			 LuckPerms lpapi = bukkitServer.getServicesManager().load(LuckPerms.class);
+		
 			 
 				if (Bukkit.getServer() == null) {
 					event.getChannel().sendMessage((Bukkit.getServer().getName())).queue();
 					Bukkit.setServer((Server) midwestServer);
 					event.getChannel().sendMessage((Bukkit.getServer().getName())).queue();
+			
 					
 				}
 				else {
