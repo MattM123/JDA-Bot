@@ -1,16 +1,14 @@
 package commands;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Server;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.RegisteredServiceProvider;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import com.mattmalec.pterodactyl4j.DataType;
 import com.mattmalec.pterodactyl4j.PteroBuilder;
@@ -21,12 +19,9 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.luckperms.api.LuckPerms;
-import net.luckperms.api.LuckPermsProvider;
 
 
 public class APICommands extends ListenerAdapter {
@@ -37,8 +32,6 @@ public class APICommands extends ListenerAdapter {
 	
 	//The minecraft server thats represented by a Ptero API instance
 	private ClientServer midwestServer;
-	
-	//The minecraft server represented by a Bukkit API instance
 			
 	//User role list
 	private List<Role> roles;
@@ -57,16 +50,30 @@ public class APICommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------	
 //onReady =link command testing
 	@Override
-	public void onReady(ReadyEvent e) {
+	public void onReady(ReadyEvent event) {
+	 
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				if (Bukkit.getServer() == null) {
-				//	System.out.println(Bukkit.getServer());
-				//	Bukkit.setServer((Server) midwestServer);
-				//	System.out.println(Bukkit.getServer());
-					
-				}
+
+				BTE.getMemberList();				
+				if (BTE.stackTrace.isEmpty()) {
+					for (int i = 0; i < BTE.getMemberList().size(); i++) {
+						if (event.getJDA().getGuildById(735990134583066679L).getMemberById(BTE.getMemberList().get(i)) != null) {
+							
+						}
+					}
+				}//ill finish this later
+				
+
+			//for each member, if they dont have perms and are not on blacklist, get username applied with and assign state rank based on discord role
+			
+			//if no builder role
+				//assign builder role and perms
+			//if has builder role then has perms
+				
+			//add blacklist, and methods to add and remove users from it. The users in the blacklist would be ignored by this onReady event
+				
 			}
 		}, 0, 10000);
 	}
@@ -82,20 +89,17 @@ public class APICommands extends ListenerAdapter {
 		 
 		 
 		 if (event.getMessage().getContentRaw().equals("=test")) {
-
-			 LuckPerms lpapi = Bukkit.getServer().getServicesManager().load(LuckPerms.class);
-		
+			 Document doc = null;
+			 try {
+				doc = Jsoup.connect("https://buildtheearth.net/buildteams/36/applications").get();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			 
-				if (Bukkit.getServer() == null) {
-					event.getChannel().sendMessage((Bukkit.getServer().getName())).queue();
-					Bukkit.setServer((Server) midwestServer);
-					event.getChannel().sendMessage((Bukkit.getServer().getName())).queue();
-			
-					
-				}
-				else {
-					event.getChannel().sendMessage((Bukkit.getServer().getName())).queue();
-				}
+			 event.getChannel().sendMessage(doc.getElementsByTag("tr").text()).queue();
+			 
+			 
 		 }
 //-------------------------------------------------------------------------------------------------------------	
 //send command to server console

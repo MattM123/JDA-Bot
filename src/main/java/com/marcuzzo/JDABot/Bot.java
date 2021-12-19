@@ -6,8 +6,6 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
-import org.bukkit.Bukkit;
-
 import commands.APICommands;
 import commands.NonAPICommands;
 
