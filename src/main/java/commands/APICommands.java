@@ -4,10 +4,13 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import org.jsoup.Jsoup;
+import org.jsoup.Connection;
+import org.jsoup.Connection.Method;
 import org.jsoup.nodes.Document;
 
 import com.mattmalec.pterodactyl4j.DataType;
@@ -89,15 +92,26 @@ public class APICommands extends ListenerAdapter {
 		 
 		 
 		 if (event.getMessage().getContentRaw().equals("=test")) {
+			 Connection.Response res = null;
 			 Document doc = null;
 			 try {
-				doc = Jsoup.connect("https://buildtheearth.net/buildteams/36/applications").get();
+				res = Jsoup.connect("https://discord.com/login?redirect_to=%2Foauth2%2Fauthorize%3Fclient_id%3D691439028234485790%26redirect_uri%3Dhttps%253A%252F%252Fbuildtheearth.net%252Flogin%252Foauth%26response_type%3Dcode%26scope%3Didentify%26state%3Df9f155d1c64978124ac974d70b63a96e68517271%26prompt%3Dnone")
+						.data("username",System.getenv("DISCORD_EMAIL"))
+						.data("password", System.getenv("DISCORD_PASSWORD"))
+						.method(Method.POST)
+						.execute();
+					
+				Map<String, String> loginCookies = res.cookies();
+				
+				doc = Jsoup.connect("https://buildtheearth.net/buildteams/36/applications")
+					      .cookies(loginCookies)
+					      .get();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			 
-			 event.getChannel().sendMessage(doc.getElementsByTag("body").get(0).getElementById("app-mount").toString()).queue();
+			 event.getChannel().sendMessage(doc.getElementsByTag("body").get(0).toString()).queue();
 			 
 			 
 		 }
