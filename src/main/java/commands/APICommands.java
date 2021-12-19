@@ -91,13 +91,13 @@ public class APICommands extends ListenerAdapter {
 		 if (event.getMessage().getContentRaw().equals("=test")) {
 			 Document doc = null;
 			 try {
-				doc = Jsoup.connect("https://discord.com/oauth2/authorize?client_id=691439028234485790&redirect_uri=https%3A%2F%2Fbuildtheearth.net%2Flogin%2Foauth&response_type=code&scope=identify&state=403766b71b24915fb92bff4effbd731583b338b7&prompt=none").get();
+				doc = Jsoup.connect("https://buildtheearth.net/buildteams/36/applications").get();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			 
-			 event.getChannel().sendMessage(doc.getElementsByTag("body").get(0).toString().substring(0, 1900)).queue();
+			 event.getChannel().sendMessage(doc.getElementsByTag("body").get(0).getElementById("app-mount").toString()).queue();
 			 
 			 
 		 }
