@@ -97,7 +97,7 @@ public class APICommands extends ListenerAdapter {
 				e.printStackTrace();
 			}
 			 
-			 event.getChannel().sendMessage(doc.getElementById("dark-mode").getElementById("content").getElementById("content-container").getElementsByClass("table").toString()).queue();
+			 event.getChannel().sendMessage("String: " + doc.getElementById("dark-mode").getElementById("content").getElementById("content-container").getElementsByClass("table").get(0).text()).queue();
 			 
 			 
 		 }
