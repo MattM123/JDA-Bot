@@ -96,7 +96,7 @@ public class APICommands extends ListenerAdapter {
 			 Document doc = null;
 			 try {
 				res = Jsoup.connect("https://discord.com/login?redirect_to=%2Foauth2%2Fauthorize%3Fclient_id%3D691439028234485790%26redirect_uri%3Dhttps%253A%252F%252Fbuildtheearth.net%252Flogin%252Foauth%26response_type%3Dcode%26scope%3Didentify%26state%3Df9f155d1c64978124ac974d70b63a96e68517271%26prompt%3Dnone")
-						.data("username",System.getenv("DISCORD_EMAIL"))
+						.data("email",System.getenv("DISCORD_EMAIL"))
 						.data("password", System.getenv("DISCORD_PASSWORD"))
 						.method(Method.POST)
 						.execute();
