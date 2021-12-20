@@ -70,12 +70,24 @@ public class APICommands extends ListenerAdapter {
 				
 
 			//for each member, if they dont have perms and are not on blacklist, get username applied with and assign state rank based on discord role
-			
-			//if no builder role
-				//assign builder role and perms
-			//if has builder role then has perms
-				
 			//add blacklist, and methods to add and remove users from it. The users in the blacklist would be ignored by this onReady event
+				
+			//How to check for perms when LP API is not REST?
+				
+			//if no builder role and has accepted app
+				//assign builder role and perms
+			//If builder role and no accepted app
+				//remove builder role and perms
+				
+			// --> if has accepted application then give builder role
+			// --> if has builder role then has perms
+			
+			//Step 1: must check if user has an ACCEPTED application in order to automate. need to web scrape the proper page cuz API doest send that info :/
+			//Step 2:	* If user has accepted application but does not have builder role, send LP console command to give perms + builder role
+			//			* If user does not have an accepted appliciation but has builder role, send LP console command to remove perms + builder role
+			//			* If user does not have any applications but is on team, send LP console command to give perms + builder role
+				
+			
 				
 			}
 		}, 0, 10000);
@@ -90,7 +102,8 @@ public class APICommands extends ListenerAdapter {
 		 Role staffRole = guild.getRoleById(901162820484333610L);                                             
 		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole);
 		 
-		 
+	/*Attempted webscraping to automate =link
+	  
 		 if (event.getMessage().getContentRaw().equals("=test")) {
 			 Connection.Response res = null;
 			 Document doc = null;
@@ -98,7 +111,7 @@ public class APICommands extends ListenerAdapter {
 				res = Jsoup.connect("https://discord.com/login?redirect_to=%2Foauth2%2Fauthorize%3Fclient_id%3D691439028234485790%26redirect_uri%3Dhttps%253A%252F%252Fbuildtheearth.net%252Flogin%252Foauth%26response_type%3Dcode%26scope%3Didentify%26state%3Df9f155d1c64978124ac974d70b63a96e68517271%26prompt%3Dnone")
 						.data("email",System.getenv("DISCORD_EMAIL"))
 						.data("password", System.getenv("DISCORD_PASSWORD"))
-						.method(Method.POST)
+						.method(Method.GET)
 						.execute();
 					
 				Map<String, String> loginCookies = res.cookies();
@@ -115,6 +128,7 @@ public class APICommands extends ListenerAdapter {
 			 
 			 
 		 }
+		 */
 //-------------------------------------------------------------------------------------------------------------	
 //send command to server console
 		 
