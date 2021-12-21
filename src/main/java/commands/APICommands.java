@@ -124,7 +124,7 @@ public class APICommands extends ListenerAdapter {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			 
+			
 			 event.getChannel().sendMessage(doc.getElementsByTag("body").get(1).toString().subSequence(0, 1900)).queue();
 			 
 			 
