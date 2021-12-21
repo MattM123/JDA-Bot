@@ -102,7 +102,8 @@ public class APICommands extends ListenerAdapter {
 		 Role staffRole = guild.getRoleById(901162820484333610L);                                             
 		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole);
 		 
-	/*Attempted webscraping to automate =link
+//-------------------------------------------------------------------------------------------------------------	
+//Attempted webscraping to automate =link
 	  
 		 if (event.getMessage().getContentRaw().equals("=test")) {
 			 Connection.Response res = null;
@@ -124,11 +125,11 @@ public class APICommands extends ListenerAdapter {
 				e.printStackTrace();
 			}
 			 
-			 event.getChannel().sendMessage(doc.getElementsByTag("body").get(0).toString().subSequence(0, 1900)).queue();
+			 event.getChannel().sendMessage(doc.getElementsByTag("body").get(1).toString().subSequence(0, 1900)).queue();
 			 
 			 
 		 }
-		 */
+		 
 //-------------------------------------------------------------------------------------------------------------	
 //send command to server console
 		 
