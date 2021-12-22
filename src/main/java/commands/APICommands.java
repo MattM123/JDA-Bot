@@ -34,7 +34,7 @@ public class APICommands extends ListenerAdapter {
 	private PteroClient pteroAPI = PteroBuilder.createClient(System.getenv("PANEL_URL"), System.getenv("PTERO_API"));
 	
 	//The minecraft server thats represented by a Ptero API instance
-	private ClientServer midwestServer;
+	private ClientServer midwestServer = pteroAPI.retrieveServerByIdentifier("766e4abc").execute();
 			
 	//User role list
 	private List<Role> roles;
@@ -97,7 +97,6 @@ public class APICommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		getMidwestServer();
-		event.getChannel().sendMessage(pteroAPI.retrieveServerByIdentifier("766e4abc").execute().getIdentifier()).queue();
 		
 		 Guild guild = event.getGuild(); 
 		 Role staffRole = guild.getRoleById(901162820484333610L);                                             
