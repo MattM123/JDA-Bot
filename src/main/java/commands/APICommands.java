@@ -169,7 +169,8 @@ public class APICommands extends ListenerAdapter {
 			midwestServer.sendCommand("lp user " + namebuilder + " parent add applicants").execute();
 			
 			//assigns applicant role after getting applicant perms
-			guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(923068579992186912L));
+			if (!guild.getMemberById(event.getAuthor().getIdLong()).getRoles().contains(guild.getRoleById(923068579992186912L)))
+				guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(923068579992186912L));
 	
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.BLUE);
@@ -297,7 +298,8 @@ public class APICommands extends ListenerAdapter {
 						if (isBuilder) {
 							
 							//removes applicant role since user is builder
-							guild.removeRoleFromMember(guild.getMember(event.getAuthor()), guild.getRoleById(923068579992186912L));
+							if (guild.getMemberById(event.getAuthor().getIdLong()).getRoles().contains(guild.getRoleById(923068579992186912L)))
+								guild.removeRoleFromMember(guild.getMember(event.getAuthor()), guild.getRoleById(923068579992186912L));
 							
 							if (roles.contains(guild.getRoleById(735995176165834756L))) {
 								
