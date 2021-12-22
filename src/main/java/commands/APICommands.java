@@ -176,6 +176,9 @@ public class APICommands extends ListenerAdapter {
 			}
 			
 			midwestServer.sendCommand("lp user " + namebuilder + " parent add applicants").execute();
+			
+			//assigns applicant role after getting applicant perms
+			guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(923068579992186912L));
 	
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.BLUE);
@@ -301,6 +304,10 @@ public class APICommands extends ListenerAdapter {
 		
 						//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
 						if (isBuilder) {
+							
+							//removes applicant role since user is builder
+							guild.removeRoleFromMember(guild.getMember(event.getAuthor()), guild.getRoleById(923068579992186912L));
+							
 							if (roles.contains(guild.getRoleById(735995176165834756L))) {
 								
 								midwestServer.sendCommand("lp user " + MCusername + " parent add kansas-builder").execute();
