@@ -97,6 +97,7 @@ public class APICommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
 		getMidwestServer();
+		event.getChannel().sendMessage(midwestServer.getIdentifier()).queue();
 		
 		 Guild guild = event.getGuild(); 
 		 Role staffRole = guild.getRoleById(901162820484333610L);                                             
