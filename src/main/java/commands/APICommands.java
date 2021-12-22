@@ -42,14 +42,6 @@ public class APICommands extends ListenerAdapter {
 	//Timer to tell bot when to check pending applications
 	Timer timer = new Timer();
 	
-	
-	public void getMidwestServer() {	
-		for (int i = 0; i < pteroAPI.retrieveServers().execute().size(); i++) {
-			if (pteroAPI.retrieveServers().execute().get(i).getIdentifier().equals("766e4abc"))
-				midwestServer = pteroAPI.retrieveServers().execute().get(i);		
-		}
-	}
-	
 //-------------------------------------------------------------------------------------------------------------	
 //onReady =link command testing
 	@Override
@@ -96,8 +88,7 @@ public class APICommands extends ListenerAdapter {
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
-		getMidwestServer();
-		
+
 		 Guild guild = event.getGuild(); 
 		 Role staffRole = guild.getRoleById(901162820484333610L);                                             
 		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole);
