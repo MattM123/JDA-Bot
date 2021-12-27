@@ -13,6 +13,8 @@ import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
 import org.jsoup.nodes.Document;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.mattmalec.pterodactyl4j.DataType;
 import com.mattmalec.pterodactyl4j.PteroBuilder;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
@@ -54,7 +56,7 @@ public class APICommands extends ListenerAdapter {
 				BTE.getMemberList();				
 				if (BTE.stackTrace.isEmpty()) {
 					for (int i = 0; i < BTE.getMemberList().size(); i++) {
-						if (event.getJDA().getGuildById(735990134583066679L).getMemberById(BTE.getMemberList().get(i)) != null) {
+						if (event.getJDA().getGuildById(735990134583066679L).getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong()) != null) {
 							
 						}
 					}
@@ -240,6 +242,10 @@ public class APICommands extends ListenerAdapter {
 					//roles = guild.getMemberById("501116787501301760").getRoles(); //test case for specific user
 					roles = event.getMember().getRoles();
 					boolean isBuilder = false;
+					JsonElement builderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"builder\"}");
+					JsonElement leaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"leader\"}");
+					JsonElement reviewerElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"reviewer\":\"reviewer\"}");
+					JsonElement coleaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"reviewer\":\"co-leader\"}");
 					
 					//retrieves the member list test
 					BTE.getMemberList(); 
@@ -253,8 +259,11 @@ public class APICommands extends ListenerAdapter {
 					}
 					
 					//if user has been merged into the team, i.e has not submitted an application but is on the team
+						  
 					else if (usernameApplied.contains("IndexOutOfBoundsException")
-						&& BTE.getMemberList().contains(event.getMember().getIdLong())) {
+						&& (BTE.getMemberList().contains(builderElement) || BTE.getMemberList().contains(reviewerElement) 
+						|| BTE.getMemberList().contains(leaderElement) || BTE.getMemberList().contains(coleaderElement))) {
+
 						
 						guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 						EmbedBuilder emb = new EmbedBuilder();
@@ -272,14 +281,10 @@ public class APICommands extends ListenerAdapter {
 							//if user already has builder role						
 							if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {						
 								isBuilder = true;					
-							}
-
-							//if user does not have builder role and username is valid, assign builder role
-					//		if (501116787501301760L == BTE.getMemberList().get(i) && !roles.contains(guild.getRoleById(Long.parseLong("735991952931160104"))) 
-					//				&& (MCusername.equalsIgnoreCase(usernameApplied))) { //test case for specific user
-								
+							}		
 							
-							if (BTE.getMemberList().contains(event.getMember().getIdLong()) && !roles.contains(guild.getRoleById(735991952931160104L)) 
+							if ((BTE.getMemberList().contains(builderElement) || BTE.getMemberList().contains(reviewerElement)
+									|| BTE.getMemberList().contains(leaderElement) || BTE.getMemberList().contains(coleaderElement)) && !roles.contains(guild.getRoleById(735991952931160104L)) 
 								&& (MCusername.equalsIgnoreCase(usernameApplied))) {
 								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 				
@@ -300,7 +305,7 @@ public class APICommands extends ListenerAdapter {
 							
 							//removes applicant role since user is builder
 							if (guild.getMemberById(event.getAuthor().getIdLong()).getRoles().contains(guild.getRoleById(923068579992186912L)))
-								guild.removeRoleFromMember(guild.getMember(event.getAuthor()), guild.getRoleById(923068579992186912L));
+								guild.removeRoleFromMember(guild.getMember(event.getAuthor()), guild.getRoleById(923068579992186912L));							
 							
 							if (roles.contains(guild.getRoleById(735995176165834756L))) {
 								

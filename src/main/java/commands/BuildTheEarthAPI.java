@@ -86,7 +86,7 @@ public class BuildTheEarthAPI {
 	}
 	
 	//returns a list of all users discord IDs that are on the team
-	public ArrayList<Long> getMemberList() {
+	public JsonArray getMemberList() {
 		stackTrace = "";
 		String line;
 		BufferedReader in; 
@@ -133,11 +133,11 @@ public class BuildTheEarthAPI {
 			stackTrace = stack.subSequence(0, 1000).toString();
 		}
 		
-		for (int i = 0; i < jarray.size(); i++) {
-			userIDs.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
-		}
+	//	for (int i = 0; i < jarray.size(); i++) {
+	//		userIDs.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
+	//	}
 		
-		return userIDs;
+		return jarray;
 	}
 	
 	//gets list of applications of a specified user
