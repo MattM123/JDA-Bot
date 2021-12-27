@@ -175,6 +175,7 @@ public class APICommands extends ListenerAdapter {
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.BLUE);
 			emb.setTitle("Applicant build permissions assigned to " + namebuilder);
+			emb.setFooter("If you did not recieve permissions, you will need to logon to the server and rerun this bot command");
 			event.getChannel().sendMessage(emb.build()).queue();
 		}
 
