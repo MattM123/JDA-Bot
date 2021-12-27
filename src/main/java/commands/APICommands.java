@@ -1,7 +1,6 @@
 package commands;
 
 import java.awt.Color;
-import java.io.EOFException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -243,24 +242,10 @@ public class APICommands extends ListenerAdapter {
 					//roles = guild.getMemberById("501116787501301760").getRoles(); //test case for specific user
 					roles = event.getMember().getRoles();
 					boolean isBuilder = false;
-					JsonElement builderElement = null;
-					JsonElement leaderElement = null;
-					JsonElement reviewerElement = null;
-					JsonElement coleaderElement = null;
-					try {
-					builderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"builder\"}");
-					leaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"leader\"}");
-					reviewerElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"reviewer\":\"reviewer\"}");
-					coleaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"reviewer\":\"co-leader\"}");
-					}
-					catch (Exception e) {
-						event.getChannel().sendMessage("Builder: " + builderElement.getAsString()).queue();
-						event.getChannel().sendMessage("Leader: " + leaderElement.getAsString()).queue();
-						event.getChannel().sendMessage("Reviewer: " + reviewerElement.getAsString()).queue();
-						event.getChannel().sendMessage("CoLeader: " + coleaderElement.getAsString()).queue();
-						
-					}
-					
+					JsonElement builderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"builder\"}");
+					JsonElement leaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"leader\"}");
+					JsonElement reviewerElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",discordTag\":" + event.getAuthor().getAsTag() + ",\"reviewer\":\"reviewer\"}");
+					JsonElement coleaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",discordTag\":" + event.getAuthor().getAsTag() + ",\"reviewer\":\"co-leader\"}");
 					
 					//retrieves the member list test
 					BTE.getMemberList(); 
