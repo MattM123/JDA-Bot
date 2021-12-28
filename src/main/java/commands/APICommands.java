@@ -247,6 +247,7 @@ public class APICommands extends ListenerAdapter {
 					JsonElement reviewerElement = JsonParser.parseString("{\"discordId\":\"event.getAuthor().getIdLong()\",\"discordTag\":\"event.getAuthor().getAsTag()\",\"role\":\"reviewer\"}");
 					JsonElement coleaderElement = JsonParser.parseString("{\"discordId\":\"event.getAuthor().getIdLong()\",\"discordTag\":\"event.getAuthor().getAsTag()\",\"role\":\"co-leader\"}");
 					
+					event.getChannel().sendMessage(builderElement.getAsString()).queue();
 					//retrieves the member list test
 					BTE.getMemberList(); 
 					//if there's an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
