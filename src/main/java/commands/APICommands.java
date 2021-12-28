@@ -173,7 +173,7 @@ public class APICommands extends ListenerAdapter {
 			
 			//assigns applicant role after getting applicant perms
 			if (!guild.getMemberById(event.getAuthor().getIdLong()).getRoles().contains(guild.getRoleById(923068579992186912L)))
-				guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(923068579992186912L));
+				guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(923068579992186912L)).queue();
 	
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.BLUE);
@@ -309,7 +309,7 @@ public class APICommands extends ListenerAdapter {
 							
 							//removes applicant role since user is builder
 							if (guild.getMemberById(event.getAuthor().getIdLong()).getRoles().contains(guild.getRoleById(923068579992186912L)))
-								guild.removeRoleFromMember(guild.getMember(event.getAuthor()), guild.getRoleById(923068579992186912L));							
+								guild.removeRoleFromMember(guild.getMember(event.getAuthor()), guild.getRoleById(923068579992186912L)).queue();							
 							
 							if (roles.contains(guild.getRoleById(735995176165834756L))) {
 								
