@@ -207,6 +207,7 @@ public class APICommands extends ListenerAdapter {
 //give build perms based on presence on build team
 		
 		if (event.getMessage().getContentRaw().startsWith("=link")) {	
+			event.getChannel().sendMessage("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"builder\"}").queue();
 			//Parses minecraft username for later use
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String MCusername = "";
@@ -246,7 +247,7 @@ public class APICommands extends ListenerAdapter {
 					JsonElement reviewerElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"reviewer\"}");
 					JsonElement coleaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"co-leader\"}");
 					
-					event.getChannel().sendMessage("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"builder\"}").queue();
+					
 					//retrieves the member list test
 					BTE.getMemberList(); 
 					//if there's an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
