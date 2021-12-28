@@ -14,6 +14,7 @@ import org.jsoup.Connection.Method;
 import org.jsoup.nodes.Document;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mattmalec.pterodactyl4j.DataType;
 import com.mattmalec.pterodactyl4j.PteroBuilder;
@@ -207,7 +208,7 @@ public class APICommands extends ListenerAdapter {
 //give build perms based on presence on build team
 		
 		if (event.getMessage().getContentRaw().startsWith("=link")) {	
-			event.getChannel().sendMessage("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"builder\"}").queue();
+		//	event.getChannel().sendMessage("{\"discordId\":\" + event.getAuthor().getIdLong() + \",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"builder\"}").queue();
 			//Parses minecraft username for later use
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String MCusername = "";
@@ -242,60 +243,68 @@ public class APICommands extends ListenerAdapter {
 					//roles = guild.getMemberById("501116787501301760").getRoles(); //test case for specific user
 					roles = event.getMember().getRoles();
 					boolean isBuilder = false;
-					JsonElement builderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"builder\"}");
-					JsonElement leaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"leader\"}");
-					JsonElement reviewerElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"reviewer\"}");
-					JsonElement coleaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"co-leader\"}");
+				//	JsonElement builderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"builder\"}");
+				//	JsonElement leaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"leader\"}");
+				//	JsonElement reviewerElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"reviewer\"}");
+				//	JsonElement coleaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"co-leader\"}");
 					
+					for (int i = 0; i < BTE.getMemberList().size(); i++) {
 					
-					//retrieves the member list test
-					BTE.getMemberList(); 
-					//if there's an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
-					if (!BTE.stackTrace.isEmpty()) {
-						EmbedBuilder emb = new EmbedBuilder();
-						emb.setColor(Color.BLUE);
-						emb.setTitle("There was an exception when retrieving the member list");
-						emb.addField("Exception", BTE.stackTrace, false);
-						event.getChannel().sendMessage(emb.build()).queue();
-					}
-					
-					//if user has been merged into the team, i.e has not submitted an application but is on the team
-						  
-					else if (usernameApplied.contains("IndexOutOfBoundsException")
-						&& (BTE.getMemberList().contains(builderElement) || BTE.getMemberList().contains(reviewerElement) 
-						|| BTE.getMemberList().contains(leaderElement) || BTE.getMemberList().contains(coleaderElement))) {
-
+						long discordId = BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong();
+						event.getChannel().sendMessage("long: " + discordId).queue();
 						
-						guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
-						EmbedBuilder emb = new EmbedBuilder();
-						emb.setColor(Color.BLUE);
-						emb.setTitle("User has been merged into the team");
-						event.getChannel().sendMessage(emb.build()).queue();
+						//retrieves the member list test
+						BTE.getMemberList(); 
+						//if there's an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
+						if (!BTE.stackTrace.isEmpty()) {
+							EmbedBuilder emb = new EmbedBuilder();
+							emb.setColor(Color.BLUE);
+							emb.setTitle("There was an exception when retrieving the member list");
+							emb.addField("Exception", BTE.stackTrace, false);
+							event.getChannel().sendMessage(emb.build()).queue();
+							break;
+						}
 						
-						isBuilder = true;
-					}
-					
-					else {
-						//No errors
-						if (BTE.stackTrace.isEmpty()) {
-
-							//if user already has builder role						
-							if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {						
-								isBuilder = true;					
-							}		
+						//if user has been merged into the team, i.e has not submitted an application but is on the team
+							  
+						else if (usernameApplied.contains("IndexOutOfBoundsException")
+							&& (event.getAuthor().getIdLong() == discordId)) {
+	
 							
-							if ((BTE.getMemberList().contains(builderElement) || BTE.getMemberList().contains(reviewerElement)
-									|| BTE.getMemberList().contains(leaderElement) || BTE.getMemberList().contains(coleaderElement)) && !roles.contains(guild.getRoleById(735991952931160104L)) 
-								&& (MCusername.equalsIgnoreCase(usernameApplied))) {
-								guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
-				
-								EmbedBuilder emb = new EmbedBuilder();
-								emb.setColor(Color.BLUE);
-								emb.setTitle("You now have Builder role!");
-								event.getChannel().sendMessage(emb.build()).queue();
+							guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
+							EmbedBuilder emb = new EmbedBuilder();
+							emb.setColor(Color.BLUE);
+							emb.setTitle("User has been merged into the team");
+							event.getChannel().sendMessage(emb.build()).queue();
+							
+							isBuilder = true;
+							break;
+						}
+						
+						else {
+							//No errors
+							if (BTE.stackTrace.isEmpty()) {
+	
+								//if user already has builder role						
+								if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {		
+									isBuilder = true;				
+									break;
+								}
+									
 								
-								isBuilder = true;					
-							}	
+								if (event.getAuthor().getIdLong() == discordId && !roles.contains(guild.getRoleById(735991952931160104L)) 
+									&& (MCusername.equalsIgnoreCase(usernameApplied))) {
+									guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
+					
+									EmbedBuilder emb = new EmbedBuilder();
+									emb.setColor(Color.BLUE);
+									emb.setTitle("You now have Builder role!");
+									event.getChannel().sendMessage(emb.build()).queue();
+									
+									isBuilder = true;
+									break;
+								}	
+							}
 						}
 					}
 						
