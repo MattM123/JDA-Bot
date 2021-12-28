@@ -244,7 +244,7 @@ public class APICommands extends ListenerAdapter {
 					boolean isBuilder = false;
 					JsonElement builderElement = JsonParser.parseString("{\"discordId\":\"event.getAuthor().getIdLong()\",\"discordTag\":\"event.getAuthor().getAsTag()\",\"role\":\"builder\"}");
 					JsonElement leaderElement = JsonParser.parseString("{\"discordId\":\"event.getAuthor().getIdLong()\",\"discordTag\":\"event.getAuthor().getAsTag()\",\"role\":\"leader\"}");
-					JsonElement reviewerElement = JsonParser.parseString("{{\"discordId\":\"event.getAuthor().getIdLong()\",\"discordTag\":\"event.getAuthor().getAsTag()\",\"role\":\"reviewer\"}}");
+					JsonElement reviewerElement = JsonParser.parseString("{\"discordId\":\"event.getAuthor().getIdLong()\",\"discordTag\":\"event.getAuthor().getAsTag()\",\"role\":\"reviewer\"}");
 					JsonElement coleaderElement = JsonParser.parseString("{\"discordId\":\"event.getAuthor().getIdLong()\",\"discordTag\":\"event.getAuthor().getAsTag()\",\"role\":\"co-leader\"}");
 					
 					//retrieves the member list test
