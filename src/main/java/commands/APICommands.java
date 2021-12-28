@@ -242,10 +242,10 @@ public class APICommands extends ListenerAdapter {
 					//roles = guild.getMemberById("501116787501301760").getRoles(); //test case for specific user
 					roles = event.getMember().getRoles();
 					boolean isBuilder = false;
-					JsonElement builderElement = JsonParser.parseString("{\"discordId\":\"event.getAuthor().getIdLong()\",\"discordTag\":\"event.getAuthor().getAsTag()\",\"role\":\"builder\"}");
-					JsonElement leaderElement = JsonParser.parseString("{\"discordId\":\"event.getAuthor().getIdLong()\",\"discordTag\":\"event.getAuthor().getAsTag()\",\"role\":\"leader\"}");
-					JsonElement reviewerElement = JsonParser.parseString("{\"discordId\":\"event.getAuthor().getIdLong()\",\"discordTag\":\"event.getAuthor().getAsTag()\",\"role\":\"reviewer\"}");
-					JsonElement coleaderElement = JsonParser.parseString("{\"discordId\":\"event.getAuthor().getIdLong()\",\"discordTag\":\"event.getAuthor().getAsTag()\",\"role\":\"co-leader\"}");
+					JsonElement builderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"builder\"}");
+					JsonElement leaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"leader\"}");
+					JsonElement reviewerElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"reviewer\"}");
+					JsonElement coleaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"co-leader\"}");
 					
 					event.getChannel().sendMessage(builderElement.toString()).queue();
 					//retrieves the member list test
