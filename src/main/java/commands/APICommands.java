@@ -208,7 +208,6 @@ public class APICommands extends ListenerAdapter {
 //give build perms based on presence on build team
 		
 		if (event.getMessage().getContentRaw().startsWith("=link")) {	
-		//	event.getChannel().sendMessage("{\"discordId\":\" + event.getAuthor().getIdLong() + \",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"builder\"}").queue();
 			//Parses minecraft username for later use
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String MCusername = "";
@@ -243,15 +242,10 @@ public class APICommands extends ListenerAdapter {
 					//roles = guild.getMemberById("501116787501301760").getRoles(); //test case for specific user
 					roles = event.getMember().getRoles();
 					boolean isBuilder = false;
-				//	JsonElement builderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"builder\"}");
-				//	JsonElement leaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"leader\"}");
-				//	JsonElement reviewerElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"reviewer\"}");
-				//	JsonElement coleaderElement = JsonParser.parseString("{\"discordId\":" + event.getAuthor().getIdLong() + ",\"discordTag\":" + event.getAuthor().getAsTag() + ",\"role\":\"co-leader\"}");
 					
 					for (int i = 0; i < BTE.getMemberList().size(); i++) {
 					
 						long discordId = BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong();
-						event.getChannel().sendMessage("long: " + discordId).queue();
 						
 						//retrieves the member list test
 						BTE.getMemberList(); 
