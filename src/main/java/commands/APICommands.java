@@ -47,6 +47,7 @@ public class APICommands extends ListenerAdapter {
 	
 //-------------------------------------------------------------------------------------------------------------	
 //onReady =link command testing
+	/*
 	@Override
 	public void onReady(ReadyEvent event) {
 	 
@@ -63,7 +64,7 @@ public class APICommands extends ListenerAdapter {
 					}
 				}//ill finish this later
 				
-
+*/
 			//for each member, if they dont have perms and are not on blacklist, get username applied with and assign state rank based on discord role
 			//add blacklist, and methods to add and remove users from it. The users in the blacklist would be ignored by this onReady event
 				
