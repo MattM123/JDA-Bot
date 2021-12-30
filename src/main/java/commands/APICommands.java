@@ -227,8 +227,8 @@ public class APICommands extends ListenerAdapter {
 			}
 			
 				//Getting username from builder application 
-				String usernameApplied = BTE.getUsernameAppliedWith("309114198812655617"); //test case for specific user
-				//String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
+				//String usernameApplied = BTE.getUsernameAppliedWith("309114198812655617"); //test case for specific user
+				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") || usernameApplied.contains("IOException") 
 						|| usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:"))) {
@@ -241,18 +241,14 @@ public class APICommands extends ListenerAdapter {
 					event.getChannel().sendMessage(emb.build()).queue();
 				}
 				else {
-					roles = guild.getMemberById("309114198812655617").getRoles(); //test case for specific user
+					//roles = guild.getMemberById("309114198812655617").getRoles(); //test case for specific user
 					
-					//roles = event.getMember().getRoles();
+					roles = event.getMember().getRoles();
 					boolean isBuilder = false;
 					
 					//pain
 					JsonElement builderElement = JsonParser.parseString("{" + "\"" + "discordId\":" + "\"" + event.getAuthor().getIdLong() + "\"" 
 							+ ",\"" + "discordTag\":" + "\"" + event.getAuthor().getAsTag() + "\"" + ",\"" + "role\":\"builder" + "\"" + "}");
-					
-				//	for (int i = 0; i < BTE.getMemberList().size(); i++) {
-					
-					//	long discordId = BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong();
 						
 						//retrieves the member list test
 						BTE.getMemberList(); 
@@ -263,25 +259,22 @@ public class APICommands extends ListenerAdapter {
 							emb.setTitle("There was an exception when retrieving the member list");
 							emb.addField("Exception", BTE.stackTrace, false);
 							event.getChannel().sendMessage(emb.build()).queue();
-						//	break;
 						}
 						
-						//if user has been merged into the team, i.e has not submitted an application but is on the team
-							  
+						//if user has been merged into the team, i.e has not submitted an application but is on the team						  
 						else if (usernameApplied.contains("IndexOutOfBoundsException")
 							&& (BTE.getMemberList().contains(builderElement))) {
 	
 							//test case for specific user
-							guild.addRoleToMember(guild.getMemberById(309114198812655617L), guild.getRoleById(735991952931160104L)).queue();
+							//guild.addRoleToMember(guild.getMemberById(309114198812655617L), guild.getRoleById(735991952931160104L)).queue();
 							
-							//guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
+							guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 							EmbedBuilder emb = new EmbedBuilder();
 							emb.setColor(Color.BLUE);
 							emb.setTitle("User has been merged into the team");
 							event.getChannel().sendMessage(emb.build()).queue();
 							
 							isBuilder = true;
-							//break;
 						}
 						
 						else {
@@ -291,7 +284,6 @@ public class APICommands extends ListenerAdapter {
 								//if user already has builder role						
 								if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {		
 									isBuilder = true;				
-									//break;
 								}
 									
 								
@@ -299,9 +291,9 @@ public class APICommands extends ListenerAdapter {
 									&& (MCusername.equalsIgnoreCase(usernameApplied))) {
 									
 									//test case for specific user
-									guild.addRoleToMember(guild.getMemberById(309114198812655617L), guild.getRoleById(735991952931160104L)).queue();
+									//guild.addRoleToMember(guild.getMemberById(309114198812655617L), guild.getRoleById(735991952931160104L)).queue();
 									
-									//guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
+									guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 					
 									EmbedBuilder emb = new EmbedBuilder();
 									emb.setColor(Color.BLUE);
@@ -312,9 +304,7 @@ public class APICommands extends ListenerAdapter {
 									//break;
 								}	
 							}
-						}
-				//	}
-						
+						}						
 					
 		
 						//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
@@ -329,7 +319,7 @@ public class APICommands extends ListenerAdapter {
 								midwestServer.sendCommand("lp user " + MCusername + " parent add kansas-builder").execute();
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Kansas Builder for user " + MCusername);
+								emb.setTitle("Minecraft server rank updated to Kansas Builder for " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 		
 							}
@@ -338,7 +328,7 @@ public class APICommands extends ListenerAdapter {
 								midwestServer.sendCommand("lp user " + MCusername + " parent add iowa-builder").execute();
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Iowa Builder for user " + MCusername);
+								emb.setTitle("Minecraft server rank updated to Iowa Builder for " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 		
 							}
@@ -347,7 +337,7 @@ public class APICommands extends ListenerAdapter {
 								midwestServer.sendCommand("lp user " + MCusername + " parent add nebraska-builder").execute();
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Nebraska Builder for user " + MCusername);
+								emb.setTitle("Minecraft server rank updated to Nebraska Builder for " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 		
 							}
@@ -356,7 +346,7 @@ public class APICommands extends ListenerAdapter {
 								midwestServer.sendCommand("lp user " + MCusername + " parent add illinois-builder").execute();
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Illinois Builder for user " + MCusername);
+								emb.setTitle("Minecraft server rank updated to Illinois Builder for " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 							else if (roles.contains(guild.getRoleById(735995115113414656L))) {
@@ -364,7 +354,7 @@ public class APICommands extends ListenerAdapter {
 								midwestServer.sendCommand("lp user " + MCusername + " parent add missouri-builder").execute();
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Missouri Builder for user " + MCusername);
+								emb.setTitle("Minecraft server rank updated to Missouri Builder for " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 		
 							}
@@ -373,7 +363,7 @@ public class APICommands extends ListenerAdapter {
 								midwestServer.sendCommand("lp user " + MCusername + " parent add minnesota-builder").execute();
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Minnesota Builder for user " + MCusername);
+								emb.setTitle("Minecraft server rank updated to Minnesota Builder for " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 							else if (roles.contains(guild.getRoleById(808415301799641119L))) {
@@ -381,7 +371,7 @@ public class APICommands extends ListenerAdapter {
 								midwestServer.sendCommand("lp user " + MCusername + " parent add oklahoma-builder").execute();
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Oklahoma Builder for user " + MCusername);
+								emb.setTitle("Minecraft server rank updated to Oklahoma Builder for " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 							else if (roles.contains(guild.getRoleById(798079627360337970L))) {
@@ -389,7 +379,7 @@ public class APICommands extends ListenerAdapter {
 								midwestServer.sendCommand("lp user " + MCusername + " parent add wisconsin-builder").execute();
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Wisconsin Builder for user " + MCusername);
+								emb.setTitle("Minecraft server rank updated to Wisconsin Builder for " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 							else if (roles.contains(guild.getRoleById(900746635427053678L))) {
@@ -397,7 +387,7 @@ public class APICommands extends ListenerAdapter {
 								midwestServer.sendCommand("lp user " + MCusername + " parent add michigan-builder").execute();
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
-								emb.setTitle("Minecraft server rank updated to Michigan Builder for user " + MCusername);
+								emb.setTitle("Minecraft server rank updated to Michigan Builder for " + MCusername);
 								event.getChannel().sendMessage(emb.build()).queue();
 							}
 							
