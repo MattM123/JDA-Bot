@@ -208,7 +208,8 @@ public class APICommands extends ListenerAdapter {
 //-----------------------------------------------------------------------------------------------------------------------------
 //give build perms based on presence on build team
 		
-		if (event.getMessage().getContentRaw().startsWith("=link")) {	
+		if (event.getMessage().getContentRaw().startsWith("=link")) {			
+			
 			//Parses minecraft username for later use
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String MCusername = "";
@@ -245,9 +246,13 @@ public class APICommands extends ListenerAdapter {
 					//roles = event.getMember().getRoles();
 					boolean isBuilder = false;
 					
-					for (int i = 0; i < BTE.getMemberList().size(); i++) {
+					//pain
+					JsonElement builderElement = JsonParser.parseString("{" + "\"" + "discordId\":" + "\"" + event.getAuthor().getIdLong() + "\"" 
+							+ ",\"" + "discordTag\":" + "\"" + event.getAuthor().getAsTag() + "\"" + ",\"" + "role\":\"builder" + "\"" + "}");
 					
-						long discordId = BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong();
+				//	for (int i = 0; i < BTE.getMemberList().size(); i++) {
+					
+					//	long discordId = BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong();
 						
 						//retrieves the member list test
 						BTE.getMemberList(); 
@@ -264,7 +269,7 @@ public class APICommands extends ListenerAdapter {
 						//if user has been merged into the team, i.e has not submitted an application but is on the team
 							  
 						else if (usernameApplied.contains("IndexOutOfBoundsException")
-							&& (event.getAuthor().getIdLong() == discordId)) {
+							&& (BTE.getMemberList().contains(builderElement))) {
 	
 							//test case for specific user
 							guild.addRoleToMember(guild.getMemberById(309114198812655617L), guild.getRoleById(735991952931160104L)).queue();
@@ -276,7 +281,7 @@ public class APICommands extends ListenerAdapter {
 							event.getChannel().sendMessage(emb.build()).queue();
 							
 							isBuilder = true;
-							break;
+							//break;
 						}
 						
 						else {
@@ -286,11 +291,11 @@ public class APICommands extends ListenerAdapter {
 								//if user already has builder role						
 								if (roles.contains(guild.getRoleById(735991952931160104L)) && (MCusername.equalsIgnoreCase(usernameApplied))) {		
 									isBuilder = true;				
-									break;
+									//break;
 								}
 									
 								
-								if (event.getAuthor().getIdLong() == discordId && !roles.contains(guild.getRoleById(735991952931160104L)) 
+								if (BTE.getMemberList().contains(builderElement) && !roles.contains(guild.getRoleById(735991952931160104L)) 
 									&& (MCusername.equalsIgnoreCase(usernameApplied))) {
 									
 									//test case for specific user
@@ -304,11 +309,11 @@ public class APICommands extends ListenerAdapter {
 									event.getChannel().sendMessage(emb.build()).queue();
 									
 									isBuilder = true;
-									break;
+									//break;
 								}	
 							}
 						}
-					}
+				//	}
 						
 					
 		
