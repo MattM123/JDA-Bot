@@ -226,8 +226,8 @@ public class APICommands extends ListenerAdapter {
 			}
 			
 				//Getting username from builder application 
-				//String usernameApplied = BTE.getUsernameAppliedWith("501116787501301760"); //test case for specific user
-				String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
+				String usernameApplied = BTE.getUsernameAppliedWith("309114198812655617"); //test case for specific user
+				//String usernameApplied = BTE.getUsernameAppliedWith(event.getAuthor().getId());
 				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") || usernameApplied.contains("IOException") 
 						|| usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:"))) {
@@ -240,8 +240,9 @@ public class APICommands extends ListenerAdapter {
 					event.getChannel().sendMessage(emb.build()).queue();
 				}
 				else {
-					//roles = guild.getMemberById("501116787501301760").getRoles(); //test case for specific user
-					roles = event.getMember().getRoles();
+					roles = guild.getMemberById("309114198812655617").getRoles(); //test case for specific user
+					
+					//roles = event.getMember().getRoles();
 					boolean isBuilder = false;
 					
 					for (int i = 0; i < BTE.getMemberList().size(); i++) {
@@ -265,8 +266,10 @@ public class APICommands extends ListenerAdapter {
 						else if (usernameApplied.contains("IndexOutOfBoundsException")
 							&& (event.getAuthor().getIdLong() == discordId)) {
 	
+							//test case for specific user
+							guild.addRoleToMember(guild.getMemberById(309114198812655617L), guild.getRoleById(735991952931160104L)).queue();
 							
-							guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
+							//guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 							EmbedBuilder emb = new EmbedBuilder();
 							emb.setColor(Color.BLUE);
 							emb.setTitle("User has been merged into the team");
@@ -289,7 +292,11 @@ public class APICommands extends ListenerAdapter {
 								
 								if (event.getAuthor().getIdLong() == discordId && !roles.contains(guild.getRoleById(735991952931160104L)) 
 									&& (MCusername.equalsIgnoreCase(usernameApplied))) {
-									guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
+									
+									//test case for specific user
+									guild.addRoleToMember(guild.getMemberById(309114198812655617L), guild.getRoleById(735991952931160104L)).queue();
+									
+									//guild.addRoleToMember(event.getMember(), guild.getRoleById(735991952931160104L)).queue();
 					
 									EmbedBuilder emb = new EmbedBuilder();
 									emb.setColor(Color.BLUE);
