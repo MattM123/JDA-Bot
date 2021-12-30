@@ -170,7 +170,7 @@ public class APICommands extends ListenerAdapter {
 				return;
 			}
 			
-			midwestServer.sendCommand("lp user " + namebuilder + " parent add applicants").execute();
+			midwestServer.sendCommand("lp user " + namebuilder + " parent add applicant").execute();
 			
 			//assigns applicant role after getting applicant perms
 			if (!guild.getMemberById(event.getAuthor().getIdLong()).getRoles().contains(guild.getRoleById(923068579992186912L)))
@@ -210,10 +210,6 @@ public class APICommands extends ListenerAdapter {
 		
 		if (event.getMessage().getContentRaw().startsWith("=link")) {			
 			
-			//pain
-			JsonElement builderElement = JsonParser.parseString("{" + "\"" + "discordId\":" + "\"" + event.getAuthor().getIdLong() + "\"" 
-					+ ",\"" + "discordTag\":" + "\"" + event.getAuthor().getAsTag() + "\"" + ",\"" + "role\":\"builder" + "\"" + "}");
-			
 			//Parses minecraft username for later use
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String MCusername = "";
@@ -248,7 +244,11 @@ public class APICommands extends ListenerAdapter {
 					//roles = guild.getMemberById("309114198812655617").getRoles(); //test case for specific user
 					
 					roles = event.getMember().getRoles();
-					boolean isBuilder = false;			
+					boolean isBuilder = false;
+					
+					//pain
+					JsonElement builderElement = JsonParser.parseString("{" + "\"" + "discordId\":" + "\"" + event.getAuthor().getIdLong() + "\"" 
+							+ ",\"" + "discordTag\":" + "\"" + event.getAuthor().getAsTag() + "\"" + ",\"" + "role\":\"builder" + "\"" + "}");
 						
 						//retrieves the member list test
 						BTE.getMemberList(); 
