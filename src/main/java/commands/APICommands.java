@@ -263,7 +263,7 @@ public class APICommands extends ListenerAdapter {
 							emb.setTitle("There was an exception when retrieving the member list");
 							emb.addField("Exception", BTE.stackTrace, false);
 							event.getChannel().sendMessage(emb.build()).queue();
-							break;
+						//	break;
 						}
 						
 						//if user has been merged into the team, i.e has not submitted an application but is on the team
