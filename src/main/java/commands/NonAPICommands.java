@@ -210,7 +210,7 @@ public class NonAPICommands extends ListenerAdapter {
 				trackerChannel.sendMessage("BuildTracker 1.0").queue();
 			}
 			
-			trackerChannel.retrieveMessageById(926506874306703390L).queue((message) -> {
+			trackerChannel.retrieveMessageById(926508672807493633L).queue((message) -> {
 					
 				//If a users build count is already in the message   
 				if (message.getContentRaw().contains(event.getAuthor().getAsTag() + " : ")) {
@@ -245,15 +245,13 @@ public class NonAPICommands extends ListenerAdapter {
 				else if (!message.getContentRaw().contains(event.getAuthor().getAsTag() + " : ")) {
 					String f = message.getContentRaw();
 					if (f.equals("BuildTracker 1.0"))
-						message.editMessage(event.getAuthor().getAsTag() + " : 1\n").queue();
+						message.editMessage("\n" + event.getAuthor().getAsTag() + " : 1").queue();
 					
 					else
-						message.editMessage(f += event.getAuthor().getAsTag() + " : 1\n").queue();
+						message.editMessage(f += "\n" + event.getAuthor().getAsTag() + " : 1").queue();
 				}
 			});
-				counter = "";
-				
-			}
+		}
 	}
 /*	
 	@Override  
