@@ -2,6 +2,8 @@ package commands;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Consumer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -9,6 +11,9 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -86,6 +91,9 @@ public class NonAPICommands extends ListenerAdapter {
 				event.getChannel().sendMessage("Go to <#776963885739409458> for info on how to get started").queue();
 			}
 		}				
+		
+		
+		
 //------------------------------------------------------------------------------------------------------------------------------------
 //command for self-assigning roles
 		
@@ -171,6 +179,17 @@ public class NonAPICommands extends ListenerAdapter {
 					break;
 				}	
 			}
+		}
+		
+		TextChannel pippenSubmissionChannel = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(926285739627532309L);
+		TextChannel pippenTrackerChannel = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(926290849011228753L);
+		int pippenPoints = 0;
+		
+		if (event.getMessage().getContentRaw().contains("PippenFTS#3088") && event.getChannel().equals(pippenSubmissionChannel)) {
+			pippenPoints++;
+			EmbedBuilder emb = new EmbedBuilder();
+			emb.setTitle("You need more then " + pippenPoints + " buildings to beat Pippen!");
+			pippenTrackerChannel.sendMessage(emb.build()).queue();
 		}
 	}
 }
