@@ -236,7 +236,7 @@ public class NonAPICommands extends ListenerAdapter {
 							if (message.getContentRaw().charAt(i) == ':') {
 								event.getChannel().sendMessage("break2").queue();
 								
-								event.getChannel().sendMessage(message.getContentRaw().substring(i - (event.getAuthor().getAsTag().length() - 5),
+								event.getChannel().sendMessage(message.getContentRaw().substring(i - (event.getAuthor().getAsTag().length() - 4),
 										i - 2)).queue();
 								
 								if (message.getContentRaw().substring(i - (event.getAuthor().getAsTag().length() - 6), //accounting for the space
