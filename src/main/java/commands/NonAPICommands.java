@@ -185,16 +185,15 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 		}
 		
+		if (event.getMessage().getContentRaw().equals("=test"))
+			event.getChannel().sendMessage("BuildTracker 1.0").queue();
+		
 		//Pippen Tracker
 		TextChannel pippenSubmissionChannel = guild.getTextChannelById(926285739627532309L);
 		TextChannel pippenTrackerChannel = guild.getTextChannelById(926290849011228753L);
 
 		if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && ((event.getMessage().getContentRaw().contains("PippenFTS#3088") && event.getAuthor().getIdLong() == 514185975744823302L))) {
 			pippenPoints++;
-			
-			if (!pippenTrackerChannel.hasLatestMessage()) {
-				pippenTrackerChannel.sendMessage("PippenTracker 1.0").queue();
-			}
 						
 			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
 					pippenTrackerChannel.editMessageById(pippenTrackerChannel.getLatestMessageIdLong(),"**__You need more then " + pippenPoints + " completed buildings to beat Pippen!__**").queue();
@@ -207,7 +206,6 @@ public class NonAPICommands extends ListenerAdapter {
 
 		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
 
-			//trackerChannel.sendMessage("BuildTracker 1.0").queue();
 			if (!trackerChannel.hasLatestMessage()) {
 				trackerChannel.sendMessage("BuildTracker 1.0").queue();
 			}
