@@ -219,7 +219,6 @@ public class NonAPICommands extends ListenerAdapter {
 									try {
 										int s = Integer.parseInt(message.getContentRaw().substring(j, j + 1));							
 										counter += String.valueOf(s);
-										breakMeDaddy = true;
 									}
 									catch (NumberFormatException e) {
 										breakMeDaddy = true;
@@ -232,10 +231,12 @@ public class NonAPICommands extends ListenerAdapter {
 							}
 						}
 						
-	
 						//Incrementing build count and editing the count
 						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : "); i < message.getContentRaw().length(); i++) {
-							if (message.getContentRaw().charAt(i) == ':') {
+							if (message.getContentRaw().charAt(i) == ':' && message.getContentRaw().substring(i - (event.getAuthor().getAsTag().length() - 5), 
+									event.getAuthor().getAsTag().length() - 5).equals(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5))) {
+									event.getChannel().sendMessage(message.getContentRaw().substring(i - (event.getAuthor().getAsTag().length() - 5), 
+									event.getAuthor().getAsTag().length() - 5)).queue();
 								message.editMessage(message.getContentRaw().replace(message.getContentRaw().substring(i + 2, i + 2 + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
 							}
 						}
