@@ -235,7 +235,7 @@ public class NonAPICommands extends ListenerAdapter {
 				}
 				else {
 					String f = message.getContentRaw();
-					message.editMessage(f += event.getAuthor().getAsTag() + " : 1\n");
+					message.editMessage(f += event.getAuthor().getAsTag() + " : 1\n").queue();
 				}
 			});
 			
