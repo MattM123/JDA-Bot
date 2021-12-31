@@ -208,7 +208,7 @@ public class NonAPICommands extends ListenerAdapter {
 
 		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
 			
-			trackerChannel.retrieveMessageById(926570579966959708L).queue((message) -> {
+			trackerChannel.retrieveMessageById(926572972578328658L).queue((message) -> {
 				String content = message.getContentRaw();
 				String authorTag = event.getAuthor().getAsTag();
 					
@@ -240,9 +240,7 @@ public class NonAPICommands extends ListenerAdapter {
 						for (int i = content.indexOf(authorTag.substring(0, authorTag.length() - 5)); i < (authorTag.substring(0, authorTag.length() - 2)).length() + counter.length(); i++) {
 							if (i + (authorTag.length() - 5) < content.length()) {
 								if (content.substring(i, i + authorTag.length() - 5).equals(authorTag.substring(0, authorTag.length() - 5))) {
-																
-									
-									event.getChannel().sendMessage(content.substring((i + authorTag.length() - 2), (i + authorTag.length() - 2) + counter.length())).queue();
+									event.getChannel().sendMessage("Start: " + i + " End: " + authorTag.substring(0, authorTag.length() - 2).length() + counter.length());
 									
 									message.editMessage(content.replace(content.substring((i + authorTag.length() - 2), (i + authorTag.length() - 2) + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
 									break;
