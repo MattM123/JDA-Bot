@@ -188,7 +188,6 @@ public class NonAPICommands extends ListenerAdapter {
 
 		if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && event.getMessage().getContentRaw().contains("PippenFTS#3088")) {
 			pippenPoints++;
-			pippenTrackerChannel.sendMessage("test").queue();
 			
 			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
 					message.editMessage("You need more then " + pippenPoints + " completed buildings to beat Pippen!").queue();
