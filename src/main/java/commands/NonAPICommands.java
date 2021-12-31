@@ -208,9 +208,9 @@ public class NonAPICommands extends ListenerAdapter {
 
 		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
 			
-			trackerChannel.retrieveMessageById(926526766334476329L).queue((message) -> {
-					String content = message.getContentRaw();
-					String authorTag = event.getAuthor().getAsTag();
+			trackerChannel.retrieveMessageById(926567924607614986L).queue((message) -> {
+				String content = message.getContentRaw();
+				String authorTag = event.getAuthor().getAsTag();
 					
 				if (content.length() < 1990) {
 					//If a users build count is already in the message   
