@@ -242,7 +242,7 @@ public class NonAPICommands extends ListenerAdapter {
 					}
 	
 				}
-				else {
+				else if (!message.getContentRaw().contains(event.getAuthor().getAsTag() + " : ")) {
 					String f = message.getContentRaw();
 					if (f.equals("BuildTracker 1.0"))
 						message.editMessage(event.getAuthor().getAsTag() + " : 1\n").queue();
