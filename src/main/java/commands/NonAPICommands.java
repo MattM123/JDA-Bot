@@ -21,6 +21,8 @@ import net.dv8tion.jda.api.requests.RestAction;
 
 public class NonAPICommands extends ListenerAdapter {
 	
+	private int pippenPoints = 0;
+	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
@@ -183,10 +185,10 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		TextChannel pippenSubmissionChannel = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(926285739627532309L);
 		TextChannel pippenTrackerChannel = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(926290849011228753L);
-		int pippenPoints = 0;
+		
 		
 		if (event.getMessage().getContentRaw().contains("PippenFTS#3088") && event.getChannel().equals(pippenSubmissionChannel)) {
-			pippenPoints += pippenPoints + 1;
+			pippenPoints++;
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.blue);
 			emb.setTitle("You need more then " + pippenPoints + " buildings to beat Pippen!");
