@@ -234,13 +234,14 @@ public class NonAPICommands extends ListenerAdapter {
 						}
 						
 						//Incrementing build count and editing the count
-						for (int i = content.indexOf(authorTag.substring(0, authorTag.length() - 5)); i < content.length(); i++) {							
-							if (content.substring(i, i + authorTag.length() - 6).equals(authorTag.substring(0, authorTag.length() - 5))
-									&& (i + authorTag.length()) - 6 < content.length() ) {
-								
-								event.getChannel().sendMessage(content.substring(i, i + authorTag.length() - 6)).queue();
-								message.editMessage(content.replace(content.substring(i + 2, i + 2 + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
-								break;
+						for (int i = content.indexOf(authorTag.substring(0, authorTag.length() - 5)); i < content.length(); i++) {
+							if (i + (authorTag.length() - 6) < content.length()) {
+								if (content.substring(i, i + authorTag.length() - 6).equals(authorTag.substring(0, authorTag.length() - 5))) {
+									
+									event.getChannel().sendMessage(content.substring(i, i + authorTag.length() - 6)).queue();
+									message.editMessage(content.replace(content.substring(i + 2, i + 2 + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
+									break;
+								}
 							}
 						}
 					}
