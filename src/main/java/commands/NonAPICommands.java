@@ -231,6 +231,18 @@ public class NonAPICommands extends ListenerAdapter {
 							}
 						}
 					}
+					
+
+					//Incrementing build count and editing the count to reflect the incremented value
+					incrementMe = Integer.parseInt(counter);
+					incrementMe += 1;
+					for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
+						if (message.getContentRaw().charAt(i) == ':') {
+							message.editMessage(message.getContentRaw().replace(message.getContentRaw().substring(i + 2, i + 2 + counter.length()), String.valueOf(incrementMe))).queue();
+							break;
+						}
+					}
+	
 				}
 				else {
 					String f = message.getContentRaw();
@@ -241,18 +253,6 @@ public class NonAPICommands extends ListenerAdapter {
 						message.editMessage(f += event.getAuthor().getAsTag() + " : 1\n").queue();
 				}
 			});
-
-				//Incrementing build count and editing the count to reflect the incremented value
-				trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
-					incrementMe = Integer.parseInt(counter);
-					incrementMe++;
-					for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
-						if (message.getContentRaw().charAt(i) == ':') {
-							message.editMessage(message.getContentRaw().replace(message.getContentRaw().substring(i + 2, i + 2 + counter.length()), String.valueOf(incrementMe))).queue();
-							break;
-						}
-					}
-				});
 				counter = "";
 				
 			}
