@@ -186,7 +186,7 @@ public class NonAPICommands extends ListenerAdapter {
 		int pippenPoints = 0;
 		
 		if (event.getMessage().getContentRaw().contains("PippenFTS#3088") && event.getChannel().equals(pippenSubmissionChannel)) {
-			pippenPoints += pippenPoints++;
+			pippenPoints += pippenPoints + 1;
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.blue);
 			emb.setTitle("You need more then " + pippenPoints + " buildings to beat Pippen!");
