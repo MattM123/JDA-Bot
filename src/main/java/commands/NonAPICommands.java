@@ -213,14 +213,21 @@ public class NonAPICommands extends ListenerAdapter {
 						//Retrieving the users current build count, storing it, and incrementing it			
 						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : "); i < message.getContentRaw().length(); i++) {
 							if (message.getContentRaw().charAt(i) == ':') {
+								boolean breakMeDaddy = false;
+								
 								for (int j = i + 2; j < message.getContentRaw().length(); j++) {
 									try {
 										int s = Integer.parseInt(message.getContentRaw().substring(j, j + 1));							
 										counter += String.valueOf(s);
+										breakMeDaddy = true;
 									}
 									catch (NumberFormatException e) {
+										breakMeDaddy = true;
 										break;
 									}
+								}
+								if (breakMeDaddy) {
+									break;
 								}
 							}
 						}
