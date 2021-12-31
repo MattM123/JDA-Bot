@@ -185,7 +185,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("=test"))
-			event.getChannel().sendMessage("**__BuildTracker__**"				
+			event.getChannel().sendMessage("**__BuildTracker 1.0__**"				
 					+ "\n" + "Punderdom : 1"
 					+ "\n" + "mattress : 1"
 					+ "\n" + "test : 1").queue();
@@ -208,7 +208,7 @@ public class NonAPICommands extends ListenerAdapter {
 
 		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
 			
-			trackerChannel.retrieveMessageById(926567924607614986L).queue((message) -> {
+			trackerChannel.retrieveMessageById(926568896578871437L).queue((message) -> {
 				String content = message.getContentRaw();
 				String authorTag = event.getAuthor().getAsTag();
 					
@@ -243,7 +243,7 @@ public class NonAPICommands extends ListenerAdapter {
 								if (content.substring(i, i + authorTag.length() - 5).equals(authorTag.substring(0, authorTag.length() - 5))) {
 									
 									
-									message.editMessage(content.replace(content.substring((i + authorTag.length() - 3), (i + authorTag.length() - 3) + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
+									message.editMessage(content.replace(content.substring((i + authorTag.length() - 4), (i + authorTag.length() - 4) + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
 									break;
 								}
 							}
