@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -239,14 +240,21 @@ public class NonAPICommands extends ListenerAdapter {
 					
 						
 						//Incrementing build count and editing the count
-						for (int i = content.indexOf(authorTag.substring(0, authorTag.length() - 5)); i < (authorTag.substring(0, authorTag.length() - 5)).length() + counter.length() - i; i++) {
-							
+					//	for (int i = content.indexOf(authorTag.substring(0, authorTag.length() - 5)); i < (authorTag.substring(0, authorTag.length() - 2)).length() + counter.length() - i; i++) {
+								Stream<String> messageLines = content.lines();
+								
+								for (int i = 0; i < messageLines.count(); i++) {
+									while (messageLines.iterator().hasNext()) {
+										event.getChannel().sendMessage(messageLines.iterator().next()).queue();
+									}
+								/*
 								event.getChannel().sendMessage(content.substring(i, i + 1)).queue();
 								if (content.substring(i, i + authorTag.length() - 5).equals(authorTag.substring(0, authorTag.length() - 5))) {
 																
 									message.editMessage(content.replace(content.substring((i + authorTag.length() - 2), (i + authorTag.length() - 2) + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
 									break;
-								}	
+								}
+								*/	
 						}
 					}
 					//if no count exists for user
