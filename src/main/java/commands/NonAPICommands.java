@@ -215,7 +215,7 @@ public class NonAPICommands extends ListenerAdapter {
 					//If a users build count is already in the message   
 					if (message.getContentRaw().contains(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : ")) {
 						//Retrieving the users current build count, storing it, and incrementing it			
-						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag().length() - 5 + " : "); i < message.getContentRaw().length(); i++) {
+						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : "); i < message.getContentRaw().length(); i++) {
 							if (message.getContentRaw().charAt(i) == ':') {
 								for (int j = i + 2; j < message.getContentRaw().length(); j++) {
 									try {
