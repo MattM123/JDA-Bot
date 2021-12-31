@@ -207,7 +207,6 @@ public class NonAPICommands extends ListenerAdapter {
 
 		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
 
-			trackerChannel.sendMessage("BuildTracker 1.0").queue();
 			if (!trackerChannel.hasLatestMessage()) {
 				trackerChannel.sendMessage("BuildTracker 1.0").queue();
 			}
