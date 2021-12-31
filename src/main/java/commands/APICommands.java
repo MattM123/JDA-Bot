@@ -99,7 +99,7 @@ public class APICommands extends ListenerAdapter {
 		 
 //-------------------------------------------------------------------------------------------------------------	
 //Attempted webscraping to automate =link
-	  
+	/*  
 		 if (event.getMessage().getContentRaw().equals("=test")) {
 			 Connection.Response res = null;
 			 Document doc = null;
@@ -124,7 +124,7 @@ public class APICommands extends ListenerAdapter {
 			 
 			 
 		 }
-		 
+		*/ 
 //-------------------------------------------------------------------------------------------------------------	
 //send command to server console
 		 
