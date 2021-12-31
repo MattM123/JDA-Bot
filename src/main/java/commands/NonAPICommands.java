@@ -239,8 +239,8 @@ public class NonAPICommands extends ListenerAdapter {
 								event.getChannel().sendMessage(content.substring(i, i + authorTag.length() - 5)).queue();
 								if (content.substring(i, i + authorTag.length() - 5).equals(authorTag.substring(0, authorTag.length() - 5))) {
 									
-									event.getChannel().sendMessage(content.substring(i, i + authorTag.length() - 5)).queue();
-									message.editMessage(content.replace(content.substring(i + 2, i + 2 + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
+									
+									message.editMessage(content.replace(content.substring((i + authorTag.length() - 3), (i + authorTag.length() - 3) + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
 									break;
 								}
 							}
