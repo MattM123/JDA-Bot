@@ -234,7 +234,6 @@ public class NonAPICommands extends ListenerAdapter {
 						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : "); i < message.getContentRaw().length(); i++) {
 							if (message.getContentRaw().charAt(i) == ':') {
 								event.getChannel().sendMessage(String.valueOf(Integer.parseInt(counter))).queue();
-								event.getChannel().sendMessage(String.valueOf(Integer.parseInt(counter))).queue();
 								message.editMessage(message.getContentRaw().replace(message.getContentRaw().substring(i + 2, i + 2 + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
 							}
 						}
@@ -242,15 +241,13 @@ public class NonAPICommands extends ListenerAdapter {
 					}
 					//if no count exists for user
 					if (!message.getContentRaw().contains(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : ")) {
-						String f = message.getContentRaw();
-						if (f.equals("BuildTracker 1.0"))
-							message.editMessage("\n" + event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : 1").queue();
-						
-						else
-							message.editMessage(f += "\n" + event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : 1").queue();
+						String f = message.getContentRaw();		
+						message.editMessage(f += "\n" + event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : 1").queue();
+			
 					}
 				}
 			});
+			counter = "";
 		}
 	}
 }
