@@ -236,13 +236,11 @@ public class NonAPICommands extends ListenerAdapter {
 							if (message.getContentRaw().charAt(i) == ':') {
 								event.getChannel().sendMessage("break2").queue();
 								
-								event.getChannel().sendMessage(message.getContentRaw().substring(i,
-										i - 2)).queue();
+								event.getChannel().sendMessage(message.getContentRaw().substring(i, i + event.getAuthor().getAsTag().length() - 6)).queue();
 								
-								if (message.getContentRaw().substring(i - (event.getAuthor().getAsTag().length() - 6), //accounting for the space
+								if (message.getContentRaw().substring(i, //accounting for the space
 									i + event.getAuthor().getAsTag().length() - 6).equals(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5))) {
 								
-									event.getChannel().sendMessage(message.getContentRaw().substring(i - (event.getAuthor().getAsTag().length() - 6), i - 2)).queue();
 									message.editMessage(message.getContentRaw().replace(message.getContentRaw().substring(i + 2, i + 2 + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
 									break;
 								}
