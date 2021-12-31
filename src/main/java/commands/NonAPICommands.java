@@ -257,9 +257,9 @@ public class NonAPICommands extends ListenerAdapter {
 						if (message.getContentRaw().charAt(i) == ':') {
 							event.getChannel().sendMessage("len: " + counter.length() + "").queue();
 							event.getChannel().sendMessage("char: " + message.getContentRaw().charAt(i + 2)).queue();
-							event.getChannel().sendMessage(message.getContentRaw().substring(i + 2, counter.length() + 1)).queue();
+							event.getChannel().sendMessage(message.getContentRaw().substring(i + 2, counter.length())).queue();
 							event.getChannel().sendMessage(String.valueOf(incrementMe)).queue();
-							message.getContentRaw().replace(message.getContentRaw().substring(i + 2, counter.length() + 1), String.valueOf(incrementMe));
+							message.getContentRaw().replace(message.getContentRaw().substring(i + 2, counter.length()), String.valueOf(incrementMe));
 						}
 					}
 				});
