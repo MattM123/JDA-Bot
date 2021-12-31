@@ -241,9 +241,9 @@ public class NonAPICommands extends ListenerAdapter {
 						//Incrementing build count and editing the count
 						for (int i = content.indexOf(authorTag.substring(0, authorTag.length() - 5)); i < (authorTag.substring(0, authorTag.length() - 2)).length() + counter.length(); i++) {
 							if (i + (authorTag.length() - 5) < content.length()) {
-								event.getChannel().sendMessage("Start: " + i + " End: " + authorTag.substring(0, authorTag.length() - 2).length() + counter.length()).queue();
+								event.getChannel().sendMessage("Start: " + i + " End: " + ((authorTag.substring(0, authorTag.length() - 2).length() + counter.length()) - i)).queue();
 							
-								event.getChannel().sendMessage("Subs: " + content.substring(i, authorTag.substring(0, authorTag.length() - 2).length() + counter.length())).queue();
+								event.getChannel().sendMessage("Subs: " + content.substring(i, ((authorTag.substring(0, authorTag.length() - 2).length() + counter.length()) - i))).queue();
 								
 								if (content.substring(i, i + authorTag.length() - 5).equals(authorTag.substring(0, authorTag.length() - 5))) {
 									
