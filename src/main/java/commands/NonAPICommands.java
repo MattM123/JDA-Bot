@@ -222,8 +222,8 @@ public class NonAPICommands extends ListenerAdapter {
 						if (message.getContentRaw().charAt(i) == ':') {
 							for (int j = i + 2; j < message.getContentRaw().length(); j++) {
 								try {
-									event.getChannel().sendMessage(message.getContentRaw().substring(j, j)).queue();
-									int s = Integer.parseInt(message.getContentRaw().substring(j, j));
+									event.getChannel().sendMessage(message.getContentRaw().substring(j, j + 1)).queue();
+									int s = Integer.parseInt(message.getContentRaw().substring(j, j + 1));
 									event.getChannel().sendMessage(String.valueOf(s));
 									counter += String.valueOf(s);
 								}
