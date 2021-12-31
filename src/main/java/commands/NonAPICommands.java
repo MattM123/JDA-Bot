@@ -186,16 +186,16 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel pippenSubmissionChannel = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(926285739627532309L);
 		TextChannel pippenTrackerChannel = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(926290849011228753L);
 		
-		
-		if (event.getMessage().getContentRaw().contains("PippenFTS#3088") && event.getChannel().equals(pippenSubmissionChannel)) {
-			
-			RestAction<Message> action = pippenTrackerChannel.sendMessage("You need more then " + pippenPoints + " buildings to beat Pippen!");
-			Consumer<Message> callback = (message) ->  {
-				Message m = message;
-				m.editMessage("You need more then " + pippenPoints++ + " buildings to beat Pippen!");
-			};
-			      
-			action.queue(callback);      
-		}
+		if (event.getMessage().getContentRaw().equals("PippenTracker 1.0") && event.getChannel().equals(pippenTrackerChannel)) {		
+			if (event.getMessage().getContentRaw().contains("PippenFTS#3088") && event.getChannel().equals(pippenSubmissionChannel)) {
+				
+				RestAction<Message> action = pippenTrackerChannel.sendMessage("You need more then " + pippenPoints + " buildings to beat Pippen!");
+				Consumer<Message> callback = (message) ->  {
+					Message m = message;
+					m.editMessage("You need more then " + pippenPoints++ + " buildings to beat Pippen!");
+				};
+				      
+				action.queue(callback);      
+			}
 	}
 }
