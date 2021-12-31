@@ -208,7 +208,7 @@ public class NonAPICommands extends ListenerAdapter {
 
 		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
 			
-			trackerChannel.retrieveMessageById(926569897843097630L).queue((message) -> {
+			trackerChannel.retrieveMessageById(926570579966959708L).queue((message) -> {
 				String content = message.getContentRaw();
 				String authorTag = event.getAuthor().getAsTag();
 					
