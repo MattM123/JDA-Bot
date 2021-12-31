@@ -209,7 +209,7 @@ public class NonAPICommands extends ListenerAdapter {
 			pippenPoints++;
 			
 			if (!trackerChannel.hasLatestMessage()) {
-				trackerChannel.sendMessage("BuildTracker 1.0").queue();
+				trackerChannel.sendMessage("").queue();
 			}
 			
 			trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
@@ -217,8 +217,7 @@ public class NonAPICommands extends ListenerAdapter {
 				//If a users build count is already in the message   
 				if (message.getContentRaw().contains(event.getAuthor().getAsTag() + " : ")) {
 	
-					//Retrieving the users current build count, storing it, and incrementing it
-					
+					//Retrieving the users current build count, storing it, and incrementing it			
 					for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
 						if (message.getContentRaw().charAt(i) == ':') {
 							for (int j = i; j < message.getContentRaw().length(); j++) {
