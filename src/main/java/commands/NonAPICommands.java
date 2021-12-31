@@ -185,7 +185,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("=test"))
-			event.getChannel().sendMessage("**__BuildTracker 1.0__**"				
+			event.getChannel().sendMessage("BuildTracker 1.0"				
 					+ "\n" + "Punderdom : 1"
 					+ "\n" + "mattress : 1"
 					+ "\n" + "test : 1").queue();
