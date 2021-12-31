@@ -210,7 +210,7 @@ public class NonAPICommands extends ListenerAdapter {
 				trackerChannel.sendMessage("BuildTracker 1.0").queue();
 			}
 			
-			trackerChannel.retrieveMessageById(926506184746348595L).queue((message) -> {
+			trackerChannel.retrieveMessageById(926506874306703390L).queue((message) -> {
 					
 				//If a users build count is already in the message   
 				if (message.getContentRaw().contains(event.getAuthor().getAsTag() + " : ")) {
