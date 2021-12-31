@@ -222,9 +222,7 @@ public class NonAPICommands extends ListenerAdapter {
 						if (message.getContentRaw().charAt(i) == ':') {
 							for (int j = i + 2; j < message.getContentRaw().length(); j++) {
 								try {
-
-									int s = Integer.parseInt(message.getContentRaw().substring(j, j + 1));
-							
+									int s = Integer.parseInt(message.getContentRaw().substring(j, j + 1));							
 									counter += String.valueOf(s);
 								}
 								catch (NumberFormatException e) {
@@ -233,7 +231,6 @@ public class NonAPICommands extends ListenerAdapter {
 							}
 						}
 					}
-					event.getChannel().sendMessage(counter).queue();
 				}
 				else {
 					String f = message.getContentRaw();
@@ -255,13 +252,12 @@ public class NonAPICommands extends ListenerAdapter {
 
 				//Editing the count to reflect the incremented value
 				trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
+					event.getChannel().sendMessage(counter + " " + String.valueOf(counter)).queue();
 					for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
 						if (message.getContentRaw().charAt(i) == ':') {
 							message.getContentRaw().replace(message.getContentRaw().substring(i + 2, counter.length() + 1), String.valueOf(incrementMe));
 						}
 					}
-					
-	
 				});
 				counter = "";
 				
