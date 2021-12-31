@@ -206,8 +206,7 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
 
 		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
-			pippenPoints++;
-			
+
 			if (!trackerChannel.hasLatestMessage()) {
 				trackerChannel.sendMessage("BuildTracker 1.0").queue();
 			}
