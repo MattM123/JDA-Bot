@@ -252,9 +252,11 @@ public class NonAPICommands extends ListenerAdapter {
 
 				//Editing the count to reflect the incremented value
 				trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
-					event.getChannel().sendMessage(counter + " " + String.valueOf(counter)).queue();
+	
 					for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
 						if (message.getContentRaw().charAt(i) == ':') {
+							event.getChannel().sendMessage(message.getContentRaw().substring(i + 2, counter.length() + 1)).queue();
+							event.getChannel().sendMessage(String.valueOf(incrementMe)).queue();
 							message.getContentRaw().replace(message.getContentRaw().substring(i + 2, counter.length() + 1), String.valueOf(incrementMe));
 						}
 					}
