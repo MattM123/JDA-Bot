@@ -194,8 +194,10 @@ public class NonAPICommands extends ListenerAdapter {
 					Message m = message;
 					m.editMessage("You need more then " + pippenPoints++ + " buildings to beat Pippen!");
 				};
+		
 				      
 				action.queue(callback);      
 			}
+		}
 	}
 }
