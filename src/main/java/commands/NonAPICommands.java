@@ -188,9 +188,10 @@ public class NonAPICommands extends ListenerAdapter {
 
 		if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && event.getMessage().getContentRaw().contains("PippenFTS#3088")) {
 			pippenPoints++;
+			pippenTrackerChannel.sendMessage("PippenTracker 1.0");
 			
 			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
-					message.editMessage("You need more then " + pippenPoints + " completed buildings to beat Pippen!").queue();
+					message.editMessage("**__You need more then " + pippenPoints + " completed buildings to beat Pippen!__**").queue();
 					pippenTrackerChannel.editMessageById(pippenTrackerChannel.getLatestMessageIdLong(),"You need more then " + pippenPoints + " completed buildings to beat Pippen!").queue();
 			});
 		}
