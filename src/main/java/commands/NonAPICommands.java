@@ -240,7 +240,7 @@ public class NonAPICommands extends ListenerAdapter {
 										i - 2)).queue();
 								
 								if (message.getContentRaw().substring(i - (event.getAuthor().getAsTag().length() - 6), //accounting for the space
-									i - 2).equals(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5))) {
+									i + event.getAuthor().getAsTag().length() - 6).equals(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5))) {
 								
 									event.getChannel().sendMessage(message.getContentRaw().substring(i - (event.getAuthor().getAsTag().length() - 6), i - 2)).queue();
 									message.editMessage(message.getContentRaw().replace(message.getContentRaw().substring(i + 2, i + 2 + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
