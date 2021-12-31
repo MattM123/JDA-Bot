@@ -191,9 +191,9 @@ public class NonAPICommands extends ListenerAdapter {
 				
 				pippenTrackerChannel.sendMessage(pippenPoints + "").queue();
 				
-				pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
-						message.editMessage("You need more then " + pippenPoints + " completed buildings to beat Pippen!").queue();
-				});
+			//	pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
+			//			message.editMessage("You need more then " + pippenPoints + " completed buildings to beat Pippen!").queue();
+			//	});
 				
 				pippenTrackerChannel.sendMessage(pippenPoints + "").queue();
 			}
