@@ -230,13 +230,13 @@ public class NonAPICommands extends ListenerAdapter {
 								}
 							}
 						}
-										
-						//Incrementing build count and editing the count						
+					
+					int buildCount = Integer.parseInt(counter);
+					//Incrementing build count and editing the count						
 					String[] messageLines = content.split("\n");
 					for (int i = 0; i < messageLines.length; i++) {
-						event.getChannel().sendMessage(messageLines[i]).queue();
 						if (messageLines[i].contains(authorTag.substring(0, authorTag.length() - 5))) {
-							message.editMessage(content.replace(messageLines[i], authorTag.substring(0, authorTag.length() - 5) + " : " + Integer.parseInt(counter) + 1)).queue();
+							message.editMessage(content.replace(messageLines[i], authorTag.substring(0, authorTag.length() - 5) + " : " + buildCount++)).queue();
 							break;				
 						}
 						}
