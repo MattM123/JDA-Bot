@@ -185,7 +185,10 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("=test"))
-			event.getChannel().sendMessage("**__BuildTracker__**").queue();
+			event.getChannel().sendMessage("**__BuildTracker__**"				
+					+ "\n" + "Punderdom : 1"
+					+ "\n" + "mattress : 1"
+					+ "\n" + "test : 1").queue();
 		
 		//Pippen Tracker
 		TextChannel pippenSubmissionChannel = guild.getTextChannelById(926285739627532309L);
