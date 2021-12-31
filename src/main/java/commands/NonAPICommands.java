@@ -185,7 +185,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("=test"))
-			event.getChannel().sendMessage("__BuildTracker__").queue();
+			event.getChannel().sendMessage("**__BuildTracker__**").queue();
 		
 		//Pippen Tracker
 		TextChannel pippenSubmissionChannel = guild.getTextChannelById(926285739627532309L);
@@ -205,7 +205,7 @@ public class NonAPICommands extends ListenerAdapter {
 
 		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
 			
-			trackerChannel.retrieveMessageById(926517376638386207L).queue((message) -> {
+			trackerChannel.retrieveMessageById(926519937722384526L).queue((message) -> {
 					
 				if (message.getContentRaw().length() < 1990) {
 					//If a users build count is already in the message   
