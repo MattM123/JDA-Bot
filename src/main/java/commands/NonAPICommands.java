@@ -209,7 +209,7 @@ public class NonAPICommands extends ListenerAdapter {
 			pippenPoints++;
 			
 			if (!trackerChannel.hasLatestMessage()) {
-				trackerChannel.sendMessage("").queue();
+				trackerChannel.sendMessage(" ").queue();
 			}
 			
 			trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
