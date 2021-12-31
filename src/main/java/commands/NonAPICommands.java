@@ -203,7 +203,7 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel buildSubmissionChannel = guild.getTextChannelById(926285692542283846L);
 		TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
 
-		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(authorTag)))) {
+		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
 			
 			trackerChannel.retrieveMessageById(926526766334476329L).queue((message) -> {
 					String content = message.getContentRaw();
