@@ -22,6 +22,8 @@ import net.dv8tion.jda.api.requests.RestAction;
 public class NonAPICommands extends ListenerAdapter {
 	
 	private int pippenPoints = 0;
+	private String counter = "";
+	private int incrementMe;
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -182,18 +184,74 @@ public class NonAPICommands extends ListenerAdapter {
 				}	
 			}
 		}
-		//Pings Discord API
+		
+		//Pippen Tracker
 		TextChannel pippenSubmissionChannel = guild.getTextChannelById(926285739627532309L);
 		TextChannel pippenTrackerChannel = guild.getTextChannelById(926290849011228753L);
 
-		if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && ((event.getMessage().getContentRaw().contains("PippenFTS#3088") || event.getAuthor().getIdLong() == 514185975744823302L)
-				|| (event.getMessage().getContentRaw().contains("PippenFTS#3088") && event.getAuthor().getIdLong() == 514185975744823302L))) {
+		if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && ((event.getMessage().getContentRaw().contains("PippenFTS#3088") && event.getAuthor().getIdLong() == 514185975744823302L))) {
 			pippenPoints++;
-			//pippenTrackerChannel.sendMessage("PippenTracker 1.0").queue();
 			
+			if (!pippenTrackerChannel.hasLatestMessage()) {
+				pippenTrackerChannel.sendMessage("PippenTracker 1.0").queue();
+			}
+						
 			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
 					pippenTrackerChannel.editMessageById(pippenTrackerChannel.getLatestMessageIdLong(),"**__You need more then " + pippenPoints + " completed buildings to beat Pippen!__**").queue();
 			});
+		}
+		
+		//BuildCount Tracker
+		TextChannel buildSubmissionChannel = guild.getTextChannelById(926285692542283846L);
+		TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
+
+		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
+			pippenPoints++;
+			
+			if (!trackerChannel.hasLatestMessage()) {
+				trackerChannel.sendMessage("BuildTracker 1.0").queue();
+			}
+			
+			trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
+				
+			//If a users build count is already in the message   
+			if (message.getContentRaw().contains(event.getAuthor().getAsTag() + " : ")) {
+
+				//Retrieving the users current build count, storing it, and incrementing it
+				
+					for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
+						if (message.getContentRaw().charAt(i) == ':') {
+							for (int j = i; j < message.getContentRaw().length(); j++) {
+								try {
+									int s = Integer.parseInt(message.getContentRaw().substring(j, j));
+									counter += String.valueOf(s);
+								}
+								catch (NumberFormatException e) {
+									break;
+								}
+							}
+						}
+					}
+				}	
+				});
+				
+				incrementMe = Integer.parseInt(counter);
+				incrementMe++;
+
+				//Editing the count to reflect the incremented value
+				trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
+					for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
+						if (message.getContentRaw().charAt(i) == ':') {
+							message.getContentRaw().replace(message.getContentRaw().substring(i + 2, counter.length()), String.valueOf(incrementMe));
+						}
+					}
+					
+	
+				});
+				counter = "";
+				
+			}
+						
 		}
 	}
 /*	
