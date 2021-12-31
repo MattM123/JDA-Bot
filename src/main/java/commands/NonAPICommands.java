@@ -23,7 +23,6 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	private int pippenPoints = 0;
 	private String counter = "";
-	private int incrementMe;
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -210,12 +209,11 @@ public class NonAPICommands extends ListenerAdapter {
 				trackerChannel.sendMessage("BuildTracker 1.0").queue();
 			}
 			
-			trackerChannel.retrieveMessageById(926510759922499655L).queue((message) -> {
+			trackerChannel.retrieveMessageById(926512197180457000L).queue((message) -> {
 					
 				if (message.getContentRaw().length() < 1990) {
 					//If a users build count is already in the message   
-					if (message.getContentRaw().contains(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 4) + " : ")) {
-		
+					if (message.getContentRaw().contains(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : ")) {
 						//Retrieving the users current build count, storing it, and incrementing it			
 						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
 							if (message.getContentRaw().charAt(i) == ':') {
@@ -232,25 +230,23 @@ public class NonAPICommands extends ListenerAdapter {
 						}
 						
 	
-						//Incrementing build count and editing the count to reflect the incremented value
-						incrementMe = Integer.parseInt(counter);
-						incrementMe += 1;
-						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 4) + " : "); i < message.getContentRaw().length(); i++) {
+						//Incrementing build count and editing the count
+						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : "); i < message.getContentRaw().length(); i++) {
 							if (message.getContentRaw().charAt(i) == ':') {
-								message.editMessage(message.getContentRaw().replace(message.getContentRaw().substring(i + 2, i + 2 + counter.length()), String.valueOf(incrementMe))).queue();
+								message.editMessage(message.getContentRaw().replace(message.getContentRaw().substring(i + 2, i + 2 + counter.length()), String.valueOf(counter) + 1)).queue();
 								break;
 							}
 						}
 		
 					}
 					//if no count exists for user
-					if (!message.getContentRaw().contains(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 4) + " : ")) {
+					if (!message.getContentRaw().contains(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : ")) {
 						String f = message.getContentRaw();
 						if (f.equals("BuildTracker 1.0"))
-							message.editMessage("\n" + event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 4) + " : 1").queue();
+							message.editMessage("\n" + event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : 1").queue();
 						
 						else
-							message.editMessage(f += "\n" + event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 4) + " : 1").queue();
+							message.editMessage(f += "\n" + event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : 1").queue();
 					}
 				}
 			});
