@@ -185,7 +185,8 @@ public class NonAPICommands extends ListenerAdapter {
 			//Pings Discord API
 			TextChannel pippenSubmissionChannel = guild.getTextChannelById(926285739627532309L);
 			TextChannel pippenTrackerChannel = guild.getTextChannelById(926290849011228753L);
-			if (event.getMessage().getContentRaw().contains("PippenFTS#3088") && event.getChannel().equals(pippenSubmissionChannel)) {
+			
+			if (event.getMessage().getContentRaw().contains("PippenFTS#3088")) {
 				pippenPoints++;
 				
 				pippenTrackerChannel.sendMessage(pippenPoints + "").queue();
