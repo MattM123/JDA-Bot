@@ -236,7 +236,7 @@ public class NonAPICommands extends ListenerAdapter {
 					String[] messageLines = content.split("\n");
 					for (int i = 0; i < messageLines.length; i++) {
 						if (messageLines[i].contains(authorTag.substring(0, authorTag.length() - 5))) {
-							message.editMessage(content.replace(messageLines[i], authorTag.substring(0, authorTag.length() - 5) + " : " + buildCount++)).queue();
+							message.editMessage(content.replace(messageLines[i], authorTag.substring(0, authorTag.length() - 5) + " : " + (buildCount + 1))).queue();
 							break;				
 						}
 						}
