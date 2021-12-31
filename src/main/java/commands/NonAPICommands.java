@@ -232,30 +232,22 @@ public class NonAPICommands extends ListenerAdapter {
 						}
 										
 						//Incrementing build count and editing the count						
-								String[] messageLines = content.split("\n");
-								for (int i = 0; i < messageLines.length; i++) {
-									event.getChannel().sendMessage(messageLines[i]).queue();
-									if (messageLines[i].contains(authorTag)) {
-										
-									}
-								}
-								/*
-								event.getChannel().sendMessage(content.substring(i, i + 1)).queue();
-								if (content.substring(i, i + authorTag.length() - 5).equals(authorTag.substring(0, authorTag.length() - 5))) {
-																
-									message.editMessage(content.replace(content.substring((i + authorTag.length() - 2), (i + authorTag.length() - 2) + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
-									break;
-								}
-								*/	
-						
-					}
-					//if no count exists for user
-					if (!content.contains(authorTag.substring(0, authorTag.length() - 5) + " : ")) {
-						String f = content;		
-						message.editMessage(f += "\n" + authorTag.substring(0, authorTag.length() - 5) + " : 1").queue();
-			
-					}
+					String[] messageLines = content.split("\n");
+					for (int i = 0; i < messageLines.length; i++) {
+						event.getChannel().sendMessage(messageLines[i]).queue();
+						if (messageLines[i].contains(authorTag.substring(0, authorTag.length() - 5))) {
+							message.editMessage(content.replace(messageLines[i], authorTag.substring(0, authorTag.length() - 5) + " : " + Integer.parseInt(counter) + 1)).queue();
+							break;				
+						}
+						}
+					}	
 				}
+				//if no count exists for user
+				if (!content.contains(authorTag.substring(0, authorTag.length() - 5) + " : ")) {
+					String f = content;		
+					message.editMessage(f += "\n" + authorTag.substring(0, authorTag.length() - 5) + " : 1").queue();
+			
+				}				
 			});
 			counter = "";
 		}
