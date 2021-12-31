@@ -1,9 +1,6 @@
 package commands;
 
 import java.awt.Color;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -13,9 +10,6 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.Event;
-import net.dv8tion.jda.api.events.ReadyEvent;
-import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
@@ -241,11 +235,11 @@ public class NonAPICommands extends ListenerAdapter {
 						
 						//Incrementing build count and editing the count
 					//	for (int i = content.indexOf(authorTag.substring(0, authorTag.length() - 5)); i < (authorTag.substring(0, authorTag.length() - 2)).length() + counter.length() - i; i++) {
-								Stream<String> messageLines = content.lines();
+
 								
-								for (int i = 0; i < messageLines.count(); i++) {
-									while (messageLines.iterator().hasNext()) {
-										event.getChannel().sendMessage(messageLines.iterator().next()).queue();
+								for (int i = 0; i < content.lines().count(); i++) {
+									while (content.lines().iterator().hasNext()) {
+										event.getChannel().sendMessage(content.lines().iterator().next()).queue();
 									}
 								/*
 								event.getChannel().sendMessage(content.substring(i, i + 1)).queue();
