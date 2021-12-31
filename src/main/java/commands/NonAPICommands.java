@@ -181,25 +181,24 @@ public class NonAPICommands extends ListenerAdapter {
 					break;
 				}	
 			}
+		}
+		//Pings Discord API
+		TextChannel pippenSubmissionChannel = guild.getTextChannelById(926285739627532309L);
+		TextChannel pippenTrackerChannel = guild.getTextChannelById(926290849011228753L);
+		
+		event.getChannel().sendMessage(event.getChannel().getId()).queue();
+		event.getChannel().sendMessage(event.getMessageId()).queue();
+		
+		if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && event.getMessage().getContentRaw().contains("PippenFTS#3088")) {
+			pippenPoints++;
 			
-			//Pings Discord API
-			TextChannel pippenSubmissionChannel = guild.getTextChannelById(926285739627532309L);
-			TextChannel pippenTrackerChannel = guild.getTextChannelById(926290849011228753L);
+			pippenTrackerChannel.sendMessage(pippenPoints + "").queue();
 			
-			event.getChannel().sendMessage(event.getChannel().getId()).queue();
-			event.getChannel().sendMessage(event.getMessageId()).queue();
+		//	pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
+		//			message.editMessage("You need more then " + pippenPoints + " completed buildings to beat Pippen!").queue();
+		//	});
 			
-			if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && event.getMessage().getContentRaw().contains("PippenFTS#3088")) {
-				pippenPoints++;
-				
-				pippenTrackerChannel.sendMessage(pippenPoints + "").queue();
-				
-			//	pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
-			//			message.editMessage("You need more then " + pippenPoints + " completed buildings to beat Pippen!").queue();
-			//	});
-				
-				pippenTrackerChannel.sendMessage(pippenPoints + "").queue();
-			}
+			pippenTrackerChannel.sendMessage(pippenPoints + "").queue();
 		}
 	}
 /*	
