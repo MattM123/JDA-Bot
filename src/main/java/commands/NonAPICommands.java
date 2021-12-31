@@ -207,7 +207,7 @@ public class NonAPICommands extends ListenerAdapter {
 				String content = message.getContentRaw();
 				String authorTag = event.getAuthor().getAsTag();
 					
-				if (content.length() < 1990) {
+				if (content.length() < 1980) {
 					//If a users build count is already in the message   
 					if (content.contains(authorTag.substring(0, authorTag.length() - 5) + " : ")) {
 						//Retrieving the users current build count, storing it, and incrementing it			
@@ -230,17 +230,15 @@ public class NonAPICommands extends ListenerAdapter {
 								}
 							}
 						}
-						event.getChannel().sendMessage("Start: " + content.indexOf(authorTag.substring(0, authorTag.length() - 5)) + " End: " + authorTag.substring(0, authorTag.length() - 2).length() + counter.length()).queue();
-					
-						
-						//Incrementing build count and editing the count
-					//	for (int i = content.indexOf(authorTag.substring(0, authorTag.length() - 5)); i < (authorTag.substring(0, authorTag.length() - 2)).length() + counter.length() - i; i++) {
-
-								
-								for (int i = 0; i < content.lines().count(); i++) {
-									while (content.lines().iterator().hasNext()) {
-										event.getChannel().sendMessage(content.lines().iterator().next()).queue();
+										
+						//Incrementing build count and editing the count						
+								String[] messageLines = content.split("\n");
+								for (int i = 0; i < messageLines.length; i++) {
+									event.getChannel().sendMessage(messageLines[i]).queue();
+									if (messageLines[i].contains(authorTag)) {
+										
 									}
+								}
 								/*
 								event.getChannel().sendMessage(content.substring(i, i + 1)).queue();
 								if (content.substring(i, i + authorTag.length() - 5).equals(authorTag.substring(0, authorTag.length() - 5))) {
@@ -249,7 +247,7 @@ public class NonAPICommands extends ListenerAdapter {
 									break;
 								}
 								*/	
-						}
+						
 					}
 					//if no count exists for user
 					if (!content.contains(authorTag.substring(0, authorTag.length() - 5) + " : ")) {
