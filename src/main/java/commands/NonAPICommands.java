@@ -241,18 +241,11 @@ public class NonAPICommands extends ListenerAdapter {
 						message.editMessage(f += event.getAuthor().getAsTag() + " : 1\n").queue();
 				}
 			});
-			
-				try {
+
+				//Incrementing build count and editing the count to reflect the incremented value
+				trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
 					incrementMe = Integer.parseInt(counter);
 					incrementMe++;
-				}
-				catch (NumberFormatException e) {
-					
-				}
-
-				//Editing the count to reflect the incremented value
-				trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
-	
 					for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
 						if (message.getContentRaw().charAt(i) == ':') {
 							event.getChannel().sendMessage("len: " + counter.length() + "").queue();
