@@ -203,21 +203,23 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel buildSubmissionChannel = guild.getTextChannelById(926285692542283846L);
 		TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
 
-		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
+		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(authorTag)))) {
 			
 			trackerChannel.retrieveMessageById(926526766334476329L).queue((message) -> {
+					String content = message.getContentRaw();
+					String authorTag = event.getAuthor().getAsTag();
 					
-				if (message.getContentRaw().length() < 1990) {
+				if (content.length() < 1990) {
 					//If a users build count is already in the message   
-					if (message.getContentRaw().contains(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : ")) {
+					if (content.contains(authorTag.substring(0, authorTag.length() - 5) + " : ")) {
 						//Retrieving the users current build count, storing it, and incrementing it			
-						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : "); i < message.getContentRaw().length(); i++) {
-							if (message.getContentRaw().charAt(i) == ':') {
+						for (int i = content.indexOf(authorTag.substring(0, authorTag.length() - 5) + " : "); i < content.length(); i++) {
+							if (content.charAt(i) == ':') {
 								boolean breakMeDaddy = false;
 								
-								for (int j = i + 2; j < message.getContentRaw().length(); j++) {
+								for (int j = i + 2; j < content.length(); j++) {
 									try {
-										int s = Integer.parseInt(message.getContentRaw().substring(j, j + 1));							
+										int s = Integer.parseInt(content.substring(j, j + 1));							
 										counter += String.valueOf(s);
 									}
 									catch (NumberFormatException e) {
@@ -232,24 +234,19 @@ public class NonAPICommands extends ListenerAdapter {
 						}
 						
 						//Incrementing build count and editing the count
-						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : "); i < message.getContentRaw().length(); i++) {
-							event.getChannel().sendMessage("break2").queue();
-							
-
+						for (int i = content.indexOf(authorTag.substring(0, authorTag.length() - 5)); i < content.length(); i++) {							
+							if (content.substring(i, authorTag.length() - 6).equals(authorTag.substring(0, authorTag.length() - 5))) {
 								
-							if (message.getContentRaw().substring(i, i + event.getAuthor().getAsTag().length() - 6).equals(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5))
-									&& message.getContentRaw().charAt(i) == ':') {
-								
-								event.getChannel().sendMessage(message.getContentRaw().substring(i, i + event.getAuthor().getAsTag().length() - 6)).queue();
-								message.editMessage(message.getContentRaw().replace(message.getContentRaw().substring(i + 2, i + 2 + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
+								event.getChannel().sendMessage(content.substring(i, i + authorTag.length() - 6)).queue();
+								message.editMessage(content.replace(content.substring(i + 2, i + 2 + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
 								break;
 							}
 						}
 					}
 					//if no count exists for user
-					if (!message.getContentRaw().contains(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : ")) {
-						String f = message.getContentRaw();		
-						message.editMessage(f += "\n" + event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : 1").queue();
+					if (!content.contains(authorTag.substring(0, authorTag.length() - 5) + " : ")) {
+						String f = content;		
+						message.editMessage(f += "\n" + authorTag.substring(0, authorTag.length() - 5) + " : 1").queue();
 			
 					}
 				}
