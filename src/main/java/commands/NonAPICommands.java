@@ -209,7 +209,7 @@ public class NonAPICommands extends ListenerAdapter {
 			pippenPoints++;
 			
 			if (!trackerChannel.hasLatestMessage()) {
-				trackerChannel.sendMessage(" ").queue();
+				trackerChannel.sendMessage("BuildTracker 1.0").queue();
 			}
 			
 			trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
@@ -234,7 +234,11 @@ public class NonAPICommands extends ListenerAdapter {
 				}
 				else {
 					String f = message.getContentRaw();
-					message.editMessage(f += event.getAuthor().getAsTag() + " : 1\n").queue();
+					if (f.equals("BuildTracker 1.0"))
+						message.editMessage(event.getAuthor().getAsTag() + " : 1\n").queue();
+					
+					else
+						message.editMessage(f += event.getAuthor().getAsTag() + " : 1\n").queue();
 				}
 			});
 			
