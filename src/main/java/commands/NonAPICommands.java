@@ -220,7 +220,7 @@ public class NonAPICommands extends ListenerAdapter {
 					//Retrieving the users current build count, storing it, and incrementing it			
 					for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
 						if (message.getContentRaw().charAt(i) == ':') {
-							for (int j = i; j < message.getContentRaw().length(); j++) {
+							for (int j = i + 1; j < message.getContentRaw().length(); j++) {
 								try {
 									event.getChannel().sendMessage(message.getContentRaw().charAt(j) + "").queue();
 									int s = Integer.parseInt(message.getContentRaw().substring(j, j));
