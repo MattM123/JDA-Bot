@@ -212,64 +212,48 @@ public class NonAPICommands extends ListenerAdapter {
 			
 			trackerChannel.retrieveMessageById(926508672807493633L).queue((message) -> {
 					
-				//If a users build count is already in the message   
-				if (message.getContentRaw().contains(event.getAuthor().getAsTag() + " : ")) {
-	
-					//Retrieving the users current build count, storing it, and incrementing it			
-					for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
-						if (message.getContentRaw().charAt(i) == ':') {
-							for (int j = i + 2; j < message.getContentRaw().length(); j++) {
-								try {
-									int s = Integer.parseInt(message.getContentRaw().substring(j, j + 1));							
-									counter += String.valueOf(s);
-								}
-								catch (NumberFormatException e) {
-									break;
+				if (message.getContentRaw().length() < 1990) {
+					//If a users build count is already in the message   
+					if (message.getContentRaw().contains(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 4) + " : ")) {
+		
+						//Retrieving the users current build count, storing it, and incrementing it			
+						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
+							if (message.getContentRaw().charAt(i) == ':') {
+								for (int j = i + 2; j < message.getContentRaw().length(); j++) {
+									try {
+										int s = Integer.parseInt(message.getContentRaw().substring(j, j + 1));							
+										counter += String.valueOf(s);
+									}
+									catch (NumberFormatException e) {
+										break;
+									}
 								}
 							}
 						}
-					}
-					
-
-					//Incrementing build count and editing the count to reflect the incremented value
-					incrementMe = Integer.parseInt(counter);
-					incrementMe += 1;
-					for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
-						if (message.getContentRaw().charAt(i) == ':') {
-							message.editMessage(message.getContentRaw().replace(message.getContentRaw().substring(i + 2, i + 2 + counter.length()), String.valueOf(incrementMe))).queue();
-							break;
-						}
-					}
+						
 	
-				}
-				else if (!message.getContentRaw().contains(event.getAuthor().getAsTag() + " : ")) {
-					String f = message.getContentRaw();
-					if (f.equals("BuildTracker 1.0"))
-						message.editMessage("\n" + event.getAuthor().getAsTag() + " : 1").queue();
-					
-					else
-						message.editMessage(f += "\n" + event.getAuthor().getAsTag() + " : 1").queue();
+						//Incrementing build count and editing the count to reflect the incremented value
+						incrementMe = Integer.parseInt(counter);
+						incrementMe += 1;
+						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 4) + " : "); i < message.getContentRaw().length(); i++) {
+							if (message.getContentRaw().charAt(i) == ':') {
+								message.editMessage(message.getContentRaw().replace(message.getContentRaw().substring(i + 2, i + 2 + counter.length()), String.valueOf(incrementMe))).queue();
+								break;
+							}
+						}
+		
+					}
+					//if no count exists for user
+					if (!message.getContentRaw().contains(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 4) + " : ")) {
+						String f = message.getContentRaw();
+						if (f.equals("BuildTracker 1.0"))
+							message.editMessage("\n" + event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 4) + " : 1").queue();
+						
+						else
+							message.editMessage(f += "\n" + event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 4) + " : 1").queue();
+					}
 				}
 			});
 		}
 	}
-/*	
-	@Override  
-	public void onReady(ReadyEvent event){
-		Timer timer = new Timer();
-		TextChannel pippenSubmissionChannel = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(926285739627532309L);
-		TextChannel pippenTrackerChannel = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(926290849011228753L);
-		long latestMessageLong = pippenSubmissionChannel.getLatestMessageIdLong();
-		
-		timer.scheduleAtFixedRate(new TimerTask() {
-			@Override
-			public void run() {
-				pippenSubmissionChannel.retrieveMessageById(latestMessageLong).queue((message) -> {
-					 	message.editMessage("You need more then " + pippenPoints + " completed buildings to beat Pippen!" ).queue();
-					    message.editMessage("You need more then " + pippenPoints + " completed buildings to beat Pippen!" ).queue();		    					    
-				});
-			}
-		}, 1000, 1000);
-	}
-	*/
 }
