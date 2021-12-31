@@ -207,6 +207,7 @@ public class NonAPICommands extends ListenerAdapter {
 
 		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
 
+			//trackerChannel.sendMessage("BuildTracker 1.0").queue();
 			if (!trackerChannel.hasLatestMessage()) {
 				trackerChannel.sendMessage("BuildTracker 1.0").queue();
 			}
@@ -251,9 +252,10 @@ public class NonAPICommands extends ListenerAdapter {
 
 				//Editing the count to reflect the incremented value
 				trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
+					event.getChannel().sendMessage(counter).queue();
 					for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
 						if (message.getContentRaw().charAt(i) == ':') {
-							message.getContentRaw().replace(message.getContentRaw().substring(i + 2, counter.length()), String.valueOf(incrementMe));
+							message.getContentRaw().replace(message.getContentRaw().substring(i + 1, counter.length()), String.valueOf(incrementMe));
 						}
 					}
 					
