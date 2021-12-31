@@ -222,9 +222,9 @@ public class NonAPICommands extends ListenerAdapter {
 						if (message.getContentRaw().charAt(i) == ':') {
 							for (int j = i + 2; j < message.getContentRaw().length(); j++) {
 								try {
-									event.getChannel().sendMessage(message.getContentRaw().substring(j, j + 1)).queue();
+
 									int s = Integer.parseInt(message.getContentRaw().substring(j, j + 1));
-									event.getChannel().sendMessage(String.valueOf(s));
+							
 									counter += String.valueOf(s);
 								}
 								catch (NumberFormatException e) {
@@ -257,7 +257,7 @@ public class NonAPICommands extends ListenerAdapter {
 				trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
 					for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
 						if (message.getContentRaw().charAt(i) == ':') {
-							message.getContentRaw().replace(message.getContentRaw().substring(i + 1, counter.length()), String.valueOf(incrementMe));
+							message.getContentRaw().replace(message.getContentRaw().substring(i + 2, counter.length() + 1), String.valueOf(incrementMe));
 						}
 					}
 					
