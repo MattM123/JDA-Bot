@@ -186,7 +186,8 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel pippenSubmissionChannel = guild.getTextChannelById(926285739627532309L);
 		TextChannel pippenTrackerChannel = guild.getTextChannelById(926290849011228753L);
 
-		if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && event.getMessage().getContentRaw().contains("PippenFTS#3088")) {
+		if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && ((event.getMessage().getContentRaw().contains("PippenFTS#3088") || event.getAuthor().getIdLong() == 514185975744823302L)
+				|| (event.getMessage().getContentRaw().contains("PippenFTS#3088") && event.getAuthor().getIdLong() == 514185975744823302L))) {
 			pippenPoints++;
 			//pippenTrackerChannel.sendMessage("PippenTracker 1.0").queue();
 			
