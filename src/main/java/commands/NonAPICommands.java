@@ -241,7 +241,7 @@ public class NonAPICommands extends ListenerAdapter {
 							if (i + (authorTag.length() - 5) < content.length()) {
 								if (content.substring(i, i + authorTag.length() - 5).equals(authorTag.substring(0, authorTag.length() - 5))) {
 																	
-									message.editMessage(content.replace(content.substring((i + authorTag.length() - 5), (i + authorTag.length() - 5) + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
+									message.editMessage(content.replace(content.substring((i + authorTag.length() - 2), (i + authorTag.length() - 2) + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
 									break;
 								}
 							}
