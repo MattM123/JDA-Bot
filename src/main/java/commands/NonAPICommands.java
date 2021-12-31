@@ -215,7 +215,7 @@ public class NonAPICommands extends ListenerAdapter {
 					//If a users build count is already in the message   
 					if (message.getContentRaw().contains(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : ")) {
 						//Retrieving the users current build count, storing it, and incrementing it			
-						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag() + " : "); i < message.getContentRaw().length(); i++) {
+						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag().length() - 5 + " : "); i < message.getContentRaw().length(); i++) {
 							if (message.getContentRaw().charAt(i) == ':') {
 								for (int j = i + 2; j < message.getContentRaw().length(); j++) {
 									try {
@@ -234,7 +234,7 @@ public class NonAPICommands extends ListenerAdapter {
 						for (int i = message.getContentRaw().indexOf(event.getAuthor().getAsTag().substring(0, event.getAuthor().getAsTag().length() - 5) + " : "); i < message.getContentRaw().length(); i++) {
 							if (message.getContentRaw().charAt(i) == ':') {
 								event.getChannel().sendMessage(String.valueOf(Integer.parseInt(counter))).queue();
-								event.getChannel().sendMessage(String.valueOf(Integer.parseInt(counter) + 1)).queue();
+								event.getChannel().sendMessage(String.valueOf(Integer.parseInt(counter))).queue();
 								message.editMessage(message.getContentRaw().replace(message.getContentRaw().substring(i + 2, i + 2 + counter.length()), String.valueOf(Integer.parseInt(counter) + 1))).queue();
 							}
 						}
