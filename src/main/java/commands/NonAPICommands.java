@@ -189,7 +189,7 @@ public class NonAPICommands extends ListenerAdapter {
 	//	if (event.getMessage().getContentRaw().equals("PippenTracker 1.0") && event.getChannel().equals(pippenTrackerChannel))
 			if (event.getMessage().getContentRaw().contains("PippenFTS#3088") && event.getChannel().equals(pippenSubmissionChannel)) {
 			
-				RestAction<Message> action = pippenSubmissionChannel.sendMessage("You need more then " + pippenPoints + " buildings to beat Pippen!");
+				RestAction<Message> action = pippenTrackerChannel.sendMessage("You need more then " + pippenPoints + " buildings to beat Pippen!");
 				Consumer<Message> callback = (message) ->  {
 					Message m = message;
 					m.editMessage("You need more then " + pippenPoints++ + " buildings to beat Pippen!");
