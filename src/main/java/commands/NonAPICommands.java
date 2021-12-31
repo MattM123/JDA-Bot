@@ -181,29 +181,36 @@ public class NonAPICommands extends ListenerAdapter {
 					break;
 				}	
 			}
+			
+			//Pings Discord API
+			TextChannel pippenSubmissionChannel = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(926285739627532309L);
+			TextChannel pippenTrackerChannel = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(926290849011228753L);
+			if (event.getMessage().getContentRaw().contains("PippenFTS#3088") && event.getChannel().equals(pippenSubmissionChannel)) {
+				pippenPoints++;
+				
+				pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
+						message.editMessage("You need more then " + pippenPoints + " completed buildings to beat Pippen!").queue();
+				});
+			}
 		}
 	}
-	
+/*	
 	@Override
 	public void onReady(ReadyEvent event){
 		Timer timer = new Timer();
 		TextChannel pippenSubmissionChannel = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(926285739627532309L);
 		TextChannel pippenTrackerChannel = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(926290849011228753L);
+		long latestMessageLong = pippenSubmissionChannel.getLatestMessageIdLong();
 		
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				if (pippenSubmissionChannel.getLatestMessageId().contains("PippenFTS#3088")) {
-					RestAction<Message> action = pippenTrackerChannel.sendMessage("You need more then " + pippenPoints + " buildings to beat Pippen!");
-					Consumer<Message> callback = (message) ->  {
-						Message m = message;
-						m.editMessage("You need more then " + pippenPoints++ + " buildings to beat Pippen!");
-					};
-				      
-				action.queue(callback);      			
-				}
+				pippenSubmissionChannel.retrieveMessageById(latestMessageLong).queue((message) -> {
+					 	message.editMessage("You need more then " + pippenPoints + " completed buildings to beat Pippen!" ).queue();
+					    message.editMessage("You need more then " + pippenPoints + " completed buildings to beat Pippen!" ).queue();		    					    
+				});
 			}
-		}, 0, 10000);
+		}, 1000, 1000);
 	}
-	
+	*/
 }
