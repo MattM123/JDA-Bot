@@ -189,10 +189,14 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		if (event.getMessage().getContentRaw().contains("PippenFTS#3088") && event.getChannel().equals(pippenSubmissionChannel)) {
 			pippenPoints++;
-			EmbedBuilder emb = new EmbedBuilder();
-			emb.setColor(Color.blue);
-			emb.setTitle("You need more then " + pippenPoints + " buildings to beat Pippen!");
-			pippenTrackerChannel.sendMessage(emb.build()).queue();
+			
+			RestAction<Message> action = pippenTrackerChannel.sendMessage("You need more then " + pippenPoints + " buildings to beat Pippen!");
+			Consumer<Message> callback = (message) ->  {
+				Message m = message;
+				m.editMessage("You need more then " + pippenPoints++ + " buildings to beat Pippen!");
+			};
+			      
+			action.queue(callback);      
 		}
 	}
 }
