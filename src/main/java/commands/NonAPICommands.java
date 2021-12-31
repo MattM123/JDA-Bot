@@ -232,11 +232,20 @@ public class NonAPICommands extends ListenerAdapter {
 							}
 						}
 					}
-				}	
+				}
+				else {
+					String f = message.getContentRaw();
+					message.editMessage(f += event.getAuthor().getAsTag() + " : 1\n");
+				}
 			});
 			
-				incrementMe = Integer.parseInt(counter);
-				incrementMe++;
+				try {
+					incrementMe = Integer.parseInt(counter);
+					incrementMe++;
+				}
+				catch (NumberFormatException e) {
+					
+				}
 
 				//Editing the count to reflect the incremented value
 				trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
