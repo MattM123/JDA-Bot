@@ -183,10 +183,12 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 			
 			//Pings Discord API
-			TextChannel pippenSubmissionChannel = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(926285739627532309L);
-			TextChannel pippenTrackerChannel = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(926290849011228753L);
+			TextChannel pippenSubmissionChannel = guild.getTextChannelById(926285739627532309L);
+			TextChannel pippenTrackerChannel = guild.getTextChannelById(926290849011228753L);
 			if (event.getMessage().getContentRaw().contains("PippenFTS#3088") && event.getChannel().equals(pippenSubmissionChannel)) {
 				pippenPoints++;
+				
+				pippenTrackerChannel.sendMessage(pippenPoints + "").queue();
 				
 				pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
 						message.editMessage("You need more then " + pippenPoints + " completed buildings to beat Pippen!").queue();
