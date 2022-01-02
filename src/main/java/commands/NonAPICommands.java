@@ -16,7 +16,7 @@ import net.dv8tion.jda.api.requests.RestAction;
 
 public class NonAPICommands extends ListenerAdapter {
 	
-	private int pippenPoints = 0;
+	private String pippenPoints = "";
 	private String counter = "";
 	
 	@Override
@@ -179,29 +179,33 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 		}
 		
-		if (event.getMessage().getContentRaw().equals("=test")) {
-			TextChannel trackChannel = guild.getTextChannelById(926460270782586921L);
-			trackChannel.retrieveMessageById(trackChannel.getLatestMessageIdLong()).queue((message) -> {
-				
-				String content = message.getContentRaw();
-			
-				message.editMessage(content += "\n" + "WindyRunner17" + " : 1").queue();
-			});
-		}
-		
-			
-			
-		
 		
 		//Pippen Tracker
 		TextChannel pippenSubmissionChannel = guild.getTextChannelById(926285739627532309L);
 		TextChannel pippenTrackerChannel = guild.getTextChannelById(926290849011228753L);
+		
+		if (event.getMessage().getContentRaw().equals("=test")) {
+			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {					
+				message.editMessage("**__You need more then " + 15 + " completed buildings to beat Pippen!__**").queue();
+			});
+		}
+		
+			
 
 		if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && (event.getMessage().getContentRaw().contains("PippenFTS#3088"))) {
-			pippenPoints++;
+			
 						
 			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
-					pippenTrackerChannel.editMessageById(pippenTrackerChannel.getLatestMessageIdLong(),"**__You need more then " + pippenPoints + " completed buildings to beat Pippen!__**").queue();
+				for (int i = 0; i < message.getContentRaw().length(); i++) {
+					try {
+						int s = Integer.parseInt("" + i);							
+						pippenPoints += String.valueOf(s);
+					}
+					catch (NumberFormatException e) {
+						break;
+					}
+				}
+					pippenTrackerChannel.editMessageById(pippenTrackerChannel.getLatestMessageIdLong(),"**__You need more then " + (Integer.parseInt(pippenPoints) + 1) + " completed buildings to beat Pippen!__**").queue();
 			});
 		}
 		
