@@ -197,16 +197,15 @@ public class NonAPICommands extends ListenerAdapter {
 						
 			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
 				for (int i = 0; i < message.getContentRaw().length(); i++) {
-					if (message.getContentRaw().charAt(i) != '3' && message.getContentRaw().charAt(i + 1) != '0' && message.getContentRaw().charAt(i + 2) != '8' && message.getContentRaw().charAt(i) != '8') {									
-						try {
-							int s = Integer.parseInt("" + i);	
-							pippenPoints += String.valueOf(s);
+					try {
+						int s = Integer.parseInt("" + i);	
+						pippenPoints += String.valueOf(s);
 	
-						}
-						catch (NumberFormatException e) {
-							break;
-						}
 					}
+					catch (NumberFormatException e) {
+						break;
+						}
+					
 				}
 					pippenTrackerChannel.editMessageById(pippenTrackerChannel.getLatestMessageIdLong(),"**__You need more then " + (Integer.parseInt(pippenPoints) + 1) + " completed buildings to beat Pippen!__**").queue();
 			});
