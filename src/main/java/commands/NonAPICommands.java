@@ -183,11 +183,9 @@ public class NonAPICommands extends ListenerAdapter {
 			TextChannel trackChannel = guild.getTextChannelById(926460270782586921L);
 			trackChannel.retrieveMessageById(trackChannel.getLatestMessageIdLong()).queue((message) -> {
 				
-
 				String content = message.getContentRaw();
-				String authorTag = event.getAuthor().getAsTag();
 			
-				message.editMessage(content += "\n" + "Jimmy Neutron" + " : 1").queue();
+				message.editMessage(content += "\n" + "WindyRunner17" + " : 1").queue();
 			});
 		}
 		
