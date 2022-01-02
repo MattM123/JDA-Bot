@@ -179,8 +179,21 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 		}
 		
-		if (event.getMessage().getContentRaw().equals("=test"))
-			event.getChannel().sendMessage("**__BuildTracker 1.0__**").queue();
+		if (event.getMessage().getContentRaw().equals("=test")) {
+			TextChannel trackChannel = guild.getTextChannelById(926460270782586921L);
+			trackChannel.retrieveMessageById(trackChannel.getLatestMessageIdLong()).queue((message) -> {
+				
+
+				String content = message.getContentRaw();
+				String authorTag = event.getAuthor().getAsTag();
+			
+				message.editMessage(content += "\n" + "Jimmy Neutron" + " : 1").queue();
+			});
+		}
+		
+			
+			
+		
 		
 		//Pippen Tracker
 		TextChannel pippenSubmissionChannel = guild.getTextChannelById(926285739627532309L);
@@ -239,10 +252,10 @@ public class NonAPICommands extends ListenerAdapter {
 						}
 					}	
 				}
+
 				//if no count exists for user
-				if (!content.contains(authorTag.substring(0, authorTag.length() - 5) + " : ")) {
-					String f = content;		
-					message.editMessage(f += "\n" + authorTag.substring(0, authorTag.length() - 5) + " : 1").queue();
+				if (!content.contains(authorTag.substring(0, authorTag.length() - 5) + " : ")) {	
+					message.editMessage(content += "\n" + authorTag.substring(0, authorTag.length() - 5) + " : 1").queue();
 			
 				}				
 			});
