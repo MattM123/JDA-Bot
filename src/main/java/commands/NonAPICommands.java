@@ -207,6 +207,7 @@ public class NonAPICommands extends ListenerAdapter {
 				}
 					pippenTrackerChannel.editMessageById(pippenTrackerChannel.getLatestMessageIdLong(),"**__You need more then " + (Integer.parseInt(pippenPoints) + 1) + " completed buildings to beat Pippen!__**").queue();
 			});
+			pippenPoints = "";
 		}
 		
 		//BuildCount Tracker
