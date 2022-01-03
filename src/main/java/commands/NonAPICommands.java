@@ -184,9 +184,20 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel pippenSubmissionChannel = guild.getTextChannelById(926285739627532309L);
 		TextChannel pippenTrackerChannel = guild.getTextChannelById(926290849011228753L);
 		
+		TextChannel buildSubmissionChannel = guild.getTextChannelById(926285692542283846L);
+		TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
+		
 		if (event.getMessage().getContentRaw().equals("=test")) {
 			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {					
-				message.editMessage("**__You need more then " + 15 + " completed buildings to beat Pippen!__**").queue();
+				message.editMessage("**__You need more then " + 17 + " completed buildings to beat Pippen!__**").queue();
+			});
+			
+			trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {					
+				message.editMessage("**__BuildTracker 1.0__**"
+						+ "\n" + "Jimmy Neutron : 6"
+						+ "\n" + "WindyRunner17 : 5"
+						+ "\n" + "sfizzle1 : 4"
+						+ "\n" + "umwhat : 7").queue();
 			});
 		}
 		
@@ -205,17 +216,14 @@ public class NonAPICommands extends ListenerAdapter {
 					catch (NumberFormatException e) {
 						break;
 						}
-					
 				}
 					pippenTrackerChannel.editMessageById(pippenTrackerChannel.getLatestMessageIdLong(),"**__You need more then " + (Integer.parseInt(pippenPoints) + 1) + " completed buildings to beat Pippen!__**").queue();
+					pippenPoints = "";
 			});
-			pippenPoints = "";
+
 		}
 		
 		//BuildCount Tracker
-		TextChannel buildSubmissionChannel = guild.getTextChannelById(926285692542283846L);
-		TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
-
 		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
 			
 			trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
