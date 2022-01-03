@@ -202,12 +202,12 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 			
-
+		//Pippen Tracker
 		if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && (event.getMessage().getContentRaw().contains("PippenFTS#3088"))) {
 			
 						
 			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
-				for (int i = 0; i < message.getContentRaw().length(); i++) {
+				for (int i = 24; i < message.getContentRaw().length(); i++) {
 					try {
 						int s = Integer.parseInt("" + i);	
 						pippenPoints += String.valueOf(s);
@@ -215,7 +215,7 @@ public class NonAPICommands extends ListenerAdapter {
 					}
 					catch (NumberFormatException e) {
 						break;
-						}
+					}
 				}
 					pippenTrackerChannel.editMessageById(pippenTrackerChannel.getLatestMessageIdLong(),"**__You need more then " + (Integer.parseInt(pippenPoints) + 1) + " completed buildings to beat Pippen!__**").queue();
 					pippenPoints = "";
