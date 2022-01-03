@@ -188,26 +188,10 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
 		
 		if (event.getMessage().getContentRaw().equals("=test")) {
-		//	pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {					
-		//		message.editMessage("**__You need more than " + 17 + " completed buildings to beat Pippen!__**").queue();
-		//	});
-			
-			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
-				for (int i = 23; i < message.getContentRaw().length(); i++) {
-					try {
-						int s = Integer.parseInt("" + message.getContentRaw().charAt(i));	
-						pippenPoints += String.valueOf(s);
-	
-					}
-					catch (NumberFormatException e) {
-						break;
-					}
-				}
-					event.getChannel().sendMessage(pippenPoints).queue();
+			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {					
+				message.editMessage("**__You need more than " + 20 + " completed buildings to beat Pippen!__**").queue();
 			});
-			pippenPoints = "";
 
-		
 		}
 		
 			
@@ -215,7 +199,7 @@ public class NonAPICommands extends ListenerAdapter {
 		if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && (event.getMessage().getContentRaw().contains("PippenFTS#3088"))) {			
 						
 			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
-				for (int i = 24; i < message.getContentRaw().length(); i++) {
+				for (int i = 23; i < message.getContentRaw().length(); i++) {
 					try {
 						int s = Integer.parseInt("" + message.getContentRaw().charAt(i));	
 						pippenPoints += String.valueOf(s);
