@@ -217,7 +217,7 @@ public class NonAPICommands extends ListenerAdapter {
 			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
 				for (int i = 24; i < message.getContentRaw().length(); i++) {
 					try {
-						int s = Integer.parseInt("" + i);	
+						int s = Integer.parseInt("" + message.getContentRaw().charAt(i));	
 						pippenPoints += String.valueOf(s);
 	
 					}
