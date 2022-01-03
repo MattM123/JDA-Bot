@@ -188,23 +188,31 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
 		
 		if (event.getMessage().getContentRaw().equals("=test")) {
-			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {					
-				message.editMessage("**__You need more than " + 17 + " completed buildings to beat Pippen!__**").queue();
-			});
+		//	pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {					
+		//		message.editMessage("**__You need more than " + 17 + " completed buildings to beat Pippen!__**").queue();
+		//	});
 			
-			trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {					
-				message.editMessage("**__BuildTracker 1.0__**"
-						+ "\n" + "Jimmy Neutron : 6"
-						+ "\n" + "WindyRunner17 : 5"
-						+ "\n" + "sfizzle1 : 4"
-						+ "\n" + "umwhat : 7").queue();
+			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
+				for (int i = 24; i < message.getContentRaw().length(); i++) {
+					try {
+						int s = Integer.parseInt("" + i);	
+						pippenPoints += String.valueOf(s);
+	
+					}
+					catch (NumberFormatException e) {
+						break;
+					}
+				}
+					event.getChannel().sendMessage(pippenPoints).queue();
 			});
+			pippenPoints = "";
+
+		
 		}
 		
 			
 		//Pippen Tracker
-		if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && (event.getMessage().getContentRaw().contains("PippenFTS#3088"))) {
-			
+		if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && (event.getMessage().getContentRaw().contains("PippenFTS#3088"))) {			
 						
 			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
 				for (int i = 24; i < message.getContentRaw().length(); i++) {
@@ -218,8 +226,8 @@ public class NonAPICommands extends ListenerAdapter {
 					}
 				}
 					pippenTrackerChannel.editMessageById(pippenTrackerChannel.getLatestMessageIdLong(),"**__You need more then " + (Integer.parseInt(pippenPoints) + 1) + " completed buildings to beat Pippen!__**").queue();
-					pippenPoints = "";
 			});
+			pippenPoints = "";
 
 		}
 		
@@ -274,5 +282,23 @@ public class NonAPICommands extends ListenerAdapter {
 			});
 			counter = "";
 		}
+		/*
+		//BuildTracker 2.0
+		TextChannel showcase = guild.getTextChannelById(896391312742432778L);
+		
+		if (event.getMessage().getChannel().equals(showcase)) {
+			trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
+				//If message has at least 1 screenshot
+				if (message.getAttachments().size() >= 1) {
+					//If message is not empty, parse the message and look for integers
+					if (!message.getContentRaw().isEmpty()) {
+						for (int i = 0; i < message.getContentRaw().length(); i++) {
+							
+						}
+					}
+				}
+			});
+		}
+		*/	
 	}
 }
