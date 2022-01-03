@@ -188,10 +188,17 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
 		
 		if (event.getMessage().getContentRaw().equals("=test")) {
-			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {					
-				message.editMessage("**__You need more than " + 21 + " completed buildings to beat Pippen!__**").queue();
+			trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
+				
+				message.editMessage("**__BuildTracker 1.0__**"
+						+ "\nJimmy Neutron : 6"
+						+ "\nWindyRunner17 : 7"
+						+ "\nsfizzle1 : 5"
+						+ "\numwhat : 10"
+						+ "\nJDERG : 6"
+						+ "\nmattress : 1"
+						+ "\nDe leted : 1").queue();
 			});
-
 		}
 		
 			
