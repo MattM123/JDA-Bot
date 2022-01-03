@@ -189,7 +189,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		if (event.getMessage().getContentRaw().equals("=test")) {
 			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {					
-				message.editMessage("**__You need more than " + 20 + " completed buildings to beat Pippen!__**").queue();
+				message.editMessage("**__You need more than " + 21 + " completed buildings to beat Pippen!__**").queue();
 			});
 
 		}
