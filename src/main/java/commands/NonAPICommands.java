@@ -299,7 +299,7 @@ public class NonAPICommands extends ListenerAdapter {
 		//If reaction was used in submission channel
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
 			event.getChannel().sendMessage("test").queue();
-			if (event.getReactionEmote().getEmoji().equals("\\u2705")) {
+			if (event.getReactionEmote().getEmoji().equals("✅")) {
 				event.getChannel().sendMessage("test").queue(); 
 			}	
 		}
