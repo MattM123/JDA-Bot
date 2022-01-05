@@ -195,10 +195,15 @@ public class NonAPICommands extends ListenerAdapter {
 						+ "\nWindyRunner17 : 19"
 						+ "\nsfizzle1 : 5"
 						+ "\numwhat : 14"
-						+ "\nJDERG : 24"
+						+ "\nJDERG : 25"
 						+ "\nmattress : 3"
 						+ "\nDe leted : 3"
-						+ "\nWalk-Stab-Walk : 1").queue();
+						+ "\nWalk-Stab-Walk : 1"
+						+ "\nyikhhj : 1").queue();
+			});
+			
+			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
+				message.editMessage("**__You need more than 22 completed buildings to beat Pippen!__**").queue();
 			});
 		}
 		
