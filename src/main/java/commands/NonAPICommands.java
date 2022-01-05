@@ -290,15 +290,9 @@ public class NonAPICommands extends ListenerAdapter {
 	@Override
 	public void onMessageReactionAdd(MessageReactionAddEvent event) {
 		Guild guild = event.getGuild();
-		try {
-			List<String> content = Files.readAllLines(Paths.get("//JDABot//src//main//java//resources//BuildCountData"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			event.getChannel().sendMessage(e.getStackTrace().toString().substring(0, 1500)).queue();
-		}
 	
 		//BuildTracker 2.0
-		TextChannel builderSubmissions = guild.getTextChannelById(896391312742432778L);
+		TextChannel builderSubmissions = guild.getTextChannelById(928365525355098112L);
 		
 		//If reaction was used in showcase
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
