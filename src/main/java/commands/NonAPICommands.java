@@ -1,9 +1,15 @@
 package commands;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
@@ -11,6 +17,7 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
 
@@ -22,7 +29,6 @@ public class NonAPICommands extends ListenerAdapter {
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
-
 		Guild guild = event.getGuild();
 		
 		EmbedBuilder helpMenu = new EmbedBuilder();
@@ -279,23 +285,26 @@ public class NonAPICommands extends ListenerAdapter {
 			});
 			counter = "";
 		}
-		/*
-		//BuildTracker 2.0
-		TextChannel showcase = guild.getTextChannelById(896391312742432778L);
-		
-		if (event.getMessage().getChannel().equals(showcase)) {
-			trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
-				//If message has at least 1 screenshot
-				if (message.getAttachments().size() >= 1) {
-					//If message is not empty, parse the message and look for integers
-					if (!message.getContentRaw().isEmpty()) {
-						for (int i = 0; i < message.getContentRaw().length(); i++) {
-							
-						}
-					}
-				}
-			});
+	}
+	
+	@Override
+	public void onMessageReactionAdd(MessageReactionAddEvent event) {
+		Guild guild = event.getGuild();
+		try {
+			List<String> content = Files.readAllLines(Paths.get("//JDABot//src//main//java//resources//BuildCountData"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			event.getChannel().sendMessage(e.getStackTrace().toString().substring(0, 1500)).queue();
 		}
-		*/	
+	
+		//BuildTracker 2.0
+		TextChannel builderSubmissions = guild.getTextChannelById(896391312742432778L);
+		
+		//If reaction was used in showcase
+		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
+			if (event.getReactionEmote().getName().equals(("\\:white_check_mark:"))) {
+				event.getChannel().sendMessage("test").queue();
+			}	
+		}
 	}
 }
