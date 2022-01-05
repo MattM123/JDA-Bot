@@ -191,13 +191,14 @@ public class NonAPICommands extends ListenerAdapter {
 			trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
 				
 				message.editMessage("**__BuildTracker 1.0__**"
-						+ "\nJimmy Neutron : 9"
-						+ "\nWindyRunner17 : 11"
+						+ "\nJimmy Neutron : 10"
+						+ "\nWindyRunner17 : 19"
 						+ "\nsfizzle1 : 5"
-						+ "\numwhat : 12"
-						+ "\nJDERG : 12"
-						+ "\nmattress : 1"
-						+ "\nDe leted : 1").queue();
+						+ "\numwhat : 14"
+						+ "\nJDERG : 24"
+						+ "\nmattress : 3"
+						+ "\nDe leted : 3"
+						+ "\nWalk-Stab-Walk : 1").queue();
 			});
 		}
 		
