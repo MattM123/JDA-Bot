@@ -294,10 +294,10 @@ public class NonAPICommands extends ListenerAdapter {
 		//BuildTracker 2.0
 		TextChannel builderSubmissions = guild.getTextChannelById(928365525355098112L);
 		
-		//If reaction was used in showcase
+		//If reaction was used in submission channel
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
 			event.getChannel().sendMessage("test1").queue();
-			if (event.getReactionEmote().getName().equals(("\\:white_check_mark:"))) {
+			if (event.getReactionEmote().getName().equals((":white_check_mark:"))) {
 				event.getChannel().sendMessage("test").queue();
 			}	
 		}
