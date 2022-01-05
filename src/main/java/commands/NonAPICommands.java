@@ -60,9 +60,9 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		//returns map image of states
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("=map")) {
-			event.getChannel().sendMessage(map.build()).queue();
-		}
+	//	if (event.getMessage().getContentRaw().equalsIgnoreCase("=map")) {
+	//		event.getChannel().sendMessage(map.build()).queue();
+	//	}
 		
 		//Pings Discord API
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=ping")) {
