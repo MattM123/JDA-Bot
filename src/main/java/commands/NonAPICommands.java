@@ -299,7 +299,7 @@ public class NonAPICommands extends ListenerAdapter {
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
 			event.getChannel().sendMessage(ReactionEmote.fromUnicode("\\:white_check_mark:", guild.getJDA()).getAsReactionCode()).queue();
 			event.getChannel().sendMessage(event.getReactionEmote().getAsReactionCode()).queue();
-			if (event.getReactionEmote().getAsReactionCode().equals(ReactionEmote.fromUnicode("\\:white_check_mark:", guild.getJDA()).getAsReactionCode())) {
+			if (event.getReactionEmote().getAsReactionCode().equals(ReactionEmote.fromUnicode(":white_check_mark:", guild.getJDA()).getAsReactionCode())) {
 				event.getChannel().sendMessage("test").queue(); 
 			}	
 		}
