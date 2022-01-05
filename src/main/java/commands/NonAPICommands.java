@@ -296,6 +296,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		//If reaction was used in showcase
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
+			event.getChannel().sendMessage("test1").queue();
 			if (event.getReactionEmote().getName().equals(("\\:white_check_mark:"))) {
 				event.getChannel().sendMessage("test").queue();
 			}	
