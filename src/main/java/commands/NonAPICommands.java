@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Consumer;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Activity.Emoji;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -297,9 +298,9 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		//If reaction was used in submission channel
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
-			event.getChannel().sendMessage(ReactionEmote.fromUnicode("\\:white_check_mark:", guild.getJDA()).getAsReactionCode()).queue();
+			event.getChannel().sendMessage(new Emoji(":white_check_mark:").getName()).queue();
 			event.getChannel().sendMessage(event.getReactionEmote().getEmoji()).queue();
-			if (event.getReactionEmote().getEmoji().equals(ReactionEmote.fromUnicode(":white_check_mark:", guild.getJDA()).getEmoji())) {
+			if (event.getReactionEmote().getEmoji().equals(new Emoji(":white_check_mark:").getName())) {
 				event.getChannel().sendMessage("test").queue(); 
 			}	
 		}
