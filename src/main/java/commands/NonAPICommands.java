@@ -26,7 +26,7 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	private String pippenPoints = "";
 	private String counter = "";
-	private File buildCounts = new File("/JDABot/src/main/java/resources/BuildCountData");
+	private File buildCounts = new File("/app/BuildCountData.txt");
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -305,8 +305,6 @@ public class NonAPICommands extends ListenerAdapter {
 				//if file has a count for the user, increments it by 1, else adds a count for the user starting at 1.
 				//If file cannot be accessed, stores ID in backlog to be merged later. Sends stacktrace to error log
 				try {
-					event.getChannel().sendMessage(new File("BuildCountData.txt").getAbsolutePath()).queue();
-					event.getChannel().sendMessage(String.valueOf(new File("BuildCountData.txt").exists())).queue();
 					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
 					
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
