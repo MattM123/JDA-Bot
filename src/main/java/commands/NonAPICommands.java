@@ -1,12 +1,9 @@
 package commands;
 
 import java.awt.Color;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -15,11 +12,9 @@ import java.util.function.Consumer;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Activity.Emoji;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.MessageReaction.ReactionEmote;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -31,7 +26,7 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	private String pippenPoints = "";
 	private String counter = "";
-	private File buildCounts = new File("//JDABot//src//main//java//resources//BuildCountData");
+	private File buildCounts = new File("//JDABot//src//main//java//resources//BuildCountData.txt");
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
