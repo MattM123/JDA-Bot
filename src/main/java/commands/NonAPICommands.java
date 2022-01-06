@@ -309,7 +309,7 @@ public class NonAPICommands extends ListenerAdapter {
 				//if file has a count for the user, increments it by 1, else adds a count for the user starting at 1.
 				//If file cannot be accessed, stores ID in backlog to be merged later. Sends stacktrace to error log
 				try {
-					event.getChannel().sendMessage(new File("/app/").getAbsolutePath()).queue();
+					event.getChannel().sendMessage(buildCounts.getParent()).queue();
 					event.getChannel().sendMessage("path is: '" + buildCounts.getAbsolutePath() + "'").queue();
 					event.getChannel().sendMessage(String.valueOf(buildCounts.exists())).queue();
 					
