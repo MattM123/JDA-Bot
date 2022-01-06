@@ -311,6 +311,8 @@ public class NonAPICommands extends ListenerAdapter {
 				try {
 					event.getChannel().sendMessage(String.valueOf(buildCounts.exists())).queue();
 					event.getChannel().sendMessage(String.valueOf(buildCounts.isDirectory())).queue();
+					event.getChannel().sendMessage(String.valueOf(new File("BuildCountData.txt").getAbsolutePath())).queue();
+					event.getChannel().sendMessage(String.valueOf(new File("BuildCountData.txt").getPath())).queue();
 					
 					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
 					FileWriter append = new FileWriter(buildCounts, true);
