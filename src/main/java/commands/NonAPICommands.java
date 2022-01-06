@@ -306,7 +306,7 @@ public class NonAPICommands extends ListenerAdapter {
 				//If file cannot be accessed, stores ID in backlog to be merged later. Sends stacktrace to error log
 				try {
 					event.getChannel().sendMessage(new File("BuildCountData.txt").getAbsolutePath()).queue();
-					event.getChannel().sendMessage(new File("BuildCountData.txt").exists()).queue();
+					event.getChannel().sendMessage(String.valueOf(new File("BuildCountData.txt").exists())).queue();
 					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
 					
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
