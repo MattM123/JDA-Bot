@@ -321,8 +321,9 @@ public class NonAPICommands extends ListenerAdapter {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
 						for (int i = 0; i < content.size() - 1; i++) {						
 							String[] line = content.get(i).split(":");
-							
-							if (line[0].equals(message.getAuthor().getId())) {			
+							event.getChannel().sendMessage("break").queue();
+							if (line[0].equals(message.getAuthor().getId())) {	
+								event.getChannel().sendMessage("break1").queue();
 								int count = Integer.parseInt(line[1]);
 								line[1] = String.valueOf(count += 1);
 								
