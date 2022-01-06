@@ -308,6 +308,7 @@ public class NonAPICommands extends ListenerAdapter {
 								event.getChannel().sendMessage("break3").queue();
 								List<String> content1 = Files.readAllLines(Paths.get(buildCounts.getPath()));
 								for (int i = 0; i < content1.size() - 1; i++) {
+									event.getChannel().sendMessage("break5").queue();
 									event.getChannel().sendMessage(content1.get(i)).queue();
 								}
 								event.getChannel().sendMessage("break4").queue();
@@ -321,8 +322,8 @@ public class NonAPICommands extends ListenerAdapter {
 							}							
 						}
 					});
-				//	append.flush();
-				//	overwrite.flush();
+					append.flush();
+					overwrite.flush();
 				} catch (IOException e) {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						backlog.sendMessage(message.getAuthor().getId()).queue();
