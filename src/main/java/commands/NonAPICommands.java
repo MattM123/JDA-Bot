@@ -282,7 +282,6 @@ public class NonAPICommands extends ListenerAdapter {
 								containsUser = true;
 								int count = Integer.parseInt(line[1]);
 								line[1] = String.valueOf(count += 1);
-								event.getChannel().sendMessage("T").queue();
 								String replace = "";
 								for(String str: content) {
 									  replace += (str + "\n");
@@ -305,10 +304,9 @@ public class NonAPICommands extends ListenerAdapter {
 						if (!containsUser) {
 							try {
 								event.getChannel().sendMessage("break2").queue();								
-								append.write("\n" + message.getAuthor().getId() + ":1");
+								append.append("\n" + message.getAuthor().getId() + ":1");
 								append.close();
 								event.getChannel().sendMessage("break3").queue();
-								//List<String> content1 = Files.readAllLines(Paths.get(buildCounts.getPath()));
 								for (int i = 0; i < content.size(); i++) {
 									event.getChannel().sendMessage("break4").queue();
 									event.getChannel().sendMessage(content.get(i)).queue();
