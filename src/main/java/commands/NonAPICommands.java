@@ -310,6 +310,7 @@ public class NonAPICommands extends ListenerAdapter {
 								for (int i = 0; i < content1.size() - 1; i++) {
 									event.getChannel().sendMessage(content1.get(i)).queue();
 								}
+								event.getChannel().sendMessage("break4").queue();
 							} catch (IOException e) {
 								backlog.sendMessage(message.getAuthor().getId()).queue();
 					
