@@ -333,7 +333,10 @@ public class NonAPICommands extends ListenerAdapter {
 									builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message2) -> {
 										backlog.sendMessage(message2.getAuthor().getId()).queue();
 									});				
-									errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
+									if (ExceptionUtils.getStackTrace(e).length() > 1500)
+										errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
+									else
+										errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
 								}
 								
 								event.getChannel().sendMessage(line[1] + line[2]).queue();
@@ -347,7 +350,10 @@ public class NonAPICommands extends ListenerAdapter {
 											builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message2) -> {
 												backlog.sendMessage(message2.getAuthor().getId()).queue();
 											});				
-											errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
+											if (ExceptionUtils.getStackTrace(e).length() > 1500)
+												errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
+											else
+												errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
 										}
 									});
 									append.close();
@@ -357,7 +363,10 @@ public class NonAPICommands extends ListenerAdapter {
 									builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message1) -> {
 										backlog.sendMessage(message1.getAuthor().getId()).queue();
 									});				
-									errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();	
+									if (ExceptionUtils.getStackTrace(e).length() > 1500)
+										errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
+									else
+										errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
 								}
 							}
 						}
@@ -366,7 +375,10 @@ public class NonAPICommands extends ListenerAdapter {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						backlog.sendMessage(message.getAuthor().getId()).queue();
 					});				
-					errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();		
+					if (ExceptionUtils.getStackTrace(e).length() > 1500)
+						errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
+					else
+						errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
 				}
 			}	
 		}
