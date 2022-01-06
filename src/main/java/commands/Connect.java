@@ -28,7 +28,7 @@ public class Connect {
 				}  
 			} catch (SQLException ex) {  
 				status = ex.getMessage();  
-			}  
+			}   
 		} 
 		return status;
 	}  
