@@ -330,7 +330,7 @@ public class NonAPICommands extends ListenerAdapter {
 								for(String str: content) {
 									  replace += (str + "\n");
 								}
-								event.getChannel().sendMessage(line[0] + " " + line[1]).queue();
+								
 								try {
 									overwrite.write(replace);
 								} catch (IOException e) {
@@ -341,6 +341,7 @@ public class NonAPICommands extends ListenerAdapter {
 									else
 										errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
 								}
+								event.getChannel().sendMessage(line[0] + " " + line[1]).queue();
 							}
 							else if (!content.get(i).contains(message.getAuthor().getId())) {
 								try {
