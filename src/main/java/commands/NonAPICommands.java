@@ -321,6 +321,7 @@ public class NonAPICommands extends ListenerAdapter {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
 						for (int i = 0; i < content.size() - 1; i++) {						
 							String[] line = content.get(i).split(":");
+							event.getChannel().sendMessage(line[0] + line[1]).queue();
 							if (line[0].equals(message.getAuthor().getId())) {			
 								int count = Integer.parseInt(line[1]);
 								line[1] = String.valueOf(count += 1);
@@ -329,35 +330,29 @@ public class NonAPICommands extends ListenerAdapter {
 								for(String str: content) {
 									  replace += (str + "\n");
 								}
-								event.getChannel().sendMessage(line[1] + line[2]).queue();
 								try {
 									overwrite.write(replace);
 								} catch (IOException e) {
-									builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message2) -> {
-										backlog.sendMessage(message2.getAuthor().getId()).queue();
-									});				
+									backlog.sendMessage(message.getAuthor().getId()).queue();
+						
 									if (ExceptionUtils.getStackTrace(e).length() > 1500)
 										errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
 									else
 										errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
 								}
-								
-								
 							}
 							else if (!content.get(i).contains(message.getAuthor().getId())) {
-								builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message1) -> {
-									try {
-										append.append("\n" + message.getAuthor().getId() + ":1");
-									} catch (IOException e) {
-										builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message2) -> {
-											backlog.sendMessage(message2.getAuthor().getId()).queue();
-										});				
-										if (ExceptionUtils.getStackTrace(e).length() > 1500)
-											errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
-										else
-											errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
-									}
-								});
+								try {
+									append.append("\n" + message.getAuthor().getId() + ":1");
+								} catch (IOException e) {
+									backlog.sendMessage(message.getAuthor().getId()).queue();
+						
+									if (ExceptionUtils.getStackTrace(e).length() > 1500)
+										errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
+									else
+										errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+								}
+							
 							}
 						}
 					});	
@@ -369,17 +364,7 @@ public class NonAPICommands extends ListenerAdapter {
 						errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
 					else
 						errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
-				} //finally {
-				//	try {
-				//		append.close();
-				//		overwrite.close();
-				//	} catch (IOException e) {
-				//		if (ExceptionUtils.getStackTrace(e).length() > 1500)
-				//			errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
-				//		else
-				//			errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
-				//	}
-				//}
+				}
 				
 
 			}
