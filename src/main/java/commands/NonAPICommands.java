@@ -276,7 +276,7 @@ public class NonAPICommands extends ListenerAdapter {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
 						for (int i = 0; i < content.size(); i++) {						
 							String[] line = content.get(i).split(":");
-							event.getChannel().sendMessage(line[0] + " " + line[1]).queue();
+							event.getChannel().sendMessage("Line: " + content.get(i)).queue();
 							if (line[0].equals(message.getAuthor().getId())) {	
 								event.getChannel().sendMessage("break1").queue();
 								containsUser = true;
@@ -304,7 +304,7 @@ public class NonAPICommands extends ListenerAdapter {
 						event.getChannel().sendMessage(String.valueOf(containsUser)).queue();
 						if (!containsUser) {
 							try {
-								event.getChannel().sendMessage("break2").queue();
+								event.getChannel().sendMessage("break2").queue();								
 								append.write("\n" + message.getAuthor().getId() + ":1");
 								append.close();
 								event.getChannel().sendMessage("break3").queue();
