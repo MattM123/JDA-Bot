@@ -282,13 +282,13 @@ public class NonAPICommands extends ListenerAdapter {
 								containsUser = true;
 								int count = Integer.parseInt(line[1]);
 								line[1] = String.valueOf(count += 1);
-								event.getChannel().sendMessage(line[0] + " " + line[1]).queue();
+								event.getChannel().sendMessage(content.get(i)).queue();
 							}
+							
 								String replace = "";
 								for(String str: content) {
 									  replace += (str + "\n");
 								}
-								event.getChannel().sendMessage("REPL: " + replace).queue();
 								try {
 									overwrite.write(replace);
 									overwrite.close();
