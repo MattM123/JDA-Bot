@@ -321,8 +321,8 @@ public class NonAPICommands extends ListenerAdapter {
 							}							
 						}
 					});
-					append.flush();
-					overwrite.flush();
+				//	append.flush();
+				//	overwrite.flush();
 				} catch (IOException e) {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						backlog.sendMessage(message.getAuthor().getId()).queue();
