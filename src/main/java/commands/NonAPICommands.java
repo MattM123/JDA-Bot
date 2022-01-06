@@ -274,7 +274,7 @@ public class NonAPICommands extends ListenerAdapter {
 					overwrite = new FileWriter(buildCounts, false);
 				
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
-						for (int i = 0; i < content.size() - 1; i++) {						
+						for (int i = 0; i < content.size(); i++) {						
 							String[] line = content.get(i).split(":");
 							event.getChannel().sendMessage(line[0] + " " + line[1]).queue();
 							if (line[0].equals(message.getAuthor().getId())) {	
@@ -309,7 +309,7 @@ public class NonAPICommands extends ListenerAdapter {
 								append.close();
 								event.getChannel().sendMessage("break3").queue();
 								List<String> content1 = Files.readAllLines(Paths.get(buildCounts.getPath()));
-								for (int i = 0; i < content1.size() - 1; i++) {
+								for (int i = 0; i < content1.size(); i++) {
 									event.getChannel().sendMessage("break4").queue();
 									event.getChannel().sendMessage(content1.get(i)).queue();
 								}
