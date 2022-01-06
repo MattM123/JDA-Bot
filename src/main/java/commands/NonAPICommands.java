@@ -270,8 +270,8 @@ public class NonAPICommands extends ListenerAdapter {
 				//If file cannot be accessed, stores ID in backlog to be merged later. Sends stacktrace to error log
 				try {					
 					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
-					append = new FileWriter(buildCounts, true);
-					overwrite = new FileWriter(buildCounts, false);
+					append = new FileWriter(buildCounts.getPath(), true);
+					overwrite = new FileWriter(buildCounts.getPath(), false);
 				
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
 						for (int i = 0; i < content.size(); i++) {						
