@@ -30,7 +30,7 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	private String pippenPoints = "";
 	private String counter = "";
-	private File buildCounts = new File("/resources/BuildCountData.txt");
+	private File buildCounts = new File("app/BuildCountData.txt");
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -308,7 +308,8 @@ public class NonAPICommands extends ListenerAdapter {
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
 				//if file has a count for the user, increments it by 1, else adds a count for the user starting at 1.
 				//If file cannot be accessed, stores ID in backlog to be merged later. Sends stacktrace to error log
-				try {		
+				try {
+
 					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
 					FileWriter append = new FileWriter(buildCounts, true);
 					FileWriter overwrite = new FileWriter(buildCounts, false);
