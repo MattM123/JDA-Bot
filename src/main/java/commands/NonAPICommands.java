@@ -194,54 +194,9 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 		}
 		
-		
-		//Pippen Tracker
-		TextChannel pippenSubmissionChannel = guild.getTextChannelById(926285739627532309L);
-		TextChannel pippenTrackerChannel = guild.getTextChannelById(926290849011228753L);
-		
 		TextChannel buildSubmissionChannel = guild.getTextChannelById(926285692542283846L);
 		TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
 		
-		if (event.getMessage().getContentRaw().equals("=test")) {
-			trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
-				
-				message.editMessage("**__BuildTracker 1.0__**"
-						+ "\nJimmy Neutron : 10"
-						+ "\nWindyRunner17 : 19"
-						+ "\nsfizzle1 : 5"
-						+ "\numwhat : 14"
-						+ "\nJDERG : 25"
-						+ "\nmattress : 3"
-						+ "\nDe leted : 3"
-						+ "\nWalk-Stab-Walk : 1"
-						+ "\nyikhhj : 1").queue();
-			});
-			
-			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
-				message.editMessage("**__You need more than 22 completed buildings to beat Pippen!__**").queue();
-			});
-		}
-		
-			
-		//Pippen Tracker
-		if (event.getMessage().getChannel().equals(pippenSubmissionChannel) && (event.getMessage().getContentRaw().contains("PippenFTS#3088"))) {			
-						
-			pippenTrackerChannel.retrieveMessageById(pippenTrackerChannel.getLatestMessageIdLong()).queue((message) -> {
-				for (int i = 23; i < message.getContentRaw().length(); i++) {
-					try {
-						int s = Integer.parseInt("" + message.getContentRaw().charAt(i));	
-						pippenPoints += String.valueOf(s);
-	
-					}
-					catch (NumberFormatException e) {
-						break;
-					}
-				}
-					pippenTrackerChannel.editMessageById(pippenTrackerChannel.getLatestMessageIdLong(),"**__You need more then " + (Integer.parseInt(pippenPoints) + 1) + " completed buildings to beat Pippen!__**").queue();
-			});
-			pippenPoints = "";
-
-		}
 		
 		//BuildCount Tracker
 		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
