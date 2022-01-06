@@ -30,7 +30,7 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	private String pippenPoints = "";
 	private String counter = "";
-	private File buildCounts = new File(System.getProperty("user.dir") + "/BuilCountData.txt");
+	private File buildCounts = new File(System.getProperty("user.dir") + "/BuildCountData.txt");
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
