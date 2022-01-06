@@ -2,6 +2,7 @@ package commands;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,6 +10,9 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Consumer;
 
+import javax.sound.sampled.AudioFormat.Encoding;
+
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -305,7 +309,12 @@ public class NonAPICommands extends ListenerAdapter {
 				//if file has a count for the user, increments it by 1, else adds a count for the user starting at 1.
 				//If file cannot be accessed, stores ID in backlog to be merged later. Sends stacktrace to error log
 				try {
+					event.getChannel().sendMessage(String.valueOf(buildCounts.exists())).queue();
+					event.getChannel().sendMessage(String.valueOf(buildCounts.isDirectory())).queue();
+					
 					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
+					FileWriter append = new FileWriter(buildCounts, true);
+					FileWriter overwrite = new FileWriter(buildCounts, false);
 					
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
 						for (int i = 0; i < content.size(); i++) {						
@@ -314,14 +323,26 @@ public class NonAPICommands extends ListenerAdapter {
 								int count = Integer.parseInt(line[1]);
 								line[1] = String.valueOf(count += 1);
 								
+								String replace = "";
+								for(String str: content) {
+									  replace += (str + "\n");
+								}
+								try {
+									overwrite.write(replace);
+								} catch (IOException e) {
+									builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message2) -> {
+										backlog.sendMessage(message2.getAuthor().getId()).queue();
+									});				
+									errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
+								}
+								
 								event.getChannel().sendMessage(line[1] + line[2]).queue();
 							}
 							else if (!content.get(i).contains(message.getAuthor().getId())) {
 								try {
-									FileWriter f = new FileWriter(buildCounts);
 									builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message1) -> {
 										try {
-											f.append("\n" + message.getAuthor().getId() + ":1");
+											append.append("\n" + message.getAuthor().getId() + ":1");
 										} catch (IOException e) {
 											builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message2) -> {
 												backlog.sendMessage(message2.getAuthor().getId()).queue();
@@ -329,7 +350,8 @@ public class NonAPICommands extends ListenerAdapter {
 											errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
 										}
 									});
-									f.close();
+									append.close();
+									overwrite.close();
 								
 								} catch (IOException e) {
 									builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message1) -> {
