@@ -26,7 +26,7 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	private String pippenPoints = "";
 	private String counter = "";
-	private File buildCounts = new File("/JDABot/src/main/java/resources/BuildCountData.txt");
+	private File buildCounts = new File("/JDABot/src/main/java/resources/BuildCountData");
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
