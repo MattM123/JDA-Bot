@@ -13,14 +13,14 @@ public class Connect {
 		try {  
 			String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "/src/main/java/resources/" + fileName;  
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conn = DriverManager.getConnection(url, "password", "username");  
+			conn = DriverManager.getConnection(url);  
              
 			status = "Database connection established.";  
              
 		} catch (SQLException e) {  
 			status = e.getMessage(); 
 		} catch (ClassNotFoundException e) {
-			status = e.getMessage();
+			status = "Class Not Found: " + e.getMessage();
 		} finally {  
 			try {  
 				if (conn != null) {  
