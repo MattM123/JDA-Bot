@@ -31,6 +31,8 @@ public class NonAPICommands extends ListenerAdapter {
 	private String pippenPoints = "";
 	private String counter = "";
 	private File buildCounts = new File(System.getProperty("user.dir") + "/src/main/java/commands/BuildCountData");
+	private FileWriter append = null;
+	private FileWriter overwrite = null;
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -303,6 +305,7 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel backlog = guild.getTextChannelById(928431170620887080L);
 		TextChannel errorlog = guild.getTextChannelById(928432209872977990L);
 		
+
 		//If reaction was ✅ and was used in submission channel
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
@@ -313,8 +316,8 @@ public class NonAPICommands extends ListenerAdapter {
 					event.getChannel().sendMessage(String.valueOf(buildCounts.getCanonicalPath())).queue();
 					
 					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
-					FileWriter append = new FileWriter(buildCounts, true);
-					FileWriter overwrite = new FileWriter(buildCounts, false);
+					append = new FileWriter(buildCounts, true);
+					overwrite = new FileWriter(buildCounts, false);
 					
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
 						for (int i = 0; i < content.size(); i++) {						
@@ -358,8 +361,6 @@ public class NonAPICommands extends ListenerAdapter {
 							}
 						}
 					});	
-					append.close();
-					overwrite.close();
 				} catch (IOException e) {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						backlog.sendMessage(message.getAuthor().getId()).queue();
@@ -368,7 +369,18 @@ public class NonAPICommands extends ListenerAdapter {
 						errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
 					else
 						errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+				} finally {
+					try {
+						append.close();
+						overwrite.close();
+					} catch (IOException e) {
+						if (ExceptionUtils.getStackTrace(e).length() > 1500)
+							errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
+						else
+							errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+					}
 				}
+				
 
 			}
 		}
