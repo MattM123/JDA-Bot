@@ -321,7 +321,7 @@ public class NonAPICommands extends ListenerAdapter {
 					overwrite.flush();
 					
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
-						for (int i = 0; i < content.size() - 1; i++) {						
+						for (int i = 0; i < content.size(); i++) {						
 							String[] line = content.get(i).split(":");
 							event.getChannel().sendMessage(line[0] + " " + line[1]).queue();
 							if (line[0].equals(message.getAuthor().getId())) {	
@@ -345,7 +345,6 @@ public class NonAPICommands extends ListenerAdapter {
 									else
 										errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
 								}
-								event.getChannel().sendMessage(line[0] + " " + line[1]).queue();
 							}
 						}
 						event.getChannel().sendMessage(String.valueOf(containsUser)).queue();
@@ -353,6 +352,10 @@ public class NonAPICommands extends ListenerAdapter {
 							try {
 								event.getChannel().sendMessage("break2").queue();
 								append.write("\n" + message.getAuthor().getId() + ":1");
+								List<String> content1 = Files.readAllLines(Paths.get(buildCounts.getPath()));
+								for (int i = 0; i < content1.size(); i++) {
+									event.getChannel().sendMessage(content1.get(i)).queue();
+								}
 							} catch (IOException e) {
 								backlog.sendMessage(message.getAuthor().getId()).queue();
 					
