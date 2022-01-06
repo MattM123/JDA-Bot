@@ -308,10 +308,10 @@ public class NonAPICommands extends ListenerAdapter {
 								append.write("\n" + message.getAuthor().getId() + ":1");
 								append.close();
 								event.getChannel().sendMessage("break3").queue();
-								List<String> content1 = Files.readAllLines(Paths.get(buildCounts.getPath()));
-								for (int i = 0; i < content1.size(); i++) {
+								//List<String> content1 = Files.readAllLines(Paths.get(buildCounts.getPath()));
+								for (int i = 0; i < content.size(); i++) {
 									event.getChannel().sendMessage("break4").queue();
-									event.getChannel().sendMessage(content1.get(i)).queue();
+									event.getChannel().sendMessage(content.get(i)).queue();
 								}
 								event.getChannel().sendMessage("break5").queue();
 							} catch (IOException e) {
