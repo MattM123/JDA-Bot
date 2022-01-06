@@ -270,10 +270,11 @@ public class NonAPICommands extends ListenerAdapter {
 				//If file cannot be accessed, stores ID in backlog to be merged later. Sends stacktrace to error log
 				try {					
 					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
-					append = new FileWriter(buildCounts.getPath(), true);
-					overwrite = new FileWriter(buildCounts.getPath(), false);
+					append = new FileWriter(buildCounts, true);
+					overwrite = new FileWriter(buildCounts, false);
 				
-					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
+					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
+						/*
 						for (int i = 0; i < content.size(); i++) {						
 							String[] line = content.get(i).split(":");
 							event.getChannel().sendMessage("Line: " + content.get(i)).queue();
@@ -300,11 +301,12 @@ public class NonAPICommands extends ListenerAdapter {
 								}
 							}
 						}
+						*/
 						event.getChannel().sendMessage(String.valueOf(containsUser)).queue();
 						if (!containsUser) {
 							try {
 								event.getChannel().sendMessage("break2").queue();								
-								append.write(message.getAuthor().getId() + ":1");
+								append.write(message.getAuthor().getId() + ":1");						
 								append.close();
 								event.getChannel().sendMessage("break3").queue();
 								List<String> c = Files.readAllLines(Paths.get(buildCounts.getPath()));
