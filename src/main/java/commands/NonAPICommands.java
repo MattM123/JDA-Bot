@@ -25,6 +25,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
+import resources.Connect;
 
 public class NonAPICommands extends ListenerAdapter {
 	
@@ -266,15 +267,13 @@ public class NonAPICommands extends ListenerAdapter {
 		//If reaction was ✅ and was used in submission channel
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
-				//if file has a count for the user, increments it by 1, else adds a count for the user starting at 1.
-				//If file cannot be accessed, stores ID in backlog to be merged later. Sends stacktrace to error log
-				try {					
-					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
-					append = new FileWriter(buildCounts, true);
-					overwrite = new FileWriter(buildCounts, false);
-				
+
+					event.getChannel().sendMessage(Connect.connect()).queue();
+					
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						
+					});
+					/*
 						for (int i = 0; i < content.size(); i++) {						
 							String[] line = content.get(i).split(":");
 							if (line[0].equals(message.getAuthor().getId())) {	
@@ -331,23 +330,11 @@ public class NonAPICommands extends ListenerAdapter {
 									errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
 								else
 									errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
-							}							
+							}
+							*/							
 						}
-					});
 					
-					
-				} catch (IOException e) {
-					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
-						backlog.sendMessage(message.getAuthor().getId()).queue();
-					});				
-					if (ExceptionUtils.getStackTrace(e).length() > 1500)
-						errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
-					else
-						errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
-				}
-				
-
-			}
+			
 		}
 	}
 }
