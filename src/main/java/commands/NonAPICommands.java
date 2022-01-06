@@ -282,7 +282,6 @@ public class NonAPICommands extends ListenerAdapter {
 								containsUser = true;
 								int count = Integer.parseInt(line[1]);
 								line[1] = String.valueOf(count += 1);
-								event.getChannel().sendMessage(content.get(i)).queue();
 							}
 							
 								String replace = "";
@@ -299,6 +298,16 @@ public class NonAPICommands extends ListenerAdapter {
 										errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
 									else
 										errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+								}
+								List<String> cd;
+								try {
+									c = Files.readAllLines(Paths.get(buildCounts.getPath()));
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								for (int j = 0; j < cd.size(); j++) {
+									event.getChannel().sendMessage(cd.get(i)).queue();
 								}
 							}
 						
