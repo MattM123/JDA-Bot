@@ -11,13 +11,16 @@ public class Connect {
 		String status = "";
 		Connection conn = null;  
 		try {  
-			String url = "jdbc:sqlite:C:/sqlite/" + fileName;  
-			conn = DriverManager.getConnection(url);  
+			String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "/src/main/java/resources/" + fileName;  
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection(url, "password", "username");  
              
 			status = "Database connection established.";  
              
 		} catch (SQLException e) {  
 			status = e.getMessage(); 
+		} catch (ClassNotFoundException e) {
+			status = e.getMessage();
 		} finally {  
 			try {  
 				if (conn != null) {  
