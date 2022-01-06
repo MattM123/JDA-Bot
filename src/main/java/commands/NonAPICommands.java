@@ -369,7 +369,8 @@ public class NonAPICommands extends ListenerAdapter {
 					else
 						errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
 				}
-			}	
+
+			}
 		}
 	}
 }
