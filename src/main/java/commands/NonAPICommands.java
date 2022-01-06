@@ -33,6 +33,7 @@ public class NonAPICommands extends ListenerAdapter {
 	private File buildCounts = new File(System.getProperty("user.dir") + "/src/main/java/commands/BuildCountData");
 	private FileWriter append = null;
 	private FileWriter overwrite = null;
+	private boolean containsUser = false;
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -304,6 +305,7 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel builderAudit = guild.getTextChannelById(928425780084629515L);
 		TextChannel backlog = guild.getTextChannelById(928431170620887080L);
 		TextChannel errorlog = guild.getTextChannelById(928432209872977990L);
+		containsUser = false;
 		
 
 		//If reaction was ✅ and was used in submission channel
@@ -324,6 +326,7 @@ public class NonAPICommands extends ListenerAdapter {
 							event.getChannel().sendMessage(line[0] + " " + line[1]).queue();
 							if (line[0].equals(message.getAuthor().getId())) {	
 								event.getChannel().sendMessage("break1").queue();
+								containsUser = true;
 								int count = Integer.parseInt(line[1]);
 								line[1] = String.valueOf(count += 1);
 								
@@ -344,19 +347,18 @@ public class NonAPICommands extends ListenerAdapter {
 								}
 								event.getChannel().sendMessage(line[0] + " " + line[1]).queue();
 							}
-							else if (!content.get(i).contains(message.getAuthor().getId())) {
-								try {
-									append.append("\n" + message.getAuthor().getId() + ":1");
-								} catch (IOException e) {
-									backlog.sendMessage(message.getAuthor().getId()).queue();
-						
-									if (ExceptionUtils.getStackTrace(e).length() > 1500)
-										errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
-									else
-										errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
-								}
-							
-							}
+						}
+						if (!containsUser) {
+							try {
+								append.append("\n" + message.getAuthor().getId() + ":1");
+							} catch (IOException e) {
+								backlog.sendMessage(message.getAuthor().getId()).queue();
+					
+								if (ExceptionUtils.getStackTrace(e).length() > 1500)
+									errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
+								else
+									errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+							}							
 						}
 					});	
 				} catch (IOException e) {
