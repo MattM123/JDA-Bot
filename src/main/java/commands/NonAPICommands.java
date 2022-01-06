@@ -26,7 +26,7 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	private String pippenPoints = "";
 	private String counter = "";
-	private File buildCounts = new File("//JDABot//src//main//java//resources//BuildCountData.txt");
+	private File buildCounts = new File("BuildCountData.txt");
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -313,6 +313,8 @@ public class NonAPICommands extends ListenerAdapter {
 							if (line[0].equals(message.getAuthor().getId())) {			
 								int count = Integer.parseInt(line[1]);
 								line[1] = String.valueOf(count += 1);
+								
+								event.getChannel().sendMessage(line[1] + line[2]).queue();
 							}
 							else if (!content.get(i).contains(message.getAuthor().getId())) {
 								try {
@@ -324,7 +326,7 @@ public class NonAPICommands extends ListenerAdapter {
 											builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message2) -> {
 												backlog.sendMessage(message2.getAuthor().getId()).queue();
 											});				
-											errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1000)).queue();
+											errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
 										}
 									});
 									f.close();
@@ -333,7 +335,7 @@ public class NonAPICommands extends ListenerAdapter {
 									builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message1) -> {
 										backlog.sendMessage(message1.getAuthor().getId()).queue();
 									});				
-									errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1000)).queue();	
+									errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();	
 								}
 							}
 						}
@@ -342,7 +344,7 @@ public class NonAPICommands extends ListenerAdapter {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						backlog.sendMessage(message.getAuthor().getId()).queue();
 					});				
-					errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1000)).queue();		
+					errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();		
 				}
 			}	
 		}
