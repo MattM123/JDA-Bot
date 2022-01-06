@@ -299,9 +299,9 @@ public class NonAPICommands extends ListenerAdapter {
 									else
 										errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
 								}
-								List<String> cd;
+								List<String> cd = null;
 								try {
-									c = Files.readAllLines(Paths.get(buildCounts.getPath()));
+									cd = Files.readAllLines(Paths.get(buildCounts.getPath()));
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
