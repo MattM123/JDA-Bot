@@ -313,12 +313,14 @@ public class NonAPICommands extends ListenerAdapter {
 					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
 					
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
-						for (int i = 0; i < content.size(); i++) {
-							if (content.get(i).contains(message.getAuthor().getId())) {
-								String[] line = content.get(i).split(":");
+						for (int i = 0; i < content.size(); i++) {						
+							String[] line = content.get(i).split(":");
+							//if user build count exists
+							if (line[0].equals(message.getAuthor().getId())) {			
 								int count = Integer.parseInt(line[1]);
 								line[1] = String.valueOf(count += 1);
 							}
+							//else add new count for user
 							else if (!content.get(i).contains(message.getAuthor().getId())) {
 								try {
 									FileWriter f = new FileWriter(buildCounts);
@@ -329,7 +331,7 @@ public class NonAPICommands extends ListenerAdapter {
 											builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message2) -> {
 												backlog.sendMessage(message2.getAuthor().getId()).queue();
 											});				
-											errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1000));
+											errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1000)).queue();
 										}
 									});
 									f.close();
@@ -338,7 +340,7 @@ public class NonAPICommands extends ListenerAdapter {
 									builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message1) -> {
 										backlog.sendMessage(message1.getAuthor().getId()).queue();
 									});				
-									errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1000));	
+									errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1000)).queue();	
 								}
 							}
 						}
