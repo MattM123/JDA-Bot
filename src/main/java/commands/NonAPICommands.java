@@ -306,7 +306,8 @@ public class NonAPICommands extends ListenerAdapter {
 						if (!containsUser) {
 							try {
 								event.getChannel().sendMessage("break2").queue();								
-								append.write(message.getAuthor().getId() + ":1");						
+								append.write(message.getAuthor().getId() + ":1\n");		
+								append.write("test" + ":1");	
 								append.close();
 								event.getChannel().sendMessage("break3").queue();
 								List<String> c = Files.readAllLines(Paths.get(buildCounts.getPath()));
