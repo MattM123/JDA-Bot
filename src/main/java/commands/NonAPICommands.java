@@ -3,6 +3,7 @@ package commands;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -10,6 +11,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Consumer;
+
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Activity.Emoji;
 import net.dv8tion.jda.api.entities.Guild;
@@ -27,6 +31,7 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	private String pippenPoints = "";
 	private String counter = "";
+	private File buildCounts = new File("//JDABot//src//main//java//resources//BuildCountData");
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -295,12 +300,55 @@ public class NonAPICommands extends ListenerAdapter {
 	
 		//BuildTracker 2.0
 		TextChannel builderSubmissions = guild.getTextChannelById(928365525355098112L);
+		TextChannel builderAudit = guild.getTextChannelById(928425780084629515L);
+		TextChannel backlog = guild.getTextChannelById(928431170620887080L);
+		TextChannel errorlog = guild.getTextChannelById(928432209872977990L);
 		
-		//If reaction was used in submission channel
+		//If reaction was ✅ and was used in submission channel
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
-			event.getChannel().sendMessage("test").queue();
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
-				event.getChannel().sendMessage("test").queue(); 
+				//if file has a count for the user, increments it by 1, else adds a count for the user starting at 1.
+				//If file cannot be accessed, stores ID in backlog to be merged later. Sends stacktrace to error log
+				try {
+					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
+					
+					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
+						for (int i = 0; i < content.size(); i++) {
+							if (content.get(i).contains(message.getAuthor().getId())) {
+								String[] line = content.get(i).split(":");
+								int count = Integer.parseInt(line[1]);
+								line[1] = String.valueOf(count += 1);
+							}
+							else if (!content.get(i).contains(message.getAuthor().getId())) {
+								try {
+									FileWriter f = new FileWriter(buildCounts);
+									builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message1) -> {
+										try {
+											f.append("\n" + message.getAuthor().getId() + ":1");
+										} catch (IOException e) {
+											builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message2) -> {
+												backlog.sendMessage(message2.getAuthor().getId()).queue();
+											});				
+											errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1000));
+										}
+									});
+									f.close();
+								
+								} catch (IOException e) {
+									builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message1) -> {
+										backlog.sendMessage(message1.getAuthor().getId()).queue();
+									});				
+									errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1000));	
+								}
+							}
+						}
+					});	
+				} catch (IOException e) {
+					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
+						backlog.sendMessage(message.getAuthor().getId()).queue();
+					});				
+					errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1000));		
+				}
 			}	
 		}
 	}
