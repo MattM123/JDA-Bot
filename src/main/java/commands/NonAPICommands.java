@@ -348,6 +348,7 @@ public class NonAPICommands extends ListenerAdapter {
 								event.getChannel().sendMessage(line[0] + " " + line[1]).queue();
 							}
 						}
+						event.getChannel().sendMessage(String.valueOf(containsUser)).queue();
 						if (!containsUser) {
 							try {
 								append.append("\n" + message.getAuthor().getId() + ":1");
