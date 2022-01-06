@@ -270,8 +270,6 @@ public class NonAPICommands extends ListenerAdapter {
 				//If file cannot be accessed, stores ID in backlog to be merged later. Sends stacktrace to error log
 				try {					
 					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
-					append.flush();
-					overwrite.flush();
 					append = new FileWriter(buildCounts, true);
 					overwrite = new FileWriter(buildCounts, false);
 				
@@ -320,7 +318,9 @@ public class NonAPICommands extends ListenerAdapter {
 									errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
 							}							
 						}
-					});	
+					});
+					append.flush();
+					overwrite.flush();
 				} catch (IOException e) {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						backlog.sendMessage(message.getAuthor().getId()).queue();
