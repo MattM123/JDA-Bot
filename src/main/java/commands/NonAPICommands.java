@@ -287,7 +287,7 @@ public class NonAPICommands extends ListenerAdapter {
 								for(String str: content) {
 									  replace += (str + "\n");
 								}
-								
+								event.getChannel().sendMessage(replace).queue();
 								try {
 									overwrite.write(replace);
 									overwrite.close();
