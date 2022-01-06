@@ -283,6 +283,7 @@ public class NonAPICommands extends ListenerAdapter {
 								int count = Integer.parseInt(line[1]);
 								line[1] = String.valueOf(count += 1);
 								event.getChannel().sendMessage(line[0] + " " + line[1]).queue();
+							}
 								String replace = "";
 								for(String str: content) {
 									  replace += (str + "\n");
@@ -300,7 +301,7 @@ public class NonAPICommands extends ListenerAdapter {
 										errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
 								}
 							}
-						}
+						
 						
 						event.getChannel().sendMessage(String.valueOf(containsUser)).queue();
 						if (!containsUser) {
