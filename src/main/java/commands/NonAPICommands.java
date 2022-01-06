@@ -270,15 +270,15 @@ public class NonAPICommands extends ListenerAdapter {
 				//If file cannot be accessed, stores ID in backlog to be merged later. Sends stacktrace to error log
 				try {					
 					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
-					append = new FileWriter(buildCounts, true);
-					overwrite = new FileWriter(buildCounts, false);
 					append.flush();
 					overwrite.flush();
-					
+					append = new FileWriter(buildCounts, true);
+					overwrite = new FileWriter(buildCounts, false);
+				
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
 						for (int i = 0; i < content.size(); i++) {						
 							String[] line = content.get(i).split(":");
-							event.getChannel().sendMessage(content.get(i)).queue();
+							event.getChannel().sendMessage(line[0] + " " + line[1]).queue();
 							if (line[0].equals(message.getAuthor().getId())) {	
 								event.getChannel().sendMessage("break1").queue();
 								containsUser = true;
