@@ -311,10 +311,7 @@ public class NonAPICommands extends ListenerAdapter {
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
 				//if file has a count for the user, increments it by 1, else adds a count for the user starting at 1.
 				//If file cannot be accessed, stores ID in backlog to be merged later. Sends stacktrace to error log
-				try {
-					event.getChannel().sendMessage(String.valueOf(buildCounts.exists())).queue();
-					event.getChannel().sendMessage(String.valueOf(buildCounts.getCanonicalPath())).queue();
-					
+				try {					
 					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
 					append = new FileWriter(buildCounts, true);
 					overwrite = new FileWriter(buildCounts, false);
@@ -322,7 +319,7 @@ public class NonAPICommands extends ListenerAdapter {
 					overwrite.flush();
 					
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
-						for (int i = 0; i < content.size(); i++) {						
+						for (int i = 0; i < content.size() - 1; i++) {						
 							String[] line = content.get(i).split(":");
 							if (line[0].equals(message.getAuthor().getId())) {			
 								int count = Integer.parseInt(line[1]);
