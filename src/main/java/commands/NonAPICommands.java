@@ -304,14 +304,14 @@ public class NonAPICommands extends ListenerAdapter {
 						if (!containsUser) {
 							try {
 								event.getChannel().sendMessage("break2").queue();								
-								append.append("\n" + message.getAuthor().getId() + ":1");
+								append.write("\n" + message.getAuthor().getId() + ":1");
 								append.close();
 								event.getChannel().sendMessage("break3").queue();
-								for (int i = 0; i < content.size(); i++) {
-									event.getChannel().sendMessage("break4").queue();
-									event.getChannel().sendMessage(content.get(i)).queue();
+								List<String> c = Files.readAllLines(Paths.get(buildCounts.getPath()));
+								for (int i = 0; i < c.size(); i++) {
+									event.getChannel().sendMessage(c.get(i)).queue();
 								}
-								event.getChannel().sendMessage("break5").queue();
+								event.getChannel().sendMessage("break4").queue();
 							} catch (IOException e) {
 								backlog.sendMessage(message.getAuthor().getId()).queue();
 					
