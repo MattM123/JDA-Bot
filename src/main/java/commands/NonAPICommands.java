@@ -318,6 +318,8 @@ public class NonAPICommands extends ListenerAdapter {
 					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
 					append = new FileWriter(buildCounts, true);
 					overwrite = new FileWriter(buildCounts, false);
+					append.flush();
+					overwrite.flush();
 					
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {		
 						for (int i = 0; i < content.size(); i++) {						
@@ -369,17 +371,17 @@ public class NonAPICommands extends ListenerAdapter {
 						errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
 					else
 						errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
-				} finally {
-					try {
-						append.close();
-						overwrite.close();
-					} catch (IOException e) {
-						if (ExceptionUtils.getStackTrace(e).length() > 1500)
-							errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
-						else
-							errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
-					}
-				}
+				} //finally {
+				//	try {
+				//		append.close();
+				//		overwrite.close();
+				//	} catch (IOException e) {
+				//		if (ExceptionUtils.getStackTrace(e).length() > 1500)
+				//			errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
+				//		else
+				//			errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+				//	}
+				//}
 				
 
 			}
