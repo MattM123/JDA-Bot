@@ -30,7 +30,7 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	private String pippenPoints = "";
 	private String counter = "";
-	private File buildCounts = new File("/app/JDABot/src/main/java/commands/BuildCountData.txt");
+	private File buildCounts = new File("BuildCountData.txt");
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -310,7 +310,6 @@ public class NonAPICommands extends ListenerAdapter {
 				//If file cannot be accessed, stores ID in backlog to be merged later. Sends stacktrace to error log
 				try {
 					event.getChannel().sendMessage(buildCounts.getParent()).queue();
-					event.getChannel().sendMessage("path is: '" + buildCounts.getAbsolutePath() + "'").queue();
 					event.getChannel().sendMessage(String.valueOf(buildCounts.exists())).queue();
 					
 					List<String> content = Files.readAllLines(Paths.get(buildCounts.getPath()));
