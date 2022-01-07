@@ -7,6 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -257,7 +260,7 @@ public class NonAPICommands extends ListenerAdapter {
 	
 		//BuildTracker 2.0
 		TextChannel builderSubmissions = guild.getTextChannelById(928365525355098112L);
-		TextChannel builderAudit = guild.getTextChannelById(928425780084629515L);
+	
 		TextChannel backlog = guild.getTextChannelById(928431170620887080L);
 		TextChannel errorlog = guild.getTextChannelById(928432209872977990L);
 		containsUser = false;
@@ -267,10 +270,35 @@ public class NonAPICommands extends ListenerAdapter {
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
 
-					event.getChannel().sendMessage(Connect.connect()).queue();
+				
 					
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
-						
+						//if database connection is successful
+						Connect.connect();
+						try {
+							if (Connect.connect().isValid(3000)) {
+								String getIds = "SELECT ID FROM BuildCounts";
+								
+							    try {
+							    	Statement stmt  = Connect.connect().createStatement();
+									ResultSet rs    = stmt.executeQuery(getIds);
+									
+									//Searching user IDs
+									while (rs.next()) {
+										event.getChannel().sendMessage(String.valueOf(rs.getLong("ID"))).queue();
+										event.getChannel().sendMessage(String.valueOf(rs.getLong("Count"))).queue();
+									}
+								} catch (SQLException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} 
+							
+							    
+							}
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					});
 					/*
 						for (int i = 0; i < content.size(); i++) {						
