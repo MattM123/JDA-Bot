@@ -281,14 +281,11 @@ public class NonAPICommands extends ListenerAdapter {
 							//   event.getChannel().sendMessage("Write: " + rs1).queue();
 							   Statement stmt  = Connect.connect().createStatement();
 							   ResultSet rs = stmt.executeQuery(getIds);
-							   
-							   event.getChannel().sendMessage("Table: " + rs).queue();
 								
 							   //Searching user IDs
-
 							   while (rs.next()) {
 								   event.getChannel().sendMessage(String.valueOf("Id: " + rs.getLong("id"))).queue();
-								   event.getChannel().sendMessage(String.valueOf("Count: " + rs.getInt("counts"))).queue();
+								   //event.getChannel().sendMessage(String.valueOf("Count: " + rs.getInt("counts"))).queue();
 							
 							   }
 						   } catch (SQLException e) {
