@@ -272,7 +272,7 @@ public class NonAPICommands extends ListenerAdapter {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						//if database connection is successful	
 						//String getIds = "CREATE TABLE " + "\"" + "BuildCounts" + "\"" + "(" + "\"" + "id" + "\"" +  "INTEGER, " + "\"" + "counts" + "\"" + " INTEGER, " + "PRIMARY KEY(\"id\"))";
-						String getIds = "INSERT INTO BuildCounts (000000000000000000, 0)";	
+						String getIds = "INSERT INTO BuildCounts VALUES (000000000000000000, 0)";	
 						
 						   try {
 							   event.getChannel().sendMessage("break").queue();
