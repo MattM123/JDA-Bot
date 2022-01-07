@@ -272,27 +272,23 @@ public class NonAPICommands extends ListenerAdapter {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						//if database connection is successful	
 						String getIds = "SELECT ID FROM BuildCounts";
-						String table = "CREATE TABLE \"BuildCounts\" (" + 
-								"	\"ID\"	INTEGER," + 
-								"	\"Count\"	INTEGER," + 
-								"	PRIMARY KEY(\"ID\")" + 
-								")"; 	
 								
 						   try {
 							   event.getChannel().sendMessage("break").queue();
 							   Statement stmt  = Connect.connect().createStatement();
-							   int rs = stmt.executeUpdate(table);
+							   ResultSet rs = stmt.executeQuery(getIds);
 								
 							   //Searching user IDs
 							   event.getChannel().sendMessage("Table Added: " + rs).queue(); 
-							//   while (rs.next()) {
-							//	   event.getChannel().sendMessage(String.valueOf(rs.getStatement().toString())).queue();
+							   while (rs.next()) {
+								   event.getChannel().sendMessage(String.valueOf(rs.getLong("ID"))).queue();
+								   event.getChannel().sendMessage(String.valueOf(rs.getInt("Count"))).queue();
 							
-							//   }
+							   }
 						   } catch (SQLException e) {
 							   errorlog.sendMessage(e.getMessage()).queue();
 							   stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
-							  // backlog.sendMessage(message.getAuthor().getId()).queue();
+							   backlog.sendMessage(message.getAuthor().getId()).queue();
 							   
 							} 
 						   
