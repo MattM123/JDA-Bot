@@ -20,7 +20,7 @@ public class Connect {
 			//jdbc:postgresql://localhost/test?user=fred&password=secret
 			String unformatted = System.getenv("DATABASE_URL");
 			String formatted = "jdbc:postgresql://";
-			String host = unformatted.substring(unformatted.indexOf('@') + 1, unformatted.indexOf(".com") + 3);
+			String host = unformatted.substring(unformatted.indexOf('@') + 1, unformatted.indexOf(".com:") + 4);
 			errorlog.sendMessage(host).queue();
 			DriverManager.registerDriver(new org.postgresql.Driver());
 			//conn = 
