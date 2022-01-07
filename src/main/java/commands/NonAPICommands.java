@@ -264,7 +264,6 @@ public class NonAPICommands extends ListenerAdapter {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			event.getChannel().sendMessage(rs + "").queue();
 			
 		}
 	}
