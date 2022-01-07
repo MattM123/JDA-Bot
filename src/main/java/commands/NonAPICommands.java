@@ -270,100 +270,53 @@ public class NonAPICommands extends ListenerAdapter {
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
-						//if database connection is successful	
-						//String table = "CREATE TABLE " + "\"" + "buildcounts" + "\"" + "(" + "\"" + "id" + "\"" +  "INTEGER, " + "\"" + "counts" + "\"" + " INTEGER, " + "PRIMARY KEY(\"id\"))";
-						String getIds = "SELECT id FROM buildcounts";
-						   try {
-							//   event.getChannel().sendMessage("break").queue();
-							///   Statement stmt1  = Connect.connect().createStatement();
-							//   int rs1 = stmt1.executeUpdate(write);
-							   
-							//   event.getChannel().sendMessage("Write: " + rs1).queue();
-							   Statement stmt  = Connect.connect().createStatement();
-							   ResultSet rs = stmt.executeQuery(getIds);
-								
-							   //Searching user IDs
-							   while (rs.next()) {
-								   event.getChannel().sendMessage(String.valueOf("Id: " + rs.getLong("id"))).queue();
-								   //event.getChannel().sendMessage(String.valueOf("Count: " + rs.getInt("counts"))).queue();
-							
-							   }
-						   } catch (SQLException e) {
-							   errorlog.sendMessage(e.getMessage()).queue();
-							   stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
-							   backlog.sendMessage(message.getAuthor().getId()).queue();
-							   
-							} 
-						   
-							if (Connect.connect() != null) {  
-								try {
-									Connect.connect().close();
-								} catch (SQLException e) {
-									errorlog.sendMessage(e.getMessage()).queue();
-									stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
-								}  
-							}  
-					});
-					/*
-						for (int i = 0; i < content.size(); i++) {						
-							String[] line = content.get(i).split(":");
-							if (line[0].equals(message.getAuthor().getId())) {	
-								event.getChannel().sendMessage("break1").queue();
-								containsUser = true;
-								int count = Integer.parseInt(line[1]);
-								line[1] = String.valueOf(count += 1);
-							}
-							
-								String replace = "";
-								for(String str: content) {
-									  replace += (str + "\n");
-								}
-								try {
-									overwrite.write(replace);
-									overwrite.close();
-								} catch (IOException e) {
-									backlog.sendMessage(message.getAuthor().getId()).queue();
-						
-									if (ExceptionUtils.getStackTrace(e).length() > 1500)
-										errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
-									else
-										errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
-								}
-								List<String> cd = null;
-								try {
-									cd = Files.readAllLines(Paths.get(buildCounts.getPath()));
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								for (int j = 0; j < cd.size(); j++) {
-									event.getChannel().sendMessage(cd.get(i)).queue();
-								}
-							}
-						
-						
-						event.getChannel().sendMessage(String.valueOf(containsUser)).queue();
-						if (!containsUser) {
-							try {
-								event.getChannel().sendMessage("break2").queue();								
-								append.write(message.getAuthor().getId() + ":1\n");			
-								append.close();
-								event.getChannel().sendMessage("break3").queue();
-								List<String> c = Files.readAllLines(Paths.get(buildCounts.getPath()));
-								for (int i = 0; i < c.size(); i++) {
-									event.getChannel().sendMessage(c.get(i)).queue();
-								}
-								event.getChannel().sendMessage("break4").queue();
-							} catch (IOException e) {
-								backlog.sendMessage(message.getAuthor().getId()).queue();
+						boolean isPresent = false;
 					
-								if (ExceptionUtils.getStackTrace(e).length() > 1500)
-									errorlog.sendMessage(ExceptionUtils.getStackTrace(e).subSequence(0, 1500)).queue();
-								else
-									errorlog.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+						//get ID and counts form database				
+						try {
+							String getIds = "SELECT id, counts FROM buildcounts";
+							Statement stmt  = Connect.connect().createStatement();
+							ResultSet rs = stmt.executeQuery(getIds);
+									
+							//If id exists in table, increment build count of id
+							while (rs.next()) {
+								if (rs.getLong("id") == message.getAuthor().getIdLong()) {
+									String getCount = "SELECT counts FROM buildcounts WHERE id = " + message.getAuthor().getIdLong();
+									Statement stmt1  = Connect.connect().createStatement();
+									ResultSet rs1 = stmt1.executeQuery(getCount);
+									
+									String incrementCount = "UPDATE buildcounts SET counts = " + (rs1.getInt("counts") + 1) + " WHERE id = " + message.getAuthor().getIdLong();
+									Statement stmt2  = Connect.connect().createStatement();
+									stmt2.executeUpdate(incrementCount);
+									isPresent = true;
+									
+								}
 							}
-							*/							
-						}
+							event.getChannel().sendMessage("isPresent: " + isPresent).queue();
+							event.getChannel().sendMessage("count: " + rs.getInt("counts")).queue();
+							
+							//if id does not exist in table
+							if (!isPresent) {
+								String addUser = "INSERT INTO buildcounts VALUES (" + message.getAuthor().getIdLong() + ", 1"; 
+								Statement stmt2  = Connect.connect().createStatement();
+								stmt2.executeUpdate(addUser);
+							}
+						} catch (SQLException e) {
+							errorlog.sendMessage(e.getMessage()).queue();
+							stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
+							backlog.sendMessage(message.getAuthor().getId()).queue();						   
+						} 
+						   
+						if (Connect.connect() != null) {  
+							try {
+								Connect.connect().close();
+							} catch (SQLException e) {
+								errorlog.sendMessage(e.getMessage()).queue();
+								stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
+							}  
+						}  
+					});					
+				}
 					
 			
 		}
