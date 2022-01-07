@@ -17,12 +17,15 @@ public class Connect {
 	
 	public static Connection connect() { 
 		try {  
-			Class.forName("org.postgresql.Driver");
-			conn = DriverManager.getConnection(System.getenv("DATABASE_URL"));		
+			//jdbc:postgresql://localhost/test?user=fred&password=secret
+			String unformatted = System.getenv("DATABASE_URL");
+			String formatted = "jdbc:postgresql://";
+			String host = unformatted.substring(unformatted.indexOf('@') + 1, unformatted.indexOf(".com") + 3);
+			errorlog.sendMessage(host).queue();
+			DriverManager.registerDriver(new org.postgresql.Driver());
+			//conn = 
              
 		} catch (SQLException e) {  
-			errorlog.sendMessage(e.getMessage()).queue();
-		} catch (ClassNotFoundException e) {
 			errorlog.sendMessage(e.getMessage()).queue();
 		}
 		return conn;
