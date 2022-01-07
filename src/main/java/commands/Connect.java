@@ -21,10 +21,11 @@ public class Connect {
 			String unformatted = System.getenv("DATABASE_URL");
 			
 			String host = unformatted.substring(unformatted.indexOf('@') + 1, unformatted.indexOf(".com:") + 4);
-			String port = (host + 1) + (host + 2)+ (host + 3) + (host + 4);
+			int port = (unformatted.charAt(host.indexOf(".com:") + 5)) + unformatted.charAt(host.indexOf(".com:") + 6 ) 
+				+ unformatted.charAt(host.indexOf(".com:") + 7) + unformatted.charAt(host.indexOf(".com:") + 8);
 			String formatted = "jdbc:postgresql://" + host + "/";
 			
-			errorlog.sendMessage(port).queue();
+			errorlog.sendMessage(port + "").queue();
 			DriverManager.registerDriver(new org.postgresql.Driver());
 			//conn = 
              
