@@ -256,7 +256,7 @@ public class NonAPICommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equals("=test")) {
 			String getIds = "DELETE FROM buildcounts WHERE id = 387330197420113930;";
 			Statement stmt;
-			int rs = 10;
+			int rs = 0;
 			try {
 				stmt = Connect.connect().createStatement();
 				rs = stmt.executeUpdate(getIds);
@@ -264,7 +264,6 @@ public class NonAPICommands extends ListenerAdapter {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			event.getChannel().sendMessage(rs + "").queue();
 		}
 	}
 	
