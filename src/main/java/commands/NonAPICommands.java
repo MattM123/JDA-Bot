@@ -271,8 +271,7 @@ public class NonAPICommands extends ListenerAdapter {
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						//if database connection is successful	
-						String getIds = "CREATE TABLE \"BuildCounts\"" + 
-								"	\"id\"	INTEGER," + 
+						String getIds = "CREATE TABLE \"BuildCounts\" \"id\"	INTEGER," + 
 								"	\"counts\"	INTEGER," + 
 								"	PRIMARY KEY(\"id\")" + 
 								")";
