@@ -281,14 +281,14 @@ public class NonAPICommands extends ListenerAdapter {
 						   try {
 							   event.getChannel().sendMessage("break").queue();
 							   Statement stmt  = Connect.connect().createStatement();
-							   stmt.executeQuery(table);
+							   ResultSet rs = stmt.executeQuery(table);
 								
 							   //Searching user IDs
 							   event.getChannel().sendMessage("break1").queue(); 
-							 //  while (rs.next()) {
-								//   event.getChannel().sendMessage(String.valueOf(rs.getLong("ID"))).queue();
-							//	   event.getChannel().sendMessage(String.valueOf(rs.getInt("Count"))).queue();
-							//   }
+							   while (rs.next()) {
+								   event.getChannel().sendMessage(String.valueOf(rs.getStatement().toString())).queue();
+							
+							   }
 						   } catch (SQLException e) {
 							   errorlog.sendMessage(e.getMessage()).queue();
 							   stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
@@ -301,6 +301,7 @@ public class NonAPICommands extends ListenerAdapter {
 									Connect.connect().close();
 								} catch (SQLException e) {
 									errorlog.sendMessage(e.getMessage()).queue();
+									stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
 								}  
 							}  
 					});
