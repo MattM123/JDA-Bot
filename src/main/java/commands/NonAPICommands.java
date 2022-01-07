@@ -309,7 +309,7 @@ public class NonAPICommands extends ListenerAdapter {
 									stmt2.executeUpdate(incrementCount);
 									isPresent = true;
 									
-									event.getChannel().sendMessage("post inc count: " + rs.getInt("count") + 1).queue();
+									event.getChannel().sendMessage("post inc count: " + (rs.getInt("count") + 1)).queue();
 									
 								}
 							}
