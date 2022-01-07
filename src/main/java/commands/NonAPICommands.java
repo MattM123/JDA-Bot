@@ -286,16 +286,21 @@ public class NonAPICommands extends ListenerAdapter {
 									Statement stmt1  = Connect.connect().createStatement();
 									ResultSet rs1 = stmt1.executeQuery(getCount);
 									
+									event.getChannel().sendMessage("pre inc count: " + rs.getInt("counts")).queue();
+									
+									
 									rs1.next();
 									String incrementCount = "UPDATE buildcounts SET counts = " + (rs1.getInt("counts") + 1) + " WHERE id = " + message.getAuthor().getIdLong();
 									Statement stmt2  = Connect.connect().createStatement();
 									stmt2.executeUpdate(incrementCount);
 									isPresent = true;
 									
+									event.getChannel().sendMessage("post inc count: " + rs.getInt("counts")).queue();
+									
 								}
 							}
 							event.getChannel().sendMessage("isPresent: " + isPresent).queue();
-							event.getChannel().sendMessage("count: " + rs.getInt("counts")).queue();
+							
 							
 							//if id does not exist in table, add record for id with count of 1
 							if (!isPresent) {
@@ -306,8 +311,12 @@ public class NonAPICommands extends ListenerAdapter {
 							}
 						} catch (SQLException e) {
 							errorlog.sendMessage(e.getMessage()).queue();
-							stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
-							backlog.sendMessage(message.getAuthor().getId()).queue();						   
+							backlog.sendMessage(message.getAuthor().getId()).queue();	
+							if (ExceptionUtils.getStackTrace(e).length() >= 1500)
+								stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
+							else {
+								stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+							}
 						} 
 						   
 						if (Connect.connect() != null) {  
@@ -315,7 +324,11 @@ public class NonAPICommands extends ListenerAdapter {
 								Connect.connect().close();
 							} catch (SQLException e) {
 								errorlog.sendMessage(e.getMessage()).queue();
-								stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
+								if (ExceptionUtils.getStackTrace(e).length() >= 1500)
+									stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
+								else {
+									stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+								}
 							}  
 						}  
 					});					
