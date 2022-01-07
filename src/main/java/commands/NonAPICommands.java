@@ -271,20 +271,20 @@ public class NonAPICommands extends ListenerAdapter {
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						//if database connection is successful	
-						String getIds = "SELECT ID FROM BuildCounts";
+						String getIds = "INSERT INTO BuildCounts VALUES (000000000000000000, 0)";
 								
 						   try {
 							   event.getChannel().sendMessage("break").queue();
 							   Statement stmt  = Connect.connect().createStatement();
-							   ResultSet rs = stmt.executeQuery(getIds);
+							   int rs = stmt.executeUpdate(getIds);
 								
 							   //Searching user IDs
-							   event.getChannel().sendMessage("Table Added: " + rs).queue(); 
-							   while (rs.next()) {
-								   event.getChannel().sendMessage(String.valueOf(rs.getLong("ID"))).queue();
-								   event.getChannel().sendMessage(String.valueOf(rs.getInt("Count"))).queue();
+							   event.getChannel().sendMessage("Insert: " + rs).queue(); 
+							//   while (rs.next()) {
+							//	   event.getChannel().sendMessage(String.valueOf(rs.getLong("ID"))).queue();
+							//	   event.getChannel().sendMessage(String.valueOf(rs.getInt("Count"))).queue();
 							
-							   }
+							  // }
 						   } catch (SQLException e) {
 							   errorlog.sendMessage(e.getMessage()).queue();
 							   stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
