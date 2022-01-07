@@ -272,8 +272,7 @@ public class NonAPICommands extends ListenerAdapter {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						//if database connection is successful	
 						//String table = "CREATE TABLE " + "\"" + "buildcounts" + "\"" + "(" + "\"" + "id" + "\"" +  "INTEGER, " + "\"" + "counts" + "\"" + " INTEGER, " + "PRIMARY KEY(\"id\"))";
-						String getIds = "INSERT INTO buildcounts VALUES (000000000000000000, 0)";	
-						//String write = "SET transaction READ WRITE";
+						String getIds = "SELECT id FROM buildcounts";
 						   try {
 							//   event.getChannel().sendMessage("break").queue();
 							///   Statement stmt1  = Connect.connect().createStatement();
@@ -281,17 +280,17 @@ public class NonAPICommands extends ListenerAdapter {
 							   
 							//   event.getChannel().sendMessage("Write: " + rs1).queue();
 							   Statement stmt  = Connect.connect().createStatement();
-							   int rs = stmt.executeUpdate(getIds);
+							   ResultSet rs = stmt.executeQuery(getIds);
 							   
 							   event.getChannel().sendMessage("Table: " + rs).queue();
 								
 							   //Searching user IDs
 
-							//   while (rs.next()) {
-							//	   event.getChannel().sendMessage(String.valueOf("Id: " + rs.getLong("ID"))).queue();
-							//	   event.getChannel().sendMessage(String.valueOf("Count: " + rs.getInt("Count"))).queue();
+							   while (rs.next()) {
+								   event.getChannel().sendMessage(String.valueOf("Id: " + rs.getLong("ID"))).queue();
+								   event.getChannel().sendMessage(String.valueOf("Count: " + rs.getInt("Count"))).queue();
 							
-							//   }
+							   }
 						   } catch (SQLException e) {
 							   errorlog.sendMessage(e.getMessage()).queue();
 							   stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
