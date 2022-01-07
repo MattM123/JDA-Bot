@@ -348,7 +348,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		//merge backlog 
 
-		if (event.getMessage().getContentRaw().startsWith("=backlog merge")) {
+		if (event.getMessage().getContentRaw().equals("=backlog merge")) {
 			
 			if (!backlog.hasLatestMessage()) {
 				audit.sendMessage("**[BACKLOG]** Could not merge blacklog since there are no messages to merge.");	
@@ -380,6 +380,9 @@ public class NonAPICommands extends ListenerAdapter {
 										messages.get(i).delete().queue();
 										break;
 										
+									}
+									else {
+										event.getChannel().sendMessage(rs.getLong("id") + " = " + messages.get(i).getContentRaw()).queue();
 									}
 								}					
 								
