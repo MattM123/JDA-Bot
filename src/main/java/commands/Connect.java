@@ -12,7 +12,7 @@ public class Connect {
 		Connection conn = null;  
 		try {  
 			String url = "jdbc:sqlite:" + fileName;  
-			Class.forName("oracle.jdbc.driver.OracleDriver"); 
+			Class.forName("org.sqlite.JDBC"); 
 			conn = DriverManager.getConnection(url);  
              
 			status = "Database connection established.";  
