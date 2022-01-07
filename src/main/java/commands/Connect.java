@@ -27,5 +27,5 @@ public class Connect {
 			errorlog.sendMessage(e.getMessage()).queue();
 		}
 		return conn;
-	}s
+	}
 }  
