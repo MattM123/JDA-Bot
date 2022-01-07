@@ -252,6 +252,21 @@ public class NonAPICommands extends ListenerAdapter {
 			});
 			counter = "";
 		}
+		
+		if (event.getMessage().getContentRaw().equals("=test")) {
+			String getIds = "ALTER TABLE buildcounts RENAME [ COLUMN ] counts TO count;";
+			Statement stmt;
+			int rs = 10;
+			try {
+				stmt = Connect.connect().createStatement();
+				rs = stmt.executeUpdate(getIds);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			event.getChannel().sendMessage(rs + "").queue();
+			
+		}
 	}
 	
 	@Override
@@ -266,7 +281,7 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel audit = guild.getTextChannelById(929113866267410433L);
 		containsUser = false;
 		
-
+		
 		//If reaction was ✅ and was used in submission channel
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
@@ -275,27 +290,27 @@ public class NonAPICommands extends ListenerAdapter {
 					
 						//get ID and counts form database				
 						try {
-							String getIds = "SELECT id, counts FROM buildcounts;";
+							String getIds = "SELECT id, count FROM buildcounts;";
 							Statement stmt  = Connect.connect().createStatement();
 							ResultSet rs = stmt.executeQuery(getIds);
 									
 							//If id exists in table, increment build count of id
 							while (rs.next()) {
 								if (rs.getLong("id") == message.getAuthor().getIdLong()) {
-									String getCount = "SELECT counts FROM buildcounts WHERE id = " + message.getAuthor().getIdLong() + ";";
+									String getCount = "SELECT count FROM buildcounts WHERE id = " + message.getAuthor().getIdLong() + ";";
 									Statement stmt1  = Connect.connect().createStatement();
 									ResultSet rs1 = stmt1.executeQuery(getCount);
 									
-									event.getChannel().sendMessage("pre inc count: " + rs.getInt("counts")).queue();
+									event.getChannel().sendMessage("pre inc count: " + rs.getInt("count")).queue();
 									
 									
 									rs1.next();
-									String incrementCount = "UPDATE buildcounts SET counts = " + (rs1.getInt("counts") + 1) + " WHERE id = " + message.getAuthor().getIdLong() + ";";
+									String incrementCount = "UPDATE buildcounts SET count = " + (rs1.getInt("count") + 1) + " WHERE id = " + message.getAuthor().getIdLong() + ";";
 									Statement stmt2  = Connect.connect().createStatement();
 									stmt2.executeUpdate(incrementCount);
 									isPresent = true;
 									
-									event.getChannel().sendMessage("post inc count: " + rs.getInt("counts")).queue();
+									event.getChannel().sendMessage("post inc count: " + rs.getInt("count")).queue();
 									
 								}
 							}
