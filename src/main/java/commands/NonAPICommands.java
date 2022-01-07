@@ -351,7 +351,7 @@ public class NonAPICommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().equals("=backlog merge")) {
 			
 			if (!backlog.hasLatestMessage()) {
-				audit.sendMessage("**[BACKLOG]** Could not merge blacklog since there are no messages to merge.");	
+				audit.sendMessage("**[BACKLOG]** Could not merge blacklog since there are no messages to merge.").queue();	
 			}
 			else {
 				//For all messages containing an ID in backlog, increments the corresponding database record by 1
