@@ -12,15 +12,14 @@ public class Connect {
 		Connection conn = null;  
 		try {  
 			String url = "jdbc:sqlite:" + fileName;  
-			Class.forName("org.sqlite.JDBC"); 
-			conn = DriverManager.getConnection(url);  
-             
+
+			DriverManager.registerDriver(new org.sqlite.JDBC());
+			conn = DriverManager.getConnection(url);
+			
 			status = "Database connection established.";  
              
 		} catch (SQLException e) {  
 			status = e.getMessage(); 
-		} catch (ClassNotFoundException e) {
-			status = "Class Not Found: " + e.getMessage();
 		} finally {  
 			try {  
 				if (conn != null) {  
