@@ -260,7 +260,7 @@ public class NonAPICommands extends ListenerAdapter {
 	
 		//BuildTracker 2.0
 		TextChannel builderSubmissions = guild.getTextChannelById(928365525355098112L);
-	
+		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
 		TextChannel backlog = guild.getTextChannelById(928431170620887080L);
 		TextChannel errorlog = guild.getTextChannelById(928432209872977990L);
 		containsUser = false;
@@ -272,20 +272,28 @@ public class NonAPICommands extends ListenerAdapter {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						//if database connection is successful	
 						String getIds = "SELECT ID FROM BuildCounts";
+						String table = "CREATE TABLE \"BuildCounts\" (" + 
+								"	\"ID\"	INTEGER," + 
+								"	\"Count\"	INTEGER," + 
+								"	PRIMARY KEY(\"ID\")" + 
+								")"; 	
 								
 						   try {
 							   event.getChannel().sendMessage("break").queue();
 							   Statement stmt  = Connect.connect().createStatement();
-							   ResultSet rs    = stmt.executeQuery(getIds);
+							   stmt.executeQuery(table);
 								
 							   //Searching user IDs
 							   event.getChannel().sendMessage("break1").queue(); 
-							   while (rs.next()) {
-								   event.getChannel().sendMessage(String.valueOf(rs.getLong("ID"))).queue();
-								   event.getChannel().sendMessage(String.valueOf(rs.getInt("Count"))).queue();
-							   }
+							 //  while (rs.next()) {
+								//   event.getChannel().sendMessage(String.valueOf(rs.getLong("ID"))).queue();
+							//	   event.getChannel().sendMessage(String.valueOf(rs.getInt("Count"))).queue();
+							//   }
 						   } catch (SQLException e) {
 							   errorlog.sendMessage(e.getMessage()).queue();
+							   stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
+							  // backlog.sendMessage(message.getAuthor().getId()).queue();
+							   
 							} 
 						   
 							if (Connect.connect() != null) {  
