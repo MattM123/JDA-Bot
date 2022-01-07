@@ -254,7 +254,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("=test")) {
-			String getIds = "ALTER TABLE buildcounts ALTER COLUMN count SET DATA TYPE int;";
+			String getIds = "ALTER TABLE buildcounts ALTER COLUMN id SET DATA TYPE bigint;";
 			Statement stmt;
 			int rs = 10;
 			try {
