@@ -17,6 +17,7 @@ public class Connect {
 	
 	public static Connection connect() { 
 		try {  
+			DriverManager.registerDriver(new org.postgresql.Driver());
 			conn = DriverManager.getConnection(System.getenv("DATABASE_URL"), "postgres", System.getenv("DATABASE_PASSWORD"));		
              
 		} catch (SQLException e) {  
