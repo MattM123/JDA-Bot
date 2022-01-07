@@ -264,7 +264,7 @@ public class NonAPICommands extends ListenerAdapter {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			event.getChannel().sendMessage(rs + "").queue();
 		}
 	}
 	
@@ -294,8 +294,7 @@ public class NonAPICommands extends ListenerAdapter {
 							ResultSet rs = stmt.executeQuery(getIds);
 									
 							//If id exists in table, increment build count of id
-							while (rs.next()) {
-								
+							while (rs.next()) {			
 								if (rs.getLong("id") == message.getAuthor().getIdLong()) {
 									event.getChannel().sendMessage("pre inc count: " + rs.getInt("count")).queue();
 									String getCount = "SELECT count FROM buildcounts WHERE id = " + message.getAuthor().getIdLong() + ";";
