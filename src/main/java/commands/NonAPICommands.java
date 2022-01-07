@@ -287,7 +287,7 @@ public class NonAPICommands extends ListenerAdapter {
 							   //Searching user IDs
 
 							   while (rs.next()) {
-								   event.getChannel().sendMessage(String.valueOf("Id: " + rs.getLong("ID"))).queue();
+								   event.getChannel().sendMessage(String.valueOf("Id: " + rs.getLong("id"))).queue();
 								   event.getChannel().sendMessage(String.valueOf("Count: " + rs.getInt("Count"))).queue();
 							
 							   }
