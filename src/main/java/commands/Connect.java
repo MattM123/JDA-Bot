@@ -25,7 +25,7 @@ public class Connect {
 			String port = unformatted.substring(unformatted.charAt(host.length() - 1), unformatted.charAt(host.charAt(host.length() - 1) + 5));
 			String formatted = "jdbc:postgresql://" + host + "/";
 			
-			errorlog.sendMessage(host + "").queue();
+			errorlog.sendMessage(port).queue();
 			DriverManager.registerDriver(new org.postgresql.Driver());
 			//conn = 
              
