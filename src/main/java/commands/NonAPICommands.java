@@ -24,7 +24,7 @@ import net.dv8tion.jda.api.requests.RestAction;
 public class NonAPICommands extends ListenerAdapter {
 	
 	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
-	private TextChannel audit = guild.getTextChannelById(929113866267410433L);
+	private TextChannel audit = guild.getTextChannelById(929158963499515954L);
 	private TextChannel backlog = guild.getTextChannelById(928431170620887080L);
 	private TextChannel builderSubmissions = guild.getTextChannelById(928365525355098112L);
 	private TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
