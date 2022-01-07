@@ -25,11 +25,10 @@ public class Connect {
 			String database = unformatted.substring(unformatted.indexOf(port) + 5, unformatted.indexOf(port) + 19);
 			String user = unformatted.substring(11, 25);
 			String password = unformatted.substring(26, 90);
-			String formatted = "jdbc:postgresql://" + host + "/" + database + "?user=" + user + "&password=";
+			String formatted = "jdbc:postgresql://" + host + "/" + database + "?user=" + user + "&password=" + password;
 			
-			errorlog.sendMessage(password).queue();
 			DriverManager.registerDriver(new org.postgresql.Driver());
-			//conn = 
+			conn =DriverManager.getConnection(formatted);  
              
 		} catch (SQLException e) {  
 			errorlog.sendMessage(e.getMessage()).queue();
