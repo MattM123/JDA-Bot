@@ -22,10 +22,10 @@ public class Connect {
 			
 			String host = unformatted.substring(unformatted.indexOf('@') + 1, unformatted.indexOf(".com:") + 4);
 			
-			String port = unformatted.substring(unformatted.charAt(host.indexOf(".com:") + 5), unformatted.charAt(host.indexOf(".com:") + 9));
+			String port = unformatted.substring(unformatted.charAt(host.indexOf(".com:") + 4), unformatted.charAt(host.indexOf(".com:") + 9));
 			String formatted = "jdbc:postgresql://" + host + "/";
 			
-			errorlog.sendMessage(port + "").queue();
+			errorlog.sendMessage(host + "").queue();
 			DriverManager.registerDriver(new org.postgresql.Driver());
 			//conn = 
              
