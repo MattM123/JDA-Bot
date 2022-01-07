@@ -269,9 +269,7 @@ public class NonAPICommands extends ListenerAdapter {
 		//If reaction was ✅ and was used in submission channel
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
-
-				
-					
+					Connect.getStatus();
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						//if database connection is successful	
 						String getIds = "SELECT ID FROM BuildCounts";
