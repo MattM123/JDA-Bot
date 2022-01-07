@@ -18,10 +18,8 @@ public class Connect {
 	
 	public static Connection connect() { 
 		try {  
-			String url = "jdbc:sqlite:" + fileName;  
-
 			DriverManager.registerDriver(new org.sqlite.JDBC());
-			conn = DriverManager.getConnection(url);		
+			conn = DriverManager.getConnection(System.getenv("DATABASE_URL"));		
              
 		} catch (SQLException e) {  
 			errorlog.sendMessage(e.getMessage()).queue();
