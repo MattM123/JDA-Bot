@@ -1,22 +1,14 @@
 package commands;
 
 import java.awt.Color;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import java.util.function.Consumer;
 
-import javax.sound.sampled.AudioFormat.Encoding;
-
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import com.marcuzzo.JDABot.Bot;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -31,12 +23,15 @@ import net.dv8tion.jda.api.requests.RestAction;
 
 public class NonAPICommands extends ListenerAdapter {
 	
-	private String pippenPoints = "";
+	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
+	private TextChannel audit = guild.getTextChannelById(929113866267410433L);
+	private TextChannel backlog = guild.getTextChannelById(928431170620887080L);
+	private TextChannel builderSubmissions = guild.getTextChannelById(928365525355098112L);
+	private TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
+	
+	private TextChannel buildSubmissionChannel = guild.getTextChannelById(926285692542283846L);
+	private TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
 	private String counter = "";
-	private File buildCounts = new File(System.getProperty("user.dir") + "/src/main/java/commands/BuildCountData");
-	private FileWriter append = null;
-	private FileWriter overwrite = null;
-	private boolean containsUser = false;
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -197,8 +192,7 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 		}
 		
-		TextChannel buildSubmissionChannel = guild.getTextChannelById(926285692542283846L);
-		TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
+
 		
 		
 		//BuildCount Tracker
@@ -268,7 +262,6 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		//manually increments record by 1
 		if (event.getMessage().getContentRaw().startsWith("=add ")) {
-			TextChannel audit = guild.getTextChannelById(929113866267410433L);
 			boolean isPresent = false;
 			String id = "";
 			for (int i = 5; i < event.getMessage().getContentRaw().length(); i++) {
@@ -293,23 +286,22 @@ public class NonAPICommands extends ListenerAdapter {
 						Statement stmt2  = Connect.connect().createStatement();
 						stmt2.executeUpdate(incrementCount);
 						isPresent = true;	
-						audit.sendMessage("[DATA] Manually incremented record for " + guild.getMemberById(id).getUser().getAsTag() + " (" + (rs1.getInt("count") + 1) + ").").queue();
+						audit.sendMessage("**[DATA]** Manually incremented record for " + guild.getMemberById(id).getUser().getAsTag() + " (" + (rs1.getInt("count") + 1) + ").").queue();
 						break;
 					}
 				}					
 				
 				//if id does not exist in table, add record for id with count of 1
 				if (!isPresent) {
-					audit.sendMessage("[ERROR] Record for " + guild.getMemberById(id).getUser().getAsTag() + " could not be manually incremented since it does not exist.").queue();
+					audit.sendMessage("**[ERROR]** Record for " + guild.getMemberById(id).getUser().getAsTag() + " could not be manually incremented since it does not exist.").queue();
 				}
 			} catch (SQLException e) {
-				audit.sendMessage("[ERROR] Could not manually increment record. \n[ERROR] " + e.getMessage()).queue();	
+				audit.sendMessage("**[ERROR]** Could not manually increment record. \n[ERROR] " + e.getMessage()).queue();	
 			}
 		}
 		
 		//manually decrements record by 1
 		if (event.getMessage().getContentRaw().startsWith("=remove ")) {
-			TextChannel audit = guild.getTextChannelById(929113866267410433L);
 			boolean isPresent = false;
 			String id = "";
 			for (int i = 8; i < event.getMessage().getContentRaw().length(); i++) {
@@ -335,39 +327,104 @@ public class NonAPICommands extends ListenerAdapter {
 							Statement stmt2  = Connect.connect().createStatement();
 							stmt2.executeUpdate(incrementCount);
 							isPresent = true;	
-							audit.sendMessage("[DATA] Manually decremented record for " + guild.getMemberById(id).getUser().getAsTag() + " (" + (rs1.getInt("count") - 1) + ").").queue();
+							audit.sendMessage("**[DATA]** Manually decremented record for " + guild.getMemberById(id).getUser().getAsTag() + " (" + (rs1.getInt("count") - 1) + ").").queue();
 							break;
 						}
 						else {
 							isPresent = true;	
-							audit.sendMessage("[ERROR] Could not manually decrement a record that is already 0").queue();
+							audit.sendMessage("**[ERROR]** Could not manually decrement a record that is already 0").queue();
 						}
 					}
 				}					
 				
 				//if id does not exist in table, add record for id with count of 1
 				if (!isPresent) {
-					audit.sendMessage("[ERROR] Record for " + guild.getMemberById(id).getUser().getAsTag() + " could not be manually decremented since it does not exist.").queue();
+					audit.sendMessage("**[ERROR]** Record for " + guild.getMemberById(id).getUser().getAsTag() + " could not be manually decremented since it does not exist.").queue();
 				}
 			} catch (SQLException e) {
-				audit.sendMessage("[ERROR] Could not manually decrement record. \n[ERROR] " + e.getMessage()).queue();	
+				audit.sendMessage("**[ERROR]** Could not manually decrement record. \n[ERROR] " + e.getMessage()).queue();	
+			}
+		}
+		
+		//merge backlog 
+
+		if (event.getMessage().getContentRaw().startsWith("=backlog merge")) {
+			
+			if (!backlog.hasLatestMessage()) {
+				audit.sendMessage("**[BACKLOG]** Could not merge blacklog since there are no messages to merge.");	
+			}
+			else {
+				//For all messages containing an ID in backlog, increments the corresponding database record by 1
+				backlog.getHistory().retrievePast(100).queue(messages -> {
+					boolean isPresent = false;
+					for (int i = 0; i < messages.size(); i++) {
+						if (messages.get(i).getContentRaw().length() == 18) {
+							//get ID and counts form database				
+							try {
+								String getIds = "SELECT id, count FROM buildcounts;";
+								Statement stmt  = Connect.connect().createStatement();
+								ResultSet rs = stmt.executeQuery(getIds);
+										
+								//If id exists in table, increment build count of id
+								while (rs.next()) {			
+									if (rs.getLong("id") == Long.parseLong(messages.get(i).getContentRaw())) {
+										String getCount = "SELECT count FROM buildcounts WHERE id = " + Long.parseLong(messages.get(i).getContentRaw()) + ";";
+										Statement stmt1  = Connect.connect().createStatement();
+										ResultSet rs1 = stmt1.executeQuery(getCount);
+														
+										rs1.next();
+										String incrementCount = "UPDATE buildcounts SET count = " + (rs1.getInt("count") + 1) + " WHERE id = " + Long.parseLong(messages.get(i).getContentRaw()) + ";";
+										Statement stmt2  = Connect.connect().createStatement();
+										stmt2.executeUpdate(incrementCount);
+										isPresent = true;
+										messages.get(i).delete().queue();
+										break;
+										
+									}
+								}					
+								
+								//if id does not exist in table, add record for id with count of 1
+								if (!isPresent) {
+									String addUser = "INSERT INTO buildcounts VALUES (" + Long.parseLong(messages.get(i).getContentRaw()) + ", 1);"; 
+									Statement stmt2  = Connect.connect().createStatement();
+									stmt2.executeUpdate(addUser);
+									audit.sendMessage("**[DATA]** New record added for " + Long.parseLong(messages.get(i).getContentRaw()) + " with an ID of " + Long.parseLong(messages.get(i).getContentRaw()) + " (1)").queue();
+								}
+							} catch (SQLException e) {	
+								audit.sendMessage("**[ERROR]** Backlog cannot be merged right now").queue();
+								if (ExceptionUtils.getStackTrace(e).length() >= 1900)
+									stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
+								else {
+									stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+								}
+								break;
+							} catch (NumberFormatException e) {
+								audit.sendMessage("**[ERROR]** Backlog message could not be merged because it is not a vaild user ID").queue();
+							}
+							   
+							if (Connect.connect() != null) {  
+								try {
+									Connect.connect().close();
+								} catch (SQLException e) {
+									audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
+									if (ExceptionUtils.getStackTrace(e).length() >= 1900)
+										stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
+									else {
+										stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+									}
+								}  
+							} 
+						}
+					}
+			    });
 			}
 		}
 	}
 	
 	@Override
-	public void onMessageReactionAdd(MessageReactionAddEvent event) {
-		Guild guild = event.getGuild();
-	
+	public void onMessageReactionAdd(MessageReactionAddEvent event) {	
 		//BuildTracker 2.0
-		TextChannel builderSubmissions = guild.getTextChannelById(928365525355098112L);
-		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
-		TextChannel backlog = guild.getTextChannelById(928431170620887080L);
-		TextChannel errorlog = guild.getTextChannelById(928432209872977990L);
-		TextChannel audit = guild.getTextChannelById(929113866267410433L);
-		containsUser = false;
-		
-		
+			
 		//If reaction was ✅ and was used in submission channel
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
@@ -401,11 +458,11 @@ public class NonAPICommands extends ListenerAdapter {
 								String addUser = "INSERT INTO buildcounts VALUES (" + message.getAuthor().getId() + ", 1);"; 
 								Statement stmt2  = Connect.connect().createStatement();
 								stmt2.executeUpdate(addUser);
-								audit.sendMessage("[DATA] New record added for " + message.getAuthor().getAsTag() + " with an ID of " + message.getAuthor().getId() + " (1)").queue();
+								audit.sendMessage("**[DATA]** New record added for " + message.getAuthor().getAsTag() + " with an ID of " + message.getAuthor().getId() + " (1)").queue();
 							}
 						} catch (SQLException e) {
 							backlog.sendMessage(message.getAuthor().getId()).queue();	
-							audit.sendMessage("[ERROR] " + e.getMessage()).queue();
+							audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
 							if (ExceptionUtils.getStackTrace(e).length() >= 1900)
 								stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
 							else {
@@ -417,7 +474,7 @@ public class NonAPICommands extends ListenerAdapter {
 							try {
 								Connect.connect().close();
 							} catch (SQLException e) {
-								audit.sendMessage("[ERROR] " + e.getMessage()).queue();
+								audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
 								if (ExceptionUtils.getStackTrace(e).length() >= 1900)
 									stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
 								else {
