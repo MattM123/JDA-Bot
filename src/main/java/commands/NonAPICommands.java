@@ -304,16 +304,16 @@ public class NonAPICommands extends ListenerAdapter {
 							
 							//if id does not exist in table, add record for id with count of 1
 							if (!isPresent) {
-								String addUser = "INSERT INTO buildcounts VALUES (" + message.getAuthor().getIdLong() + ", 1"; 
+								String addUser = "INSERT INTO buildcounts VALUES (" + message.getAuthor().getId() + ", 1"; 
 								Statement stmt2  = Connect.connect().createStatement();
 								stmt2.executeUpdate(addUser);
-								audit.sendMessage("[DATA] New record added for " + message.getAuthor().getAsTag() + " with ID of " + message.getId()).queue();
+								audit.sendMessage("[DATA] New record added for " + message.getAuthor().getAsTag() + " with an ID of " + message.getId()).queue();
 							}
 						} catch (SQLException e) {
 							errorlog.sendMessage(e.getMessage()).queue();
 							backlog.sendMessage(message.getAuthor().getId()).queue();	
-							if (ExceptionUtils.getStackTrace(e).length() >= 1500)
-								stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
+							if (ExceptionUtils.getStackTrace(e).length() >= 1900)
+								stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
 							else {
 								stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
 							}
@@ -324,8 +324,8 @@ public class NonAPICommands extends ListenerAdapter {
 								Connect.connect().close();
 							} catch (SQLException e) {
 								errorlog.sendMessage(e.getMessage()).queue();
-								if (ExceptionUtils.getStackTrace(e).length() >= 1500)
-									stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
+								if (ExceptionUtils.getStackTrace(e).length() >= 1900)
+									stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
 								else {
 									stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
 								}
