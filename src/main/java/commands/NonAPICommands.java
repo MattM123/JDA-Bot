@@ -271,19 +271,19 @@ public class NonAPICommands extends ListenerAdapter {
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						//if database connection is successful	
-						String table = "CREATE TABLE " + "\"" + "BuildCounts" + "\"" + "(" + "\"" + "id" + "\"" +  "INTEGER, " + "\"" + "counts" + "\"" + " INTEGER, " + "PRIMARY KEY(\"id\"))";
+						//String table = "CREATE TABLE " + "\"" + "BuildCounts" + "\"" + "(" + "\"" + "id" + "\"" +  "INTEGER, " + "\"" + "counts" + "\"" + " INTEGER, " + "PRIMARY KEY(\"id\"))";
 						String getIds = "INSERT INTO BuildCounts VALUES (000000000000000000, 0)";	
-						String write = "SET transaction READ WRITE";
+						//String write = "SET transaction READ WRITE";
 						   try {
-							   event.getChannel().sendMessage("break").queue();
-							   Statement stmt1  = Connect.connect().createStatement();
-							   int rs1 = stmt1.executeUpdate(write);
+							//   event.getChannel().sendMessage("break").queue();
+							///   Statement stmt1  = Connect.connect().createStatement();
+							//   int rs1 = stmt1.executeUpdate(write);
 							   
-							   event.getChannel().sendMessage("Write: " + rs1).queue();
+							//   event.getChannel().sendMessage("Write: " + rs1).queue();
 							   Statement stmt  = Connect.connect().createStatement();
-							   int rs = stmt.executeUpdate(table);
+							   int rs = stmt.executeUpdate(getIds);
 							   
-							   event.getChannel().sendMessage("Table: " + rs1).queue();
+							   event.getChannel().sendMessage("Table: " + rs).queue();
 								
 							   //Searching user IDs
 
