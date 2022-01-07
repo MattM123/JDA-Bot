@@ -240,7 +240,7 @@ public class NonAPICommands extends ListenerAdapter {
 							message.editMessage(content.replace(messageLines[i], authorTag.substring(0, authorTag.length() - 5) + " : " + (buildCount + 1))).queue();
 							break;				
 						}
-						}
+					}
 					}	
 				}
 
@@ -266,11 +266,12 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 		}
 		
-		if (event.getMessage().getContentRaw().startsWith("=add count ")) {
+		//manually increments record by 1
+		if (event.getMessage().getContentRaw().startsWith("=add ")) {
 			TextChannel audit = guild.getTextChannelById(929113866267410433L);
 			boolean isPresent = false;
 			String id = "";
-			for (int i = 11; i < event.getMessage().getContentRaw().length(); i++) {
+			for (int i = 5; i < event.getMessage().getContentRaw().length(); i++) {
 				id += event.getMessage().getContentRaw().charAt(i);
 			}
 			
@@ -294,6 +295,52 @@ public class NonAPICommands extends ListenerAdapter {
 						isPresent = true;	
 						audit.sendMessage("[DATA] Manually incremented record for " + guild.getMemberById(id).getUser().getAsTag() + " (" + (rs1.getInt("count") + 1) + ").").queue();
 						break;
+					}
+				}					
+				
+				//if id does not exist in table, add record for id with count of 1
+				if (!isPresent) {
+					audit.sendMessage("[ERROR] Record for " + guild.getMemberById(id).getUser().getAsTag() + " could not be manually incremented since it does not exist.").queue();
+				}
+			} catch (SQLException e) {
+				audit.sendMessage("[ERROR] Could not manually increment record. \n[ERROR] " + e.getMessage()).queue();	
+			}
+		}
+		
+		//manually decrements record by 1
+		if (event.getMessage().getContentRaw().startsWith("=remove ")) {
+			TextChannel audit = guild.getTextChannelById(929113866267410433L);
+			boolean isPresent = false;
+			String id = "";
+			for (int i = 8; i < event.getMessage().getContentRaw().length(); i++) {
+				id += event.getMessage().getContentRaw().charAt(i);
+			}
+			
+			//get ID and counts form database				
+			try {
+				String getIds = "SELECT id, count FROM buildcounts;";
+				Statement stmt  = Connect.connect().createStatement();
+				ResultSet rs = stmt.executeQuery(getIds);
+						
+				//If id exists in table, increment build count of id
+				while (rs.next()) {			
+					if (rs.getLong("id") == Long.parseLong(id)) {
+						if (rs.getInt("count") > 0) {
+							String getCount = "SELECT count FROM buildcounts WHERE id = " + id + ";";
+							Statement stmt1  = Connect.connect().createStatement();
+							ResultSet rs1 = stmt1.executeQuery(getCount);
+												
+							rs1.next();
+							String incrementCount = "UPDATE buildcounts SET count = " + (rs1.getInt("count") - 1) + " WHERE id = " + id + ";";
+							Statement stmt2  = Connect.connect().createStatement();
+							stmt2.executeUpdate(incrementCount);
+							isPresent = true;	
+							audit.sendMessage("[DATA] Manually decremented record for " + guild.getMemberById(id).getUser().getAsTag() + " (" + (rs1.getInt("count") - 1) + ").").queue();
+							break;
+						}
+						else {
+							audit.sendMessage("[ERROR] Could not manually decrement a record that is already 0").queue();
+						}
 					}
 				}					
 				
@@ -353,7 +400,7 @@ public class NonAPICommands extends ListenerAdapter {
 								String addUser = "INSERT INTO buildcounts VALUES (" + message.getAuthor().getId() + ", 1);"; 
 								Statement stmt2  = Connect.connect().createStatement();
 								stmt2.executeUpdate(addUser);
-								audit.sendMessage("[DATA] New record added for " + message.getAuthor().getAsTag() + " with an ID of " + message.getAuthor().getId()).queue();
+								audit.sendMessage("[DATA] New record added for " + message.getAuthor().getAsTag() + " with an ID of " + message.getAuthor().getId() + " (1)").queue();
 							}
 						} catch (SQLException e) {
 							backlog.sendMessage(message.getAuthor().getId()).queue();	
