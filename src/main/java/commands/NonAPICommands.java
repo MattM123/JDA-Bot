@@ -271,8 +271,8 @@ public class NonAPICommands extends ListenerAdapter {
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						//if database connection is successful	
-						String table = "CREATE TABLE " + "\"" + "buildcounts" + "\"" + "(" + "\"" + "id" + "\"" +  "INTEGER, " + "\"" + "counts" + "\"" + " INTEGER, " + "PRIMARY KEY(\"id\"))";
-						String getIds = "INSERT INTO BuildCounts VALUES (000000000000000000, 0)";	
+						//String table = "CREATE TABLE " + "\"" + "buildcounts" + "\"" + "(" + "\"" + "id" + "\"" +  "INTEGER, " + "\"" + "counts" + "\"" + " INTEGER, " + "PRIMARY KEY(\"id\"))";
+						String getIds = "INSERT INTO buildcounts VALUES (000000000000000000, 0)";	
 						//String write = "SET transaction READ WRITE";
 						   try {
 							//   event.getChannel().sendMessage("break").queue();
@@ -281,7 +281,7 @@ public class NonAPICommands extends ListenerAdapter {
 							   
 							//   event.getChannel().sendMessage("Write: " + rs1).queue();
 							   Statement stmt  = Connect.connect().createStatement();
-							   int rs = stmt.executeUpdate(table);
+							   int rs = stmt.executeUpdate(getIds);
 							   
 							   event.getChannel().sendMessage("Table: " + rs).queue();
 								

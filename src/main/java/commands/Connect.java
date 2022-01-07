@@ -28,7 +28,7 @@ public class Connect {
 			String formatted = "jdbc:postgresql://" + host + "/" + database + "?user=" + user + "&password=" + password;
 			
 			DriverManager.registerDriver(new org.postgresql.Driver());
-			conn =DriverManager.getConnection(formatted);  
+			conn = DriverManager.getConnection(formatted);  
              
 		} catch (SQLException e) {  
 			errorlog.sendMessage(e.getMessage()).queue();
