@@ -32,7 +32,7 @@ public class Connect {
 	
 	public static void getStatus() {
 		try {
-			if (conn.isValid(3000))
+			if (conn.isValid(3000) && conn != null)
 				builderAudit.sendMessage("Database connection established.").queue();  
 			else 
 				errorlog.sendMessage("Database connection failed.").queue();
