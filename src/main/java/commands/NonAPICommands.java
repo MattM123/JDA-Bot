@@ -254,7 +254,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("=test")) {
-			String getIds = "ALTER TABLE buildcounts ALTER COLUMN id SET DATA TYPE bigint;";
+			String getIds = "DELETE FROM buildcounts WHERE id = 929125490772553779;";
 			Statement stmt;
 			int rs = 10;
 			try {
@@ -295,12 +295,13 @@ public class NonAPICommands extends ListenerAdapter {
 									
 							//If id exists in table, increment build count of id
 							while (rs.next()) {
+								event.getChannel().sendMessage("pre inc count: " + rs.getInt("count")).queue();
 								if (rs.getLong("id") == message.getAuthor().getIdLong()) {
 									String getCount = "SELECT count FROM buildcounts WHERE id = " + message.getAuthor().getIdLong() + ";";
 									Statement stmt1  = Connect.connect().createStatement();
 									ResultSet rs1 = stmt1.executeQuery(getCount);
 									
-									event.getChannel().sendMessage("pre inc count: " + rs.getInt("count")).queue();
+									
 									
 									
 									rs1.next();
