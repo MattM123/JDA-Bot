@@ -263,6 +263,7 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
 		TextChannel backlog = guild.getTextChannelById(928431170620887080L);
 		TextChannel errorlog = guild.getTextChannelById(928432209872977990L);
+		TextChannel audit = guild.getTextChannelById(929113866267410433L);
 		containsUser = false;
 		
 
@@ -285,6 +286,7 @@ public class NonAPICommands extends ListenerAdapter {
 									Statement stmt1  = Connect.connect().createStatement();
 									ResultSet rs1 = stmt1.executeQuery(getCount);
 									
+									rs1.next();
 									String incrementCount = "UPDATE buildcounts SET counts = " + (rs1.getInt("counts") + 1) + " WHERE id = " + message.getAuthor().getIdLong();
 									Statement stmt2  = Connect.connect().createStatement();
 									stmt2.executeUpdate(incrementCount);
@@ -295,11 +297,12 @@ public class NonAPICommands extends ListenerAdapter {
 							event.getChannel().sendMessage("isPresent: " + isPresent).queue();
 							event.getChannel().sendMessage("count: " + rs.getInt("counts")).queue();
 							
-							//if id does not exist in table
+							//if id does not exist in table, add record for id with count of 1
 							if (!isPresent) {
 								String addUser = "INSERT INTO buildcounts VALUES (" + message.getAuthor().getIdLong() + ", 1"; 
 								Statement stmt2  = Connect.connect().createStatement();
 								stmt2.executeUpdate(addUser);
+								audit.sendMessage("[DATA] New record added for " + message.getAuthor().getAsTag() + " with ID of " + message.getId()).queue();
 							}
 						} catch (SQLException e) {
 							errorlog.sendMessage(e.getMessage()).queue();
