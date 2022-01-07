@@ -311,7 +311,7 @@ public class NonAPICommands extends ListenerAdapter {
 									stmt2.executeUpdate(incrementCount);
 									isPresent = true;
 									
-									event.getChannel().sendMessage("post inc count: " + rs.getInt("count")).queue();
+									event.getChannel().sendMessage("post inc count: " + rs.getInt("count") + 1).queue();
 									
 								}
 							}
@@ -323,7 +323,7 @@ public class NonAPICommands extends ListenerAdapter {
 								String addUser = "INSERT INTO buildcounts VALUES (" + message.getAuthor().getId() + ", 1);"; 
 								Statement stmt2  = Connect.connect().createStatement();
 								stmt2.executeUpdate(addUser);
-								audit.sendMessage("[DATA] New record added for " + message.getAuthor().getAsTag() + " with an ID of " + message.getId()).queue();
+								audit.sendMessage("[DATA] New record added for " + message.getAuthor().getAsTag() + " with an ID of " + message.getAuthor().getId()).queue();
 							}
 						} catch (SQLException e) {
 							errorlog.sendMessage(e.getMessage()).queue();
