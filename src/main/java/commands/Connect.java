@@ -24,9 +24,10 @@ public class Connect {
 			String port = unformatted.substring(unformatted.indexOf(".com:") + 5, unformatted.indexOf(".com:") + 9);
 			String database = unformatted.substring(unformatted.indexOf(port) + 5, unformatted.indexOf(port) + 19);
 			String user = unformatted.substring(11, 25);
-			String formatted = "jdbc:postgresql://" + host + "/" + database + "?user=";
+			String password = unformatted.substring(26, 50);
+			String formatted = "jdbc:postgresql://" + host + "/" + database + "?user=" + user + "&password=";
 			
-			errorlog.sendMessage(user).queue();
+			errorlog.sendMessage(password).queue();
 			DriverManager.registerDriver(new org.postgresql.Driver());
 			//conn = 
              
