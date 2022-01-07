@@ -273,9 +273,7 @@ public class NonAPICommands extends ListenerAdapter {
 				
 					
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
-						//if database connection is successful
-	
-						Connect.connect();	
+						//if database connection is successful	
 						String getIds = "SELECT ID FROM BuildCounts";
 								
 						   try {
@@ -287,7 +285,7 @@ public class NonAPICommands extends ListenerAdapter {
 							   event.getChannel().sendMessage("break1").queue(); 
 							   while (rs.next()) {
 								   event.getChannel().sendMessage(String.valueOf(rs.getLong("ID"))).queue();
-								   event.getChannel().sendMessage(String.valueOf(rs.getLong("Count"))).queue();
+								   event.getChannel().sendMessage(String.valueOf(rs.getInt("Count"))).queue();
 							   }
 						   } catch (SQLException e) {
 							// TODO Auto-generated catch block
