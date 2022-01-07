@@ -346,16 +346,15 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 		}
 		
-		//merge backlog 
-
+		//merge backlog into database 
 		if (event.getMessage().getContentRaw().equals("=backlog merge")) {
-			
-			if (!backlog.hasLatestMessage()) {
-				audit.sendMessage("**[BACKLOG]** Could not merge blacklog since there are no messages to merge.").queue();	
-			}
-			else {
+	
 				//For all messages containing an ID in backlog, increments the corresponding database record by 1
 				backlog.getHistory().retrievePast(100).queue(messages -> {
+				if (messages.size() <= 0) {
+					audit.sendMessage("**[BACKLOG]** Could not merge blacklog since there are no messages to merge.").queue();	
+				}
+				else {
 					boolean isPresent = false;
 					for (int i = 0; i < messages.size(); i++) {
 						if (messages.get(i).getContentRaw().length() == 18) {
@@ -364,14 +363,14 @@ public class NonAPICommands extends ListenerAdapter {
 								String getIds = "SELECT id, count FROM buildcounts;";
 								Statement stmt  = Connect.connect().createStatement();
 								ResultSet rs = stmt.executeQuery(getIds);
-										
+											
 								//If id exists in table, increment build count of id
 								while (rs.next()) {			
 									if (rs.getLong("id") == Long.parseLong(messages.get(i).getContentRaw())) {
 										String getCount = "SELECT count FROM buildcounts WHERE id = " + Long.parseLong(messages.get(i).getContentRaw()) + ";";
 										Statement stmt1  = Connect.connect().createStatement();
 										ResultSet rs1 = stmt1.executeQuery(getCount);
-														
+															
 										rs1.next();
 										String incrementCount = "UPDATE buildcounts SET count = " + (rs1.getInt("count") + 1) + " WHERE id = " + Long.parseLong(messages.get(i).getContentRaw()) + ";";
 										Statement stmt2  = Connect.connect().createStatement();
@@ -385,7 +384,7 @@ public class NonAPICommands extends ListenerAdapter {
 										event.getChannel().sendMessage(rs.getLong("id") + " = " + messages.get(i).getContentRaw()).queue();
 									}
 								}					
-								
+									
 								//if id does not exist in table, add record for id with count of 1
 								if (!isPresent) {
 									String addUser = "INSERT INTO buildcounts VALUES (" + Long.parseLong(messages.get(i).getContentRaw()) + ", 1);"; 
@@ -419,8 +418,8 @@ public class NonAPICommands extends ListenerAdapter {
 							} 
 						}
 					}
-			    });
-			}
+				}
+			});
 		}
 	}
 	
