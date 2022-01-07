@@ -271,20 +271,21 @@ public class NonAPICommands extends ListenerAdapter {
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						//if database connection is successful	
-						String getIds = "CREATE TABLE " + "\"" + "BuildCounts" + "\"" + "(" + "\"" + "id" + "\"" +  "INTEGER, " + "\"" + "counts" + "\"" + " INTEGER, " + "PRIMARY KEY(\"id\"))";
-								
+						//String getIds = "CREATE TABLE " + "\"" + "BuildCounts" + "\"" + "(" + "\"" + "id" + "\"" +  "INTEGER, " + "\"" + "counts" + "\"" + " INTEGER, " + "PRIMARY KEY(\"id\"))";
+						String getIds = "SELECT id FROM BuildCounts";	
+						
 						   try {
 							   event.getChannel().sendMessage("break").queue();
 							   Statement stmt  = Connect.connect().createStatement();
-							   int rs = stmt.executeUpdate(getIds);
+							   ResultSet rs = stmt.executeQuery(getIds);
 								
 							   //Searching user IDs
-							   event.getChannel().sendMessage("Table Added: " + rs).queue(); 
-							//   while (rs.next()) {
-							//	   event.getChannel().sendMessage(String.valueOf(rs.getLong("ID"))).queue();
-							//	   event.getChannel().sendMessage(String.valueOf(rs.getInt("Count"))).queue();
+
+							   while (rs.next()) {
+								   event.getChannel().sendMessage(String.valueOf("Id: " + rs.getLong("ID"))).queue();
+								   event.getChannel().sendMessage(String.valueOf("Count: " + rs.getInt("Count"))).queue();
 							
-							  // }
+							   }
 						   } catch (SQLException e) {
 							   errorlog.sendMessage(e.getMessage()).queue();
 							   stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1500)).queue();
