@@ -271,10 +271,7 @@ public class NonAPICommands extends ListenerAdapter {
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						//if database connection is successful	
-						String getIds = "CREATE TABLE \"BuildCounts\" \"id\"	INTEGER," + 
-								"	\"counts\"	INTEGER," + 
-								"	PRIMARY KEY(\"id\")" + 
-								")";
+						String getIds = "CREATE TABLE " + "\"" + "BuildCounts" + "\"" + "(" + "\"" + "id" + "\"" +  "INTEGER, " + "\"" + "counts" + "\"" + " INTEGER, " + "PRIMARY KEY(\"id\"))";
 								
 						   try {
 							   event.getChannel().sendMessage("break").queue();
@@ -282,7 +279,7 @@ public class NonAPICommands extends ListenerAdapter {
 							   int rs = stmt.executeUpdate(getIds);
 								
 							   //Searching user IDs
-							   event.getChannel().sendMessage("Insert: " + rs).queue(); 
+							   event.getChannel().sendMessage("Table Added: " + rs).queue(); 
 							//   while (rs.next()) {
 							//	   event.getChannel().sendMessage(String.valueOf(rs.getLong("ID"))).queue();
 							//	   event.getChannel().sendMessage(String.valueOf(rs.getInt("Count"))).queue();
