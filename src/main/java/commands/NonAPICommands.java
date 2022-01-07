@@ -347,7 +347,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		//merge backlog into database 
-		if (event.getMessage().getContentRaw().equals("=backlog merge")) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("=backlog merge")) {
 			event.getChannel().sendMessage("break").queue();
 			//For all messages containing an ID in backlog, increments the corresponding database record by 1
 			backlog.getHistory().retrievePast(100).queue(messages -> {
@@ -380,11 +380,10 @@ public class NonAPICommands extends ListenerAdapter {
 										messages.get(i).delete().queue();
 										break;
 										
-									}
-									else {
-										event.getChannel().sendMessage(rs.getLong("id") + " = " + messages.get(i).getContentRaw()).queue();
-									}
-								}					
+									}	
+								}	
+								
+								audit.sendMessage("**[BACKLOG]** Merge successful.").queue();	
 									
 								//if id does not exist in table, add record for id with count of 1
 								if (!isPresent) {
