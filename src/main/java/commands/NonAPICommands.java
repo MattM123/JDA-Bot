@@ -275,14 +275,14 @@ public class NonAPICommands extends ListenerAdapter {
 					
 						//get ID and counts form database				
 						try {
-							String getIds = "SELECT id, counts FROM buildcounts";
+							String getIds = "SELECT id, counts FROM buildcounts;";
 							Statement stmt  = Connect.connect().createStatement();
 							ResultSet rs = stmt.executeQuery(getIds);
 									
 							//If id exists in table, increment build count of id
 							while (rs.next()) {
 								if (rs.getLong("id") == message.getAuthor().getIdLong()) {
-									String getCount = "SELECT counts FROM buildcounts WHERE id = " + message.getAuthor().getIdLong();
+									String getCount = "SELECT counts FROM buildcounts WHERE id = " + message.getAuthor().getIdLong() + ";";
 									Statement stmt1  = Connect.connect().createStatement();
 									ResultSet rs1 = stmt1.executeQuery(getCount);
 									
@@ -290,7 +290,7 @@ public class NonAPICommands extends ListenerAdapter {
 									
 									
 									rs1.next();
-									String incrementCount = "UPDATE buildcounts SET counts = " + (rs1.getInt("counts") + 1) + " WHERE id = " + message.getAuthor().getIdLong();
+									String incrementCount = "UPDATE buildcounts SET counts = " + (rs1.getInt("counts") + 1) + " WHERE id = " + message.getAuthor().getIdLong() + ";";
 									Statement stmt2  = Connect.connect().createStatement();
 									stmt2.executeUpdate(incrementCount);
 									isPresent = true;
@@ -304,7 +304,7 @@ public class NonAPICommands extends ListenerAdapter {
 							
 							//if id does not exist in table, add record for id with count of 1
 							if (!isPresent) {
-								String addUser = "INSERT INTO buildcounts VALUES (" + message.getAuthor().getId() + ", 1"; 
+								String addUser = "INSERT INTO buildcounts VALUES (" + message.getAuthor().getId() + ", 1);"; 
 								Statement stmt2  = Connect.connect().createStatement();
 								stmt2.executeUpdate(addUser);
 								audit.sendMessage("[DATA] New record added for " + message.getAuthor().getAsTag() + " with an ID of " + message.getId()).queue();
