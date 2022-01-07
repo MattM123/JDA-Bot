@@ -277,7 +277,7 @@ public class NonAPICommands extends ListenerAdapter {
 						   try {
 							   event.getChannel().sendMessage("break").queue();
 							   Statement stmt1  = Connect.connect().createStatement();
-							   ResultSet rs1 = stmt1.executeQuery(write);
+							   int rs1 = stmt1.executeUpdate(write);
 							   
 							   event.getChannel().sendMessage("Write: " + rs1).queue();
 							   Statement stmt  = Connect.connect().createStatement();
