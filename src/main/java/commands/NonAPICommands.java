@@ -268,6 +268,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		if (event.getMessage().getContentRaw().startsWith("=add count ")) {
 			TextChannel audit = guild.getTextChannelById(929113866267410433L);
+			boolean isPresent = true;
 			String id = "";
 			for (int i = 11; i < event.getMessage().getContentRaw().length(); i++) {
 				id += event.getMessage().getContentRaw().charAt(i);
@@ -290,10 +291,16 @@ public class NonAPICommands extends ListenerAdapter {
 						String incrementCount = "UPDATE buildcounts SET count = " + (rs1.getInt("count") + 1) + " WHERE id = " + id + ";";
 						Statement stmt2  = Connect.connect().createStatement();
 						stmt2.executeUpdate(incrementCount);
-						audit.sendMessage("[DATA] Manually incremented record for " + guild.getMemberById(id).getUser().getAsTag()).queue();
-						audit.sendMessage("" + rs.getInt("count")).queue();	
+						isPresent = true;	
+						break;
 					}
 				}					
+				
+				//if id does not exist in table, add record for id with count of 1
+				if (!isPresent) {
+					audit.sendMessage("[DATA] Record for " + guild.getMemberById(id).getUser().getAsTag() + " could not be incremented since it does not exist").queue();
+					event.getChannel().sendMessage("User record does not exist in database").queue();
+				}
 			} catch (SQLException e) {
 				audit.sendMessage("[ERROR] Could not manually increment record \n[ERROR] " + e.getMessage()).queue();	
 			}
