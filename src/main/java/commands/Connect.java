@@ -23,7 +23,7 @@ public class Connect {
 			String host = unformatted.substring(unformatted.indexOf('@') + 1, unformatted.indexOf(".com:") + 4);		
 			String port = unformatted.substring(unformatted.indexOf(".com:") + 5, unformatted.indexOf(".com:") + 9);
 			String database = unformatted.substring(unformatted.indexOf(port) + 5, unformatted.indexOf(port) + 19);
-			String user = unformatted.substring(11, unformatted.indexOf("://" + 18));
+			String user = unformatted.substring(11, 29);
 			String formatted = "jdbc:postgresql://" + host + "/" + database + "?user=";
 			
 			errorlog.sendMessage(user).queue();
