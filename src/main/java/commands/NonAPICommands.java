@@ -274,31 +274,26 @@ public class NonAPICommands extends ListenerAdapter {
 					
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						//if database connection is successful
-						Connect.connect();
-						try {
-							if (Connect.connect().isValid(3000)) {
-								String getIds = "SELECT ID FROM BuildCounts";
+	
+						Connect.connect();	
+						String getIds = "SELECT ID FROM BuildCounts";
 								
-							    try {
-							    	Statement stmt  = Connect.connect().createStatement();
-									ResultSet rs    = stmt.executeQuery(getIds);
-									
-									//Searching user IDs
-									while (rs.next()) {
-										event.getChannel().sendMessage(String.valueOf(rs.getLong("ID"))).queue();
-										event.getChannel().sendMessage(String.valueOf(rs.getLong("Count"))).queue();
-									}
-								} catch (SQLException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								} 
-							
-							    
-							}
-						} catch (SQLException e) {
+						   try {
+							   event.getChannel().sendMessage("break").queue();
+							   Statement stmt  = Connect.connect().createStatement();
+							   ResultSet rs    = stmt.executeQuery(getIds);
+								
+							   //Searching user IDs
+							   event.getChannel().sendMessage("break1").queue(); 
+							   while (rs.next()) {
+								   event.getChannel().sendMessage(String.valueOf(rs.getLong("ID"))).queue();
+								   event.getChannel().sendMessage(String.valueOf(rs.getLong("Count"))).queue();
+							   }
+						   } catch (SQLException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+								e.printStackTrace();
+							} 
+
 					});
 					/*
 						for (int i = 0; i < content.size(); i++) {						
