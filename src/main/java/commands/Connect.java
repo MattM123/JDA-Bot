@@ -24,7 +24,7 @@ public class Connect {
 			String port = unformatted.substring(unformatted.indexOf(".com:") + 5, unformatted.indexOf(".com:") + 9);
 			String database = unformatted.substring(unformatted.indexOf(port) + 5, unformatted.indexOf(port) + 19);
 			String user = unformatted.substring(11, 25);
-			String password = unformatted.substring(26, 100);
+			String password = unformatted.substring(26, 90);
 			String formatted = "jdbc:postgresql://" + host + "/" + database + "?user=" + user + "&password=";
 			
 			errorlog.sendMessage(password).queue();
