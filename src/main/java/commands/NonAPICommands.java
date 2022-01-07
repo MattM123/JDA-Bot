@@ -288,10 +288,16 @@ public class NonAPICommands extends ListenerAdapter {
 								   event.getChannel().sendMessage(String.valueOf(rs.getInt("Count"))).queue();
 							   }
 						   } catch (SQLException e) {
-							// TODO Auto-generated catch block
-								e.printStackTrace();
+							   errorlog.sendMessage(e.getMessage()).queue();
 							} 
-
+						   
+							if (Connect.connect() != null) {  
+								try {
+									Connect.connect().close();
+								} catch (SQLException e) {
+									errorlog.sendMessage(e.getMessage()).queue();
+								}  
+							}  
 					});
 					/*
 						for (int i = 0; i < content.size(); i++) {						

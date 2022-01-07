@@ -16,27 +16,20 @@ public class Connect {
 	public static Connection connect() { 
 		Guild guild = Bot.jda.getGuildById(735990134583066679L);
 		TextChannel builderAudit = guild.getTextChannelById(928425780084629515L);
+		TextChannel errorlog = guild.getTextChannelById(928432209872977990L);
+		
 		Connection conn = null;  
 		try {  
 			String url = "jdbc:sqlite:" + fileName;  
 
 			DriverManager.registerDriver(new org.sqlite.JDBC());
-			conn = DriverManager.getConnection(url);
-			
+			conn = DriverManager.getConnection(url);		
 			
 			builderAudit.sendMessage("Database connection established.").queue();  
              
 		} catch (SQLException e) {  
-			builderAudit.sendMessage(e.getMessage()).queue();
-		} finally {  
-			try {  
-				if (conn != null) {  
-					conn.close();  
-				}  
-			} catch (SQLException ex) {  
-				builderAudit.sendMessage(ex.getMessage()).queue();  
-			}   
-		} 
+			errorlog.sendMessage(e.getMessage()).queue();
+		}
 		return conn;
 	}  
 }  
