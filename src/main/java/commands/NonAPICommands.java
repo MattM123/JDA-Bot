@@ -339,6 +339,7 @@ public class NonAPICommands extends ListenerAdapter {
 							break;
 						}
 						else {
+							isPresent = true;	
 							audit.sendMessage("[ERROR] Could not manually decrement a record that is already 0").queue();
 						}
 					}
@@ -346,10 +347,10 @@ public class NonAPICommands extends ListenerAdapter {
 				
 				//if id does not exist in table, add record for id with count of 1
 				if (!isPresent) {
-					audit.sendMessage("[ERROR] Record for " + guild.getMemberById(id).getUser().getAsTag() + " could not be manually incremented since it does not exist.").queue();
+					audit.sendMessage("[ERROR] Record for " + guild.getMemberById(id).getUser().getAsTag() + " could not be manually decremented since it does not exist.").queue();
 				}
 			} catch (SQLException e) {
-				audit.sendMessage("[ERROR] Could not manually increment record. \n[ERROR] " + e.getMessage()).queue();	
+				audit.sendMessage("[ERROR] Could not manually decrement record. \n[ERROR] " + e.getMessage()).queue();	
 			}
 		}
 	}
