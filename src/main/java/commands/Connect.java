@@ -11,7 +11,7 @@ public class Connect {
 		String status = "";
 		Connection conn = null;  
 		try {  
-			String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "/src/main/java/resources/" + fileName;  
+			String url = "jdbc:sqlite:" + fileName;  
 			Class.forName("oracle.jdbc.driver.OracleDriver"); 
 			conn = DriverManager.getConnection(url);  
              
