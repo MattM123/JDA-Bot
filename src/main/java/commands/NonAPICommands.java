@@ -288,7 +288,7 @@ public class NonAPICommands extends ListenerAdapter {
 
 							   while (rs.next()) {
 								   event.getChannel().sendMessage(String.valueOf("Id: " + rs.getLong("id"))).queue();
-								   event.getChannel().sendMessage(String.valueOf("Count: " + rs.getInt("Count"))).queue();
+								   event.getChannel().sendMessage(String.valueOf("Count: " + rs.getInt("counts"))).queue();
 							
 							   }
 						   } catch (SQLException e) {
