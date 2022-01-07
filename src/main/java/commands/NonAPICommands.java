@@ -292,6 +292,7 @@ public class NonAPICommands extends ListenerAdapter {
 						Statement stmt2  = Connect.connect().createStatement();
 						stmt2.executeUpdate(incrementCount);
 						isPresent = true;	
+						audit.sendMessage("[DATA] Manually incremented record for " + guild.getMemberById(id).getUser().getAsTag()).queue();
 						break;
 					}
 				}					
