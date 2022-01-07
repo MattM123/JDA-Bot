@@ -347,7 +347,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		//merge backlog into database 
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("=backlog merge")) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("=merge")) {
 			event.getChannel().sendMessage("break").queue();
 			//For all messages containing an ID in backlog, increments the corresponding database record by 1
 			backlog.getHistory().retrievePast(100).queue(messages -> {
