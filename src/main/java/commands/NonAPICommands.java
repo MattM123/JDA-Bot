@@ -405,10 +405,9 @@ public class NonAPICommands extends ListenerAdapter {
 			});
 		}
 		
-		TextChannel testing = guild.getTextChannelById(786328890280247327L);
 		if (event.getMessage().getContentRaw().equals("test")) {
 			BuildLeaderboard bl = new BuildLeaderboard();
-			bl.build().display(testing);
+			bl.build().paginate(event.getChannel(), 1);
 			 
 		}
 	}

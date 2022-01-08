@@ -21,6 +21,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 		this.setColumns(2);
 		this.setEventWaiter(new EventWaiter());
 		this.setItemsPerPage(10);
+		this.refresh();
 		
 	}
 	
