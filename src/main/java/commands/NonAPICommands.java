@@ -426,10 +426,10 @@ public class NonAPICommands extends ListenerAdapter {
 							bl.refresh();
 							bl.build().paginate(message, page + 1);
 							page += 1;
-							event.getChannel().sendMessage(page + "").queue();
 						});
 					}
 					if (page == bl.pages) {
+						event.getChannel().sendMessage(bl.pages + "");
 						page = 0;
 					}
 					
