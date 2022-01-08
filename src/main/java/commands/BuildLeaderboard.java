@@ -5,12 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.menu.Paginator;
 import com.marcuzzo.JDABot.Bot;
 
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 
 public class BuildLeaderboard extends Paginator.Builder {
@@ -23,6 +25,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 		this.setEventWaiter(new EventWaiter());
 		this.setItemsPerPage(10);
 		this.setTimeout(5, TimeUnit.SECONDS);
+		this.setFinalAction(message -> message.getChannel().sendMessage("Timeout").queue());
 		this.refresh();
 		
 	}
