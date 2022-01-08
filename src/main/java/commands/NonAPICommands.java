@@ -417,7 +417,7 @@ public class NonAPICommands extends ListenerAdapter {
 				public void run() {
 					
 					if (!leaderboard.hasLatestMessage()) {
-						bl.build().paginate(leaderboard, 1);
+						bl.build().display(leaderboard);
 					}
 					else {
 						leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {
@@ -431,7 +431,6 @@ public class NonAPICommands extends ListenerAdapter {
 					
 				}
 			}, 5000, 5000);
-			bl.build().display(event.getChannel());
 			 
 		}
 	}
