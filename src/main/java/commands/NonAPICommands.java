@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Consumer;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -24,6 +26,7 @@ import net.dv8tion.jda.api.requests.RestAction;
 public class NonAPICommands extends ListenerAdapter {
 
 	private String counter = "";
+	private int page = 1;
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -405,9 +408,29 @@ public class NonAPICommands extends ListenerAdapter {
 			});
 		}
 		
-		if (event.getMessage().getContentRaw().equals("=test")) {
+		if (event.getMessage().getContentRaw().equals("=leaderboard") && guild.getMemberById(event.getAuthor().getId()).getRoles().contains(guild.getRoleById(901162820484333610L))) {
+			TextChannel leaderboard = guild.getTextChannelById(929171594125914152L);
+			
 			BuildLeaderboard bl = new BuildLeaderboard();
-
+			Timer timer = new Timer();
+			timer.scheduleAtFixedRate(new TimerTask() {
+				public void run() {
+					
+					if (!leaderboard.hasLatestMessage()) {
+						bl.build().paginate(leaderboard, 1);
+					}
+					else {
+						leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {
+							bl.build().paginate(message, page + 1);
+							page += 1;
+						});
+					}
+					if (page == bl.pages) {
+						page = 1;
+					}
+					
+				}
+			}, 5000, 5000);
 			bl.build().display(event.getChannel());
 			 
 		}

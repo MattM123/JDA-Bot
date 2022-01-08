@@ -28,7 +28,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 		this.setEventWaiter(new EventWaiter());
 		this.refresh();
 		this.setItemsPerPage(itemsPerPage);
-		this.setTimeout(10, TimeUnit.SECONDS);
+		this.setTimeout(99, TimeUnit.SECONDS);
 		this.setFinalAction(message -> refresh());
 		this.wrapPageEnds(true);
 		
@@ -42,7 +42,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 	
 	public void refresh() {
 		try {
-			this.setTimeout(10, TimeUnit.SECONDS);	
+
 			String getData = "SELECT * FROM buildcounts ORDER BY count DESC;";
 			Statement data = Connect.connect().createStatement();
 			ResultSet rs = data.executeQuery(getData);
@@ -70,7 +70,6 @@ public class BuildLeaderboard extends Paginator.Builder {
 			else {
 				pages = 1;
 			}
-			this.build().paginate((Message) this.build(), pages + 1);
 	
 		} catch (SQLException e) {
 			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard. \n**[ERROR]** " + e.getMessage()).queue();
