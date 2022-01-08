@@ -16,16 +16,19 @@ import net.dv8tion.jda.api.entities.User;
 
 public class BuildLeaderboard extends Paginator.Builder {
 	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
+	private int pages;
+	private int itemsPerPage;
 	
 	public BuildLeaderboard() {
+		itemsPerPage = 2;
 		this.allowTextInput(false);
 		this.setColor(Color.blue);
 		this.setColumns(2);
 		this.setEventWaiter(new EventWaiter());
-		this.setItemsPerPage(20);
-		this.setTimeout(99999, TimeUnit.DAYS);
-		this.setFinalAction(message -> guild.getTextChannelById(786328890280247327L).sendMessage("**[ERROR]** Leaderboard timed out.").queue());
 		this.refresh();
+		this.setItemsPerPage(itemsPerPage);
+		this.setTimeout(10, TimeUnit.SECONDS);
+		this.wrapPageEnds(true);
 		
 	}
 	
@@ -57,11 +60,16 @@ public class BuildLeaderboard extends Paginator.Builder {
 				addThis[i + names.size()] = counts.get(i);
 			}
 			
-			guild.getTextChannelById(786328890280247327L).sendMessage(Arrays.toString(addThis)).queue();
+			
 			//this.clearItems();
 			this.addItems(addThis);
 			
-			
+			if (addThis.length > itemsPerPage)
+				pages = (int) Math.ceil(addThis.length / itemsPerPage);
+			else {
+				pages = 1;
+			}
+			guild.getTextChannelById(786328890280247327L).sendMessage("" + pages).queue();
 			
 		} catch (SQLException e) {
 			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard. \n**[ERROR]** " + e.getMessage()).queue();
