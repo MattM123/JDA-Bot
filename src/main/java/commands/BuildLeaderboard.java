@@ -21,7 +21,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 	private int itemsPerPage;
 	
 	public BuildLeaderboard() {
-		itemsPerPage = 2;
+		itemsPerPage = 1;
 		this.allowTextInput(false);
 		this.setColor(Color.blue);
 		this.setEventWaiter(new EventWaiter());
@@ -62,8 +62,11 @@ public class BuildLeaderboard extends Paginator.Builder {
 						record[record.length - i - 1] = rs.getString("count").charAt(i);
 					}
 					
-					
-					addThis[pointer] = record.toString();
+					String insertThis = "";
+					for (int i = 0; i < record.length; i++) {
+						insertThis += record[i];
+					}
+					addThis[pointer] = insertThis;
 					pointer += 1;
 				
 				}
