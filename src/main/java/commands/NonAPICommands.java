@@ -449,7 +449,7 @@ public class NonAPICommands extends ListenerAdapter {
 								String addUser = "INSERT INTO buildcounts VALUES (" + message.getAuthor().getId() + ", 1);"; 
 								Statement stmt2  = Connect.connect().createStatement();
 								stmt2.executeUpdate(addUser);
-								audit.sendMessage("**[DATA]** New record added for " + message.getAuthor().getAsTag() + " with an ID of " + message.getAuthor().getId() + " (1)").queue();
+								audit.sendMessage("**[DATA]** New record added for " + message.getAuthor().getAsTag() + " with an ID of " + message.getAuthor().getId() + " (1).").queue();
 							}
 						} catch (SQLException e) {
 							backlog.sendMessage(message.getAuthor().getId()).queue();	
