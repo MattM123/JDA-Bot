@@ -258,7 +258,7 @@ public class NonAPICommands extends ListenerAdapter {
 //------------------------------------------------------------------------------------------------------------------------------------
 //manually increments database record by 1
 		TextChannel audit = guild.getTextChannelById(929158963499515954L);
-		if (event.getMessage().getContentRaw().startsWith("=add ")) {
+		if (event.getMessage().getContentRaw().startsWith("=add ") && guild.getMemberById(event.getAuthor().getId()).getRoles().contains(guild.getRoleById(901162820484333610L))) {
 			boolean isPresent = false;
 			String id = "";
 			for (int i = 5; i < event.getMessage().getContentRaw().length(); i++) {
@@ -299,7 +299,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 //------------------------------------------------------------------------------------------------------------------------------------
 //manually decrements database record by 1
-		if (event.getMessage().getContentRaw().startsWith("=remove ")) {			
+		if (event.getMessage().getContentRaw().startsWith("=remove ") && guild.getMemberById(event.getAuthor().getId()).getRoles().contains(guild.getRoleById(901162820484333610L))) {			
 			boolean isPresent = false;
 			String id = "";
 			for (int i = 8; i < event.getMessage().getContentRaw().length(); i++) {
