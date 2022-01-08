@@ -293,7 +293,7 @@ public class NonAPICommands extends ListenerAdapter {
 					audit.sendMessage("**[ERROR]** Record for " + guild.getMemberById(id).getUser().getAsTag() + " could not be manually incremented since it does not exist.").queue();
 				}
 			} catch (SQLException e) {
-				audit.sendMessage("**[ERROR]** Could not manually increment record. \n[ERROR] " + e.getMessage()).queue();	
+				audit.sendMessage("**[ERROR]** Could not manually increment record. \n[ERROR] " + e.getMessage() + ".").queue();	
 			}
 		}
 		
@@ -330,7 +330,7 @@ public class NonAPICommands extends ListenerAdapter {
 						}
 						else {
 							isPresent = true;	
-							audit.sendMessage("**[ERROR]** Could not manually decrement a record that is already 0").queue();
+							audit.sendMessage("**[ERROR]** Could not manually decrement a record that is already 0.").queue();
 						}
 					}
 				}					
@@ -340,7 +340,7 @@ public class NonAPICommands extends ListenerAdapter {
 					audit.sendMessage("**[ERROR]** Record for " + guild.getMemberById(id).getUser().getAsTag() + " could not be manually decremented since it does not exist.").queue();
 				}
 			} catch (SQLException e) {
-				audit.sendMessage("**[ERROR]** Could not manually decrement record. \n[ERROR] " + e.getMessage()).queue();	
+				audit.sendMessage("**[ERROR]** Could not manually decrement record. \n[ERROR] " + e.getMessage() + ".").queue();	
 			}
 		}
 //------------------------------------------------------------------------------------------------------------------------------------
@@ -375,10 +375,9 @@ public class NonAPICommands extends ListenerAdapter {
 										Statement stmt2  = Connect.connect().createStatement();
 										stmt2.executeUpdate(incrementCount);
 										isPresent = true;
-										messages.get(i).delete().queue();
-										break;
-										
+										break;									
 									}	
+									messages.get(i).delete().queue();
 								}	
 				
 								//if id does not exist in table, add record for id with count of 1
@@ -386,7 +385,7 @@ public class NonAPICommands extends ListenerAdapter {
 									String addUser = "INSERT INTO buildcounts VALUES (" + Long.parseLong(messages.get(i).getContentRaw()) + ", 1);"; 
 									Statement stmt2  = Connect.connect().createStatement();
 									stmt2.executeUpdate(addUser);
-									audit.sendMessage("**[DATA]** New record added for " + messages.get(i).getAuthor().getAsTag() + " with an ID of " + Long.parseLong(messages.get(i).getContentRaw()) + " (1)").queue();
+									audit.sendMessage("**[DATA]** New record added for " + messages.get(i).getAuthor().getAsTag() + " with an ID of " + Long.parseLong(messages.get(i).getContentRaw()) + " (1).").queue();
 								}
 							} catch (SQLException e) {	
 								audit.sendMessage("**[ERROR]** Backlog cannot be merged right now").queue();
@@ -397,7 +396,7 @@ public class NonAPICommands extends ListenerAdapter {
 								}
 								break;
 							} catch (NumberFormatException e) {
-								audit.sendMessage("**[ERROR]** Backlog message could not be merged because it is not a vaild user ID").queue();
+								audit.sendMessage("**[ERROR]** Backlog message could not be merged because it is not a vaild user ID.").queue();
 							}
 							   
 							if (Connect.connect() != null) {  
