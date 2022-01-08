@@ -1,6 +1,7 @@
 package commands;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -50,7 +51,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 			rs.last();
 			String[] addThis = new String[rs.getRow()];
 			int pointer = 0;
-			char[] namespace = "...................................".toCharArray(); //size 35
+			char[] namespace = "__________________________________".toCharArray(); //size 35
 			char[] countspace = "     ".toCharArray(); //size 5
 			
 			rs.beforeFirst();
