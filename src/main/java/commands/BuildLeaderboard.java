@@ -50,8 +50,8 @@ public class BuildLeaderboard extends Paginator.Builder {
 			rs.last();
 			String[] addThis = new String[rs.getRow()];
 			int pointer = 0;
-			char[] namespace = "----------------------------------|".toCharArray(); //size 35
-			char[] countspace = "-----".toCharArray(); //size 5
+			char[] namespace = "..................................|".toCharArray(); //size 35
+			char[] countspace = "".toCharArray(); //size 5
 			
 			rs.beforeFirst();
 			while (rs.next()) {
@@ -73,7 +73,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 						nameString += namespace[i];
 					}
 					
-					addThis[pointer] = nameString + countString;
+					addThis[pointer] = nameString + "  " + countString;
 					pointer += 1;
 				
 				}
