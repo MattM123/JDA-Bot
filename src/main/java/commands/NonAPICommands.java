@@ -242,19 +242,6 @@ public class NonAPICommands extends ListenerAdapter {
 			counter = "";
 		}
 		
-		if (event.getMessage().getContentRaw().equals("=test")) {
-			String getIds = "DELETE FROM buildcounts WHERE id = 000000000000000000;";
-			Statement stmt;
-			int rs = 0;
-			try {
-				stmt = Connect.connect().createStatement();
-				rs = stmt.executeUpdate(getIds);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
 //------------------------------------------------------------------------------------------------------------------------------------
 //manually increments database record by 1
 		TextChannel audit = guild.getTextChannelById(929158963499515954L);
