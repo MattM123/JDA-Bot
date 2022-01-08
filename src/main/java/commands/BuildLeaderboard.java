@@ -50,10 +50,10 @@ public class BuildLeaderboard extends Paginator.Builder {
 			}
 				
 			String[] addThis = new String[names.size()];
-			for (int i = 0; i < names.size(); i++) {
+			for (int i = 0; i < names.size() - 1; i++) {
 				addThis[i] = names.get(i);
 			}
-			for (int i = names.size(); i < counts.size(); i++) {
+			for (int i = names.size() - 1; i < counts.size() - 1; i++) {
 				addThis[i] = counts.get(i);
 			}
 			
