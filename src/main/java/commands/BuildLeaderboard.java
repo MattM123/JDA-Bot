@@ -60,8 +60,9 @@ public class BuildLeaderboard extends Paginator.Builder {
 						record[record.length - i] = rs.getString("count").charAt(i);
 					}
 					
-					addThis[pointer] = record;
+					addThis[pointer] = record.toString();
 					pointer += 1;
+					record = "                                        ".toCharArray();
 				}
 			}
 			
