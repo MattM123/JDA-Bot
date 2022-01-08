@@ -28,7 +28,9 @@ public class BuildLeaderboard extends Paginator.Builder {
 		this.setItemsPerPage(itemsPerPage);
 		this.setTimeout(99, TimeUnit.SECONDS);
 		this.setFinalAction(message -> refresh());
-		this.wrapPageEnds(true);
+		this.wrapPageEnds(false);
+	
+		
 		
 	}
 	
@@ -70,7 +72,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 				
 				}
 			}
-			
+			this.clearItems();
 			this.addItems(addThis);
 			
 			
