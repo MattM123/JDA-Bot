@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.menu.Paginator;
@@ -56,6 +57,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 				addThis[i] = counts.get(i);
 			}
 			
+			guild.getTextChannelById(786328890280247327L).sendMessage(Arrays.toString(addThis)).queue();
 			this.clearItems();
 			this.addItems(addThis);
 			
