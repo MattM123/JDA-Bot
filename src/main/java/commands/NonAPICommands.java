@@ -412,6 +412,8 @@ public class NonAPICommands extends ListenerAdapter {
 			TextChannel leaderboard = guild.getTextChannelById(929171594125914152L);
 			
 			BuildLeaderboard bl = new BuildLeaderboard();
+			bl.build().display(leaderboard);
+			
 			Timer timer = new Timer();
 			timer.scheduleAtFixedRate(new TimerTask() {
 				public void run() {
