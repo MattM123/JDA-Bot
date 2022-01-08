@@ -454,7 +454,6 @@ public class NonAPICommands extends ListenerAdapter {
 			if (event.getReactionEmote().getEmoji().equals("✅") && event.getMember().getRoles().contains(guild.getRoleById(901162820484333610L))) {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						boolean isPresent = false;
-					
 						//get ID and counts form database				
 						try {
 							String getIds = "SELECT id, count FROM buildcounts;";
