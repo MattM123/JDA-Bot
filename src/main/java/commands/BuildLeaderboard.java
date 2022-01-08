@@ -12,11 +12,12 @@ import com.jagrosh.jdautilities.menu.Paginator;
 import com.marcuzzo.JDABot.Bot;
 
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 
 public class BuildLeaderboard extends Paginator.Builder {
 	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
-	private int pages;
+	public int pages;
 	private int itemsPerPage;
 	
 	public BuildLeaderboard() {
@@ -28,6 +29,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 		this.refresh();
 		this.setItemsPerPage(itemsPerPage);
 		this.setTimeout(10, TimeUnit.SECONDS);
+		this.setFinalAction(message -> refresh());
 		this.wrapPageEnds(true);
 		
 	}
@@ -40,6 +42,9 @@ public class BuildLeaderboard extends Paginator.Builder {
 	
 	public void refresh() {
 		try {
+			this.setTimeout(10, TimeUnit.SECONDS);	
+			this.build().paginate((Message) this.build(), pages + 1);
+			
 			String getData = "SELECT * FROM buildcounts ORDER BY count DESC;";
 			Statement data = Connect.connect().createStatement();
 			ResultSet rs = data.executeQuery(getData);
@@ -60,8 +65,6 @@ public class BuildLeaderboard extends Paginator.Builder {
 				addThis[i + names.size()] = counts.get(i);
 			}
 			
-			
-			//this.clearItems();
 			this.addItems(addThis);
 			
 			if (addThis.length > itemsPerPage)
@@ -69,8 +72,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 			else {
 				pages = 1;
 			}
-			guild.getTextChannelById(786328890280247327L).sendMessage("" + pages).queue();
-			
+	
 		} catch (SQLException e) {
 			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard. \n**[ERROR]** " + e.getMessage()).queue();
 		}
