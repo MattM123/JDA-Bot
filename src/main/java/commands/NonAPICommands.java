@@ -23,7 +23,7 @@ import net.dv8tion.jda.api.requests.RestAction;
 
 public class NonAPICommands extends ListenerAdapter {
 	
-	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
+	private Guild guild = Bot.jda.getGuildById("735990134583066679");
 	private TextChannel audit = guild.getTextChannelById(929158963499515954L);
 	private TextChannel backlog = guild.getTextChannelById(928431170620887080L);
 	private TextChannel builderSubmissions = guild.getTextChannelById(928365525355098112L);
@@ -260,7 +260,9 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 		}
 		
-		//manually increments record by 1
+//------------------------------------------------------------------------------------------------------------------------------------
+//manually increments database record by 1
+		
 		if (event.getMessage().getContentRaw().startsWith("=add ")) {
 			boolean isPresent = false;
 			String id = "";
@@ -300,7 +302,8 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 		}
 		
-		//manually decrements record by 1
+//------------------------------------------------------------------------------------------------------------------------------------
+//manually decrements database record by 1
 		if (event.getMessage().getContentRaw().startsWith("=remove ")) {
 			boolean isPresent = false;
 			String id = "";
@@ -345,8 +348,9 @@ public class NonAPICommands extends ListenerAdapter {
 				audit.sendMessage("**[ERROR]** Could not manually decrement record. \n[ERROR] " + e.getMessage()).queue();	
 			}
 		}
+//------------------------------------------------------------------------------------------------------------------------------------
+//merge backlog into database 
 		
-		//merge backlog into database 
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=merge")) {
 			event.getChannel().sendMessage("break").queue();
 			//For all messages containing an ID in backlog, increments the corresponding database record by 1

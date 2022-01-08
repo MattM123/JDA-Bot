@@ -12,11 +12,8 @@ import commands.NonAPICommands;
 public class Bot {	
 	private static String token = System.getenv("BOT_TOKEN"); //token used to hook into the Discord bot (bot token)	
 	public static JDA jda;
-
 	
-	public static void main (String[] args) {
-        
-		
+	public static void main (String[] args) {		
 		try {
 			jda = JDABuilder.createDefault(token)
 				.setChunkingFilter(ChunkingFilter.ALL)
