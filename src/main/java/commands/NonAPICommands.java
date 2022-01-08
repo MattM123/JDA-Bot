@@ -429,9 +429,9 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel builderSubmissions = guild.getTextChannelById(928365525355098112L);
 		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
 		
-		//If reaction was ✅ and was used in submission channel
+		//If reaction was ✅ ,  was used in submission channel, and used by a staff member
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
-			if (event.getReactionEmote().getEmoji().equals("✅")) {
+			if (event.getReactionEmote().getEmoji().equals("✅") && event.getMember().getRoles().contains(guild.getRoleById(901162820484333610L))) {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						boolean isPresent = false;
 					
