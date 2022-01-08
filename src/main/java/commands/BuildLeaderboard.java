@@ -21,8 +21,8 @@ public class BuildLeaderboard extends Paginator.Builder {
 		this.setColor(Color.blue);
 		this.setColumns(2);
 		this.setEventWaiter(new EventWaiter());
-		this.setItemsPerPage(10);
-		this.setTimeout(999999, TimeUnit.DAYS);
+		this.setItemsPerPage(20);
+		this.setTimeout(99999, TimeUnit.DAYS);
 		this.setFinalAction(message -> guild.getTextChannelById(786328890280247327L).sendMessage("**[ERROR]** Leaderboard timed out.").queue());
 		this.refresh();
 		
@@ -36,7 +36,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 	
 	public void refresh() {
 		try {
-			String getData = "SELECT * FROM buildcounts ORDER BY count DESC";
+			String getData = "SELECT * FROM buildcounts ORDER BY count DESC;";
 			Statement data = Connect.connect().createStatement();
 			ResultSet rs = data.executeQuery(getData);
 			
@@ -50,12 +50,10 @@ public class BuildLeaderboard extends Paginator.Builder {
 				
 			String[] addThis = new String[names.size()];
 			for (int i = 0; i < names.size(); i++) {
-				if (addThis[i] == null)
-					addThis[i] = names.get(i);
+				addThis[i] = names.get(i);
 			}
-			for (int i = 0; i < counts.size(); i++) {
-				if (addThis[i] == null)
-					addThis[i] = counts.get(i);
+			for (int i = names.size(); i < counts.size(); i++) {
+				addThis[i] = counts.get(i);
 			}
 			
 			this.clearItems();
