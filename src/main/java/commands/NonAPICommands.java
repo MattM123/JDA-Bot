@@ -22,15 +22,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
 
 public class NonAPICommands extends ListenerAdapter {
-	
-	private Guild guild = Bot.jda.getGuildById("735990134583066679");
-	private TextChannel audit = guild.getTextChannelById(929158963499515954L);
-	private TextChannel backlog = guild.getTextChannelById(928431170620887080L);
-	private TextChannel builderSubmissions = guild.getTextChannelById(928365525355098112L);
-	private TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
-	
-	private TextChannel buildSubmissionChannel = guild.getTextChannelById(926285692542283846L);
-	private TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
+
 	private String counter = "";
 	
 	@Override
@@ -196,6 +188,9 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		
 		//BuildCount Tracker
+		TextChannel buildSubmissionChannel = guild.getTextChannelById(926285692542283846L);
+		TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
+		
 		if (event.getMessage().getChannel().equals(buildSubmissionChannel) && ((event.getMessage().getContentRaw().contains(event.getAuthor().getAsTag())))) {
 			
 			trackerChannel.retrieveMessageById(trackerChannel.getLatestMessageIdLong()).queue((message) -> {
@@ -262,7 +257,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 //------------------------------------------------------------------------------------------------------------------------------------
 //manually increments database record by 1
-		
+		TextChannel audit = guild.getTextChannelById(929158963499515954L);
 		if (event.getMessage().getContentRaw().startsWith("=add ")) {
 			boolean isPresent = false;
 			String id = "";
@@ -304,7 +299,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 //------------------------------------------------------------------------------------------------------------------------------------
 //manually decrements database record by 1
-		if (event.getMessage().getContentRaw().startsWith("=remove ")) {
+		if (event.getMessage().getContentRaw().startsWith("=remove ")) {			
 			boolean isPresent = false;
 			String id = "";
 			for (int i = 8; i < event.getMessage().getContentRaw().length(); i++) {
@@ -350,7 +345,8 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 //------------------------------------------------------------------------------------------------------------------------------------
 //merge backlog into database 
-		
+		TextChannel backlog = guild.getTextChannelById(928431170620887080L);
+		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=merge")) {
 			event.getChannel().sendMessage("break").queue();
 			//For all messages containing an ID in backlog, increments the corresponding database record by 1
@@ -429,8 +425,14 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	@Override
 	public void onMessageReactionAdd(MessageReactionAddEvent event) {	
+		Guild guild = event.getGuild();
+		
 		//BuildTracker 2.0
-			
+		TextChannel audit = guild.getTextChannelById(929158963499515954L);
+		TextChannel backlog = guild.getTextChannelById(928431170620887080L);
+		TextChannel builderSubmissions = guild.getTextChannelById(928365525355098112L);
+		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
+		
 		//If reaction was ✅ and was used in submission channel
 		if (event.getReaction().getChannel().equals(builderSubmissions)) {	
 			if (event.getReactionEmote().getEmoji().equals("✅")) {
