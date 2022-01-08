@@ -243,7 +243,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("=test")) {
-			String getIds = "DELETE FROM buildcounts WHERE id = 387330197420113930;";
+			String getIds = "DELETE FROM buildcounts WHERE id = 000000000000000000;";
 			Statement stmt;
 			int rs = 0;
 			try {

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Timer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.marcuzzo.JDABot.Bot;
 import com.mattmalec.pterodactyl4j.DataType;
 import com.mattmalec.pterodactyl4j.PteroBuilder;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
