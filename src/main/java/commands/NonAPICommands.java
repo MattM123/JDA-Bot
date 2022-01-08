@@ -431,7 +431,7 @@ public class NonAPICommands extends ListenerAdapter {
 					if (page == bl.pages) {
 						event.getChannel().sendMessage(bl.pages + "").queue();
 						page = 0;
-						
+						bl.pages = 0;
 					}
 					
 				}
