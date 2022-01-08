@@ -382,9 +382,7 @@ public class NonAPICommands extends ListenerAdapter {
 										
 									}	
 								}	
-								
-								audit.sendMessage("**[BACKLOG]** Merge successful.").queue();	
-									
+				
 								//if id does not exist in table, add record for id with count of 1
 								if (!isPresent) {
 									String addUser = "INSERT INTO buildcounts VALUES (" + Long.parseLong(messages.get(i).getContentRaw()) + ", 1);"; 
@@ -418,6 +416,7 @@ public class NonAPICommands extends ListenerAdapter {
 							} 
 						}
 					}
+					audit.sendMessage("**[BACKLOG]** Merge successful.").queue();	
 				}
 			});
 		}
