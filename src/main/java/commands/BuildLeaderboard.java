@@ -50,24 +50,30 @@ public class BuildLeaderboard extends Paginator.Builder {
 			rs.last();
 			String[] addThis = new String[rs.getRow()];
 			int pointer = 0;
-			char[] record = "                                        ".toCharArray(); //size 40
+			char[] namespace = "                                  |".toCharArray(); //size 35
+			char[] countspace = "     ".toCharArray(); //size 5
 			
 			rs.beforeFirst();
 			while (rs.next()) {
 				
-				if (guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length() < record.length) {
+				if (guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length() < namespace.length) {
 					for (int i = 0; i < guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length(); i++) {
-						record[i] = guild.getMemberById(rs.getLong("id")).getUser().getAsTag().charAt(i);
+						namespace[i] = guild.getMemberById(rs.getLong("id")).getUser().getAsTag().charAt(i);
 					}
 					for (int i = 0; i < rs.getString("count").length(); i++) {
-						record[record.length - i - 1] = rs.getString("count").charAt(i);
+						countspace[i] = rs.getString("count").charAt(i);
 					}
 					
-					String insertThis = "";
-					for (int i = 0; i < record.length; i++) {
-						insertThis += record[i];
+					String nameString = "";
+					String countString = "";
+					for (int i = 0; i < countspace.length; i++) {
+						countString += countspace[i];
 					}
-					addThis[pointer] = insertThis;
+					for (int i = 0; i < namespace.length; i++) {
+						nameString += namespace[i];
+					}
+					
+					addThis[pointer] = nameString + countString;
 					pointer += 1;
 				
 				}
