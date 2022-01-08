@@ -46,8 +46,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 			this.addItems(items);
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard. \n**[ERROR]** " + e.getMessage()).queue();
 		}
 	}
 	

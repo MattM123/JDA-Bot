@@ -406,6 +406,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("test")) {
+			event.getChannel().sendMessage("test").queue();
 			BuildLeaderboard bl = new BuildLeaderboard();
 			bl.build().paginate(event.getChannel(), 1);
 			 
