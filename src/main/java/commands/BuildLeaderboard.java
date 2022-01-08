@@ -43,7 +43,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 		try {
 
 			String getData = "SELECT * FROM buildcounts ORDER BY count DESC;";
-			Statement data = Connect.connect().createStatement();
+			Statement data = Connect.connect().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = data.executeQuery(getData);
 			
 			rs.last();
