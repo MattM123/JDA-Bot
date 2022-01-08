@@ -51,7 +51,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 			rs.last();
 			String[] addThis = new String[rs.getRow()];
 			int pointer = 0;
-			char[] namespace = "▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️".toCharArray(); //size 35
+			char[] namespace = "▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪️▪".toCharArray(); //size 35
 			char[] countspace = "     ".toCharArray(); //size 5
 			
 			rs.beforeFirst();
