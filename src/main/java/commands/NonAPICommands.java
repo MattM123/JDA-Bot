@@ -407,7 +407,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		if (event.getMessage().getContentRaw().equals("=test")) {
 			BuildLeaderboard bl = new BuildLeaderboard();
-			bl.refresh();
+
 			bl.build().display(event.getChannel());
 			 
 		}

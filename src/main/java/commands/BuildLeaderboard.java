@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
@@ -42,13 +43,17 @@ public class BuildLeaderboard extends Paginator.Builder {
 			Statement data = Connect.connect().createStatement();
 			ResultSet rs = data.executeQuery(getData);
 			
-			String items = "";
+			ArrayList<String> items = new ArrayList<String>();
 			
 			while (rs.next()) {
-				items += guild.getMemberById(rs.getLong("id")).getUser().getAsTag() + ", " + rs.getString("count") + ", ";
+				items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag());
+				items.add(rs.getString("count"));
 			}
 			
-			this.addItems(items);
+			for (int i = 0; i < items.size(); i++) {
+				this.addItems(items.get(i));
+			}
+			
 			
 		} catch (SQLException e) {
 			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard. \n**[ERROR]** " + e.getMessage()).queue();
