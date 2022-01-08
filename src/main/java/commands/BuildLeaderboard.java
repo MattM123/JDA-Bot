@@ -21,7 +21,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 	private int itemsPerPage;
 	
 	public BuildLeaderboard() {
-		itemsPerPage = 1;
+		itemsPerPage = 10;
 		this.allowTextInput(false);
 		this.setColor(Color.blue);
 		this.setEventWaiter(new EventWaiter());
