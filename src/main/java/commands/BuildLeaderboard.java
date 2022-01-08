@@ -46,10 +46,12 @@ public class BuildLeaderboard extends Paginator.Builder {
 			Statement data = Connect.connect().createStatement();
 			ResultSet rs = data.executeQuery(getData);
 			
-			String[] addThis = new String[rs.getFetchSize() / 2];
+			rs.last();
+			String[] addThis = new String[rs.getRow()];
 			int pointer = 0;
 			char[] record = "                                        ".toCharArray(); //size 40
 			
+			rs.beforeFirst();
 			while (rs.next()) {
 				
 				if (guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length() < record.length) {
@@ -60,9 +62,10 @@ public class BuildLeaderboard extends Paginator.Builder {
 						record[record.length - i - 1] = rs.getString("count").charAt(i);
 					}
 					
+					
 					addThis[pointer] = record.toString();
 					pointer += 1;
-					record = "                                        ".toCharArray();
+				
 				}
 			}
 			
