@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.menu.Paginator;
@@ -39,20 +40,20 @@ public class BuildLeaderboard extends Paginator.Builder {
 			Statement data = Connect.connect().createStatement();
 			ResultSet rs = data.executeQuery(getData);
 			
-			String [] items = new String[10000];
+			ArrayList<String> items = new ArrayList<String>();
 			
 			while (rs.next()) {
-				for (int i = 0; i < items.length; i++) {
-					if (items[i] == null) {
-						items[i] = guild.getMemberById(rs.getLong("id")).getUser().getAsTag();
-						items[i + 1] = rs.getString("count");
-						break;
-					}
-				}
+				items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag());
+				items.add(rs.getString("count"));
+			}
+				
+			String[] addThis = new String[items.size()];
+			for (int i = 0; i < items.size(); i++) {
+				addThis[i] = items.get(i);
 			}
 			
 			this.clearItems();
-			this.addItems(items);
+			this.addItems(addThis);
 			
 			
 			
