@@ -348,10 +348,8 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel backlog = guild.getTextChannelById(928431170620887080L);
 		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=merge")) {
-			event.getChannel().sendMessage("break").queue();
 			//For all messages containing an ID in backlog, increments the corresponding database record by 1
 			backlog.getHistory().retrievePast(100).queue(messages -> {
-				event.getChannel().sendMessage("break1").queue();
 				if (messages.size() <= 0) {
 					audit.sendMessage("**[BACKLOG]** Could not merge blacklog since there are no messages to merge.").queue();	
 				}
@@ -388,7 +386,7 @@ public class NonAPICommands extends ListenerAdapter {
 									String addUser = "INSERT INTO buildcounts VALUES (" + Long.parseLong(messages.get(i).getContentRaw()) + ", 1);"; 
 									Statement stmt2  = Connect.connect().createStatement();
 									stmt2.executeUpdate(addUser);
-									audit.sendMessage("**[DATA]** New record added for " + Long.parseLong(messages.get(i).getContentRaw()) + " with an ID of " + Long.parseLong(messages.get(i).getContentRaw()) + " (1)").queue();
+									audit.sendMessage("**[DATA]** New record added for " + messages.get(i).getAuthor().getAsTag() + " with an ID of " + Long.parseLong(messages.get(i).getContentRaw()) + " (1)").queue();
 								}
 							} catch (SQLException e) {	
 								audit.sendMessage("**[ERROR]** Backlog cannot be merged right now").queue();
