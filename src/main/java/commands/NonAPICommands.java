@@ -26,7 +26,7 @@ import net.dv8tion.jda.api.requests.RestAction;
 public class NonAPICommands extends ListenerAdapter {
 
 	private String counter = "";
-	private int page = 0;
+	private int page = 1;
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {

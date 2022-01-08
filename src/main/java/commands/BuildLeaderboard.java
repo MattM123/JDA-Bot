@@ -24,7 +24,6 @@ public class BuildLeaderboard extends Paginator.Builder {
 		itemsPerPage = 2;
 		this.allowTextInput(false);
 		this.setColor(Color.blue);
-		this.setColumns(2);
 		this.setEventWaiter(new EventWaiter());
 		this.refresh();
 		this.setItemsPerPage(itemsPerPage);
@@ -47,20 +46,23 @@ public class BuildLeaderboard extends Paginator.Builder {
 			Statement data = Connect.connect().createStatement();
 			ResultSet rs = data.executeQuery(getData);
 			
-			ArrayList<String> names = new ArrayList<String>();
-			ArrayList<String> counts = new ArrayList<String>();
+			String[] addThis = new String[rs.getFetchSize() / 2];
+			int pointer = 0;
+			char[] record = "                                        ".toCharArray(); //size 40
 			
 			while (rs.next()) {
-				names.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag());
-				counts.add(rs.getString("count"));
-			}
 				
-			String[] addThis = new String[names.size() + counts.size()];
-			for (int i = 0; i < names.size(); i++) {
-				addThis[i] = names.get(i);
-			}
-			for (int i = 0; i < counts.size(); i++) {
-				addThis[i + names.size()] = counts.get(i);
+				if (guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length() < record.length) {
+					for (int i = 0; i < guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length(); i++) {
+						record[i] = guild.getMemberById(rs.getLong("id")).getUser().getAsTag().charAt(i);
+					}
+					for (int i = 0; i < rs.getString("count").length(); i++) {
+						record[record.length - i] = rs.getString("count").charAt(i);
+					}
+					
+					addThis[pointer] = record;
+					pointer += 1;
+				}
 			}
 			
 			this.addItems(addThis);
