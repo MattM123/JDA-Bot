@@ -404,6 +404,13 @@ public class NonAPICommands extends ListenerAdapter {
 				}
 			});
 		}
+		
+		TextChannel testing = guild.getTextChannelById(786328890280247327L);
+		if (event.getMessage().getContentRaw().equals("test")) {
+			BuildLeaderboard bl = new BuildLeaderboard();
+			bl.build().display(testing);
+			
+		}
 	}
 	
 	@Override
@@ -471,7 +478,7 @@ public class NonAPICommands extends ListenerAdapter {
 								else {
 									stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
 								}
-							}  
+							} 							
 						}  
 					});					
 				}

@@ -1,14 +1,19 @@
 package commands;
 
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.menu.Paginator;
+import com.marcuzzo.JDABot.Bot;
 
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
 
 public class BuildLeaderboard extends Paginator.Builder {
-	
+	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
 	
 	public BuildLeaderboard() {
 		this.allowTextInput(false);
@@ -24,6 +29,27 @@ public class BuildLeaderboard extends Paginator.Builder {
 		this.setUsers(access);
 		
 	}
+	
+	public void refresh() {
+		try {
+			String getData = "SELECT * FROM buildcounts ORDER BY count DESC";
+			Statement data = Connect.connect().createStatement();
+			ResultSet rs = data.executeQuery(getData);
+			
+			String items = "";
+			
+			while (rs.next()) {
+				items += guild.getMemberById(rs.getLong("id")).getUser().getAsTag() + " " + rs.getString("count");
+			}
+			
+			this.addItems(items);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 
 	
 
