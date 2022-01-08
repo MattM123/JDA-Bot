@@ -51,10 +51,9 @@ public class BuildLeaderboard extends Paginator.Builder {
 				items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag());		
 				items.add(rs.getString("count"));
 			}
-			guild.getTextChannelById(786328890280247327L).sendMessage(items.toString()).queue();
 			
-	
-				this.setItems((String[]) items.toArray());
+			this.clearItems();
+			this.addItems((String[]) items.toArray());
 			
 			
 			
