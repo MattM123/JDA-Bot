@@ -22,8 +22,8 @@ public class BuildLeaderboard extends Paginator.Builder {
 		this.setColumns(2);
 		this.setEventWaiter(new EventWaiter());
 		this.setItemsPerPage(10);
-		this.setTimeout(9999999, TimeUnit.DAYS);
-		this.setFinalAction(message -> guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Leaderboard timed out.").queue());
+		this.setTimeout(999999, TimeUnit.DAYS);
+		this.setFinalAction(message -> guild.getTextChannelById(786328890280247327L).sendMessage("**[ERROR]** Leaderboard timed out.").queue());
 		this.refresh();
 		
 	}
@@ -50,10 +50,12 @@ public class BuildLeaderboard extends Paginator.Builder {
 				
 			String[] addThis = new String[names.size()];
 			for (int i = 0; i < names.size(); i++) {
-				addThis[i] = names.get(i);
+				if (addThis[i] == null)
+					addThis[i] = names.get(i);
 			}
 			for (int i = 0; i < counts.size(); i++) {
-				addThis[i] = counts.get(i);
+				if (addThis[i] == null)
+					addThis[i] = counts.get(i);
 			}
 			
 			this.clearItems();
