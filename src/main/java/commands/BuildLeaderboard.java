@@ -53,12 +53,12 @@ public class BuildLeaderboard extends Paginator.Builder {
 			for (int i = 0; i < names.size(); i++) {
 				addThis[i] = names.get(i);
 			}
-			for (int i = names.size(); i < counts.size(); i++) {
-				addThis[i] = counts.get(i);
+			for (int i = 0; i < counts.size(); i++) {
+				addThis[i + names.size()] = counts.get(i);
 			}
 			
 			guild.getTextChannelById(786328890280247327L).sendMessage(Arrays.toString(addThis)).queue();
-			this.clearItems();
+			//this.clearItems();
 			this.addItems(addThis);
 			
 			
