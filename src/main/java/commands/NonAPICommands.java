@@ -417,12 +417,12 @@ public class NonAPICommands extends ListenerAdapter {
 			Timer timer = new Timer();
 			timer.scheduleAtFixedRate(new TimerTask() {
 				public void run() {
-					
 					if (!leaderboard.hasLatestMessage()) {
 						bl.build().display(leaderboard);
 					}
 					else {
 						leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {
+							bl.refresh();
 							bl.build().paginate(message, page + 1);
 							page += 1;
 						});
