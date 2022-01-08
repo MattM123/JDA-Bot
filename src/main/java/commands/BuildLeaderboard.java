@@ -25,7 +25,6 @@ public class BuildLeaderboard extends Paginator.Builder {
 		this.allowTextInput(false);
 		this.setColor(Color.blue);
 		this.setEventWaiter(new EventWaiter());
-		this.refresh();
 		this.setItemsPerPage(itemsPerPage);
 		this.setTimeout(99, TimeUnit.SECONDS);
 		this.setFinalAction(message -> refresh());
@@ -74,8 +73,9 @@ public class BuildLeaderboard extends Paginator.Builder {
 			
 			this.addItems(addThis);
 			
+			
 			if (addThis.length > itemsPerPage)
-				pages = (int) Math.ceil(addThis.length / itemsPerPage);
+				pages = addThis.length / itemsPerPage;
 			else {
 				pages = 1;
 			}
