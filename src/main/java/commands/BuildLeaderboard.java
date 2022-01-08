@@ -22,7 +22,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 		this.setColumns(2);
 		this.setEventWaiter(new EventWaiter());
 		this.setItemsPerPage(10);
-		this.setTimeout(99999999, TimeUnit.DAYS);
+		this.setTimeout(9999999, TimeUnit.DAYS);
 		this.setFinalAction(message -> guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Leaderboard timed out.").queue());
 		this.refresh();
 		
@@ -40,16 +40,20 @@ public class BuildLeaderboard extends Paginator.Builder {
 			Statement data = Connect.connect().createStatement();
 			ResultSet rs = data.executeQuery(getData);
 			
-			ArrayList<String> items = new ArrayList<String>();
+			ArrayList<String> names = new ArrayList<String>();
+			ArrayList<String> counts = new ArrayList<String>();
 			
 			while (rs.next()) {
-				items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag());
-				items.add(rs.getString("count"));
+				names.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag());
+				counts.add(rs.getString("count"));
 			}
 				
-			String[] addThis = new String[items.size()];
-			for (int i = 0; i < items.size(); i++) {
-				addThis[i] = items.get(i);
+			String[] addThis = new String[names.size()];
+			for (int i = 0; i < names.size(); i++) {
+				addThis[i] = names.get(i);
+			}
+			for (int i = 0; i < counts.size(); i++) {
+				addThis[i] = counts.get(i);
 			}
 			
 			this.clearItems();
