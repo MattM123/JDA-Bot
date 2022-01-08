@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.concurrent.TimeUnit;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.menu.Paginator;
@@ -21,7 +22,8 @@ public class BuildLeaderboard extends Paginator.Builder {
 		this.setColumns(2);
 		this.setEventWaiter(new EventWaiter());
 		this.setItemsPerPage(10);
-		
+		this.setTimeout(5, TimeUnit.SECONDS);
+		this.refresh();
 		
 	}
 	
