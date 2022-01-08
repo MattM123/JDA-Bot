@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.menu.Paginator;
+import com.jagrosh.jdautilities.menu.Paginator.Builder;
 import com.marcuzzo.JDABot.Bot;
 
 import net.dv8tion.jda.api.entities.Guild;
@@ -52,17 +53,13 @@ public class BuildLeaderboard extends Paginator.Builder {
 			}
 			guild.getTextChannelById(786328890280247327L).sendMessage(items.toString()).queue();
 			
-			for (int i = 0; i < items.size(); i++) {
-				this.addItems(items.get(i));
-			}
+	
+				this.setItems((String[]) items.toArray());
+			
 			
 			
 		} catch (SQLException e) {
 			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard. \n**[ERROR]** " + e.getMessage()).queue();
 		}
 	}
-	
-
-	
-
 }
