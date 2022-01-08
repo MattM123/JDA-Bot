@@ -12,12 +12,9 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 public class Connect {  
 	private static Connection conn = null;
-	private static Guild guild = Bot.jda.getGuildById(735990134583066679L);
-	private static TextChannel errorlog = guild.getTextChannelById(928432209872977990L);
 	
 	public static Connection connect() { 
 		try {  
-			//jdbc:postgresql://localhost/test?user=fred&password=secret
 			String unformatted = System.getenv("DATABASE_URL");
 			
 			String host = unformatted.substring(unformatted.indexOf('@') + 1, unformatted.indexOf(".com:") + 4);		
@@ -31,7 +28,7 @@ public class Connect {
 			conn = DriverManager.getConnection(formatted);  
              
 		} catch (SQLException e) {  
-			errorlog.sendMessage(e.getMessage()).queue();
+			e.printStackTrace();
 		}
 		return conn;
 	}
