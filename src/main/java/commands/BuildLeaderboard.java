@@ -45,15 +45,19 @@ public class BuildLeaderboard extends Paginator.Builder {
 			Statement data = Connect.connect().createStatement();
 			ResultSet rs = data.executeQuery(getData);
 			
-			ArrayList<String> items = new ArrayList<String>();
+			String [] items = new String[10000];
 			
 			while (rs.next()) {
-				items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag());		
-				items.add(rs.getString("count"));
+				for (int i = 0; i < items.length; i++) {
+					if (items[i] == null) {
+						items[i] = guild.getMemberById(rs.getLong("id")).getUser().getAsTag();
+						items[i + 1] = rs.getString("count");
+					}
+				}
 			}
 			
 			this.clearItems();
-			this.addItems((String[]) items.toArray());
+			this.addItems(items);
 			
 			
 			
