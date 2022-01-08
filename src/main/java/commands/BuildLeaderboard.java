@@ -47,7 +47,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 			
 			while (rs.next()) {
 				if (guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length() > 15)
-					items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag().substring(0, 15) + "...");
+					items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag().substring(0, 12) + "...");
 				else
 					items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag());
 				
