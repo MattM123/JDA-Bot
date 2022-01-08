@@ -28,7 +28,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 		this.setEventWaiter(new EventWaiter());
 		this.setItemsPerPage(10);
 		this.setTimeout(5, TimeUnit.SECONDS);
-		this.setFinalAction(message -> message.getChannel().sendMessage("Timeout").queue());
+		//this.setFinalAction(message -> message.getChannel().sendMessage("Timeout").queue());
 		this.refresh();
 		
 	}
@@ -52,6 +52,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 					if (items[i] == null) {
 						items[i] = guild.getMemberById(rs.getLong("id")).getUser().getAsTag();
 						items[i + 1] = rs.getString("count");
+						break;
 					}
 				}
 			}
