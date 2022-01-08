@@ -18,6 +18,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -407,37 +408,35 @@ public class NonAPICommands extends ListenerAdapter {
 				}
 			});
 		}
+	}
+	
+	@Override
+	public void onReady(ReadyEvent e) {
+		TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 		
-		if (event.getMessage().getContentRaw().equals("=leaderboard") && guild.getMemberById(event.getAuthor().getId()).getRoles().contains(guild.getRoleById(901162820484333610L))) {
-			TextChannel leaderboard = guild.getTextChannelById(929171594125914152L);
-			
-			BuildLeaderboard bl = new BuildLeaderboard();
-			bl.refresh();
-			bl.build().display(leaderboard);
-			
-			Timer timer = new Timer();
-			timer.scheduleAtFixedRate(new TimerTask() {
-				public void run() {
-					if (!leaderboard.hasLatestMessage()) {
-						bl.build().display(leaderboard);
-					}
-					else {
-						leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {
-							bl.refresh();
-							bl.build().paginate(message, page + 1);
-							page += 1;
-						});
-					}
-					if (page == bl.pages) {
-						event.getChannel().sendMessage(bl.pages + "").queue();
-						page = 0;
-						bl.pages = 0;
-					}
-					
+		BuildLeaderboard bl = new BuildLeaderboard();
+		bl.refresh();
+		bl.build().display(leaderboard);
+		
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			public void run() {
+				if (!leaderboard.hasLatestMessage()) {
+					bl.build().display(leaderboard);
 				}
-			}, 5000, 5000);
-			 
-		}
+				else {
+					leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {
+						bl.refresh();
+						bl.build().paginate(message, page + 1);
+						page += 1;
+					});
+				}
+				if (page == bl.pages) {
+					page = 0;
+				}
+				
+			}
+		}, 5000, 5000);
 	}
 	
 	@Override
