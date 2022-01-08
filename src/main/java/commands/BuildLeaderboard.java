@@ -49,11 +49,11 @@ public class BuildLeaderboard extends Paginator.Builder {
 				counts.add(rs.getString("count"));
 			}
 				
-			String[] addThis = new String[names.size()];
-			for (int i = 0; i < names.size() - 1; i++) {
+			String[] addThis = new String[names.size() + counts.size()];
+			for (int i = 0; i < names.size(); i++) {
 				addThis[i] = names.get(i);
 			}
-			for (int i = names.size() - 1; i < counts.size() - 1; i++) {
+			for (int i = names.size(); i < counts.size(); i++) {
 				addThis[i] = counts.get(i);
 			}
 			
