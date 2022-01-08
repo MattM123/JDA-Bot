@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
@@ -46,13 +47,10 @@ public class BuildLeaderboard extends Paginator.Builder {
 			ArrayList<String> items = new ArrayList<String>();
 			
 			while (rs.next()) {
-				if (guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length() > 10)
-					items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag().substring(0, 10) + "...");
-				else
-					items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag());
-				
+				items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag());		
 				items.add(rs.getString("count"));
 			}
+			guild.getTextChannelById(786328890280247327L).sendMessage(items.toString()).queue();
 			
 			for (int i = 0; i < items.size(); i++) {
 				this.addItems(items.get(i));
