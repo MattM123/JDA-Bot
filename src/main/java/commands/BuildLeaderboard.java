@@ -53,21 +53,26 @@ public class BuildLeaderboard extends Paginator.Builder {
 			Statement data = Connect.connect().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = data.executeQuery(getData);
 			
-			String[] addThis = null;
+			rs.last();
+			String[] addThis = new String[rs.getRow()];
 			int pointer = 0;
 			char[] namespace = "᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼".toCharArray(); //size 35
 			char[] countspace = "᲼᲼᲼᲼᲼".toCharArray(); //size 5
 			int total = 0; 
-			ArrayList<String> items = new ArrayList<String>();
+			rs.beforeFirst();
 
 			while (rs.next()) {	
 				if (guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length() < namespace.length && guild.getMemberById(rs.getLong("id")) != null) {
-					items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag());
-					items.add(rs.getString("count"));		
+					for (int i = 0; i < addThis.length; i++) {
+						if (addThis[i] == null)
+							addThis[i] = guild.getMemberById(rs.getLong("id")).getUser().getAsTag();
+					}
+					for (int i = 0; i < addThis.length; i++) {
+						if (addThis[i] == null)
+							addThis[i] = rs.getString("count");
+					}
+					
 					total += rs.getInt("count");
-				}
-			
-				addThis = items.toArray(String[]::new);
 				/*	
 					String nameString = "";
 					String countString = "";
@@ -89,8 +94,9 @@ public class BuildLeaderboard extends Paginator.Builder {
 						namespace[i] = '᲼';
 					}
 				*/
-				
+				}
 			}
+				
 	
 			this.setItems(addThis);
 			this.setText("**__Total Buildings Built: " + total + "__**");
