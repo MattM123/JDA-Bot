@@ -54,7 +54,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 			char[] namespace = "᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼".toCharArray(); //size 35
 			char[] countspace = "᲼᲼᲼᲼᲼".toCharArray(); //size 5
 			int total = 0;
-			
+			 
 			rs.beforeFirst();
 			while (rs.next()) {
 				
