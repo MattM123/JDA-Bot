@@ -46,9 +46,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 		
 	}
 	
-	public void refresh() {
-		this.clearItems();
-		
+	public void refresh() {		
 		try {
 
 			String getData = "SELECT * FROM buildcounts ORDER BY count DESC;";
@@ -101,7 +99,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 				}
 			}
 				
-			for (int i = 0; i < names.length - 1; i++) {
+			for (int i = 0; i < names.length; i++) {
 				this.addItems(names[i]);
 				this.addItems(counts[i]);
 			}
