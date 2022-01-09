@@ -55,6 +55,8 @@ public class BuildLeaderboard extends Paginator.Builder {
 			
 			rs.last();
 			String[] addThis = new String[rs.getRow()];
+			String[] names = new String[ rs.getRow() / 2];
+			String[] counts = new String[rs.getRow() / 2];
 			int pointer = 0;
 			char[] namespace = "᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼".toCharArray(); //size 35
 			char[] countspace = "᲼᲼᲼᲼᲼".toCharArray(); //size 5
@@ -63,14 +65,13 @@ public class BuildLeaderboard extends Paginator.Builder {
 
 			while (rs.next()) {	
 				if (guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length() < namespace.length && guild.getMemberById(rs.getLong("id")) != null) {
-					for (int i = 0; i < addThis.length; i++) {
-						if (addThis[i] == null)
-							addThis[i] = guild.getMemberById(rs.getLong("id")).getUser().getAsTag();
-					}
-					for (int i = 0; i < addThis.length; i++) {
-						if (addThis[i] == null)
-							addThis[i] = rs.getString("count");
-					}
+					 names[rs.getRow() - 1] = rs.getString("id");
+					 counts[rs.getRow() - 1] = rs.getString("count");
+					
+					//for (int i = 0; i < addThis.length; i++) {
+					////	if (addThis[i] == null)
+					//		addThis[i] = rs.getString("count");
+				//	}
 					
 					total += rs.getInt("count");
 				/*	
@@ -98,12 +99,13 @@ public class BuildLeaderboard extends Paginator.Builder {
 			}
 				
 	
-			this.setItems(addThis);
+			this.setItems(names);
+			this.addItems(counts);
 			this.setText("**__Total Buildings Built: " + total + "__**");
 			
 			
-			if (addThis.length > itemsPerPage)
-				pages = addThis.length / itemsPerPage;
+			if ((names.length + counts.length) > itemsPerPage)
+				pages = (names.length + counts.length) / itemsPerPage;
 			else {
 				pages = 1;
 			}
