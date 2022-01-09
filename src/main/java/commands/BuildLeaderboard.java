@@ -14,6 +14,7 @@ import com.marcuzzo.JDABot.Bot;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class BuildLeaderboard extends Paginator.Builder {
@@ -53,11 +54,13 @@ public class BuildLeaderboard extends Paginator.Builder {
 			int pointer = 0;
 			char[] namespace = "᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼".toCharArray(); //size 35
 			char[] countspace = "᲼᲼᲼᲼᲼".toCharArray(); //size 5
-			int total = 0;
-			 
+			int total = 0; 
 			rs.beforeFirst();
-			while (rs.next()) {
-				
+			
+			TextChannel bot = guild.getTextChannelById(786328890280247327L);
+			bot.sendMessage("Len: " + namespace.length);
+			
+			while (rs.next()) {	
 				if (guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length() < namespace.length) {
 					for (int i = 0; i < guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length(); i++) {
 						namespace[i] = guild.getMemberById(rs.getLong("id")).getUser().getAsTag().charAt(i);
