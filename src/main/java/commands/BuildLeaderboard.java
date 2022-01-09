@@ -65,9 +65,10 @@ public class BuildLeaderboard extends Paginator.Builder {
 
 			while (rs.next()) {	
 				if (guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length() < namespace.length && guild.getMemberById(rs.getLong("id")) != null) {
-					 names[rs.getRow() - 1] = rs.getString("id");
-					 counts[rs.getRow() - 1] = rs.getString("count");
-					
+					if (rs.getRow() - 1 < names.length) {
+						names[rs.getRow() - 1] = rs.getString("id");
+						counts[rs.getRow() - 1] = rs.getString("count");	
+					}
 					//for (int i = 0; i < addThis.length; i++) {
 					////	if (addThis[i] == null)
 					//		addThis[i] = rs.getString("count");
