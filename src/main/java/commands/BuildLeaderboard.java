@@ -27,6 +27,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 	public BuildLeaderboard() {
 		itemsPerPage = 10;
 		columns = 2;
+		this.refresh();
 		this.setColumns(columns);
 		this.allowTextInput(false);
 		this.setColor(Color.blue);
@@ -66,8 +67,8 @@ public class BuildLeaderboard extends Paginator.Builder {
 			while (rs.next()) {	
 				if (guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length() < namespace.length && guild.getMemberById(rs.getLong("id")) != null) {
 					if (rs.getRow() < names.length) {
-						names[rs.getRow()] = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
-						counts[rs.getRow()] = rs.getString("count");	
+						names[rs.getRow() - 1] = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
+						counts[rs.getRow() - 1] = rs.getString("count");	
 					}
 					//for (int i = 0; i < addThis.length; i++) {
 					////	if (addThis[i] == null)
@@ -98,7 +99,10 @@ public class BuildLeaderboard extends Paginator.Builder {
 				*/
 				}
 			}
-				
+			TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
+			leaderboard.sendMessage(Arrays.toString(names)).queue();
+			leaderboard.sendMessage(Arrays.toString(counts)).queue();
+			this.clearItems();
 			for (int i = 0; i < names.length; i++) {
 				this.addItems(names[i]);
 				this.addItems(counts[i]);
