@@ -47,6 +47,8 @@ public class BuildLeaderboard extends Paginator.Builder {
 	}
 	
 	public void refresh() {
+		this.clearItems();
+		
 		try {
 
 			String getData = "SELECT * FROM buildcounts ORDER BY count DESC;";
@@ -65,9 +67,9 @@ public class BuildLeaderboard extends Paginator.Builder {
 
 			while (rs.next()) {	
 				if (guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length() < namespace.length && guild.getMemberById(rs.getLong("id")) != null) {
-					if (rs.getRow() - 1 < names.length) {
-						names[rs.getRow() - 1] = rs.getString("id");
-						counts[rs.getRow() - 1] = rs.getString("count");	
+					if (rs.getRow() < names.length) {
+						names[rs.getRow()] = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
+						counts[rs.getRow()] = rs.getString("count");	
 					}
 					//for (int i = 0; i < addThis.length; i++) {
 					////	if (addThis[i] == null)
@@ -99,9 +101,10 @@ public class BuildLeaderboard extends Paginator.Builder {
 				}
 			}
 				
-	
-			this.setItems(names);
-			this.addItems(counts);
+			for (int i = 0; i < names.length + counts.length; i++) {
+				this.addItems(names[i]);
+				this.addItems(counts[i]);
+			}
 			this.setText("**__Total Buildings Built: " + total + "__**");
 			
 			
