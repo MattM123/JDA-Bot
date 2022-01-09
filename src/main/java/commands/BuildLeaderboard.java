@@ -82,6 +82,9 @@ public class BuildLeaderboard extends Paginator.Builder {
 					for (int i = 0; i < countspace.length; i++) {
 						countspace[i] = '᲼';
 					}
+					for (int i = 0; i < namespace.length; i++) {
+						namespace[i] = '᲼';
+					}
 				
 				}
 			}
