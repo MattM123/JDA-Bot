@@ -56,10 +56,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 			char[] countspace = "᲼᲼᲼᲼᲼".toCharArray(); //size 5
 			int total = 0; 
 			rs.beforeFirst();
-			
-			TextChannel bot = guild.getTextChannelById(786328890280247327L);
-			bot.sendMessage("Len: " + namespace.length);
-			
+
 			while (rs.next()) {	
 				if (guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length() < namespace.length) {
 					for (int i = 0; i < guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length(); i++) {
@@ -79,8 +76,12 @@ public class BuildLeaderboard extends Paginator.Builder {
 						nameString += namespace[i];
 					}
 					
-					addThis[pointer] = nameString + "  " + countString;
+					addThis[pointer] = nameString + countString;
 					pointer += 1;
+					
+					for (int i = 0; i < countspace.length; i++) {
+						countspace[i] = '᲼';
+					}
 				
 				}
 			}
