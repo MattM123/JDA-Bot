@@ -27,7 +27,6 @@ public class BuildLeaderboard extends Paginator.Builder {
 	public BuildLeaderboard() {
 		itemsPerPage = 10;
 		columns = 2;
-		this.refresh();
 		this.setColumns(columns);
 		this.allowTextInput(false);
 		this.setColor(Color.blue);
@@ -56,8 +55,8 @@ public class BuildLeaderboard extends Paginator.Builder {
 			
 			rs.last();
 			String[] addThis = new String[rs.getRow()];
-			String[] names = new String[rs.getRow() - 1];
-			String[] counts = new String[rs.getRow() - 1];
+			String[] names = new String[rs.getRow()];
+			String[] counts = new String[rs.getRow()];
 			int pointer = 0;
 			char[] namespace = "᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼".toCharArray(); //size 35
 			char[] countspace = "᲼᲼᲼᲼᲼".toCharArray(); //size 5
@@ -99,10 +98,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 				*/
 				}
 			}
-			TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
-			leaderboard.sendMessage(Arrays.toString(names)).queue();
-			leaderboard.sendMessage(Arrays.toString(counts)).queue();
-			this.clearItems();
+
 			for (int i = 0; i < names.length; i++) {
 				this.addItems(names[i]);
 				this.addItems(counts[i]);
