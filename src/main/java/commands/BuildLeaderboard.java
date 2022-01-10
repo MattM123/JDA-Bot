@@ -32,7 +32,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 		this.setColor(Color.blue);
 		this.setEventWaiter(new EventWaiter());
 		this.setItemsPerPage(itemsPerPage);
-		this.setTimeout(99, TimeUnit.SECONDS);
+		this.setTimeout(5, TimeUnit.SECONDS);
 		this.setFinalAction(message -> refresh());
 		this.wrapPageEnds(false);
 	
@@ -98,7 +98,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 				*/
 				}
 			}
-
+			this.addItems("test");
 			for (int i = 0; i < names.length; i++) {
 				this.addItems(names[i]);
 				this.addItems(counts[i]);
