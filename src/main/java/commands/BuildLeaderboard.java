@@ -113,7 +113,6 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					emb.addField(items.get(i + 1), "", true);
 					itemEmbeds.add(emb.build());
 				}
-				
 			}
 			this.setItems(itemEmbeds);
 		//	for (int i = 0; i < names.length - 1; i++) {
