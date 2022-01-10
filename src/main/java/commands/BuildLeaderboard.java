@@ -25,7 +25,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 	private int columns;
 	
 	public BuildLeaderboard() {
-		itemsPerPage = 500;
+		itemsPerPage = 4;
 		columns = 2;
 		this.setColumns(columns);
 		this.allowTextInput(false);
