@@ -9,16 +9,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
+import com.jagrosh.jdautilities.menu.EmbedPaginator;
 import com.jagrosh.jdautilities.menu.Paginator;
 import com.jagrosh.jdautilities.menu.Paginator.Builder;
 import com.marcuzzo.JDABot.Bot;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
-public class BuildLeaderboard extends Paginator.Builder {
+public class BuildLeaderboard extends EmbedPaginator.Builder {
 	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
 	public int pages;
 	private int itemsPerPage;
@@ -57,7 +59,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 			String[] addThis = new String[rs.getRow()];
 			String[] names = new String[rs.getRow() + 1];
 			String[] counts = new String[rs.getRow() + 1];
-
+			ArrayList<String> items = new ArrayList<String>();
 		
 		//	int pointer = 0;
 		//	char[] namespace = "᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼".toCharArray(); //size 35
@@ -68,10 +70,10 @@ public class BuildLeaderboard extends Paginator.Builder {
 			while (rs.next()) {	
 				if (guild.getMemberById(rs.getLong("id")) != null) {
 					if (rs.getRow() < names.length) {
-						names[rs.getRow() - 1] = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
-						counts[rs.getRow() - 1] = rs.getString("count");	
-				//		items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
-				//		items.add(rs.getString("count"));
+					//	names[rs.getRow() - 1] = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
+					//	counts[rs.getRow() - 1] = rs.getString("count");	
+						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
+						items.add(rs.getString("count"));
 					}
 					//for (int i = 0; i < addThis.length; i++) {
 					////	if (addThis[i] == null)
@@ -102,7 +104,19 @@ public class BuildLeaderboard extends Paginator.Builder {
 				*/
 				}
 			}
+	
+			if (items.size() > 5) {
+				for (int i = 0; i < items.size(); i += 5) {
+					EmbedBuilder emb = new EmbedBuilder();
+					emb.setColor(Color.blue);
+					emb.addField(items.get(i), items.get(i + 2), true);
+					emb.addField(items.get(i + 4), items.get(i + 6), true);
+					this.addItems(emb.build());
+				}
+				
+			}
 			this.clearItems();
+			
 			for (int i = 0; i < names.length - 1; i++) {
 				this.addItems(names[i]);
 			}

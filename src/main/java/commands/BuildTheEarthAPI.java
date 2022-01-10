@@ -17,7 +17,6 @@ import com.google.gson.JsonParser;
 
 public class BuildTheEarthAPI {
 	private String apikey;
-	private ArrayList<Long> userIDs = new ArrayList<Long>();
 	public String stackTrace = "";
 	
 	public BuildTheEarthAPI(String key) {
