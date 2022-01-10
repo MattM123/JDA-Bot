@@ -13,11 +13,6 @@
 	      	<version>3.8.1</version>
 	      	<scope>test</scope>
     	</dependency>
-		<dependency>
-    		<groupId>org.jsoup</groupId>
-    		<artifactId>jsoup</artifactId>
-    		<version>1.14.3</version>
-		</dependency>
     	<dependency>
 	    	<groupId>net.dv8tion</groupId>
 	    	<artifactId>JDA</artifactId>
@@ -45,11 +40,6 @@
 	    	<version>3.1.2</version>
 		</dependency>
 		<dependency>
-    		<groupId>mysql</groupId>
-    		<artifactId>mysql-connector-java</artifactId>
-    		<version>8.0.22</version>
-		</dependency>
-		<dependency>
 		  <groupId>org.postgresql</groupId>
 		  <artifactId>postgresql</artifactId>
 		  <version>42.3.1</version>
@@ -73,12 +63,17 @@
     		<id>mattmalec-repo</id>
     		<url>https://repo.mattmalec.com/repository/releases</url>
 		</repository>
-		  <repository>
+		<repository>
     		<id>chew</id>
     		<name>m2-chew</name>
     		<url>https://m2.chew.pro/releases</url>
-  			</repository>
- 	 	</repositories>
+  		</repository>
+  			<repository>
+    		<id>dv8tion</id>
+    		<name>m2-dv8tion</name>
+    		<url>https://m2.dv8tion.net/releases</url>
+  		</repository>
+ 	 </repositories>
   
     <build>
         <plugins>
