@@ -108,8 +108,8 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				for (int i = 0; i < items.size(); i += 5) {
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setColor(Color.blue);
-					emb.addField(items.get(i), items.get(i + 2), true);
-					emb.addField(items.get(i + 4), items.get(i + 5), true);
+					emb.addField(items.get(i), "", true);
+					emb.addField(items.get(i + 1), "", true);
 					this.addItems(emb.build());
 				}
 				
