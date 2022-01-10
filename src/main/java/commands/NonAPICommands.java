@@ -417,6 +417,7 @@ public class NonAPICommands extends ListenerAdapter {
 		BuildLeaderboard bl = new BuildLeaderboard();
 		bl.refresh();
 		bl.build().display(leaderboard);
+
 		
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {

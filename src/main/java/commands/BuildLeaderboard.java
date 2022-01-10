@@ -15,8 +15,10 @@ import com.jagrosh.jdautilities.menu.Paginator.Builder;
 import com.marcuzzo.JDABot.Bot;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
@@ -58,6 +60,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			String[] names = new String[rs.getRow() + 1];
 			String[] counts = new String[rs.getRow() + 1];
 			ArrayList<String> items = new ArrayList<String>();
+			ArrayList<MessageEmbed> itemEmbeds = new ArrayList<MessageEmbed>();
 		
 		//	int pointer = 0;
 		//	char[] namespace = "᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼".toCharArray(); //size 35
@@ -103,18 +106,17 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				}
 			}
 			this.clearItems();
-			
 			if (items.size() > 2) {
 				for (int i = 0; i < items.size(); i += 2) {
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setColor(Color.blue);
 					emb.addField(items.get(i), "", true);
 					emb.addField(items.get(i + 1), "", true);
-					this.addItems(emb.build());
+					itemEmbeds.add(emb.build());
 				}
 				
 			}
-			
+			this.setItems(itemEmbeds);
 		//	for (int i = 0; i < names.length - 1; i++) {
 		//		this.addItems(names[i]);
 		//	}
