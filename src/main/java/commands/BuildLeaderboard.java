@@ -105,7 +105,6 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				*/
 				}
 			}
-			this.clearItems();
 			if (items.size() > 2) {
 				for (int i = 0; i < items.size(); i += 2) {
 					EmbedBuilder emb = new EmbedBuilder();
@@ -113,10 +112,11 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					emb.addField(items.get(i), "", true);
 					emb.addField(items.get(i + 1), "", true);
 					itemEmbeds.add(emb.build());
+					
 				}
-				
+				this.setItems(items.toArray(MessageEmbed[]::new));
 			}
-			this.setItems(itemEmbeds);
+		//	this.setItems(itemEmbeds);
 		//	for (int i = 0; i < names.length - 1; i++) {
 		//		this.addItems(names[i]);
 		//	}
