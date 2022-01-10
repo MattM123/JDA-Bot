@@ -102,25 +102,25 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				*/
 				}
 			}
-	
+			this.clearItems();
+			
 			if (items.size() > 5) {
 				for (int i = 0; i < items.size(); i += 5) {
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setColor(Color.blue);
-					emb.addField(items.get(i), items.get(i + 2), true);
-					emb.addField(items.get(i + 4), items.get(i + 6), true);
+					emb.addField(items.get(i), items.get(i + 1), true);
+					emb.addField(items.get(i + 3), items.get(i + 5), true);
 					this.addItems(emb.build());
 				}
 				
 			}
-			this.clearItems();
 			
-			for (int i = 0; i < names.length - 1; i++) {
-				this.addItems(names[i]);
-			}
-			for (int i = 0; i < counts.length - 1; i++) {
-				this.addItems(counts[i]);
-			} 
+		//	for (int i = 0; i < names.length - 1; i++) {
+		//		this.addItems(names[i]);
+		//	}
+		//	for (int i = 0; i < counts.length - 1; i++) {
+		//		this.addItems(counts[i]);
+		//	} 
 			//TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 			//leaderboard.sendMessage(Arrays.toString(items.toArray(String[]::new))).queue();
 		//	this.setItems(items.toArray(String[]::new));
