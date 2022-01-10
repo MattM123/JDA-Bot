@@ -25,7 +25,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 	private int columns;
 	
 	public BuildLeaderboard() {
-		itemsPerPage = 10;
+		itemsPerPage = 500;
 		columns = 2;
 		this.setColumns(columns);
 		this.allowTextInput(false);
@@ -57,7 +57,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 			String[] addThis = new String[rs.getRow()];
 			String[] names = new String[rs.getRow()];
 			String[] counts = new String[rs.getRow()];
-			ArrayList<String> items = new ArrayList<String>();
+
 		//	int pointer = 0;
 		//	char[] namespace = "᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼".toCharArray(); //size 35
 		//	char[] countspace = "᲼᲼᲼᲼᲼".toCharArray(); //size 5
@@ -69,8 +69,8 @@ public class BuildLeaderboard extends Paginator.Builder {
 					if (rs.getRow() < names.length) {
 					//	names[rs.getRow() - 1] = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
 					//	counts[rs.getRow() - 1] = rs.getString("count");	
-						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
-						items.add(rs.getString("count"));
+				//		items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
+				//		items.add(rs.getString("count"));
 					}
 					//for (int i = 0; i < addThis.length; i++) {
 					////	if (addThis[i] == null)
@@ -110,7 +110,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 			} 
 			//TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 			//leaderboard.sendMessage(Arrays.toString(items.toArray(String[]::new))).queue();
-			this.setItems(items.toArray(String[]::new));
+		//	this.setItems(items.toArray(String[]::new));
 			this.setText("**__Total Buildings: " + total + "__**");
 			
 			
