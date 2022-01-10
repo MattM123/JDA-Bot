@@ -55,8 +55,9 @@ public class BuildLeaderboard extends Paginator.Builder {
 			
 			rs.last();
 			String[] addThis = new String[rs.getRow()];
-			String[] names = new String[rs.getRow() ];
+			String[] names = new String[rs.getRow()];
 			String[] counts = new String[rs.getRow()];
+			ArrayList<String> items = new ArrayList<String>();
 		//	int pointer = 0;
 		//	char[] namespace = "᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼".toCharArray(); //size 35
 		//	char[] countspace = "᲼᲼᲼᲼᲼".toCharArray(); //size 5
@@ -66,8 +67,10 @@ public class BuildLeaderboard extends Paginator.Builder {
 			while (rs.next()) {	
 				if (guild.getMemberById(rs.getLong("id")) != null) {
 					if (rs.getRow() < names.length) {
-						names[rs.getRow() - 1] = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
-						counts[rs.getRow() - 1] = rs.getString("count");	
+					//	names[rs.getRow() - 1] = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
+					//	counts[rs.getRow() - 1] = rs.getString("count");	
+						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
+						items.add(rs.getString("count"));
 					}
 					//for (int i = 0; i < addThis.length; i++) {
 					////	if (addThis[i] == null)
@@ -98,13 +101,16 @@ public class BuildLeaderboard extends Paginator.Builder {
 				*/
 				}
 			}
-			this.clearItems();
-			for (int i = 0; i < names.length - 1; i++) {
-				this.addItems(names[i]);
-			}
-			for (int i = 0; i < counts.length - 1; i++) {
-				this.addItems(counts[i]);
-			} 
+			//this.clearItems();
+		//	for (int i = 0; i < names.length - 1; i++) {
+		//		this.addItems(names[i]);
+		//	}
+		//	for (int i = 0; i < counts.length - 1; i++) {
+		//		this.addItems(counts[i]);
+		//	} 
+			TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
+			leaderboard.sendMessage(Arrays.toString(items.toArray(String[]::new))).queue();
+			this.setItems(items.toArray(String[]::new));
 			this.setText("**__Total Buildings: " + total + "__**");
 			
 			
