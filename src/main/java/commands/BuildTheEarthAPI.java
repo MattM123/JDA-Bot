@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.json.JSONException;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -75,10 +73,7 @@ public class BuildTheEarthAPI {
 		} catch (IOException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			return stack.subSequence(0, 1000).toString();
-		} catch (JSONException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			return stack.subSequence(0, 1000).toString();
-		} catch (IndexOutOfBoundsException e) {
+		}catch (IndexOutOfBoundsException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			return stack.subSequence(0, 1000).toString();
 		}
@@ -126,9 +121,6 @@ public class BuildTheEarthAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack.subSequence(0, 1000).toString();
 		} catch (IOException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack.subSequence(0, 1000).toString();
-		} catch (JSONException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack.subSequence(0, 1000).toString();
 		}
@@ -183,9 +175,6 @@ public class BuildTheEarthAPI {
 			stackTrace = stack.subSequence(0, 1000).toString();
 		} catch (IOException e) {
 			stackTrace = "User has not applied to the team nor have they been merged into it";
-		} catch (JSONException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack.subSequence(0, 1000).toString();
 		}
 		
 		return applicationArray;
@@ -233,9 +222,6 @@ public class BuildTheEarthAPI {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack.subSequence(0, 1000).toString();
 		} catch (IOException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack.subSequence(0, 1000).toString();
-		} catch (JSONException e) {
 			String stack = ExceptionUtils.getStackTrace(e);
 			stackTrace = stack.subSequence(0, 1000).toString();
 		}
