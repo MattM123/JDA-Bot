@@ -104,7 +104,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 			}
 			for (int i = 0; i < counts.length; i++) {
 				this.addItems(counts[i]);
-			}
+			} 
 			this.setText("**__Total Buildings Built: " + total + "__**");
 			
 			
