@@ -55,8 +55,8 @@ public class BuildLeaderboard extends Paginator.Builder {
 			
 			rs.last();
 			String[] addThis = new String[rs.getRow()];
-			String[] names = new String[rs.getRow() - 1];
-			String[] counts = new String[rs.getRow() - 1];
+			String[] names = new String[rs.getRow() ];
+			String[] counts = new String[rs.getRow()];
 		//	int pointer = 0;
 		//	char[] namespace = "᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼".toCharArray(); //size 35
 		//	char[] countspace = "᲼᲼᲼᲼᲼".toCharArray(); //size 5
@@ -99,10 +99,10 @@ public class BuildLeaderboard extends Paginator.Builder {
 				}
 			}
 			this.clearItems();
-			for (int i = 0; i < names.length; i++) {
+			for (int i = 0; i < names.length - 1; i++) {
 				this.addItems(names[i]);
 			}
-			for (int i = 0; i < counts.length; i++) {
+			for (int i = 0; i < counts.length - 1; i++) {
 				this.addItems(counts[i]);
 			} 
 			this.setText("**__Total Buildings: " + total + "__**");
