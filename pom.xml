@@ -61,18 +61,9 @@
     		<scope>compile</scope>
     		<type>pom</type>
   		</dependency>
-
-
-		
-		
     </dependencies>
     
     <repositories>
-		<repository>
-		    <id>central</id>
-		    <name>bintray</name>
-		    <url>http://jcenter.bintray.com</url>
-  		</repository>
   		<repository>
 		    <id>jcenter</id>
 		    <name>jcenter-bintray</name>
