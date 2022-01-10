@@ -101,14 +101,14 @@ public class BuildLeaderboard extends Paginator.Builder {
 				*/
 				}
 			}
-			//this.clearItems();
-		//	for (int i = 0; i < names.length - 1; i++) {
-		//		this.addItems(names[i]);
-		//	}
-		//	for (int i = 0; i < counts.length - 1; i++) {
-		//		this.addItems(counts[i]);
-		//	} 
-			TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
+			this.clearItems();
+			for (int i = 0; i < names.length - 1; i++) {
+				this.addItems(names[i]);
+			}
+			for (int i = 0; i < counts.length - 1; i++) {
+				this.addItems(counts[i]);
+			} 
+			//TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 			//leaderboard.sendMessage(Arrays.toString(items.toArray(String[]::new))).queue();
 			this.setItems(items.toArray(String[]::new));
 			this.setText("**__Total Buildings: " + total + "__**");
