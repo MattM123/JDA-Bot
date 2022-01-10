@@ -98,7 +98,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 				*/
 				}
 			}
-			this.addItems("test");
+			this.setItems("test", "test");
 			for (int i = 0; i < names.length; i++) {
 				this.addItems(names[i]);
 				this.addItems(counts[i]);
