@@ -114,7 +114,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					itemEmbeds.add(emb.build());
 					
 				}
-				this.setItems(items.toArray(MessageEmbed[]::new));
+				this.setItems(itemEmbeds.toArray(MessageEmbed[]::new));
 			}
 		//	this.setItems(itemEmbeds);
 		//	for (int i = 0; i < names.length - 1; i++) {
