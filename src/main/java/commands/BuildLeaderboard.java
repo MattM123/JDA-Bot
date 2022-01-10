@@ -116,12 +116,4 @@ public class BuildLeaderboard extends Paginator.Builder {
 			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard. \n**[ERROR]** " + e.getMessage()).queue();
 		}
 	}
-	
-	@Override 
-	public Builder addItems(String... items) {
-		for (int i = 0; i < items.length; i++) {
-			
-		}
-		return this;
-	}
 }
