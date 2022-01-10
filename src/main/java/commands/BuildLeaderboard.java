@@ -109,7 +109,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 		//		this.addItems(counts[i]);
 		//	} 
 			TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
-			leaderboard.sendMessage(Arrays.toString(items.toArray(String[]::new))).queue();
+			//leaderboard.sendMessage(Arrays.toString(items.toArray(String[]::new))).queue();
 			this.setItems(items.toArray(String[]::new));
 			this.setText("**__Total Buildings: " + total + "__**");
 			
