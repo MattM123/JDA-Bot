@@ -24,16 +24,14 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
 	public int pages;
 	private int itemsPerPage;
-	private int columns;
 	
 	public BuildLeaderboard() {
 		itemsPerPage = 500;
-		columns = 2;
-		this.setColumns(columns);
+	//	this.setColumns(columns);
 		this.allowTextInput(false);
-		this.setColor(Color.blue);
+	//	this.setColor(Color.blue);
 		this.setEventWaiter(new EventWaiter());
-		this.setItemsPerPage(itemsPerPage);
+	//	this.setItemsPerPage(itemsPerPage);
 		this.setTimeout(5, TimeUnit.SECONDS);
 		this.setFinalAction(message -> refresh());
 		this.wrapPageEnds(false);
