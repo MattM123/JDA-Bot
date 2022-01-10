@@ -25,7 +25,7 @@ public class BuildLeaderboard extends Paginator.Builder {
 	private int columns;
 	
 	public BuildLeaderboard() {
-		itemsPerPage = 4;
+		itemsPerPage = 100;
 		columns = 2;
 		this.setColumns(columns);
 		this.allowTextInput(false);
@@ -57,14 +57,14 @@ public class BuildLeaderboard extends Paginator.Builder {
 			String[] addThis = new String[rs.getRow()];
 			String[] names = new String[rs.getRow() - 1];
 			String[] counts = new String[rs.getRow() - 1];
-			int pointer = 0;
-			char[] namespace = "᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼".toCharArray(); //size 35
-			char[] countspace = "᲼᲼᲼᲼᲼".toCharArray(); //size 5
+		//	int pointer = 0;
+		//	char[] namespace = "᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼".toCharArray(); //size 35
+		//	char[] countspace = "᲼᲼᲼᲼᲼".toCharArray(); //size 5
 			int total = 0; 
 			rs.beforeFirst();
 
 			while (rs.next()) {	
-				if (guild.getMemberById(rs.getLong("id")).getUser().getAsTag().length() < namespace.length && guild.getMemberById(rs.getLong("id")) != null) {
+				if (guild.getMemberById(rs.getLong("id")) != null) {
 					if (rs.getRow() < names.length) {
 						names[rs.getRow() - 1] = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
 						counts[rs.getRow() - 1] = rs.getString("count");	
