@@ -55,8 +55,8 @@ public class BuildLeaderboard extends Paginator.Builder {
 			
 			rs.last();
 			String[] addThis = new String[rs.getRow()];
-			String[] names = new String[rs.getRow()];
-			String[] counts = new String[rs.getRow()];
+			String[] names = new String[rs.getRow() + 1];
+			String[] counts = new String[rs.getRow() + 1];
 
 		//	int pointer = 0;
 		//	char[] namespace = "᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼".toCharArray(); //size 35
