@@ -98,14 +98,14 @@ public class BuildLeaderboard extends Paginator.Builder {
 				*/
 				}
 			}
-
+			this.clearItems();
 			for (int i = 0; i < names.length; i++) {
 				this.addItems(names[i]);
 			}
 			for (int i = 0; i < counts.length; i++) {
 				this.addItems(counts[i]);
 			} 
-			this.setText("**__Total Buildings Built: " + total + "__**");
+			this.setText("**__Total Buildings: " + total + "__**");
 			
 			
 			if ((names.length + counts.length) > itemsPerPage)
