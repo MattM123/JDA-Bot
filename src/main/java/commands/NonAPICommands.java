@@ -28,6 +28,7 @@ public class NonAPICommands extends ListenerAdapter {
 
 	private String counter = "";
 	private int page = 1;
+	private BuildLeaderboard bl = new BuildLeaderboard();
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -410,7 +411,8 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (event.getMessage().getContentRaw().equals("=test")) {
-			event.getChannel().sendMessage("Page #: " + page);
+			event.getChannel().sendMessage("Page #: " + page).queue();
+			event.getChannel().sendMessage("Pages total: " + bl.pages).queue();
 		}
 	}
 	
@@ -418,7 +420,7 @@ public class NonAPICommands extends ListenerAdapter {
 	public void onReady(ReadyEvent e) {
 		TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 		
-		BuildLeaderboard bl = new BuildLeaderboard();
+		
 		bl.refresh();
 		bl.build().display(leaderboard);
 
