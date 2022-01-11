@@ -1,45 +1,31 @@
 package commands;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.menu.EmbedPaginator;
-import com.jagrosh.jdautilities.menu.Paginator;
-import com.jagrosh.jdautilities.menu.Paginator.Builder;
 import com.marcuzzo.JDABot.Bot;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class BuildLeaderboard extends EmbedPaginator.Builder {
 	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
-	public int pages;
-	private int itemsPerPage;
+	ArrayList<MessageEmbed> itemEmbeds = new ArrayList<MessageEmbed>();
+	public int pages = itemEmbeds.size();
 	
 	public BuildLeaderboard() {
-		itemsPerPage = 4;
-	//	this.setColumns(columns);
 		this.allowTextInput(false);
-	//	this.setColor(Color.blue);
 		this.setEventWaiter(new EventWaiter());
-	//	this.setItemsPerPage(itemsPerPage);
 		this.setTimeout(5, TimeUnit.SECONDS);
 		this.setFinalAction(message -> refresh());
 		this.wrapPageEnds(true);
-	
-		
-		
 	}
 	
 	public BuildLeaderboard(User access) {
@@ -57,10 +43,9 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			
 			rs.last();
 			int numOfRows = rs.getRow() + 1;
-			String[] names = new String[rs.getRow() + 1];
-			String[] counts = new String[rs.getRow() + 1];
 			ArrayList<String> items = new ArrayList<String>();
-			ArrayList<MessageEmbed> itemEmbeds = new ArrayList<MessageEmbed>();
+			itemEmbeds.clear();
+			
 
 			int total = 0; 
 			rs.beforeFirst();
@@ -118,15 +103,6 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			
 			this.setItems(itemEmbeds);
 			this.setText("**__Total Buildings: " + total + "__**");
-			
-			TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
-			
-			
-			if (numOfRows > itemsPerPage)
-				pages = numOfRows / itemsPerPage;
-			else {
-				pages = 1;
-			}
 	
 		} catch (SQLException e) {
 			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard. \n**[ERROR]** " + e.getMessage()).queue();
