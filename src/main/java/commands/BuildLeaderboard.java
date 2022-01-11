@@ -76,7 +76,9 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 						if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 20)
 							items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 17) + "...");
 						else
-							items.add(rs.getString("count"));
+							items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
+							
+						items.add(rs.getString("count"));
 					}
 					//for (int i = 0; i < addThis.length; i++) {
 					////	if (addThis[i] == null)
