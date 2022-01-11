@@ -28,7 +28,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 	private int itemsPerPage;
 	
 	public BuildLeaderboard() {
-		itemsPerPage = 10;
+		itemsPerPage = 4;
 	//	this.setColumns(columns);
 		this.allowTextInput(false);
 	//	this.setColor(Color.blue);
