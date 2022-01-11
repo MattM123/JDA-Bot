@@ -432,7 +432,7 @@ public class NonAPICommands extends ListenerAdapter {
 					bl.refresh();
 					bl.build().display(leaderboard);
 				}
-				else {
+				else { 
 					leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {
 						bl.refresh();
 						bl.build().paginate(message, page + 1);
