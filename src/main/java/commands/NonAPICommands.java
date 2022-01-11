@@ -421,12 +421,15 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 		
 		
+		
+		//bl.build().display(leaderboard);
 
 		
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			public void run() {
 				if (!leaderboard.hasLatestMessage()) {
+					bl.refresh();
 					bl.build().display(leaderboard);
 				}
 				else {
