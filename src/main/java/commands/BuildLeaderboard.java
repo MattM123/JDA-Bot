@@ -79,35 +79,34 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				}
 			}
 	
-				for (int i = 0; i < items.size(); i += 10) {
-					EmbedBuilder emb = new EmbedBuilder();
-					
-					
+			//Creating embeds that will be paginated
+				for (int i = 0; i < items.size(); i += 4) {
+					EmbedBuilder emb = new EmbedBuilder();						
 					try {
 						emb.setColor(Color.blue);
 						
 						emb.addField(items.get(i), "", true);
-						emb.addField(items.get(i + 1), "", false);
+						emb.addField(items.get(i + 1), "", true);
 						
-						//emb.addField("" + '\u200b', "" + '\u200b', true);
+						emb.addField("" + '\u200b', "" + '\u200b', true);
 
 						emb.addField(items.get(i + 2), "", true);
-						emb.addField(items.get(i + 3), "", false);
+						emb.addField(items.get(i + 3), "", true);
 						
-						//emb.addField("" + '\u200b', "" + '\u200b', true);
+						emb.addField("" + '\u200b', "" + '\u200b', true);
 							
-						emb.addField(items.get(i + 4), "", true);
-						emb.addField(items.get(i + 5), "", false);
+					//	emb.addField(items.get(i + 4), "", true);
+					//	emb.addField(items.get(i + 5), "", true);
 						
-						//emb.addField("" + '\u200b', "" + '\u200b', true);
+					//	emb.addField("" + '\u200b', "" + '\u200b', true);
 							
-						emb.addField(items.get(i + 6), "", true);
-						emb.addField(items.get(i + 7), "", false);
+					//	emb.addField(items.get(i + 6), "", true);
+					//	emb.addField(items.get(i + 7), "", true);
 						
-						//emb.addField("" + '\u200b', "" + '\u200b', true);
+					//	emb.addField("" + '\u200b', "" + '\u200b', true);
 							
-						emb.addField(items.get(i + 8), "", true);
-						emb.addField(items.get(i + 9), "", false);
+					//	emb.addField(items.get(i + 8), "", true);
+					//	emb.addField(items.get(i + 9), "", true);
 
 				} catch (IndexOutOfBoundsException e) {
 					itemEmbeds.add(emb.build());
