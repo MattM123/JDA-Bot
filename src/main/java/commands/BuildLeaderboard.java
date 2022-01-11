@@ -120,7 +120,6 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			this.setText("**__Total Buildings: " + total + "__**");
 			
 			TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
-			leaderboard.sendMessage("Size: " + itemEmbeds.size()).queue();
 			
 			
 			if (numOfRows > itemsPerPage)

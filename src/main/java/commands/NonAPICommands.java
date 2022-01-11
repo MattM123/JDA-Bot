@@ -435,7 +435,7 @@ public class NonAPICommands extends ListenerAdapter {
 				if (page == bl.pages) {
 					page = 0;
 				}
-				leaderboard.sendMessage("page: " + page).queue();
+			//	leaderboard.sendMessage("page: " + page).queue();
 			}
 		}, 5000, 5000);
 	}
