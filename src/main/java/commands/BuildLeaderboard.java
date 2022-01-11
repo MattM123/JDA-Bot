@@ -17,8 +17,7 @@ import net.dv8tion.jda.api.entities.User;
 
 public class BuildLeaderboard extends EmbedPaginator.Builder {
 	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
-	ArrayList<MessageEmbed> itemEmbeds = new ArrayList<MessageEmbed>();
-	public int pages = itemEmbeds.size();
+	public int pages ;
 	
 	public BuildLeaderboard() {
 		this.allowTextInput(false);
@@ -44,9 +43,8 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			rs.last();
 			int numOfRows = rs.getRow() + 1;
 			ArrayList<String> items = new ArrayList<String>();
-			itemEmbeds.clear();
+			ArrayList<MessageEmbed> itemEmbeds = new ArrayList<MessageEmbed>();
 			
-
 			int total = 0; 
 			rs.beforeFirst();
 
@@ -100,7 +98,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					
 				itemEmbeds.add(emb.build());
 			}
-			
+			pages = itemEmbeds.size();
 			this.setItems(itemEmbeds);
 			this.setText("**__Total Buildings: " + total + "__**");
 	
