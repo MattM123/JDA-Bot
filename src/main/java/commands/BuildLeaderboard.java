@@ -72,9 +72,11 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				if (guild.getMemberById(rs.getLong("id")) != null) {
 					if (rs.getRow() < names.length) {
 					//	names[rs.getRow() - 1] = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
-					//	counts[rs.getRow() - 1] = rs.getString("count");	
-						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
-						items.add(rs.getString("count"));
+					//	counts[rs.getRow() - 1] = rs.getString("count");
+						if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 20)
+							items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 17) + "...");
+						else
+							items.add(rs.getString("count"));
 					}
 					//for (int i = 0; i < addThis.length; i++) {
 					////	if (addThis[i] == null)
@@ -82,27 +84,6 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				//	}
 					
 					total += rs.getInt("count");
-				/*	
-					String nameString = "";
-					String countString = "";
-					for (int i = 0; i < countspace.length; i++) {
-						countString += countspace[i];
-					}
-					for (int i = 0; i < namespace.length; i++) {
-						nameString += namespace[i];
-					}
-					
-					addThis[pointer] = nameString + countString;
-					pointer += 1;
-					
-					//Reseting char spaces for next record
-					for (int i = 0; i < countspace.length; i++) {
-						countspace[i] = '᲼';
-					}
-					for (int i = 0; i < namespace.length; i++) {
-						namespace[i] = '᲼';
-					}
-				*/
 				}
 			}
 	
