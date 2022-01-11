@@ -17,7 +17,7 @@ import net.dv8tion.jda.api.entities.User;
 
 public class BuildLeaderboard extends EmbedPaginator.Builder {
 	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
-	public int pages ;
+	public int pages;
 	
 	public BuildLeaderboard() {
 		this.allowTextInput(false);
@@ -40,25 +40,22 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			Statement data = Connect.connect().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = data.executeQuery(getData);
 			
-			rs.last();
-			int numOfRows = rs.getRow() + 1;
 			ArrayList<String> items = new ArrayList<String>();
 			ArrayList<MessageEmbed> itemEmbeds = new ArrayList<MessageEmbed>();
 			
 			int total = 0; 
-			rs.beforeFirst();
+			
 
 			while (rs.next()) {	
-	
-				if (rs.getRow() < numOfRows) {
-					if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15
-							&& guild.getMemberById(rs.getString("id")).getUser().getAsTag() != null)
-						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 10) + "...");
-					else
-						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
+
+				if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15
+						&& guild.getMemberById(rs.getString("id")).getUser().getAsTag() != null)
+					items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 10) + "...");
+				else
+					items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
 							
-					items.add(rs.getString("count"));
-				}					
+				items.add(rs.getString("count"));
+									
 				total += rs.getInt("count");
 				
 			}
