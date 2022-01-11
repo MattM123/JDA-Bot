@@ -28,7 +28,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 	private int itemsPerPage;
 	
 	public BuildLeaderboard() {
-		itemsPerPage = 500;
+		itemsPerPage = 10;
 	//	this.setColumns(columns);
 		this.allowTextInput(false);
 	//	this.setColor(Color.blue);
@@ -36,7 +36,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 	//	this.setItemsPerPage(itemsPerPage);
 		this.setTimeout(5, TimeUnit.SECONDS);
 		this.setFinalAction(message -> refresh());
-		this.wrapPageEnds(false);
+		this.wrapPageEnds(true);
 	
 		
 		
@@ -56,35 +56,25 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			ResultSet rs = data.executeQuery(getData);
 			
 			rs.last();
-			String[] addThis = new String[rs.getRow()];
+			int numOfRows = rs.getRow() + 1;
 			String[] names = new String[rs.getRow() + 1];
 			String[] counts = new String[rs.getRow() + 1];
 			ArrayList<String> items = new ArrayList<String>();
 			ArrayList<MessageEmbed> itemEmbeds = new ArrayList<MessageEmbed>();
-		
-		//	int pointer = 0;
-		//	char[] namespace = "᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼᲼".toCharArray(); //size 35
-		//	char[] countspace = "᲼᲼᲼᲼᲼".toCharArray(); //size 5
+
 			int total = 0; 
 			rs.beforeFirst();
 
 			while (rs.next()) {	
 				if (guild.getMemberById(rs.getLong("id")) != null) {
-					if (rs.getRow() < names.length) {
-					//	names[rs.getRow() - 1] = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
-					//	counts[rs.getRow() - 1] = rs.getString("count");
+					if (rs.getRow() < numOfRows) {
 						if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15)
-							items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 12) + "...");
+							items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 10) + "...");
 						else
 							items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
 							
 						items.add(rs.getString("count"));
-					}
-					//for (int i = 0; i < addThis.length; i++) {
-					////	if (addThis[i] == null)
-					//		addThis[i] = rs.getString("count");
-				//	}
-					
+					}					
 					total += rs.getInt("count");
 				}
 			}
@@ -96,27 +86,27 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					try {
 						emb.setColor(Color.blue);
 						
-						emb.addField(items.get(i), "", true);
+						emb.addField(items.get(i), "", false);
 						emb.addField(items.get(i + 1), "", true);
 						
-						emb.addField("" + '\u200b', "" + '\u200b', true);
+						//emb.addField("" + '\u200b', "" + '\u200b', true);
 
-						emb.addField(items.get(i + 2), "", true);
+						emb.addField(items.get(i + 2), "", false);
 						emb.addField(items.get(i + 3), "", true);
 						
-						emb.addField("" + '\u200b', "" + '\u200b', true);
+						//emb.addField("" + '\u200b', "" + '\u200b', true);
 							
-						emb.addField(items.get(i + 4), "", true);
+						emb.addField(items.get(i + 4), "", false);
 						emb.addField(items.get(i + 5), "", true);
 						
-						emb.addField("" + '\u200b', "" + '\u200b', true);
+						//emb.addField("" + '\u200b', "" + '\u200b', true);
 							
-						emb.addField(items.get(i + 6), "", true);
+						emb.addField(items.get(i + 6), "", false);
 						emb.addField(items.get(i + 7), "", true);
 						
-						emb.addField("" + '\u200b', "" + '\u200b', true);
+						//emb.addField("" + '\u200b', "" + '\u200b', true);
 							
-						emb.addField(items.get(i + 8), "", true);
+						emb.addField(items.get(i + 8), "", false);
 						emb.addField(items.get(i + 9), "", true);
 
 				} catch (IndexOutOfBoundsException e) {
@@ -128,20 +118,11 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			}
 			
 			this.setItems(itemEmbeds);
-		//	for (int i = 0; i < names.length - 1; i++) {
-		//		this.addItems(names[i]);
-		//	}
-		//	for (int i = 0; i < counts.length - 1; i++) {
-		//		this.addItems(counts[i]);
-		//	} 
-			//TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
-			//leaderboard.sendMessage(Arrays.toString(items.toArray(String[]::new))).queue();
-		//	this.setItems(items.toArray(String[]::new));
 			this.setText("**__Total Buildings: " + total + "__**");
 			
 			
-			if ((names.length + counts.length) > itemsPerPage)
-				pages = (names.length + counts.length) / itemsPerPage;
+			if (numOfRows > itemsPerPage)
+				pages = numOfRows / itemsPerPage;
 			else {
 				pages = 1;
 			}
