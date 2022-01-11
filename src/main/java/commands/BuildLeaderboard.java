@@ -105,15 +105,35 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				*/
 				}
 			}
-			if (items.size() > 2) {
-				for (int i = 0; i < items.size(); i += 2) {
+	
+				for (int i = 0; i < items.size(); i += 10) {
 					EmbedBuilder emb = new EmbedBuilder();
-					emb.setColor(Color.blue);
-					emb.addField(items.get(i), "", true);
-					emb.addField(items.get(i + 1), "", true);
+					
+					try {
+						emb.setColor(Color.blue);
+						emb.addField(items.get(i), "", true);
+						emb.addField(items.get(i + 1), "", true);
+							
+						emb.addField(items.get(i + 2), "", true);
+						emb.addField(items.get(i + 3), "", true);
+							
+						emb.addField(items.get(i + 4), "", true);
+						emb.addField(items.get(i + 5), "", true);
+							
+						emb.addField(items.get(i + 6), "", true);
+						emb.addField(items.get(i + 7), "", true);
+							
+						emb.addField(items.get(i + 8), "", true);
+						emb.addField(items.get(i + 9), "", true);
+
+				} catch (IndexOutOfBoundsException e) {
 					itemEmbeds.add(emb.build());
+					break;
 				}
+					
+				itemEmbeds.add(emb.build());
 			}
+			
 			this.setItems(itemEmbeds);
 		//	for (int i = 0; i < names.length - 1; i++) {
 		//		this.addItems(names[i]);
