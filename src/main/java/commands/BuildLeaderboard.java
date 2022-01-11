@@ -48,11 +48,11 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			
 
 			while (rs.next()) {	
-
+				TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
+				leaderboard.sendMessage("test: " + rs.getString("id")).queue();
+				leaderboard.sendMessage("test: " + guild.getMemberById(rs.getString("id")).getUser().getAsTag()).queue();
 				if (!guild.getMemberById(rs.getString("id")).getUser().getAsTag().equals(null)) {
-					TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
-					leaderboard.sendMessage("test: " + rs.getString("id")).queue();
-					leaderboard.sendMessage("test: " + guild.getMemberById(rs.getString("id")).getUser().getAsTag()).queue();
+					
 					
 					if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15)
 						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 10) + "...");
