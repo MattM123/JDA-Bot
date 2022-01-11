@@ -13,6 +13,7 @@ import com.marcuzzo.JDABot.Bot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class BuildLeaderboard extends EmbedPaginator.Builder {
@@ -49,7 +50,11 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			while (rs.next()) {	
 
 				if (!guild.getMemberById(rs.getString("id")).getUser().getAsTag().equals(null)) {
-					if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15 && rs.getString("id") != null)
+					TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
+					leaderboard.sendMessage("test: " + rs.getString("id")).queue();
+					leaderboard.sendMessage("test: " + guild.getMemberById(rs.getString("id")).getUser().getAsTag()).queue();
+					
+					if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15)
 						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 10) + "...");
 					else
 						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
