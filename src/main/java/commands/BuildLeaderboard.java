@@ -23,7 +23,6 @@ import net.dv8tion.jda.api.entities.User;
 public class BuildLeaderboard extends EmbedPaginator.Builder {
 
 	public int pages;
-	private Guild guild = NonAPICommands.pubGuild;
 	
 	public BuildLeaderboard() {
 		this.allowTextInput(false);
@@ -134,9 +133,10 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			this.setText("**__Total Buildings: " + total + "__**");
 	
 		} catch (SQLException e) {
+			Guild guild = NonAPICommands.pubGuild;
 			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard. \n**[ERROR]** " + e.getMessage()).queue();
 		}
-		
+		Guild guild = NonAPICommands.pubGuild;
 		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
 		TextChannel audit = guild.getTextChannelById(929158963499515954L);
 		if (Connect.connect() != null) {  
