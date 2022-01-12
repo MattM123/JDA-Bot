@@ -29,6 +29,7 @@ public class NonAPICommands extends ListenerAdapter {
 	private String counter = "";
 	private int page = 1;
 	private BuildLeaderboard bl = new BuildLeaderboard();
+	public static Guild pubGuild;
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -419,7 +420,7 @@ public class NonAPICommands extends ListenerAdapter {
 	@Override
 	public void onReady(ReadyEvent e) {
 		TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
-		
+		pubGuild = Bot.jda.getGuildById(735990134583066679L);
 		
 		bl.refresh();
 		bl.build().display(leaderboard);

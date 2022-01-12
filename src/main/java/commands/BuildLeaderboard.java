@@ -18,7 +18,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class BuildLeaderboard extends EmbedPaginator.Builder {
-	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
+	private Guild guild = NonAPICommands.pubGuild;
 	public int pages;
 	
 	public BuildLeaderboard() {
@@ -49,11 +49,6 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			
 
 			while (rs.next()) {	
-				
-			//	String tag = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
-			//	Member member = guild.getMemberById(rs.getString("id"));
-			//	TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
-			//	leaderboard.sendMessage("id: " + rs.getString("id")).queue(); <- not null
 				try {
 					if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15) //<- null
 						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 10) + "...");
