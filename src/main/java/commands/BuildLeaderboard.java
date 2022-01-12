@@ -11,11 +11,8 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.menu.EmbedPaginator;
-import com.marcuzzo.JDABot.Bot;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -54,8 +51,8 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			while (rs.next()) {	
 				Guild guild = NonAPICommands.pubGuild;
 				try {
-					if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 14)
-						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 12) + "...");
+					if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 13)
+						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 11) + "...");
 					else
 						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
 				} catch (NullPointerException e) {
