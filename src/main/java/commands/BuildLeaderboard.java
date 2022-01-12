@@ -54,13 +54,14 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			//	Member member = guild.getMemberById(rs.getString("id"));
 			//	TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 			//	leaderboard.sendMessage("id: " + rs.getString("id")).queue(); <- not null
-				
-				if (!guild.getMemberById(rs.getString("id")).getUser().getAsTag().equals(null) && guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15) //<- null
-					items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 10) + "...");
-				else if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() <= 15 && guild.getMemberById(rs.getString("id")).getUser().getAsTag() != null)
-					items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
-				else
+				try {
+					if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15) //<- null
+						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 10) + "...");
+					else
+						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
+				} catch (NullPointerException e) {
 					items.add("Missing User");
+				}				
 								
 				items.add(rs.getString("count"));
 										
