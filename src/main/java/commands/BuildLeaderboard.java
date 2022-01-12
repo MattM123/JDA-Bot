@@ -12,6 +12,7 @@ import com.marcuzzo.JDABot.Bot;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -48,13 +49,15 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			
 
 			while (rs.next()) {	
+				String tag = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
+				Member member = guild.getMemberById(rs.getString("id"));
 			//	TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 			//	leaderboard.sendMessage("id: " + rs.getString("id")).queue(); <- not null
 				
-				if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15 && guild.getMemberById(rs.getLong("id")) != null) //<- null
-					items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag().substring(0, 10) + "...");
-				else if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() <= 15)
-					items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag());
+				if (tag.length() > 15 && member != null) //<- null
+					items.add(tag.substring(0, 10) + "...");
+				else if (tag.length() <= 15)
+					items.add(tag);
 				else
 					items.add("Missing User");
 								
