@@ -55,9 +55,9 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			//	TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 			//	leaderboard.sendMessage("id: " + rs.getString("id")).queue(); <- not null
 				
-				if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15 && !guild.getMemberById(rs.getString("id")).getUser().getAsTag().equals(null)) //<- null
+				if (!guild.getMemberById(rs.getString("id")).getUser().getAsTag().equals(null) && guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15) //<- null
 					items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 10) + "...");
-				else if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() <= 15 && !guild.getMemberById(rs.getString("id")).getUser().getAsTag().equals(null))
+				else if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() <= 15 && guild.getMemberById(rs.getString("id")).getUser().getAsTag() != null)
 					items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
 				else
 					items.add("Missing User");
