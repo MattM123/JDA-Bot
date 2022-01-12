@@ -38,7 +38,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 		try {
 
 			String getData = "SELECT * FROM buildcounts ORDER BY count DESC;";
-			Statement data = Connect.connect().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			Statement data = Connect.connect().createStatement();
 			ResultSet rs = data.executeQuery(getData);
 			
 			ArrayList<String> items = new ArrayList<String>();
@@ -48,6 +48,8 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			
 
 			while (rs.next()) {	
+				TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
+				leaderboard.sendMessage("id: " + rs.getString("id")).queue();
 				
 				if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15 && guild.getMemberById(rs.getString("id")) != null)
 					items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 10) + "...");
