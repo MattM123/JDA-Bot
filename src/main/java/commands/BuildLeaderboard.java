@@ -20,6 +20,7 @@ import net.dv8tion.jda.api.entities.User;
 public class BuildLeaderboard extends EmbedPaginator.Builder {
 
 	public int pages;
+	private Guild guild = NonAPICommands.pubGuild;
 	
 	public BuildLeaderboard() {
 		this.allowTextInput(false);
