@@ -18,7 +18,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class BuildLeaderboard extends EmbedPaginator.Builder {
-	private Guild guild = NonAPICommands.pubGuild;
+
 	public int pages;
 	
 	public BuildLeaderboard() {
@@ -49,6 +49,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			
 
 			while (rs.next()) {	
+				Guild guild = NonAPICommands.pubGuild;
 				try {
 					if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15) //<- null
 						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 10) + "...");
