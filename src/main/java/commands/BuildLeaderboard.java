@@ -52,7 +52,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			while (rs.next()) {	
 				Guild guild = NonAPICommands.pubGuild;
 				try {
-					if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15) //<- null
+					if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15)
 						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 10) + "...");
 					else
 						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
@@ -68,7 +68,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			}
 	
 			//Creating embeds that will be paginated
-				for (int i = 0; i < items.size(); i += 4) {
+				for (int i = 0; i < items.size(); i += 10) {
 					EmbedBuilder emb = new EmbedBuilder();						
 					try {
 						emb.setColor(Color.blue);
