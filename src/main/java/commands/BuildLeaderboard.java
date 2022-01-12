@@ -53,8 +53,10 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				
 				if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 15 && guild.getMemberById(rs.getLong("id")) != null) //<- null
 					items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag().substring(0, 10) + "...");
-				else
+				else if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() <= 15)
 					items.add(guild.getMemberById(rs.getLong("id")).getUser().getAsTag());
+				else
+					items.add("Missing User");
 								
 				items.add(rs.getString("count"));
 										
