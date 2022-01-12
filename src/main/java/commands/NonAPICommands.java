@@ -421,7 +421,7 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 		
 		
-		
+		bl.refresh();
 		bl.build().display(leaderboard);
 
 		
