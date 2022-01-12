@@ -422,7 +422,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		
 		
-		//bl.build().display(leaderboard);
+		bl.build().display(leaderboard);
 
 		
 		Timer timer = new Timer();
