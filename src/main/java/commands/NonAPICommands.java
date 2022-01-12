@@ -251,6 +251,7 @@ public class NonAPICommands extends ListenerAdapter {
 //------------------------------------------------------------------------------------------------------------------------------------
 //manually increments database record by 1
 		TextChannel audit = guild.getTextChannelById(929158963499515954L);
+		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
 		if (event.getMessage().getContentRaw().startsWith("=add ") && guild.getMemberById(event.getAuthor().getId()).getRoles().contains(guild.getRoleById(901162820484333610L))) {
 			boolean isPresent = false;
 			String id = "";
@@ -287,6 +288,19 @@ public class NonAPICommands extends ListenerAdapter {
 				}
 			} catch (SQLException e) {
 				audit.sendMessage("**[ERROR]** Could not manually increment record. \n[ERROR] " + e.getMessage() + ".").queue();	
+			}
+			
+			if (Connect.connect() != null) {  
+				try {
+					Connect.connect().close();
+				} catch (SQLException e) {
+					audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
+					if (ExceptionUtils.getStackTrace(e).length() >= 1900)
+						stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
+					else {
+						stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+					}
+				} 							
 			}
 		}
 		
@@ -335,11 +349,24 @@ public class NonAPICommands extends ListenerAdapter {
 			} catch (SQLException e) {
 				audit.sendMessage("**[ERROR]** Could not manually decrement record. \n[ERROR] " + e.getMessage() + ".").queue();	
 			}
+			
+			if (Connect.connect() != null) {  
+				try {
+					Connect.connect().close();
+				} catch (SQLException e) {
+					audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
+					if (ExceptionUtils.getStackTrace(e).length() >= 1900)
+						stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
+					else {
+						stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+					}
+				} 							
+			}
 		}
 //------------------------------------------------------------------------------------------------------------------------------------
 //merge backlog into database 
 		TextChannel backlog = guild.getTextChannelById(928431170620887080L);
-		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
+		//TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=merge")) {
 			//For all messages containing an ID in backlog, increments the corresponding database record by 1
 			backlog.getHistory().retrievePast(100).queue(messages -> {
@@ -407,13 +434,21 @@ public class NonAPICommands extends ListenerAdapter {
 						}
 					}
 					audit.sendMessage("**[BACKLOG]** Merge successful.").queue();	
+					
+					if (Connect.connect() != null) {  
+						try {
+							Connect.connect().close();
+						} catch (SQLException e) {
+							audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
+							if (ExceptionUtils.getStackTrace(e).length() >= 1900)
+								stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
+							else {
+								stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+							}
+						} 							
+					}
 				}
 			});
-		}
-		
-		if (event.getMessage().getContentRaw().equals("=test")) {
-			event.getChannel().sendMessage("Page #: " + page).queue();
-			event.getChannel().sendMessage("Pages total: " + bl.pages).queue();
 		}
 	}
 	

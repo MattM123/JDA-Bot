@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.menu.EmbedPaginator;
 import com.marcuzzo.JDABot.Bot;
@@ -52,8 +55,8 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			while (rs.next()) {	
 				Guild guild = NonAPICommands.pubGuild;
 				try {
-					if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 13)
-						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 10) + "...");
+					if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 14)
+						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 12) + "...");
 					else
 						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
 				} catch (NullPointerException e) {
@@ -132,6 +135,21 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 	
 		} catch (SQLException e) {
 			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard. \n**[ERROR]** " + e.getMessage()).queue();
+		}
+		
+		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
+		TextChannel audit = guild.getTextChannelById(929158963499515954L);
+		if (Connect.connect() != null) {  
+			try {
+				Connect.connect().close();
+			} catch (SQLException e) {
+				audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
+				if (ExceptionUtils.getStackTrace(e).length() >= 1900)
+					stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
+				else {
+					stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+				}
+			} 							
 		}
 	}
 }
