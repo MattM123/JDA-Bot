@@ -24,7 +24,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 	public BuildLeaderboard() {
 		this.allowTextInput(false);
 		this.setEventWaiter(new EventWaiter());
-		this.setTimeout(5, TimeUnit.SECONDS);
+		this.setTimeout(10, TimeUnit.SECONDS);
 		this.setFinalAction(message -> refresh());
 		this.wrapPageEnds(true);
 	}
@@ -94,6 +94,8 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 							
 						emb.addField(items.get(i + 8), "", true);
 						emb.addField(items.get(i + 9), "", true);
+						
+						emb.addField("" + '\u200b', "" + '\u200b', true);
 						
 						emb.addField(items.get(i + 10), "", true);
 						emb.addField(items.get(i + 11), "", true);
