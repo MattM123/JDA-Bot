@@ -478,7 +478,7 @@ public class NonAPICommands extends ListenerAdapter {
 					page = 0;
 				}
 			}
-		}, 5000, 5000);
+		}, 6000, 6000);
 	}
 	
 	@Override
