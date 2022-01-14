@@ -66,6 +66,23 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard. \n**[ERROR]** " + e.getMessage()).queue();
 		}
 		
+
+		Guild guild = NonAPICommands.pubGuild;
+		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
+		TextChannel audit = guild.getTextChannelById(929158963499515954L);
+		if (Connect.connect() != null) {  
+			try {
+				Connect.connect().close();
+			} catch (SQLException e) {
+				audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
+				if (ExceptionUtils.getStackTrace(e).length() >= 1900)
+					stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
+				else {
+					stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+				}
+			} 							
+		}
+		
 		itemEmbeds = new ArrayList<MessageEmbed>();
 		if (rs != null && items != null && itemEmbeds != null && total != 0) {
 			//Creating embeds that will be paginated
@@ -124,22 +141,6 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			pages = itemEmbeds.size();
 			this.setItems(itemEmbeds);
 			this.setText("**__Total Buildings: " + total + "__**");
-		}
-
-		Guild guild = NonAPICommands.pubGuild;
-		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
-		TextChannel audit = guild.getTextChannelById(929158963499515954L);
-		if (Connect.connect() != null) {  
-			try {
-				Connect.connect().close();
-			} catch (SQLException e) {
-				audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
-				if (ExceptionUtils.getStackTrace(e).length() >= 1900)
-					stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
-				else {
-					stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
-				}
-			} 							
 		}
 	}
 }
