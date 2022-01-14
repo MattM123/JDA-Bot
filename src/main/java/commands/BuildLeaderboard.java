@@ -59,7 +59,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 							namespace[i] = guild.getMemberById(rs.getString("id")).getUser().getAsTag().charAt(i);
 						}
 						items.add(new String(namespace));
-						namespace = "                                        |".toCharArray();
+						namespace = "                                        ᲼".toCharArray();
 					}
 					else {
 						items.add("Username too long");
