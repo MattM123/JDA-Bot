@@ -72,11 +72,11 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					
 						emb.addField("__User__", items.get(i) + "\n" + items.get(i + 2) + "\n" + items.get(i + 4) + "\n"
 							+ items.get(i + 6) + "\n" + items.get(i + 8) + "\n" + items.get(i + 10) + "\n"
-							+ items.get(i + 12) + "\n" + items.get(i + 14), true);// + "\n" + items.get(i + 16) + items.get(i + 18), true);
+							+ items.get(i + 12), true);// + "\n" + items.get(i + 14) + "\n" + items.get(i + 16) + items.get(i + 18), true);
 				
 						emb.addField("__Build Count__", items.get(i + 1) + "\n" + items.get(i + 3) + "\n" + items.get(i + 5) + "\n"
 							+ items.get(i + 7) + "\n" + items.get(i + 9) + "\n" + items.get(i + 11) + "\n"
-							+ items.get(i + 13) + "\n" + items.get(i + 15), true);// + "\n" + items.get(i + 17) + items.get(i + 19), true);
+							+ items.get(i + 13), true);// + "\n" + items.get(i + 15) + "\n" + items.get(i + 17) + items.get(i + 19), true);
 
 				} catch (IndexOutOfBoundsException e) {
 					itemEmbeds.add(emb.build());
