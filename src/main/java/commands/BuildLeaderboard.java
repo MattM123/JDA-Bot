@@ -72,52 +72,52 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					try {
 						emb.setColor(Color.blue);
 						
-						emb.addField(items.get(i) + "                                   ", "", true);
+						emb.addField(items.get(i) + "                                             |", "", true);
 						emb.addField(items.get(i + 1), "", true);
 						
 						emb.addField("" + '\u200b', "" + '\u200b', true);
 
-						emb.addField(items.get(i + 2), "", true);
+						emb.addField(items.get(i + 2) + "                                             |", "", true);
 						emb.addField(items.get(i + 3), "", true);
 						
 						emb.addField("" + '\u200b', "" + '\u200b', true);
 							
-						emb.addField(items.get(i + 4), "", true);
+						emb.addField(items.get(i + 4) + "                                             |", "", true);
 						emb.addField(items.get(i + 5), "", true);
 						
 						emb.addField("" + '\u200b', "" + '\u200b', true);
 							
-						emb.addField(items.get(i + 6), "", true);
+						emb.addField(items.get(i + 6) + "                                             |", "", true);
 						emb.addField(items.get(i + 7), "", true);
 						
 						emb.addField("" + '\u200b', "" + '\u200b', true);
 							
-						emb.addField(items.get(i + 8), "", true);
+						emb.addField(items.get(i + 8) + "                                             |", "", true);
 						emb.addField(items.get(i + 9), "", true);
 						
 						emb.addField("" + '\u200b', "" + '\u200b', true);
 						
-						emb.addField(items.get(i + 10), "", true);
+						emb.addField(items.get(i + 10) + "                                             |", "", true);
 						emb.addField(items.get(i + 11), "", true);
 						
 						emb.addField("" + '\u200b', "" + '\u200b', true);
 
-						emb.addField(items.get(i + 12), "", true);
+						emb.addField(items.get(i + 12) + "                                             |", "", true);
 						emb.addField(items.get(i + 13), "", true);
 						
 						emb.addField("" + '\u200b', "" + '\u200b', true);
 							
-						emb.addField(items.get(i + 14), "", true);
+						emb.addField(items.get(i + 14) + "                                             |", "", true);
 						emb.addField(items.get(i + 15), "", true);
 						
 						emb.addField("" + '\u200b', "" + '\u200b', true);
 							
-						emb.addField(items.get(i + 16), "", true);
+						emb.addField(items.get(i + 16) + "                                             |", "", true);
 						emb.addField(items.get(i + 17), "", true);
 						
 						emb.addField("" + '\u200b', "" + '\u200b', true);
 							
-						emb.addField(items.get(i + 18), "", true);
+						emb.addField(items.get(i + 18) + "                                             |", "", true);
 						emb.addField(items.get(i + 19), "", true);
 
 				} catch (IndexOutOfBoundsException e) {
