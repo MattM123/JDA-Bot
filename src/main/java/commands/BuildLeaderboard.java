@@ -41,6 +41,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			String getData = "SELECT * FROM buildcounts ORDER BY count DESC;";
 			Statement data = Connect.connect().createStatement();
 			ResultSet rs = data.executeQuery(getData);
+			char[] namespace = "                                                  |".toCharArray();
 			
 			ArrayList<String> items = new ArrayList<String>();
 			ArrayList<MessageEmbed> itemEmbeds = new ArrayList<MessageEmbed>();
@@ -51,10 +52,10 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			while (rs.next()) {	
 				Guild guild = NonAPICommands.pubGuild;
 				try {
-					if (guild.getMemberById(rs.getString("id")).getUser().getAsTag().length() > 13)
-						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag().substring(0, 11) + "...");
-					else
-						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());
+					for (int i = 0; i < namespace.length; i++ ) {
+						namespace[i] = guild.getMemberById(rs.getString("id")).getUser().getAsTag().charAt(i);
+					}
+					items.add(new String(namespace));
 				} catch (NullPointerException e) {
 					items.add("Missing User");
 				}				
