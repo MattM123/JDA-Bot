@@ -464,12 +464,12 @@ public class NonAPICommands extends ListenerAdapter {
 		if (Connect.connect() != null) {  
 			try {
 				Connect.connect().close();
-			} catch (SQLException e) {
-				audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
-				if (ExceptionUtils.getStackTrace(e).length() >= 1900)
-					stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
+			} catch (SQLException f) {
+				audit.sendMessage("**[ERROR]** " + f.getMessage()).queue();
+				if (ExceptionUtils.getStackTrace(f).length() >= 1900)
+					stacktrace.sendMessage(ExceptionUtils.getStackTrace(f).substring(0, 1900)).queue();
 				else {
-					stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+					stacktrace.sendMessage(ExceptionUtils.getStackTrace(f)).queue();
 				}
 			} 							
 		}
