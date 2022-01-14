@@ -459,7 +459,6 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		bl.refresh();
 		bl.build().display(leaderboard);
-		timeout = bl.pages * timeout;
 		
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -479,7 +478,7 @@ public class NonAPICommands extends ListenerAdapter {
 					page = 0;
 				}
 			}
-		}, timeout * 1000, timeout * 1000);
+		}, 7000, 7000);
 	}
 	
 	@Override
