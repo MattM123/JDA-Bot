@@ -36,17 +36,18 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 	}
 	
 	public void refresh() {		
+		ResultSet rs = null;
+		ArrayList<String> items = null;
+		ArrayList<MessageEmbed> itemEmbeds = null;
+		int total = 0;
+		
 		try {
-
 			String getData = "SELECT * FROM buildcounts ORDER BY count DESC;";
 			Statement data = Connect.connect().createStatement();
-			ResultSet rs = data.executeQuery(getData);
-			char[] namespace = "                                                 ᲼".toCharArray();
-			
-			ArrayList<String> items = new ArrayList<String>();
-			ArrayList<MessageEmbed> itemEmbeds = new ArrayList<MessageEmbed>();
-			
-			int total = 0; 
+			rs = data.executeQuery(getData);		
+		
+			items = new ArrayList<String>();
+			total = 0; 
 			
 
 			while (rs.next()) {	
@@ -60,7 +61,13 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				items.add(rs.getString("count"));										
 				total += rs.getInt("count");			
 			}
-	
+		} catch (SQLException e) {
+			Guild guild = NonAPICommands.pubGuild;
+			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard. \n**[ERROR]** " + e.getMessage()).queue();
+		}
+		
+		itemEmbeds = new ArrayList<MessageEmbed>();
+		if (rs != null && items != null && itemEmbeds != null && total != 0) {
 			//Creating embeds that will be paginated
 			int page = 0;
 				for (int i = 0; i < items.size(); i += 10) {
@@ -117,11 +124,8 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			pages = itemEmbeds.size();
 			this.setItems(itemEmbeds);
 			this.setText("**__Total Buildings: " + total + "__**");
-	
-		} catch (SQLException e) {
-			Guild guild = NonAPICommands.pubGuild;
-			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard. \n**[ERROR]** " + e.getMessage()).queue();
 		}
+
 		Guild guild = NonAPICommands.pubGuild;
 		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
 		TextChannel audit = guild.getTextChannelById(929158963499515954L);
