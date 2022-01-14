@@ -458,22 +458,6 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 		pubGuild = Bot.jda.getGuildById(735990134583066679L);
 		
-
-		TextChannel stacktrace = pubGuild.getTextChannelById(928822585779707965L);
-		TextChannel audit = pubGuild.getTextChannelById(929158963499515954L);
-		if (Connect.connect() != null) {  
-			try {
-				Connect.connect().close();
-			} catch (SQLException f) {
-				audit.sendMessage("**[ERROR]** " + f.getMessage()).queue();
-				if (ExceptionUtils.getStackTrace(f).length() >= 1900)
-					stacktrace.sendMessage(ExceptionUtils.getStackTrace(f).substring(0, 1900)).queue();
-				else {
-					stacktrace.sendMessage(ExceptionUtils.getStackTrace(f)).queue();
-				}
-			} 							
-		}
-		
 		bl.refresh();
 		bl.build().display(leaderboard);
 		bl.setTimeout(bl.pages * 7, TimeUnit.SECONDS);
