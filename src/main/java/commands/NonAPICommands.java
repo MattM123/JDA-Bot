@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -459,6 +460,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		bl.refresh();
 		bl.build().display(leaderboard);
+		bl.setTimeout(bl.pages * 7, TimeUnit.SECONDS);
 		
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -479,6 +481,7 @@ public class NonAPICommands extends ListenerAdapter {
 				}
 			}
 		}, 7000, 7000);
+		
 	}
 	
 	@Override
