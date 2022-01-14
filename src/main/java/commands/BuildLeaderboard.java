@@ -79,13 +79,13 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 						emb.setColor(Color.blue);
 						emb.setTitle("Page 1/1");
 						
-						emb.addField("__User__", new String(items.get(i) + "\n" + items.get(i + 2) + "\n" + items.get(i + 4)
-							+ items.get(i + 6) + "\n" + items.get(i + 8) + "\n" + items.get(i + 10)
-							+ items.get(i + 12) + "\n" + items.get(i + 14) + "\n" + items.get(i + 16) + items.get(i + 18)), true);
+						emb.addField("__User__", items.get(i) + "\n" + items.get(i + 2) + "\n" + items.get(i + 4)
+							+ items.get(i + 6) + "\n" + items.get(i + 8), true);// + "\n" + items.get(i + 10)
+					//		+ items.get(i + 12) + "\n" + items.get(i + 14) + "\n" + items.get(i + 16) + items.get(i + 18), true);
 				
-						emb.addField("__Build Count__", new String(items.get(i + 1) + "\n" + items.get(i + 3) + "\n" + items.get(i + 5)
-							+ items.get(i + 7) + "\n" + items.get(i + 9) + "\n" + items.get(i + 11)
-							+ items.get(i + 13) + "\n" + items.get(i + 15) + "\n" + items.get(i + 17) + items.get(i + 19)), true);
+						emb.addField("__Build Count__", items.get(i + 1) + "\n" + items.get(i + 3) + "\n" + items.get(i + 5)
+							+ items.get(i + 7) + "\n" + items.get(i + 9), true);// "\n" + items.get(i + 11)
+							//+ items.get(i + 13) + "\n" + items.get(i + 15) + "\n" + items.get(i + 17) + items.get(i + 19), true);
 
 				} catch (IndexOutOfBoundsException e) {
 					itemEmbeds.add(emb.build());
