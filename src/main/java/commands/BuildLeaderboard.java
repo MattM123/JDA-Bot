@@ -80,6 +80,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					EmbedBuilder emb = new EmbedBuilder();						
 					try {
 						emb.setColor(Color.blue);
+						emb.setDescription("test");
 						
 						emb.addField("**__User__**", items.get(i) + "\n" + items.get(i + 2) + "\n" + items.get(i + 4)
 							+ items.get(i + 6) + "\n" + items.get(i + 8) + "\n" + items.get(i + 10)
