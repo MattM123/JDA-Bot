@@ -30,6 +30,7 @@ public class NonAPICommands extends ListenerAdapter {
 	private int page = 1;
 	private BuildLeaderboard bl = new BuildLeaderboard();
 	public static Guild pubGuild;
+	public int timeout = 6;
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -458,7 +459,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		bl.refresh();
 		bl.build().display(leaderboard);
-
+		timeout = bl.pages * timeout;
 		
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -478,7 +479,7 @@ public class NonAPICommands extends ListenerAdapter {
 					page = 0;
 				}
 			}
-		}, 6000, 6000);
+		}, timeout * 1000, timeout * 1000);
 	}
 	
 	@Override
