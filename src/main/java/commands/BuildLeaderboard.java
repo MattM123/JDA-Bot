@@ -52,10 +52,14 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			while (rs.next()) {	
 				Guild guild = NonAPICommands.pubGuild;
 				try {
-					for (int i = 0; i < namespace.length; i++ ) {
-						namespace[i] = guild.getMemberById(rs.getString("id")).getUser().getAsTag().charAt(i);
+					String tag = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
+					
+					if (tag.length() < namespace.length) {
+						for (int i = 0; i < namespace.length; i++ ) {
+							namespace[i] = guild.getMemberById(rs.getString("id")).getUser().getAsTag().charAt(i);
+						}
+						items.add(new String(namespace));
 					}
-					items.add(new String(namespace));
 				} catch (NullPointerException e) {
 					items.add("Missing User");
 				}				
