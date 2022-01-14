@@ -52,18 +52,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			while (rs.next()) {	
 				Guild guild = NonAPICommands.pubGuild;
 				try {
-					String tag = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
-					
-					if (tag.length() < namespace.length) {
-						for (int i = 0; i < tag.length(); i++ ) {
-							namespace[i] = guild.getMemberById(rs.getString("id")).getUser().getAsTag().charAt(i);
-						}
-						items.add(new String(namespace));
-						namespace = "                                                 ᲼".toCharArray();
-					}
-					else {
-						items.add("Username too long");
-					}
+						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());	
 				} catch (NullPointerException e) {
 					items.add("Missing User");
 				}				
@@ -73,19 +62,21 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			}
 	
 			//Creating embeds that will be paginated
+			int page = 0;
 				for (int i = 0; i < items.size(); i += 20) {
-					EmbedBuilder emb = new EmbedBuilder();						
+					EmbedBuilder emb = new EmbedBuilder();
+					page += 1;
 					try {
 						emb.setColor(Color.blue); 
-						emb.setTitle("Page 1/1");
-						
+						emb.setTitle("Page " + page + "/" + items.size() / 20);
+					
 						emb.addField("__User__", items.get(i) + "\n" + items.get(i + 2) + "\n" + items.get(i + 4) + "\n"
-							+ items.get(i + 6) + "\n" + items.get(i + 8) + "\n" + items.get(i + 10), true);
-					//		+ items.get(i + 12) + "\n" + items.get(i + 14) + "\n" + items.get(i + 16) + items.get(i + 18), true);
+							+ items.get(i + 6) + "\n" + items.get(i + 8) + "\n" + items.get(i + 10) + "\n"
+							+ items.get(i + 12) + "\n" + items.get(i + 14) + "\n" + items.get(i + 16) + items.get(i + 18), true);
 				
 						emb.addField("__Build Count__", items.get(i + 1) + "\n" + items.get(i + 3) + "\n" + items.get(i + 5) + "\n"
-							+ items.get(i + 7) + "\n" + items.get(i + 9) + "\n" + items.get(i + 11), true);
-							//+ items.get(i + 13) + "\n" + items.get(i + 15) + "\n" + items.get(i + 17) + items.get(i + 19), true);
+							+ items.get(i + 7) + "\n" + items.get(i + 9) + "\n" + items.get(i + 11) + "\n"
+							+ items.get(i + 13) + "\n" + items.get(i + 15) + "\n" + items.get(i + 17) + items.get(i + 19), true);
 
 				} catch (IndexOutOfBoundsException e) {
 					itemEmbeds.add(emb.build());
