@@ -55,10 +55,13 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					String tag = guild.getMemberById(rs.getString("id")).getUser().getAsTag();
 					
 					if (tag.length() < namespace.length) {
-						for (int i = 0; i < namespace.length; i++ ) {
+						for (int i = 0; i < tag.length(); i++ ) {
 							namespace[i] = guild.getMemberById(rs.getString("id")).getUser().getAsTag().charAt(i);
 						}
 						items.add(new String(namespace));
+					}
+					else {
+						items.add("Username too long");
 					}
 				} catch (NullPointerException e) {
 					items.add("Missing User");
