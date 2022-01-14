@@ -474,12 +474,10 @@ public class NonAPICommands extends ListenerAdapter {
 						
 						bl.build().paginate(message, page + 1);
 						page += 1;
-						
-						if (page == bl.pages)
-							bl.refresh();
 					});
 				}
 				if (page == bl.pages) {
+					bl.refresh();
 					page = 0;
 				}
 
