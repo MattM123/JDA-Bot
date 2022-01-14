@@ -479,6 +479,21 @@ public class NonAPICommands extends ListenerAdapter {
 				if (page == bl.pages) {
 					page = 0;
 				}
+				Guild guild = NonAPICommands.pubGuild;
+				TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
+				TextChannel audit = guild.getTextChannelById(929158963499515954L);
+				if (Connect.connect() != null) {  
+					try {
+						Connect.connect().close();
+					} catch (SQLException e) {
+						audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
+						if (ExceptionUtils.getStackTrace(e).length() >= 1900)
+							stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
+						else {
+							stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+						}
+					} 							
+				}			
 			}
 		}, 7000, 7000);
 		
