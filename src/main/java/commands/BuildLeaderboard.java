@@ -41,7 +41,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			String getData = "SELECT * FROM buildcounts ORDER BY count DESC;";
 			Statement data = Connect.connect().createStatement();
 			ResultSet rs = data.executeQuery(getData);
-			char[] namespace = "                                                  ˞˞˞˞˞˞˞˞˞˞˞˞˞˞˞˞˞˞˞˞".toCharArray();
+			char[] namespace = "                                                 ᲼".toCharArray();
 			
 			ArrayList<String> items = new ArrayList<String>();
 			ArrayList<MessageEmbed> itemEmbeds = new ArrayList<MessageEmbed>();
@@ -59,7 +59,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 							namespace[i] = guild.getMemberById(rs.getString("id")).getUser().getAsTag().charAt(i);
 						}
 						items.add(new String(namespace));
-						namespace = "                                                  ˞˞˞˞˞˞˞˞˞˞˞˞˞˞˞˞˞˞˞˞".toCharArray();
+						namespace = "                                                 ᲼".toCharArray();
 					}
 					else {
 						items.add("Username too long");
