@@ -72,7 +72,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					try {
 						emb.setColor(Color.blue);
 						
-						emb.addField(items.get(i) + "                    |", "", true);
+						emb.addField(items.get(i) + "                                   ", "", true);
 						emb.addField(items.get(i + 1), "", true);
 						
 						emb.addField("" + '\u200b', "" + '\u200b', true);
