@@ -68,11 +68,8 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					items.add("Missing User");
 				}				
 								
-				items.add(rs.getString("count"));
-										
-				total += rs.getInt("count");
-				
-				
+				items.add(rs.getString("count"));										
+				total += rs.getInt("count");			
 			}
 	
 			//Creating embeds that will be paginated
@@ -83,13 +80,13 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 						emb.setTitle("Page 1/1");
 						
 						emb.addField("test", "test", true);
-						emb.addField("__User__", items.get(i) + "\n" + items.get(i + 2) + "\n" + items.get(i + 4)
+						emb.addField("__User__", (items.get(i) + "\n" + items.get(i + 2) + "\n" + items.get(i + 4)
 							+ items.get(i + 6) + "\n" + items.get(i + 8) + "\n" + items.get(i + 10)
-							+ items.get(i + 12) + "\n" + items.get(i + 14) + "\n" + items.get(i + 16) + items.get(i + 18), true);
+							+ items.get(i + 12) + "\n" + items.get(i + 14) + "\n" + items.get(i + 16) + items.get(i + 18)), true);
 				
-						emb.addField("__Build Count__", items.get(i + 1) + "\n" + items.get(i + 3) + "\n" + items.get(i + 5)
+						emb.addField("__Build Count__", (items.get(i + 1) + "\n" + items.get(i + 3) + "\n" + items.get(i + 5)
 							+ items.get(i + 7) + "\n" + items.get(i + 9) + "\n" + items.get(i + 11)
-							+ items.get(i + 13) + "\n" + items.get(i + 15) + "\n" + items.get(i + 17) + items.get(i + 19), true);
+							+ items.get(i + 13) + "\n" + items.get(i + 15) + "\n" + items.get(i + 17) + items.get(i + 19)), true);
 
 				} catch (IndexOutOfBoundsException e) {
 					itemEmbeds.add(emb.build());
