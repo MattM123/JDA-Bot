@@ -24,8 +24,8 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 	public BuildLeaderboard() {
 		this.allowTextInput(false);
 		this.setEventWaiter(new EventWaiter());
-		this.setTimeout(10, TimeUnit.SECONDS);
-		this.setFinalAction(message -> refresh());
+		this.setTimeout(5, TimeUnit.SECONDS);
+		//this.setFinalAction(message -> refresh());
 		this.wrapPageEnds(true);
 	}
 	
