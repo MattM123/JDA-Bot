@@ -470,12 +470,12 @@ public class NonAPICommands extends ListenerAdapter {
 							
 					} catch (IllegalArgumentException e) {
 						bl.refresh();
-					}
-										
-					if (page == bl.pages) {
-						page = 0;
-					}	
+					}								
 				});
+				
+				if (page == bl.pages) {
+					page = 0;
+				}	
 			}
 		}, 6000, 6000);
 		
