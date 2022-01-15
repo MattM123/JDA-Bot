@@ -17,55 +17,50 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
-public class BuildLeaderboard extends EmbedPaginator.Builder {
+public class BuildLeaderboard {
 
 	public int pages;
+	public int total = 0;
 	
 	public BuildLeaderboard() {
-		this.allowTextInput(false);
-		this.setEventWaiter(new EventWaiter());
-		this.setFinalAction(message -> refresh());
-		this.wrapPageEnds(true);
+
 	}
 	
 	public BuildLeaderboard(User access) {
-		this.allowTextInput(true);
-		this.setUsers(access);
+
 		
 	}
 	
-	public void refresh() {		
+	public MessageEmbed[] refresh() {	
+		MessageEmbed[] embeds = null;
 		ResultSet rs = null;
 		ArrayList<String> items = null;
-		ArrayList<MessageEmbed> itemEmbeds = null;
-		int total = 0;
 		
+		//connects to database and pulls data
 		try {
 			String getData = "SELECT * FROM buildcounts ORDER BY count DESC;";
 			Statement data = Connect.connect().createStatement();
 			rs = data.executeQuery(getData);		
 		
-			items = new ArrayList<String>();
-			total = 0; 
-			
+			items = new ArrayList<String>();			
 
 			while (rs.next()) {	
 				Guild guild = NonAPICommands.pubGuild;
 				try {
-						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag());	
+						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag() + "\n");	
 				} catch (NullPointerException e) {
-					items.add("Missing User");
+					items.add("Missing User\n");
 				}				
 								
-				items.add(rs.getString("count"));										
+				items.add(rs.getString("count") + "\n");										
 				total += rs.getInt("count");			
 			}
 		} catch (SQLException e) {
 			Guild guild = NonAPICommands.pubGuild;
-			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard. \n**[ERROR]** " + e.getMessage()).queue();
+			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard: " + e.getMessage()).queue();
 		}
 		
-
+		//closes connection
 		Guild guild = NonAPICommands.pubGuild;
 		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
 		TextChannel audit = guild.getTextChannelById(929158963499515954L);
@@ -81,7 +76,27 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				}
 			} 							
 		}
-		
+	
+		if (items.size() > 20) {
+			embeds = new MessageEmbed[items.size() / 20];
+		}
+		else {
+			embeds = new MessageEmbed[1];
+			String names = "";
+			String counts = "";
+			for (int i = 0; i < items.size() / 2; i += 2) {
+				names += items.get(i);
+			}
+			for (int i = 0; i < items.size() / 2; i += 2) {
+				counts += items.get(i);
+			}
+			
+			EmbedBuilder emb = new EmbedBuilder();
+			emb.setColor(Color.blue);
+			emb.addField("__Builder__", names, true);
+			emb.addField("__Count__", counts, true);
+		}
+		/*
 		itemEmbeds = new ArrayList<MessageEmbed>();
 		if (rs != null && items != null && itemEmbeds != null && total != 0) {
 			//Creating embeds that will be paginated
@@ -136,10 +151,15 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				}
 					
 				itemEmbeds.add(emb.build());
+				
 			}
-			pages = itemEmbeds.size();
-			this.setItems(itemEmbeds);
-			this.setText("**__Total Buildings: " + total + "__**");
-		}
+			*/
+			return embeds;
+			//pages = itemEmbeds.size();
+			//this.setItems(itemEmbeds);
+			//this.setText("**__Total Buildings: " + total + "__**");
+			
+			
+		//}
 	}
 }

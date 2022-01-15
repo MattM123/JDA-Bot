@@ -458,28 +458,28 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 		pubGuild = Bot.jda.getGuildById(735990134583066679L);
 		
-		bl.refresh();
-		bl.build().display(leaderboard);
-		bl.setTimeout(bl.pages * 7, TimeUnit.SECONDS);
+	//	bl.refresh();
 		
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			public void run() {
 				if (!leaderboard.hasLatestMessage()) {
-					bl.refresh();
-					bl.build().display(leaderboard);
+					for (int i = 0; i < bl.refresh().length; i++) {
+						leaderboard.sendMessage(bl.refresh()[i]);
+					}
+					leaderboard.getManager().setTopic("Total Buildings Completed: " + bl.total);
 				}
 				else { 
 					leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {
 						
-						bl.build().paginate(message, page + 1);
-						page += 1;
+				//		bl.build().paginate(message, page + 1);
+				//		page += 1;
 					});
 				}
-				if (page == bl.pages) {
-					bl.refresh();
-					page = 0;
-				}
+				//if (page == bl.pages) {
+				//	bl.refresh();
+				//	page = 0;
+				//}
 
 				TextChannel stacktrace = pubGuild.getTextChannelById(928822585779707965L);
 				TextChannel audit = pubGuild.getTextChannelById(929158963499515954L);
