@@ -82,32 +82,35 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				}
 			} 							
 		}
-		/*
-		if (items.size() > 20) {
-			
-		}
-		else {
-			String names = "";
-			String counts = "";
-			for (int i = 0; i < items.size() / 2; i += 2) {
-				names += items.get(i);
-			}
-			for (int i = 0; i < items.size() / 2; i += 2) {
-				counts += items.get(i);
-			}
-			
-			EmbedBuilder emb = new EmbedBuilder();
-			emb.setColor(Color.blue);
-			emb.addField("__Builder__", names, true);
-			emb.addField("__Count__", names, true);
-		}
-	*/
-		
+
 		itemEmbeds = new ArrayList<MessageEmbed>();
 		if (rs != null && items != null && itemEmbeds != null && total != 0) {
 			//Creating embeds that will be paginated
 			int page = 0;
-				for (int i = 0; i < items.size(); i += 10) {
+			
+			if (items.size() > 20) {
+				
+			}
+			else {
+				String names = "";
+				String counts = "";
+				for (int i = 0; i < items.size(); i++) {
+					if (i % 2 == 0) {
+						names += items.get(i);
+					}
+					else {
+						counts += items.get(i);
+					}
+				}
+					EmbedBuilder emb = new EmbedBuilder();
+					emb.setColor(Color.blue);
+					emb.addField("__Builder__", names, true);
+					emb.addField("__Build Count__", counts, true);
+					itemEmbeds.add(emb.build());
+					page += 1;
+				
+
+					/*
 					EmbedBuilder emb = new EmbedBuilder();
 					page += 1;
 					try {
@@ -115,32 +118,33 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 						emb.setTitle("Page " + page + "/" + Math.round((items.size() + 5.0) / 10));
 					
 						emb.addField("__User__", items.get(i) + items.get(i + 2) + items.get(i + 4)
-							+ items.get(i + 6) + items.get(i + 8), true);
+							+ items.get(i + 6) + items.get(i + 8) + items.get(i + 10), true);
 				
 						emb.addField("__Build Count__", items.get(i + 1) + items.get(i + 3) + items.get(i + 5)
-							+ items.get(i + 7) + items.get(i + 9), true);
+							+ items.get(i + 7) + items.get(i + 9) + items.get(i + 11), true);
 
 				} catch (IndexOutOfBoundsException e) {
 					try {
-						emb.addField("__User__", items.get(i) + "\n" + items.get(i + 2) + "\n" + items.get(i + 4) + "\n"
-							+ items.get(i + 6), true);
+						emb.addField("__User__", items.get(i) + items.get(i + 2) + items.get(i + 4)
+							+ items.get(i + 6) + items.get(i + 8), true);
 					
-						emb.addField("__Build Count__", items.get(i + 1) + "\n" + items.get(i + 3) + "\n" + items.get(i + 5) + "\n"
-							+ items.get(i + 7), true);
+						emb.addField("__Build Count__", items.get(i + 1) + items.get(i + 3) + items.get(i + 5)
+							+ items.get(i + 7) + items.get(i + 9), true);
 						
 					} catch (IndexOutOfBoundsException f){
 						try {
-							emb.addField("__User__", items.get(i) + "\n" + items.get(i + 2) + "\n" + items.get(i + 4), true);					
-							emb.addField("__Build Count__", items.get(i + 1) + "\n" + items.get(i + 3) + "\n" + items.get(i + 5), true);
+							emb.addField("__User__", items.get(i) + items.get(i + 2) + items.get(i + 4) + items.get(i + 6), true);					
+							emb.addField("__Build Count__", items.get(i + 1) + items.get(i + 3) + items.get(i + 5) + items.get(i + 7), true);
 							
 						} catch (IndexOutOfBoundsException g) {
 							try {
-								emb.addField("__User__", items.get(i) + "\n" + items.get(i + 2), true);					
-								emb.addField("__Build Count__", items.get(i + 1) + "\n" + items.get(i + 3), true);
+								emb.addField("__User__", items.get(i) + items.get(i + 2) + items.get(i + 4), true);					
+								emb.addField("__Build Count__", items.get(i + 1) + items.get(i + 3) + items.get(i + 5), true);
 							
 							} catch (IndexOutOfBoundsException h) {
-								emb.addField("__User__", items.get(i), true);					
-								emb.addField("__Build Count__", items.get(i + 1), true);
+								emb.addField("__User__", items.get(i) + items.get(i + 2), true);					
+								emb.addField("__Build Count__", items.get(i + 1) + items.get(i + 3), true);
+								
 								
 								itemEmbeds.add(emb.build());
 								break;
@@ -155,8 +159,8 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					itemEmbeds.add(emb.build());
 					break;
 				}
-					
-				itemEmbeds.add(emb.build());
+				*/	
+				//itemEmbeds.add(emb.build());
 			}
 			
 			pages = itemEmbeds.size();

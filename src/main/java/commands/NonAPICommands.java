@@ -458,11 +458,10 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 		pubGuild = Bot.jda.getGuildById(735990134583066679L);
 		
-		
+		//turns page every 6 seconds
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
-			public void run() {
-								
+			public void run() {							
 				leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {		
 					try { 	
 						bl.build().paginate(message, page + 1);
@@ -480,12 +479,11 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 		}, 6000, 6000);
 		
+		//Refresh data every minute
 		Timer timer1 = new Timer();
 		timer1.scheduleAtFixedRate(new TimerTask() {
 			public void run() {
 				bl.refresh();
-				TextChannel bot = pubGuild.getTextChannelById(786328890280247327L);
-				bot.sendMessage("update").queue();
 			}
 		}, 60000, 60000);
 		
