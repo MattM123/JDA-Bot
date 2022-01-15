@@ -462,7 +462,8 @@ public class NonAPICommands extends ListenerAdapter {
 		//turns page every 6 seconds
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
-			public void run() {						
+			public void run() {		
+				bot.sendMessage("Page: " + page + "Total Page: " + bl.pages).queue();
 				if (page == bl.pages) {
 					page = 0;
 				}	
