@@ -463,7 +463,6 @@ public class NonAPICommands extends ListenerAdapter {
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			public void run() {		
-				bot.sendMessage("Page: " + page + "Total Page: " + bl.pages).queue();
 				if (page == bl.pages) {
 					page = 0;
 				}	
