@@ -17,22 +17,15 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
-public class BuildLeaderboard extends EmbedPaginator.Builder {
+public class BuildLeaderboard {
 
 	public int pages;
 	public int total = 0;
 	
 	public BuildLeaderboard() {
-		this.allowTextInput(false);
-		this.setEventWaiter(new EventWaiter());
-		this.setFinalAction(message -> refresh());
-		this.wrapPageEnds(true);
 	}
 	
-	public BuildLeaderboard(User access) {
-		this.allowTextInput(true);
-		this.setUsers(access);
-		
+	public BuildLeaderboard(User access) {		
 	}
 	
 	public MessageEmbed[] refresh() {		
@@ -82,6 +75,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			} 							
 		}
 		
+		//Creating the embed messages
 		if (items.size() > 20) {
 			
 		}
@@ -161,8 +155,6 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			}
 			*/
 			pages = itemEmbeds.size();
-			this.setItems(itemEmbeds);
-			this.setText("**__Total Buildings: " + total + "__**");
 		//}
 			return itemEmbeds.toArray(new MessageEmbed[itemEmbeds.size()]);
 	}
