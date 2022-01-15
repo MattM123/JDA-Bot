@@ -11,6 +11,8 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.menu.EmbedPaginator;
+import com.marcuzzo.JDABot.Bot;
+
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -37,7 +39,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 	public void refresh() {		
 		ResultSet rs = null;
 		ArrayList<String> items = null;
-		ArrayList<MessageEmbed> itemEmbeds = null;
+		ArrayList<MessageEmbed> itemEmbeds = new ArrayList<MessageEmbed>();
 		int total = 0;
 		
 		//connects to database and pulls data
@@ -82,13 +84,13 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				}
 			} 							
 		}
-
-		itemEmbeds = new ArrayList<MessageEmbed>();
+		TextChannel bot = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);
 		if (rs != null && items != null && itemEmbeds != null && total != 0) {
 			//Creating embeds that will be paginated
 			int page = 0;
 			
 			if (items.size() > 4) {
+				bot.sendMessage("break").queue();
 				String names = "";
 				String counts = "";
 				for (int i = 0; i < items.size(); i++) {
@@ -113,6 +115,8 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				}
 			}
 			else {
+	
+				bot.sendMessage("break1").queue();
 				String names = "";
 				String counts = "";
 				for (int i = 0; i < items.size(); i++) {
