@@ -116,7 +116,6 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					
 					//Adds leftovers to an embed
 					if (i == items.size() - 1 && items.size() % 10 != 0) {
-						bot.sendMessage("break").queue();
 						EmbedBuilder emb = new EmbedBuilder();
 						emb.setTitle("Page " + page + "/" + Math.round((items.size() + 5.0) / 10));
 						emb.setColor(Color.blue);
@@ -129,9 +128,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					}
 				}
 			}
-			else {
-	
-			//	bot.sendMessage("break1").queue();
+			else {	
 				String names = "";
 				String counts = "";
 				for (int i = 0; i < items.size(); i++) {
@@ -149,59 +146,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					emb.addField("__Build Count__", counts, true);
 					itemEmbeds.add(emb.build());
 					page += 1;
-				
 
-					/*
-					EmbedBuilder emb = new EmbedBuilder();
-					page += 1;
-					try {
-						emb.setColor(Color.blue); 
-						emb.setTitle("Page " + page + "/" + Math.round((items.size() + 5.0) / 10));
-					
-						emb.addField("__User__", items.get(i) + items.get(i + 2) + items.get(i + 4)
-							+ items.get(i + 6) + items.get(i + 8) + items.get(i + 10), true);
-				
-						emb.addField("__Build Count__", items.get(i + 1) + items.get(i + 3) + items.get(i + 5)
-							+ items.get(i + 7) + items.get(i + 9) + items.get(i + 11), true);
-
-				} catch (IndexOutOfBoundsException e) {
-					try {
-						emb.addField("__User__", items.get(i) + items.get(i + 2) + items.get(i + 4)
-							+ items.get(i + 6) + items.get(i + 8), true);
-					
-						emb.addField("__Build Count__", items.get(i + 1) + items.get(i + 3) + items.get(i + 5)
-							+ items.get(i + 7) + items.get(i + 9), true);
-						
-					} catch (IndexOutOfBoundsException f){
-						try {
-							emb.addField("__User__", items.get(i) + items.get(i + 2) + items.get(i + 4) + items.get(i + 6), true);					
-							emb.addField("__Build Count__", items.get(i + 1) + items.get(i + 3) + items.get(i + 5) + items.get(i + 7), true);
-							
-						} catch (IndexOutOfBoundsException g) {
-							try {
-								emb.addField("__User__", items.get(i) + items.get(i + 2) + items.get(i + 4), true);					
-								emb.addField("__Build Count__", items.get(i + 1) + items.get(i + 3) + items.get(i + 5), true);
-							
-							} catch (IndexOutOfBoundsException h) {
-								emb.addField("__User__", items.get(i) + items.get(i + 2), true);					
-								emb.addField("__Build Count__", items.get(i + 1) + items.get(i + 3), true);
-								
-								
-								itemEmbeds.add(emb.build());
-								break;
-							}
-							itemEmbeds.add(emb.build());
-							break;
-						}
-						itemEmbeds.add(emb.build());
-						break;
-					}
-					
-					itemEmbeds.add(emb.build());
-					break;
-				}
-				*/	
-				//itemEmbeds.add(emb.build());
 			}
 			
 			pages = itemEmbeds.size();
