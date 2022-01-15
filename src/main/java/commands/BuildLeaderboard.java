@@ -17,21 +17,28 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
-public class BuildLeaderboard {
+public class BuildLeaderboard extends EmbedPaginator.Builder {
 
 	public int pages;
-	public int total = 0;
 	
 	public BuildLeaderboard() {
+		this.allowTextInput(false);
+		this.setEventWaiter(new EventWaiter());
+		this.setFinalAction(message -> refresh());
+		this.wrapPageEnds(true);
 	}
 	
-	public BuildLeaderboard(User access) {		
+	public BuildLeaderboard(User access) {
+		this.allowTextInput(true);
+		this.setUsers(access);
+		
 	}
 	
-	public MessageEmbed[] refresh() {		
+	public void refresh() {		
 		ResultSet rs = null;
 		ArrayList<String> items = null;
-		ArrayList<MessageEmbed> itemEmbeds = new ArrayList<MessageEmbed>();
+		ArrayList<MessageEmbed> itemEmbeds = null;
+		int total = 0;
 		
 		//connects to database and pulls data
 		try {
@@ -40,6 +47,7 @@ public class BuildLeaderboard {
 			rs = data.executeQuery(getData);		
 		
 			items = new ArrayList<String>();
+			total = 0; 
 			
 
 			while (rs.next()) {	
@@ -74,8 +82,7 @@ public class BuildLeaderboard {
 				}
 			} 							
 		}
-		
-		//Creating the embed messages
+		/*
 		if (items.size() > 20) {
 			
 		}
@@ -93,11 +100,9 @@ public class BuildLeaderboard {
 			emb.setColor(Color.blue);
 			emb.addField("__Builder__", names, true);
 			emb.addField("__Count__", names, true);
-			
-			itemEmbeds.add(emb.build());
 		}
-	
-		/*
+	*/
+		
 		itemEmbeds = new ArrayList<MessageEmbed>();
 		if (rs != null && items != null && itemEmbeds != null && total != 0) {
 			//Creating embeds that will be paginated
@@ -153,9 +158,10 @@ public class BuildLeaderboard {
 					
 				itemEmbeds.add(emb.build());
 			}
-			*/
+			
 			pages = itemEmbeds.size();
-		//}
-			return itemEmbeds.toArray(new MessageEmbed[itemEmbeds.size()]);
+			this.setItems(itemEmbeds);
+			this.setText("**__Total Buildings: " + total + "__**");
+		}
 	}
 }
