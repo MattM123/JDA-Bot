@@ -84,13 +84,13 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				}
 			} 							
 		}
+		
 		TextChannel bot = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);
 		if (rs != null && items != null && itemEmbeds != null && total != 0) {
 			//Creating embeds that will be paginated
 			int page = 1;
 			
 			if (items.size() > 4) {
-				//bot.sendMessage("break").queue();
 				String names = "";
 				String counts = "";
 				for (int i = 0; i < items.size(); i++) {
@@ -102,6 +102,18 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					}
 					
 					if (names.split("\n").length == 4 && counts.split("\n").length == 4) {
+						EmbedBuilder emb = new EmbedBuilder();
+						emb.setTitle("Page " + page + "/" + Math.round((items.size() + 5.0) / 10));
+						emb.setColor(Color.blue);
+						emb.addField("__Builder__", names, true);
+						emb.addField("__Build Count__", counts, true);
+						itemEmbeds.add(emb.build());
+						page += 1;
+						names = "";
+						counts = "";
+					}
+					
+					if (i == items.size() - 1 && items.size() % 4 != 0) {
 						EmbedBuilder emb = new EmbedBuilder();
 						emb.setTitle("Page " + page + "/" + Math.round((items.size() + 5.0) / 10));
 						emb.setColor(Color.blue);
