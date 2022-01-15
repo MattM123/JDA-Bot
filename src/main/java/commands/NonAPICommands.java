@@ -455,6 +455,7 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	@Override
 	public void onReady(ReadyEvent e) {
+		TextChannel bot = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);
 		TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 		pubGuild = Bot.jda.getGuildById(735990134583066679L);
 		
@@ -465,11 +466,11 @@ public class NonAPICommands extends ListenerAdapter {
 				leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {		
 					try { 	
 						bl.build().paginate(message, page + 1);
-						leaderboard.sendMessage("break1").queue();
+						bot.sendMessage("break1").queue();
 						page += 1;
 							
 					} catch (IllegalArgumentException e) {
-						leaderboard.sendMessage("break2").queue();
+						bot.sendMessage("break2").queue();
 						bl.refresh();
 					}
 				});
