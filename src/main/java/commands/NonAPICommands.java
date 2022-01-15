@@ -455,7 +455,8 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	@Override
 	public void onReady(ReadyEvent e) {
-		TextChannel bot = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);
+		TextChannel audit = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929158963499515954L);
+		TextChannel stacktrace = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(928822585779707965L);
 		TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 		pubGuild = Bot.jda.getGuildById(735990134583066679L);
 		
@@ -476,7 +477,19 @@ public class NonAPICommands extends ListenerAdapter {
 						bl.refresh();
 					}								
 				});
-
+				
+				if (Connect.connect() != null) {  
+					try {
+						Connect.connect().close();
+					} catch (SQLException e) {
+						audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
+						if (ExceptionUtils.getStackTrace(e).length() >= 1900)
+							stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
+						else {
+							stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+						}
+					} 							
+				}
 			}
 		}, 6000, 6000);
 		
@@ -485,6 +498,18 @@ public class NonAPICommands extends ListenerAdapter {
 		timer1.scheduleAtFixedRate(new TimerTask() {
 			public void run() {
 				bl.refresh();
+				if (Connect.connect() != null) {  
+					try {
+						Connect.connect().close();
+					} catch (SQLException e) {
+						audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
+						if (ExceptionUtils.getStackTrace(e).length() >= 1900)
+							stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
+						else {
+							stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
+						}
+					} 							
+				}
 			}
 		}, 60000, 60000);
 		
