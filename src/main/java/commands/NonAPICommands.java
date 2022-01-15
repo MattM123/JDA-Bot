@@ -462,7 +462,11 @@ public class NonAPICommands extends ListenerAdapter {
 		//turns page every 6 seconds
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
-			public void run() {							
+			public void run() {						
+				if (page == bl.pages) {
+					page = 0;
+				}	
+				
 				leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {		
 					try { 	
 						bl.build().paginate(message, page++);
@@ -472,10 +476,7 @@ public class NonAPICommands extends ListenerAdapter {
 						bl.refresh();
 					}								
 				});
-				
-				if (page == bl.pages) {
-					page = 0;
-				}	
+
 			}
 		}, 6000, 6000);
 		
