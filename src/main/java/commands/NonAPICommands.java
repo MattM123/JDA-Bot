@@ -458,14 +458,14 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 		pubGuild = Bot.jda.getGuildById(735990134583066679L);
 		
-	//	bl.refresh();
 		
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			public void run() {
 				if (!leaderboard.hasLatestMessage()) {
+					bl.refresh();
 					for (int i = 0; i < bl.refresh().length; i++) {
-						leaderboard.sendMessage(bl.refresh()[i]);
+						leaderboard.sendMessage(bl.refresh()[i]).queue();
 					}
 					leaderboard.getManager().setTopic("Total Buildings Completed: " + bl.total);
 				}
