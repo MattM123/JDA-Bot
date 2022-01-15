@@ -88,8 +88,29 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			//Creating embeds that will be paginated
 			int page = 0;
 			
-			if (items.size() > 20) {
-				
+			if (items.size() > 6) {
+				String names = "";
+				String counts = "";
+				for (int i = 0; i < items.size(); i++) {
+					if (i % 2 == 0 && names.split("\n").length < 6) {
+						
+					}
+					if (i % 2 != 0 && counts.split("\n").length < 6) {
+						counts += items.get(i);
+					}
+					
+					if (names.split("\n").length == 6 && counts.split("\n").length == 6) {
+						EmbedBuilder emb = new EmbedBuilder();
+						emb.setTitle("Page " + page + "/" + Math.round((items.size() + 5.0) / 10));
+						emb.setColor(Color.blue);
+						emb.addField("__Builder__", names, true);
+						emb.addField("__Build Count__", counts, true);
+						itemEmbeds.add(emb.build());
+						page += 1;
+						names = "";
+						counts = "";
+					}
+				}
 			}
 			else {
 				String names = "";
@@ -103,6 +124,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					}
 				}
 					EmbedBuilder emb = new EmbedBuilder();
+					emb.setTitle("Page " + page + "/" + Math.round((items.size() + 5.0) / 10));
 					emb.setColor(Color.blue);
 					emb.addField("__Builder__", names, true);
 					emb.addField("__Build Count__", counts, true);
