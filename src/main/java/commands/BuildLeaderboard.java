@@ -85,24 +85,23 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			} 							
 		}
 		
-		TextChannel bot = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);
 		if (rs != null && items != null && itemEmbeds != null && total != 0) {
 			//Creating embeds that will be paginated
 			int page = 1;
 			
-			if (items.size() > 10) {
+			if (items.size() > 20) {
 				String names = "";
 				String counts = "";
 				for (int i = 0; i < items.size(); i++) {
-					if (i % 2 == 0 && names.split("\n").length < 5) {
+					if (i % 2 == 0 && names.split("\n").length < 10) {
 						names += items.get(i);
 					}
-					if (i % 2 != 0 && counts.split("\n").length < 5) {
+					if (i % 2 != 0 && counts.split("\n").length < 10) {
 						counts += items.get(i);
 					}
 					
 					//adds every 20 items to embed
-					if (names.split("\n").length == 5 && counts.split("\n").length == 5) {
+					if (names.split("\n").length == 10 && counts.split("\n").length == 10) {
 						EmbedBuilder emb = new EmbedBuilder();
 						emb.setTitle("Page " + page + "/" + Math.round((items.size() + 5.0) / 10));
 						emb.setColor(Color.blue);
@@ -115,7 +114,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					}
 					
 					//Adds leftovers to an embed
-					if (i == items.size() - 1 && items.size() % 10 != 0) {
+					if (i == items.size() - 1 && items.size() % 20 != 0) {
 						EmbedBuilder emb = new EmbedBuilder();
 						emb.setTitle("Page " + page + "/" + Math.round((items.size() + 5.0) / 10));
 						emb.setColor(Color.blue);
