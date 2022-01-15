@@ -465,7 +465,7 @@ public class NonAPICommands extends ListenerAdapter {
 			public void run() {							
 				leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {		
 					try { 	
-						bl.build().paginate(message, page + 1);
+						bl.build().paginate(message, page++);
 						page += 1;
 							
 					} catch (IllegalArgumentException e) {
@@ -476,7 +476,6 @@ public class NonAPICommands extends ListenerAdapter {
 						page = 0;
 					}	
 				});
-		
 			}
 		}, 6000, 6000);
 		
