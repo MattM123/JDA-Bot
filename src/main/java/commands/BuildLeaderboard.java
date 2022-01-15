@@ -84,18 +84,18 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				}
 			} 							
 		}
-		TextChannel bot = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);
+	//	TextChannel bot = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);
 		if (rs != null && items != null && itemEmbeds != null && total != 0) {
 			//Creating embeds that will be paginated
 			int page = 0;
 			
 			if (items.size() > 4) {
-				bot.sendMessage("break").queue();
+				//bot.sendMessage("break").queue();
 				String names = "";
 				String counts = "";
 				for (int i = 0; i < items.size(); i++) {
 					if (i % 2 == 0 && names.split("\n").length < 4) {
-						
+						names += items.get(i);
 					}
 					if (i % 2 != 0 && counts.split("\n").length < 4) {
 						counts += items.get(i);
@@ -116,7 +116,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			}
 			else {
 	
-				bot.sendMessage("break1").queue();
+			//	bot.sendMessage("break1").queue();
 				String names = "";
 				String counts = "";
 				for (int i = 0; i < items.size(); i++) {
