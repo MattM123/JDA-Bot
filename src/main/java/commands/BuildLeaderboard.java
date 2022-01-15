@@ -17,24 +17,28 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
-public class BuildLeaderboard {
+public class BuildLeaderboard extends EmbedPaginator.Builder {
 
 	public int pages;
-	public int total = 0;
 	
 	public BuildLeaderboard() {
-
+		this.allowTextInput(false);
+		this.setEventWaiter(new EventWaiter());
+		this.setFinalAction(message -> refresh());
+		this.wrapPageEnds(true);
 	}
 	
 	public BuildLeaderboard(User access) {
-
+		this.allowTextInput(true);
+		this.setUsers(access);
 		
 	}
 	
-	public MessageEmbed[] refresh() {	
-		MessageEmbed[] embeds = null;
+	public void refresh() {		
 		ResultSet rs = null;
 		ArrayList<String> items = null;
+		ArrayList<MessageEmbed> itemEmbeds = null;
+		int total = 0;
 		
 		//connects to database and pulls data
 		try {
@@ -42,7 +46,9 @@ public class BuildLeaderboard {
 			Statement data = Connect.connect().createStatement();
 			rs = data.executeQuery(getData);		
 		
-			items = new ArrayList<String>();			
+			items = new ArrayList<String>();
+			total = 0; 
+			
 
 			while (rs.next()) {	
 				Guild guild = NonAPICommands.pubGuild;
@@ -76,12 +82,11 @@ public class BuildLeaderboard {
 				}
 			} 							
 		}
-	
+	/*	
 		if (items.size() > 20) {
-			embeds = new MessageEmbed[items.size() / 20];
+			
 		}
 		else {
-			embeds = new MessageEmbed[1];
 			String names = "";
 			String counts = "";
 			for (int i = 0; i < items.size() / 2; i += 2) {
@@ -94,9 +99,9 @@ public class BuildLeaderboard {
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.blue);
 			emb.addField("__Builder__", names, true);
-			emb.addField("__Count__", counts, true);
+			emb.addField("__Count__", names, true);
 		}
-		/*
+	*/	
 		itemEmbeds = new ArrayList<MessageEmbed>();
 		if (rs != null && items != null && itemEmbeds != null && total != 0) {
 			//Creating embeds that will be paginated
@@ -151,15 +156,10 @@ public class BuildLeaderboard {
 				}
 					
 				itemEmbeds.add(emb.build());
-				
 			}
-			*/
-			return embeds;
-			//pages = itemEmbeds.size();
-			//this.setItems(itemEmbeds);
-			//this.setText("**__Total Buildings: " + total + "__**");
-			
-			
-		//}
+			pages = itemEmbeds.size();
+			this.setItems(itemEmbeds);
+			this.setText("**__Total Buildings: " + total + "__**");
+		}
 	}
 }
