@@ -115,7 +115,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					}
 					
 					//Adds leftovers to an embed
-					if (i == items.size() && items.size() % 10 != 0) {
+					if (i == items.size() - 1 && items.size() % 10 != 0) {
 						bot.sendMessage("break").queue();
 						EmbedBuilder emb = new EmbedBuilder();
 						emb.setTitle("Page " + page + "/" + Math.round((items.size() + 5.0) / 10));
