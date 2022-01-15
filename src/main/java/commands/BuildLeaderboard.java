@@ -90,18 +90,18 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			//Creating embeds that will be paginated
 			int page = 1;
 			
-			if (items.size() > 4) {
+			if (items.size() > 6) {
 				String names = "";
 				String counts = "";
 				for (int i = 0; i < items.size(); i++) {
-					if (i % 2 == 0 && names.split("\n").length < 4) {
+					if (i % 2 == 0 && names.split("\n").length < 6) {
 						names += items.get(i);
 					}
-					if (i % 2 != 0 && counts.split("\n").length < 4) {
+					if (i % 2 != 0 && counts.split("\n").length < 6) {
 						counts += items.get(i);
 					}
 					
-					if (names.split("\n").length == 4 && counts.split("\n").length == 4) {
+					if (names.split("\n").length == 3 && counts.split("\n").length == 3) {
 						EmbedBuilder emb = new EmbedBuilder();
 						emb.setTitle("Page " + page + "/" + Math.round((items.size() + 5.0) / 10));
 						emb.setColor(Color.blue);
@@ -113,7 +113,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 						counts = "";
 					}
 					
-					if (i == items.size() - 1 && items.size() % 4 != 0) {
+					if (i == items.size() - 1 && items.size() % 2 != 0) {
 						bot.sendMessage("break").queue();
 						EmbedBuilder emb = new EmbedBuilder();
 						emb.setTitle("Page " + page + "/" + Math.round((items.size() + 5.0) / 10));
