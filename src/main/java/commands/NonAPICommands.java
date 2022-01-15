@@ -256,6 +256,9 @@ public class NonAPICommands extends ListenerAdapter {
 		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
 		if (event.getMessage().getContentRaw().startsWith("=add ") && guild.getMemberById(event.getAuthor().getId()).getRoles().contains(guild.getRoleById(901162820484333610L))) {
 			boolean isPresent = false;
+			Connect conn = new Connect();
+			conn.connect();
+			
 			String id = "";
 			for (int i = 5; i < event.getMessage().getContentRaw().length(); i++) {
 				id += event.getMessage().getContentRaw().charAt(i);
@@ -264,19 +267,19 @@ public class NonAPICommands extends ListenerAdapter {
 			//get ID and counts form database				
 			try {
 				String getIds = "SELECT id, count FROM buildcounts;";
-				Statement stmt  = Connect.connect().createStatement();
+				Statement stmt  = conn.getConnection().createStatement();
 				ResultSet rs = stmt.executeQuery(getIds);
 						
 				//If id exists in table, increment build count of id
 				while (rs.next()) {			
 					if (rs.getLong("id") == Long.parseLong(id)) {
 						String getCount = "SELECT count FROM buildcounts WHERE id = " + id + ";";
-						Statement stmt1  = Connect.connect().createStatement();
+						Statement stmt1  = conn.getConnection().createStatement();
 						ResultSet rs1 = stmt1.executeQuery(getCount);
 											
 						rs1.next();
 						String incrementCount = "UPDATE buildcounts SET count = " + (rs1.getInt("count") + 1) + " WHERE id = " + id + ";";
-						Statement stmt2  = Connect.connect().createStatement();
+						Statement stmt2  = conn.getConnection().createStatement();
 						stmt2.executeUpdate(incrementCount);
 						isPresent = true;	
 						audit.sendMessage("**[DATA]** Manually incremented record for " + guild.getMemberById(id).getUser().getAsTag() + " (" + (rs1.getInt("count") + 1) + ").").queue();
@@ -292,9 +295,9 @@ public class NonAPICommands extends ListenerAdapter {
 				audit.sendMessage("**[ERROR]** Could not manually increment record. \n[ERROR] " + e.getMessage() + ".").queue();	
 			}
 			
-			if (Connect.connect() != null) {  
+			if (conn.getConnection() != null) {  
 				try {
-					Connect.connect().close();
+					conn.getConnection().close();
 				} catch (SQLException e) {
 					audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
 					if (ExceptionUtils.getStackTrace(e).length() >= 1900)
@@ -310,6 +313,8 @@ public class NonAPICommands extends ListenerAdapter {
 //manually decrements database record by 1
 		if (event.getMessage().getContentRaw().startsWith("=remove ") && guild.getMemberById(event.getAuthor().getId()).getRoles().contains(guild.getRoleById(901162820484333610L))) {			
 			boolean isPresent = false;
+			Connect conn = new Connect();
+			
 			String id = "";
 			for (int i = 8; i < event.getMessage().getContentRaw().length(); i++) {
 				id += event.getMessage().getContentRaw().charAt(i);
@@ -318,7 +323,7 @@ public class NonAPICommands extends ListenerAdapter {
 			//get ID and counts form database				
 			try {
 				String getIds = "SELECT id, count FROM buildcounts;";
-				Statement stmt  = Connect.connect().createStatement();
+				Statement stmt  = conn.getConnection().createStatement();
 				ResultSet rs = stmt.executeQuery(getIds);
 						
 				//If id exists in table, increment build count of id
@@ -326,12 +331,12 @@ public class NonAPICommands extends ListenerAdapter {
 					if (rs.getLong("id") == Long.parseLong(id)) {
 						if (rs.getInt("count") > 0) {
 							String getCount = "SELECT count FROM buildcounts WHERE id = " + id + ";";
-							Statement stmt1  = Connect.connect().createStatement();
+							Statement stmt1  = conn.getConnection().createStatement();
 							ResultSet rs1 = stmt1.executeQuery(getCount);
 												
 							rs1.next();
 							String incrementCount = "UPDATE buildcounts SET count = " + (rs1.getInt("count") - 1) + " WHERE id = " + id + ";";
-							Statement stmt2  = Connect.connect().createStatement();
+							Statement stmt2  = conn.getConnection().createStatement();
 							stmt2.executeUpdate(incrementCount);
 							isPresent = true;	
 							audit.sendMessage("**[DATA]** Manually decremented record for " + guild.getMemberById(id).getUser().getAsTag() + " (" + (rs1.getInt("count") - 1) + ").").queue();
@@ -352,9 +357,9 @@ public class NonAPICommands extends ListenerAdapter {
 				audit.sendMessage("**[ERROR]** Could not manually decrement record. \n[ERROR] " + e.getMessage() + ".").queue();	
 			}
 			
-			if (Connect.connect() != null) {  
+			if (conn.getConnection() != null) {  
 				try {
-					Connect.connect().close();
+					conn.getConnection().close();
 				} catch (SQLException e) {
 					audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
 					if (ExceptionUtils.getStackTrace(e).length() >= 1900)
@@ -369,6 +374,8 @@ public class NonAPICommands extends ListenerAdapter {
 //merge backlog into database 
 		TextChannel backlog = guild.getTextChannelById(928431170620887080L);
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=merge")) {
+			Connect conn = new Connect();
+			
 			//For all messages containing an ID in backlog, increments the corresponding database record by 1
 			backlog.getHistory().retrievePast(100).queue(messages -> {
 				if (messages.size() <= 0) {
@@ -381,19 +388,19 @@ public class NonAPICommands extends ListenerAdapter {
 							//get ID and counts form database				
 							try {
 								String getIds = "SELECT id, count FROM buildcounts;";
-								Statement stmt  = Connect.connect().createStatement();
+								Statement stmt  = conn.getConnection().createStatement();
 								ResultSet rs = stmt.executeQuery(getIds);
 											
 								//If id exists in table, increment build count of id
 								while (rs.next()) {			
 									if (rs.getLong("id") == Long.parseLong(messages.get(i).getContentRaw())) {
 										String getCount = "SELECT count FROM buildcounts WHERE id = " + Long.parseLong(messages.get(i).getContentRaw()) + ";";
-										Statement stmt1  = Connect.connect().createStatement();
+										Statement stmt1  = conn.getConnection().createStatement();
 										ResultSet rs1 = stmt1.executeQuery(getCount);
 															
 										rs1.next();
 										String incrementCount = "UPDATE buildcounts SET count = " + (rs1.getInt("count") + 1) + " WHERE id = " + Long.parseLong(messages.get(i).getContentRaw()) + ";";
-										Statement stmt2  = Connect.connect().createStatement();
+										Statement stmt2  = conn.getConnection().createStatement();
 										stmt2.executeUpdate(incrementCount);
 										isPresent = true;
 										break;									
@@ -404,7 +411,7 @@ public class NonAPICommands extends ListenerAdapter {
 								//if id does not exist in table, add record for id with count of 1
 								if (!isPresent) {
 									String addUser = "INSERT INTO buildcounts VALUES (" + Long.parseLong(messages.get(i).getContentRaw()) + ", 1);"; 
-									Statement stmt2  = Connect.connect().createStatement();
+									Statement stmt2  = conn.getConnection().createStatement();
 									stmt2.executeUpdate(addUser);
 									audit.sendMessage("**[DATA]** New record added for " + messages.get(i).getAuthor().getAsTag() + " with an ID of " + Long.parseLong(messages.get(i).getContentRaw()) + " (1).").queue();
 								}
@@ -420,9 +427,9 @@ public class NonAPICommands extends ListenerAdapter {
 								audit.sendMessage("**[ERROR]** Backlog message could not be merged because it is not a vaild user ID.").queue();
 							}
 							   
-							if (Connect.connect() != null) {  
+							if (conn.getConnection() != null) {  
 								try {
-									Connect.connect().close();
+									conn.getConnection().close();
 								} catch (SQLException e) {
 									audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
 									if (ExceptionUtils.getStackTrace(e).length() >= 1900)
@@ -436,9 +443,9 @@ public class NonAPICommands extends ListenerAdapter {
 					}
 					audit.sendMessage("**[BACKLOG]** Merge successful.").queue();	
 					
-					if (Connect.connect() != null) {  
+					if (conn.getConnection() != null) {  
 						try {
-							Connect.connect().close();
+							conn.getConnection().close();
 						} catch (SQLException e) {
 							audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
 							if (ExceptionUtils.getStackTrace(e).length() >= 1900)
@@ -455,8 +462,6 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	@Override
 	public void onReady(ReadyEvent e) {
-		TextChannel audit = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929158963499515954L);
-		TextChannel stacktrace = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(928822585779707965L);
 		TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
 		pubGuild = Bot.jda.getGuildById(735990134583066679L);
 		
@@ -477,19 +482,6 @@ public class NonAPICommands extends ListenerAdapter {
 						bl.refresh();
 					}								
 				});
-				
-				if (Connect.connect() != null) {  
-					try {
-						Connect.connect().close();
-					} catch (SQLException e) {
-						audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
-						if (ExceptionUtils.getStackTrace(e).length() >= 1900)
-							stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
-						else {
-							stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
-						}
-					} 							
-				}
 			}
 		}, 6000, 6000);
 		
@@ -498,18 +490,6 @@ public class NonAPICommands extends ListenerAdapter {
 		timer1.scheduleAtFixedRate(new TimerTask() {
 			public void run() {
 				bl.refresh();
-				if (Connect.connect() != null) {  
-					try {
-						Connect.connect().close();
-					} catch (SQLException e) {
-						audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
-						if (ExceptionUtils.getStackTrace(e).length() >= 1900)
-							stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
-						else {
-							stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
-						}
-					} 							
-				}
 			}
 		}, 180000, 180000);
 		
@@ -531,22 +511,24 @@ public class NonAPICommands extends ListenerAdapter {
 			if (event.getReactionEmote().getEmoji().equals("✅") && event.getMember().getRoles().contains(guild.getRoleById(901162820484333610L))) {
 					builderSubmissions.retrieveMessageById(event.getMessageIdLong()).queue((message) -> {
 						boolean isPresent = false;
+						Connect conn = new Connect();
+						
 						//get ID and counts form database				
 						try {
 							String getIds = "SELECT id, count FROM buildcounts;";
-							Statement stmt  = Connect.connect().createStatement();
+							Statement stmt  = conn.getConnection().createStatement();
 							ResultSet rs = stmt.executeQuery(getIds);
 									
 							//If id exists in table, increment build count of id
 							while (rs.next()) {			
 								if (rs.getLong("id") == message.getAuthor().getIdLong()) {
 									String getCount = "SELECT count FROM buildcounts WHERE id = " + message.getAuthor().getIdLong() + ";";
-									Statement stmt1  = Connect.connect().createStatement();
+									Statement stmt1  = conn.getConnection().createStatement();
 									ResultSet rs1 = stmt1.executeQuery(getCount);
 													
 									rs1.next();
 									String incrementCount = "UPDATE buildcounts SET count = " + (rs1.getInt("count") + 1) + " WHERE id = " + message.getAuthor().getIdLong() + ";";
-									Statement stmt2  = Connect.connect().createStatement();
+									Statement stmt2  = conn.getConnection().createStatement();
 									stmt2.executeUpdate(incrementCount);
 									isPresent = true;
 									break;
@@ -556,7 +538,7 @@ public class NonAPICommands extends ListenerAdapter {
 							//if id does not exist in table, add record for id with count of 1
 							if (!isPresent) {
 								String addUser = "INSERT INTO buildcounts VALUES (" + message.getAuthor().getId() + ", 1);"; 
-								Statement stmt2  = Connect.connect().createStatement();
+								Statement stmt2  = conn.getConnection().createStatement();
 								stmt2.executeUpdate(addUser);
 								audit.sendMessage("**[DATA]** New record added for " + message.getAuthor().getAsTag() + " with an ID of " + message.getAuthor().getId() + " (1).").queue();
 							}
@@ -570,9 +552,9 @@ public class NonAPICommands extends ListenerAdapter {
 							}
 						} 
 						   
-						if (Connect.connect() != null) {  
+						if (conn.getConnection() != null) {  
 							try {
-								Connect.connect().close();
+								conn.getConnection()s.close();
 							} catch (SQLException e) {
 								audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
 								if (ExceptionUtils.getStackTrace(e).length() >= 1900)

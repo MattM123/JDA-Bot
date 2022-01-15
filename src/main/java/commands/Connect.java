@@ -11,9 +11,9 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 public class Connect {  
-	private static Connection conn = null;
+	private Connection conn = null;
 	
-	public static Connection connect() { 
+	public void connect() { 
 		try {  
 			String unformatted = System.getenv("DATABASE_URL");
 			
@@ -30,6 +30,9 @@ public class Connect {
 		} catch (SQLException e) {  
 			e.printStackTrace();
 		}
+	}
+	
+	public Connection getConnection() {
 		return conn;
 	}
 }  

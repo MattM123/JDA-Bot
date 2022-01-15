@@ -18,6 +18,7 @@ import net.dv8tion.jda.api.entities.User;
 public class BuildLeaderboard extends EmbedPaginator.Builder {
 
 	public int pages;
+	private Connect conn;
 	
 	public BuildLeaderboard() {
 		this.allowTextInput(false);
@@ -37,11 +38,14 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 		ArrayList<String> items = null;
 		ArrayList<MessageEmbed> itemEmbeds = new ArrayList<MessageEmbed>();
 		int total = 0;
+		conn = new Connect();
+		conn.connect();
 		
 		//connects to database and pulls data
 		try {
+			
 			String getData = "SELECT * FROM buildcounts ORDER BY count DESC;";
-			Statement data = Connect.connect().createStatement();
+			Statement data = conn.getConnection().createStatement();
 			rs = data.executeQuery(getData);		
 		
 			items = new ArrayList<String>();
@@ -68,9 +72,9 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 		Guild guild = NonAPICommands.pubGuild;
 		TextChannel stacktrace = guild.getTextChannelById(928822585779707965L);
 		TextChannel audit = guild.getTextChannelById(929158963499515954L);
-		if (Connect.connect() != null) {  
+		if (conn.getConnection() != null) {  
 			try {
-				Connect.connect().close();
+				conn.getConnection().close();
 			} catch (SQLException e) {
 				audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
 				if (ExceptionUtils.getStackTrace(e).length() >= 1900)
