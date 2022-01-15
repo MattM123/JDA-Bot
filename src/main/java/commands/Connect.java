@@ -11,9 +11,9 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 public class Connect {  
-	private Connection conn = null;
+	private static Connection conn = null;
 	
-	public void connect() { 
+	public static void connect() { 
 		try {  
 			String unformatted = System.getenv("DATABASE_URL");
 			
@@ -32,7 +32,7 @@ public class Connect {
 		}
 	}
 	
-	public Connection getConnection() {
+	public static Connection getConnection() {
 		return conn;
 	}
 }  
