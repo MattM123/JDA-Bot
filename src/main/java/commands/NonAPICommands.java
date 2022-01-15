@@ -480,6 +480,15 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 		}, 6000, 6000);
 		
+		Timer timer1 = new Timer();
+		timer1.scheduleAtFixedRate(new TimerTask() {
+			public void run() {
+				bl.refresh();
+				TextChannel bot = pubGuild.getTextChannelById(786328890280247327L);
+				bot.sendMessage("update").queue();
+			}
+		}, 60000, 60000);
+		
 
 	}
 	
