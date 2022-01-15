@@ -462,14 +462,17 @@ public class NonAPICommands extends ListenerAdapter {
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			public void run() {
-				try { 					
-					leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {		
+								
+				leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {		
+					try { 	
 						bl.build().paginate(message, page + 1);
 						page += 1;
-					});
-				} catch (IllegalArgumentException e) {
-					bl.refresh();
-				}
+							
+					} catch (IllegalArgumentException e) {
+						bl.refresh();
+					}
+				});
+				
 				
 				if (page == bl.pages) {
 					page = 0;
