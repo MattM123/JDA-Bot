@@ -139,7 +139,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					}
 				}
 					EmbedBuilder emb = new EmbedBuilder();
-					emb.setTitle("Page " + page + "/" + Math.round((items.size() + 5.0) / 10));
+					emb.setTitle("Page 1/1");
 					emb.setColor(Color.blue);
 					emb.addField("__Builder__", names, true);
 					emb.addField("__Build Count__", counts, true);
