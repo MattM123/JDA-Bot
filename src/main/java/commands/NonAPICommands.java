@@ -464,7 +464,7 @@ public class NonAPICommands extends ListenerAdapter {
 			public void run() {
 				if (!leaderboard.hasLatestMessage()) {
 					bl.build().display(leaderboard);
-					bl.setTimeout(bl.pages * 7, TimeUnit.SECONDS);
+					bl.setTimeout(bl.pages * 6, TimeUnit.SECONDS);
 				}
 				else { 					
 					leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {		
@@ -478,28 +478,7 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 		}, 6000, 6000);
 		
-		Timer timer1 = new Timer();
-		timer1.scheduleAtFixedRate(new TimerTask() {
-			public void run() {
-				bl.refresh();
-				leaderboard.sendMessage("Updated").queue();
 
-				TextChannel stacktrace = pubGuild.getTextChannelById(928822585779707965L);
-				TextChannel audit = pubGuild.getTextChannelById(929158963499515954L);
-				if (Connect.connect() != null) {  
-					try {
-						Connect.connect().close();
-					} catch (SQLException e) {
-						audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
-						if (ExceptionUtils.getStackTrace(e).length() >= 1900)
-							stacktrace.sendMessage(ExceptionUtils.getStackTrace(e).substring(0, 1900)).queue();
-						else {
-							stacktrace.sendMessage(ExceptionUtils.getStackTrace(e)).queue();
-						}
-					} 							
-				}
-			}
-		}, 5000, 300000);
 	}
 	
 	@Override
