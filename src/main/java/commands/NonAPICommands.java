@@ -469,8 +469,13 @@ public class NonAPICommands extends ListenerAdapter {
 					bl.setTimeout(bl.pages * 7, TimeUnit.SECONDS);
 				}
 				else { 
-					leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {
-						
+					if (!leaderboard.hasLatestMessage()) {
+						bl.refresh();
+						bl.build().display(leaderboard);
+						bl.setTimeout(bl.pages * 7, TimeUnit.SECONDS);
+					}
+					
+					leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {		
 						bl.build().paginate(message, page + 1);
 						page += 1;
 						
