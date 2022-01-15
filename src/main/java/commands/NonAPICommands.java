@@ -554,7 +554,7 @@ public class NonAPICommands extends ListenerAdapter {
 						   
 						if (conn.getConnection() != null) {  
 							try {
-								conn.getConnection()s.close();
+								conn.getConnection().close();
 							} catch (SQLException e) {
 								audit.sendMessage("**[ERROR]** " + e.getMessage()).queue();
 								if (ExceptionUtils.getStackTrace(e).length() >= 1900)
