@@ -465,13 +465,14 @@ public class NonAPICommands extends ListenerAdapter {
 				leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {		
 					try { 	
 						bl.build().paginate(message, page + 1);
+						leaderboard.sendMessage("break1").queue();
 						page += 1;
 							
 					} catch (IllegalArgumentException e) {
+						leaderboard.sendMessage("break2").queue();
 						bl.refresh();
 					}
 				});
-				
 				
 				if (page == bl.pages) {
 					page = 0;
