@@ -20,6 +20,7 @@ import net.dv8tion.jda.api.entities.User;
 public class BuildLeaderboard extends EmbedPaginator.Builder {
 
 	public int pages;
+	public int total = 0;
 	
 	public BuildLeaderboard() {
 		this.allowTextInput(false);
@@ -34,11 +35,10 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 		
 	}
 	
-	public void refresh() {		
+	public MessageEmbed[] refresh() {		
 		ResultSet rs = null;
 		ArrayList<String> items = null;
-		ArrayList<MessageEmbed> itemEmbeds = null;
-		int total = 0;
+		ArrayList<MessageEmbed> itemEmbeds = new ArrayList<MessageEmbed>();
 		
 		//connects to database and pulls data
 		try {
@@ -47,7 +47,6 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			rs = data.executeQuery(getData);		
 		
 			items = new ArrayList<String>();
-			total = 0; 
 			
 
 			while (rs.next()) {	
@@ -82,7 +81,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 				}
 			} 							
 		}
-	/*	
+		
 		if (items.size() > 20) {
 			
 		}
@@ -100,8 +99,11 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			emb.setColor(Color.blue);
 			emb.addField("__Builder__", names, true);
 			emb.addField("__Count__", names, true);
+			
+			itemEmbeds.add(emb.build());
 		}
-	*/	
+	
+		/*
 		itemEmbeds = new ArrayList<MessageEmbed>();
 		if (rs != null && items != null && itemEmbeds != null && total != 0) {
 			//Creating embeds that will be paginated
@@ -113,11 +115,11 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 						emb.setColor(Color.blue); 
 						emb.setTitle("Page " + page + "/" + Math.round((items.size() + 5.0) / 10));
 					
-						emb.addField("__User__", items.get(i) + "\n" + items.get(i + 2) + "\n" + items.get(i + 4) + "\n"
-							+ items.get(i + 6) + "\n" + items.get(i + 8), true);
+						emb.addField("__User__", items.get(i) + items.get(i + 2) + items.get(i + 4)
+							+ items.get(i + 6) + items.get(i + 8), true);
 				
-						emb.addField("__Build Count__", items.get(i + 1) + "\n" + items.get(i + 3) + "\n" + items.get(i + 5) + "\n"
-							+ items.get(i + 7) + "\n" + items.get(i + 9), true);
+						emb.addField("__Build Count__", items.get(i + 1) + items.get(i + 3) + items.get(i + 5)
+							+ items.get(i + 7) + items.get(i + 9), true);
 
 				} catch (IndexOutOfBoundsException e) {
 					try {
@@ -157,9 +159,11 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					
 				itemEmbeds.add(emb.build());
 			}
+			*/
 			pages = itemEmbeds.size();
 			this.setItems(itemEmbeds);
 			this.setText("**__Total Buildings: " + total + "__**");
-		}
+		//}
+			return itemEmbeds.toArray(new MessageEmbed[itemEmbeds.size()]);
 	}
 }

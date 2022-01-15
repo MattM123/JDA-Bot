@@ -464,17 +464,11 @@ public class NonAPICommands extends ListenerAdapter {
 		timer.scheduleAtFixedRate(new TimerTask() {
 			public void run() {
 				if (!leaderboard.hasLatestMessage()) {
-					bl.refresh();
-					bl.build().display(leaderboard);
-					bl.setTimeout(bl.pages * 7, TimeUnit.SECONDS);
-				}
-				else { 
-					if (!leaderboard.hasLatestMessage()) {
-						bl.refresh();
-						bl.build().display(leaderboard);
-						bl.setTimeout(bl.pages * 7, TimeUnit.SECONDS);
+					for (int i = 0; i < bl.refresh().length; i++) {
+						leaderboard.sendMessage(bl.refresh()[i]).queue();
 					}
-					
+				}
+				else { 					
 					leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {		
 						bl.build().paginate(message, page + 1);
 						page += 1;
@@ -482,6 +476,7 @@ public class NonAPICommands extends ListenerAdapter {
 						if (page == bl.pages)
 							bl.refresh();
 					});
+					leaderboard.getManager().setTopic("Total Buildings: " + bl.total).queue();
 				}
 				if (page == bl.pages) {
 					page = 0;
@@ -502,7 +497,7 @@ public class NonAPICommands extends ListenerAdapter {
 					} 							
 				}			
 			}
-		}, 5000, 5000);
+		}, 6000, 6000);
 		
 	}
 	
