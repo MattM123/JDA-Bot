@@ -490,7 +490,7 @@ public class NonAPICommands extends ListenerAdapter {
 			public void run() {
 				bl.refresh();
 			}
-		}, 180000, 180000);
+		}, 60000, 60000);
 		
 
 	}
