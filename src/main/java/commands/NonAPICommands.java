@@ -72,7 +72,7 @@ public class NonAPICommands extends ListenerAdapter {
 			EmbedBuilder measure1 = new EmbedBuilder();
 			measure1.setColor(Color.blue);
 			measure1.setTitle("/tpll Outline Tutorial");
-			measure1.setImage("https://i.imgur.com/G5c6bJl.mp4");
+			measure1.setImage("https://i.imgur.com/G5c6bJl.gif");
 			event.getChannel().sendMessageEmbeds(measure.build(), measure1.build()).queue();	
 		}
 		
