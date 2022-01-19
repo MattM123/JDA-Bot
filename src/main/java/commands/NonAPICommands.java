@@ -67,9 +67,13 @@ public class NonAPICommands extends ListenerAdapter {
 			EmbedBuilder measure = new EmbedBuilder();
 			measure.setColor(Color.blue);
 			measure.setTitle("Google Earth Pro Measuring Tutotrial");
-			measure.setFooter("Gif totally not stolen from the Build The Earth bot");
 			measure.setImage("https://i.gyazo.com/thumb/1200/d58446cec35cc504bb36b749346041a9-gif.gif");
-			event.getChannel().sendMessage(measure.build()).queue();	
+			
+			EmbedBuilder measure1 = new EmbedBuilder();
+			measure1.setColor(Color.blue);
+			measure1.setTitle("Google Earth Pro Measuring Tutotrial");
+			measure1.setImage("https://i.imgur.com/G5c6bJl.mp4");
+			event.getChannel().sendMessageEmbeds(measure.build(), measure1.build()).queue();	
 		}
 		
 		//returns map image of states

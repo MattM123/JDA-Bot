@@ -145,7 +145,8 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					page += 1;
 
 			}
-			
+			EventWaiter e = new EventWaiter();
+			e.
 			pages = itemEmbeds.size();
 			this.setItems(itemEmbeds);
 			this.setText("**__Total Buildings: " + total + "__**");
