@@ -34,3 +34,5 @@
 | `=/<command>`  | Sends console command to the Midwest server| true|
 
 [Discord server](discord.gg/a3GEGEf "DC link")
+
+Note: Given the niche use case of this bot, it was not designed to be used with other servers. If you have any questions about it you can reach me in the above discord server.
