@@ -376,7 +376,7 @@ public class NonAPICommands extends ListenerAdapter {
 //------------------------------------------------------------------------------------------------------------------------------------
 //merge backlog into database 
 		TextChannel backlog = guild.getTextChannelById(928431170620887080L);
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("=merge")) {
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("=merge") && guild.getMemberById(event.getAuthor().getId()).getRoles().contains(guild.getRoleById(901162820484333610L))) {
 			Connect.connect();
 			
 			//For all messages containing an ID in backlog, increments the corresponding database record by 1

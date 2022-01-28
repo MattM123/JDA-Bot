@@ -38,6 +38,9 @@
 | `=link <mcusername>`| If user has been accepted to the team, assigns builder rank with full build permissions on Minecraft server based on state discord role of user and gives Builder discord role, | false|
 | `=getapp -<discordUserID> -<n>`    | Retrieves a specific application for a given `DiscordUserID`.| true|
 | `=/<command>`  | Sends console command to the Midwest server| true|
+| `=add <discordID> | Manually increments a users database record. | true|
+| `=remove <discordID> | Manually decrements a users database record. | true|
+| `=merge` | Merges the backlog into the database after a connection outage. | true|
 
 [Discord server](discord.gg/a3GEGEf "DC link")
 
