@@ -20,10 +20,10 @@
 	* Does not return pending applications
 	
 * Postgres database
-	* Based on reactions in the proper channel, will alter database values
+	* Based on reactions in the proper submissions channel, will alter database values
 	* Retrieves database records every 60 seconds and places them in auto-paginagting embed message
 	* Backlog channel provides uptime even when a database connection cannot be established
-		* Posts user discord ID in backlog channel if connection cannot be established
+		* On message react, if database connection cannot be established, the user ID of the message will be sent in the backlog channel
 		* Once connection is regained, `=merge` will iterate through each backlog message. For each user ID held in the database, it will increment the corresponding count value and delete the backlog message once complete.
 
 # Commands
@@ -44,4 +44,4 @@
 
 [Discord server](discord.gg/a3GEGEf "DC link")
 
-Note: Given the niche use case of this bot, it was not designed to be used with other servers. If you have any questions about it you can reach me in the above discord server.
+Note: Given the niche use case of this bot, it was not designed to be used with other discord servers or even other BTE discord servers. If you have any questions about it you can reach me in the above discord server.
