@@ -63,7 +63,9 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			}
 		} catch (SQLException e) {
 			Guild guild = NonAPICommands.pubGuild;
-			guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard: " + e.getMessage()).queue();
+			
+			if (!e.getMessage().equals("An I/O error occurred while sending to the backend."))
+				guild.getTextChannelById(929158963499515954L).sendMessage("**[ERROR]** Unable to update leaderboard: " + e.getMessage()).queue();
 		}
 		
 		//closes connection
