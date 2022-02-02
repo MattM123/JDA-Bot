@@ -34,51 +34,7 @@ public class APICommands extends ListenerAdapter {
 	
 	//Timer to tell bot when to check pending applications
 	Timer timer = new Timer();
-	
-//-------------------------------------------------------------------------------------------------------------	
-//onReady =link command testing
-	/*
-	@Override
-	public void onReady(ReadyEvent event) {
-	 
-		timer.scheduleAtFixedRate(new TimerTask() {
-			@Override
-			public void run() {
 
-				BTE.getMemberList();				
-				if (BTE.stackTrace.isEmpty()) {
-					for (int i = 0; i < BTE.getMemberList().size(); i++) {
-						if (event.getJDA().getGuildById(735990134583066679L).getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong()) != null) {
-							
-						}
-					}
-				}//ill finish this later
-				
-
-			//for each member, if they dont have perms and are not on blacklist, get username applied with and assign state rank based on discord role
-			//add blacklist, and methods to add and remove users from it. The users in the blacklist would be ignored by this onReady event
-				
-			//How to check for perms when LP API is not REST?
-				
-			//if no builder role and has accepted app
-				//assign builder role and perms
-			//If builder role and no accepted app
-				//remove builder role and perms
-				
-			// --> if has accepted application then give builder role
-			// --> if has builder role then has perms
-			
-			//Step 1: must check if user has an ACCEPTED application in order to automate. need to web scrape the proper page cuz API doest send that info :/
-			//Step 2:	* If user has accepted application but does not have builder role, send LP console command to give perms + builder role
-			//			* If user does not have an accepted appliciation but has builder role, send LP console command to remove perms + builder role
-			//			* If user does not have any applications but is on team, send LP console command to give perms + builder role
-				
-			
-				
-			}
-		}, 0, 10000);
-	}
-		*/
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
@@ -86,35 +42,7 @@ public class APICommands extends ListenerAdapter {
 		 Guild guild = event.getGuild(); 
 		 Role staffRole = guild.getRoleById(901162820484333610L);                                             
 		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole);
-		 
-//-------------------------------------------------------------------------------------------------------------	
-//Attempted webscraping to automate =link
-	/*  
-		 if (event.getMessage().getContentRaw().equals("=test")) {
-			 Connection.Response res = null;
-			 Document doc = null;
-			 try {
-				res = Jsoup.connect("https://discord.com/login?redirect_to=%2Foauth2%2Fauthorize%3Fclient_id%3D691439028234485790%26redirect_uri%3Dhttps%253A%252F%252Fbuildtheearth.net%252Flogin%252Foauth%26response_type%3Dcode%26scope%3Didentify%26state%3Df9f155d1c64978124ac974d70b63a96e68517271%26prompt%3Dnone")
-						.data("email",System.getenv("DISCORD_EMAIL"))
-						.data("password", System.getenv("DISCORD_PASSWORD"))
-						.method(Method.GET)
-						.execute();
-					
-				Map<String, String> loginCookies = res.cookies();
-				
-				doc = Jsoup.connect("https://buildtheearth.net/buildteams/36/applications")
-					      .cookies(loginCookies)
-					      .get();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			 event.getChannel().sendMessage(doc.getElementsByTag("body").get(1).toString().subSequence(0, 1900)).queue();
-			 
-			 
-		 }
-		*/ 
+
 //-------------------------------------------------------------------------------------------------------------	
 //send command to server console
 		 
@@ -201,12 +129,9 @@ public class APICommands extends ListenerAdapter {
 		if (event.getMessage().getContentRaw().startsWith("=link")) {			
 			
 			//Parses minecraft username for later use
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
-			String MCusername = "";
-		
-			for (int i = 6; i < chararr.length; i++) {
-				MCusername += chararr[i];
-			} 
+			String[] args = event.getMessage().getContentRaw().split(" ");
+			String MCusername = args[1];
+			
 			
 			//if they actually type 'mcusername' instead of their mc username lol
 			if (MCusername.equals("mcusername") || MCusername.equals("<mcusername>") || (MCusername.contains(">") && MCusername.contains("<"))) {
@@ -404,18 +329,10 @@ public class APICommands extends ListenerAdapter {
 		
 		if (event.getMessage().getContentRaw().startsWith("=getapp")) { 
 			if (staff.contains(event.getMessage().getMember())) {
-				String message = event.getMessage().getContentRaw();
+				String[] args = event.getMessage().getContentRaw().split(" ");
 				
-				char[] charArr = event.getMessage().getContentRaw().toCharArray();
-				String user = "";
-				String appNum = "";
-				
-				for (int i = 9; i <= charArr.length; i++) {
-					if (i == 9) {
-						user += message.substring(i, message.lastIndexOf(" "));	
-						appNum += message.substring(i + 20);
-					}
-				}
+				String user = args[1];
+				String appNum = args[2];
 				
 				//Test run for errors
 				BTE.getApplicationHistory(user); 
