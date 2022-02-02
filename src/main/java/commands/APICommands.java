@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Timer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.marcuzzo.JDABot.Bot;
 import com.mattmalec.pterodactyl4j.DataType;
 import com.mattmalec.pterodactyl4j.PteroBuilder;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
@@ -58,14 +57,14 @@ public class APICommands extends ListenerAdapter {
 				emb.setColor(Color.blue);
 				emb.setTitle("Command Executed");
 				emb.addField(cmdBuilder, "", false);	
-				event.getChannel().sendMessage(emb.build()).queue();
+				event.getChannel().sendMessageEmbeds(emb.build()).queue();
 				}
 			
 			else {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.blue);
 				emb.setTitle("Only staff can execute this command");
-				event.getChannel().sendMessage(emb.build()).queue();
+				event.getChannel().sendMessageEmbeds(emb.build()).queue();
 			}
 		}
 //-------------------------------------------------------------------------------------------------------------		
@@ -84,7 +83,7 @@ public class APICommands extends ListenerAdapter {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("Replace `<mcusername>` with your acutal in-game username excluding the `<>`");
-				event.getChannel().sendMessage(emb.build()).queue();
+				event.getChannel().sendMessageEmbeds(emb.build()).queue();
 				return;
 			}
 			
@@ -98,7 +97,7 @@ public class APICommands extends ListenerAdapter {
 			emb.setColor(Color.BLUE);
 			emb.setTitle("Applicant build permissions assigned to " + namebuilder);
 			emb.setFooter("If you did not recieve permissions, you will need to logon to the server and rerun this bot command");
-			event.getChannel().sendMessage(emb.build()).queue();
+			event.getChannel().sendMessageEmbeds(emb.build()).queue();
 		}
 
 //-----------------------------------------------------------------------------------------------------------------------------
@@ -121,7 +120,7 @@ public class APICommands extends ListenerAdapter {
 			midwest.addField("Memory Usage", midwestServer.retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + Integer.parseInt(midwestServer.getLimits().getMemory()) / 1000 + " GB", false);
 			midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/Unlimited", false);
 	
-			event.getChannel().sendMessage(midwest.build()).queue();
+			event.getChannel().sendMessageEmbeds(midwest.build()).queue();
 		}
 //-----------------------------------------------------------------------------------------------------------------------------
 //give build perms based on presence on build team
@@ -138,7 +137,7 @@ public class APICommands extends ListenerAdapter {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.BLUE);
 				emb.setTitle("Replace `<mcusername>` with your acutal in-game username exluding the <>");
-				event.getChannel().sendMessage(emb.build()).queue();
+				event.getChannel().sendMessageEmbeds(emb.build()).queue();
 			}
 			
 				//Getting username from builder application 
@@ -153,7 +152,7 @@ public class APICommands extends ListenerAdapter {
 					emb.setColor(Color.BLUE);  
 					emb.setTitle("There was an error retrieveing the users application data.");
 					emb.addField("", usernameApplied.toString().substring(0, 1000), false);
-					event.getChannel().sendMessage(emb.build()).queue();
+					event.getChannel().sendMessageEmbeds(emb.build()).queue();
 				}
 				else {
 					//roles = guild.getMemberById("309114198812655617").getRoles(); //test case for specific user
@@ -173,7 +172,7 @@ public class APICommands extends ListenerAdapter {
 							emb.setColor(Color.BLUE);
 							emb.setTitle("There was an exception when retrieving the member list");
 							emb.addField("Exception", BTE.stackTrace, false);
-							event.getChannel().sendMessage(emb.build()).queue();
+							event.getChannel().sendMessageEmbeds(emb.build()).queue();
 						}
 						
 						//if user has been merged into the team, i.e has not submitted an application but is on the team						  
@@ -187,7 +186,7 @@ public class APICommands extends ListenerAdapter {
 							EmbedBuilder emb = new EmbedBuilder();
 							emb.setColor(Color.BLUE);
 							emb.setTitle("User has been merged into the team");
-							event.getChannel().sendMessage(emb.build()).queue();
+							event.getChannel().sendMessageEmbeds(emb.build()).queue();
 							
 							isBuilder = true;
 						}
@@ -213,7 +212,7 @@ public class APICommands extends ListenerAdapter {
 									EmbedBuilder emb = new EmbedBuilder();
 									emb.setColor(Color.BLUE);
 									emb.setTitle("You now have Builder role!");
-									event.getChannel().sendMessage(emb.build()).queue();
+									event.getChannel().sendMessageEmbeds(emb.build()).queue();
 									
 									isBuilder = true;
 								}	
@@ -234,7 +233,7 @@ public class APICommands extends ListenerAdapter {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Kansas Builder for " + MCusername);
-								event.getChannel().sendMessage(emb.build()).queue();
+								event.getChannel().sendMessageEmbeds(emb.build()).queue();
 		
 							}
 							else if (roles.contains(guild.getRoleById(735995164493086720L))) {								
@@ -243,7 +242,7 @@ public class APICommands extends ListenerAdapter {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Iowa Builder for " + MCusername);
-								event.getChannel().sendMessage(emb.build()).queue();
+								event.getChannel().sendMessageEmbeds(emb.build()).queue();
 		
 							}
 							else if (roles.contains(guild.getRoleById(735995136978321541L))) {
@@ -252,7 +251,7 @@ public class APICommands extends ListenerAdapter {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Nebraska Builder for " + MCusername);
-								event.getChannel().sendMessage(emb.build()).queue();
+								event.getChannel().sendMessageEmbeds(emb.build()).queue();
 		
 							}
 							else if (roles.contains(guild.getRoleById(735995095773609986L))) {
@@ -261,7 +260,7 @@ public class APICommands extends ListenerAdapter {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Illinois Builder for " + MCusername);
-								event.getChannel().sendMessage(emb.build()).queue();
+								event.getChannel().sendMessageEmbeds(emb.build()).queue();
 							}
 							else if (roles.contains(guild.getRoleById(735995115113414656L))) {
 
@@ -269,7 +268,7 @@ public class APICommands extends ListenerAdapter {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Missouri Builder for " + MCusername);
-								event.getChannel().sendMessage(emb.build()).queue();
+								event.getChannel().sendMessageEmbeds(emb.build()).queue();
 		
 							}
 							else if (roles.contains(guild.getRoleById(735995196738633819L))) {
@@ -278,7 +277,7 @@ public class APICommands extends ListenerAdapter {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Minnesota Builder for " + MCusername);
-								event.getChannel().sendMessage(emb.build()).queue();
+								event.getChannel().sendMessageEmbeds(emb.build()).queue();
 							}
 							else if (roles.contains(guild.getRoleById(808415301799641119L))) {
 
@@ -286,7 +285,7 @@ public class APICommands extends ListenerAdapter {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Oklahoma Builder for " + MCusername);
-								event.getChannel().sendMessage(emb.build()).queue();
+								event.getChannel().sendMessageEmbeds(emb.build()).queue();
 							}
 							else if (roles.contains(guild.getRoleById(798079627360337970L))) {
 
@@ -294,7 +293,7 @@ public class APICommands extends ListenerAdapter {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Wisconsin Builder for " + MCusername);
-								event.getChannel().sendMessage(emb.build()).queue();
+								event.getChannel().sendMessageEmbeds(emb.build()).queue();
 							}
 							else if (roles.contains(guild.getRoleById(900746635427053678L))) {
 
@@ -302,14 +301,14 @@ public class APICommands extends ListenerAdapter {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Minecraft server rank updated to Michigan Builder for " + MCusername);
-								event.getChannel().sendMessage(emb.build()).queue();
+								event.getChannel().sendMessageEmbeds(emb.build()).queue();
 							}
 							
 							else {
 								EmbedBuilder emb = new EmbedBuilder();
 								emb.setColor(Color.BLUE);
 								emb.setTitle("Could not assign build permissions. Please choose a state with `=role` and run the command again.");
-								event.getChannel().sendMessage(emb.build()).queue();
+								event.getChannel().sendMessageEmbeds(emb.build()).queue();
 							}
 						}
 						
@@ -318,7 +317,7 @@ public class APICommands extends ListenerAdapter {
 							EmbedBuilder emb = new EmbedBuilder();
 							emb.setColor(Color.BLUE);
 							emb.setTitle("You're not on the team or your username was invalid");
-							event.getChannel().sendMessage(emb.build()).queue();  
+							event.getChannel().sendMessageEmbeds(emb.build()).queue();  
 						}							
 											
 				}
@@ -347,7 +346,7 @@ public class APICommands extends ListenerAdapter {
 					notOnTeam.setColor(Color.BLUE);
 					notOnTeam.setTitle("No data on user");
 					notOnTeam.addField(BTE.stackTrace, "User account does not exist on the team", false);
-					event.getChannel().sendMessage(notOnTeam.build()).queue();
+					event.getChannel().sendMessageEmbeds(notOnTeam.build()).queue();
 					
 				
 				}
@@ -362,7 +361,7 @@ public class APICommands extends ListenerAdapter {
 						noinfo.setColor(Color.BLUE);
 						noinfo.setTitle("No applications found for user");
 						noinfo.addField("This user was most likely merged into the team", "", false);
-						event.getChannel().sendMessage(noinfo.build()).queue();
+						event.getChannel().sendMessageEmbeds(noinfo.build()).queue();
 					}
 					
 					//If you are trying to retrieve more applications then the user has
@@ -371,7 +370,7 @@ public class APICommands extends ListenerAdapter {
 						noApp.setColor(Color.BLUE);
 						noApp.setTitle("User does not have that many applications, try a lower number.");
 						
-						event.getChannel().sendMessage(noApp.build()).queue();
+						event.getChannel().sendMessageEmbeds(noApp.build()).queue();
 					}
 					
 					//If you are trying to retrieve an application that does not exist
@@ -380,7 +379,7 @@ public class APICommands extends ListenerAdapter {
 						noApp.setColor(Color.BLUE);
 						noApp.setTitle("User does not have any applications. They were most likely merged into the team");
 						
-						event.getChannel().sendMessage(noApp.build()).queue();
+						event.getChannel().sendMessageEmbeds(noApp.build()).queue();
 					}
 					
 					//Returns application
@@ -399,7 +398,7 @@ public class APICommands extends ListenerAdapter {
 						app.addBlankField(false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(4).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(4).getAnswer(), false);
 						
-						event.getChannel().sendMessage(app.build()).queue();
+						event.getChannel().sendMessageEmbeds(app.build()).queue();
 					}
 				}
 			}
@@ -408,7 +407,7 @@ public class APICommands extends ListenerAdapter {
 				noperm.setColor(Color.BLUE);
 				noperm.setTitle("Only staff can execute this command");
 				
-				event.getChannel().sendMessage(noperm.build()).queue();
+				event.getChannel().sendMessageEmbeds(noperm.build()).queue();
 			}
 		}
 	}
