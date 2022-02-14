@@ -26,7 +26,7 @@ public class APICommands extends ListenerAdapter {
 	private PteroClient pteroAPI = PteroBuilder.createClient(System.getenv("PANEL_URL"), System.getenv("PTERO_API"));
 	
 	//The minecraft server thats represented by a Ptero API instance
-	private ClientServer midwestServer = pteroAPI.retrieveServerByIdentifier("766e4abc").execute();
+	private ClientServer midwestServer = pteroAPI.retrieveServerByIdentifier(System.getenv("SERVER_ID")).execute();
 			
 	//User role list
 	private List<Role> roles;

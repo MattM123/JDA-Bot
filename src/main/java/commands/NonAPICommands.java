@@ -467,7 +467,6 @@ public class NonAPICommands extends ListenerAdapter {
 	@Override
 	public void onReady(ReadyEvent e) {
 		TextChannel leaderboard = Bot.jda.getGuildById(735990134583066679L).getTextChannelById(929171594125914152L);
-		pubGuild = Bot.jda.getGuildById(735990134583066679L);
 		
 		//turns page every 6 seconds
 		Timer timer = new Timer();
