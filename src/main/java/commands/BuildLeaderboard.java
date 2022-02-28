@@ -87,7 +87,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 		
 		if (rs != null && items != null && itemEmbeds != null && total != 0) {
 			//Creating embeds that will be paginated
-			int page = 1;
+			int page = 0;
 			
 			if (items.size() > 20) {
 				String names = "";
@@ -108,7 +108,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 						emb.addField("__Builder__", names, true);
 						emb.addField("__Build Count__", counts, true);
 						itemEmbeds.add(emb.build());
-						page += 1;
+						page++;
 						names = "";
 						counts = "";
 					}
@@ -121,7 +121,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 						emb.addField("__Builder__", names, true);
 						emb.addField("__Build Count__", counts, true);
 						itemEmbeds.add(emb.build());
-						page += 1;
+						page++;
 						names = "";
 						counts = "";
 					}
