@@ -103,7 +103,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					//adds every 20 items to embed
 					if (names.split("\n").length == 10 && counts.split("\n").length == 10) {
 						EmbedBuilder emb = new EmbedBuilder();
-						emb.setTitle("Page " + page + "/" + Math.floor((items.size() + 5.0) / 10));
+						emb.setTitle("Page " + page + "/" + (int) Math.floor((items.size() + 5.0) / 10));
 						emb.setColor(Color.blue);
 						emb.addField("__Builder__", names, true);
 						emb.addField("__Build Count__", counts, true);
@@ -116,7 +116,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 					//Adds leftovers to an embed
 					if (i == items.size() - 1 && items.size() % 20 != 0) {
 						EmbedBuilder emb = new EmbedBuilder();
-						emb.setTitle("Page " + page + "/" + Math.floor((items.size() + 5.0) / 10));
+						emb.setTitle("Page " + page + "/" + (int) Math.floor((items.size() + 5.0) / 10));
 						emb.setColor(Color.blue);
 						emb.addField("__Builder__", names, true);
 						emb.addField("__Build Count__", counts, true);
