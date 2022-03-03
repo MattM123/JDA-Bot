@@ -155,9 +155,12 @@ public class NonAPICommands extends ListenerAdapter {
 			//if role name is not empty
 			else {
 				
+				//adds or removes event role
 				if (rolebuilder.equalsIgnoreCase("event")) {
 					if (!event.getMember().getRoles().contains(guild.getRoleById(781973005223854120L)))
 						guild.addRoleToMember(event.getMember().getIdLong(), guild.getRoleById(781973005223854120L)).queue();
+					else
+						guild.removeRoleFromMember(event.getMember().getIdLong(), guild.getRoleById(781973005223854120L)).queue();
 				}
 				else {
 										
