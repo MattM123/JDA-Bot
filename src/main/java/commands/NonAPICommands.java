@@ -154,47 +154,51 @@ public class NonAPICommands extends ListenerAdapter {
 			
 			//if role name is not empty
 			else {
-				//if user is obtaining state role when they already have one removes current state roles and assigns new one they chose				
 				
-				for (int i = 0; i < stateRoles.length; i++) {
-					if (event.getMember().getRoles() != null && event.getMember().getRoles().contains(stateRoles[i])) {
-						guild.removeRoleFromMember(event.getMember().getIdLong(), stateRoles[i]).queue();
+				if (rolebuilder.equalsIgnoreCase("event")) {
+					if (!event.getMember().getRoles().contains(guild.getRoleById(781973005223854120L)))
+						guild.addRoleToMember(event.getMember().getIdLong(), guild.getRoleById(781973005223854120L)).queue();
+				}
+				else {
+										
+					//if user is obtaining state role when they already have one removes current state roles and assigns new one they chose				
+					for (int i = 0; i < stateRoles.length; i++) {
+						if (event.getMember().getRoles() != null && event.getMember().getRoles().contains(stateRoles[i])) {
+							guild.removeRoleFromMember(event.getMember().getIdLong(), stateRoles[i]).queue();
+							break;
+						}
+					}
+					
+					switch (rolebuilder.toLowerCase()) {
+					case "nebraska": 
+						guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[0]).queue();
+						break;
+					case "wisconsin":
+						guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[1]).queue();
+						break;
+					case "iowa":
+						guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[2]).queue();
+						break;
+					case "kansas":
+						guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[3]).queue();
+						break;
+					case "michigan":
+						guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[4]).queue();
+						break;
+					case "missouri":
+						guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[5]).queue();
+						break;
+					case "oklahoma":
+						guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[6]).queue();
+						break;
+					case "illinois":
+						guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[7]).queue();
+						break;
+					case "minnesota":
+						guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[8]).queue();
 						break;
 					}
 				}
-				
-				switch (rolebuilder.toLowerCase()) {
-				case "nebraska": 
-					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[0]).queue();
-					break;
-				case "wisconsin":
-					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[1]).queue();
-					break;
-				case "iowa":
-					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[2]).queue();
-					break;
-				case "kansas":
-					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[3]).queue();
-					break;
-				case "michigan":
-					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[4]).queue();
-					break;
-				case "missouri":
-					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[5]).queue();
-					break;
-				case "oklahoma":
-					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[6]).queue();
-					break;
-				case "illinois":
-					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[7]).queue();
-					break;
-				case "minnesota":
-					guild.addRoleToMember(event.getMember().getIdLong(), stateRoles[8]).queue();
-					break;
-				case "event":
-					guild.addRoleToMember(event.getMember().getIdLong(), guild.getRoleById(781973005223854120L)).queue();
-					break;
-				}	
 			}
 		}
 		
