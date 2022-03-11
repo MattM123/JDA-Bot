@@ -204,10 +204,7 @@ public class NonAPICommands extends ListenerAdapter {
 				}
 			}
 		}
-		
-
-		
-		
+			
 		//BuildCount Tracker
 		TextChannel buildSubmissionChannel = guild.getTextChannelById(926285692542283846L);
 		TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);

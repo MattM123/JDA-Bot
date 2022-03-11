@@ -10,6 +10,7 @@ import org.postgresql.translation.messages_bg;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.marcuzzo.JDABot.Bot;
 import com.mattmalec.pterodactyl4j.DataType;
 import com.mattmalec.pterodactyl4j.PteroBuilder;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
@@ -39,6 +40,7 @@ public class APICommands extends ListenerAdapter {
 	
 	//Timer to tell bot when to check pending applications
 	Timer timer = new Timer();
+	
 
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -391,9 +393,11 @@ public class APICommands extends ListenerAdapter {
 					//Returns application
 					else {
 						EmbedBuilder app = new EmbedBuilder();
+						EmbedBuilder images = new EmbedBuilder();
 						app.setColor(Color.BLUE);
-						app.setTitle("Application " + appNum + " for user ID " + user);
+						app.setTitle("Application " + appNum + " for " + NonAPICommands.pubGuild.getMemberById(user));
 						
+						images.addField("Link to Screenshots of Previous Builds", application.getApplications().get(appIndex).getUrl(), false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(0).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(0).getAnswer(), false);
 						app.addBlankField(false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(1).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(1).getAnswer(), false);
@@ -404,7 +408,8 @@ public class APICommands extends ListenerAdapter {
 						app.addBlankField(false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(4).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(4).getAnswer(), false);
 						
-						event.getChannel().sendMessageEmbeds(app.build()).queue();
+						event.getChannel().sendMessageEmbeds(app.build(),  images.build());
+
 					}
 				}
 			}
@@ -437,7 +442,7 @@ public class APICommands extends ListenerAdapter {
 					    	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
 					    	
 					    		pendingApps += BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + "has applied to the team.\n" 
-					    				+ BTE.getPendingApplications().getApplications().get(i).getUrl();	
+					    				+ BTE.getPendingApplications().getApplications().get(i).getUrl() + "\n";	
 					    	}
 					    	message.editMessage(pendingApps).queue();
 					    }
@@ -454,7 +459,7 @@ public class APICommands extends ListenerAdapter {
 					    for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
 					    	
 					    	pendingApps += BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + "has applied to the team.\n" 
-					    			+ BTE.getPendingApplications().getApplications().get(i).getUrl();	
+					    			+ BTE.getPendingApplications().getApplications().get(i).getUrl() + "\n";	
 					    }
 					    staff.sendMessage(pendingApps).queue();
 					}
