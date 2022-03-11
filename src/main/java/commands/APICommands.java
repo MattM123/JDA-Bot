@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
+import java.util.TimerTask;
+
+import org.postgresql.translation.messages_bg;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mattmalec.pterodactyl4j.DataType;
@@ -15,6 +19,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -414,37 +420,49 @@ public class APICommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Notifies staff members of new applications since BTE bot stopped doing it
 	
-/*            //BROKEN, cannot differentiate between bot message author and human message author
-	private boolean isBot = true;
-	
 	@Override
 	public void onReady(ReadyEvent event) {
 		
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(735992503408263229L);									
-				int applications = BTE.getPendingApplications().getApplications().size() - 1;
-				
-			    if (BTE.getPendingApplications().getApplications().size() > 0) {
-			    	EmbedBuilder emb = new EmbedBuilder();
-			    	
-			    	staff.getHistory().retrievePast(1)
-			    		 .map(historyMessages -> historyMessages.get(0))
-					     .queue(historyMessage -> {
-					    	 isBot = historyMessage.getAuthor().isBot();
-					     });
-							    
-			    	emb.setTitle("There is " + applications  + " new application(s) to review");
-			    	emb.setColor(Color.blue);
-			    	
-			    	if (!isBot && applications > 0)
-			    		staff.sendMessage(emb.build()).queue();
-			    }
+				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);									
+							
+				//if has message, edits the current one to include the pending applications if there are any
+				if (staff.hasLatestMessage()) {
+					staff.retrieveMessageById(staff.getLatestMessageId()).queue(message -> {
+						String pendingApps = "";
+					    if (BTE.getPendingApplications().getApplications().size() > 0) {
+					    	
+					    	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
+					    	
+					    		pendingApps += BTE.getPendingApplications().getApplications().get(i).getUser() + "has applied to the team.\n" 
+					    				+ BTE.getPendingApplications().getApplications().get(i).getUrl();	
+					    	}
+					    	message.editMessage(pendingApps).queue();
+					    }
+					    else {
+					    	message.delete().queue();
+					    }
+					});
+				}
+				//If channel has no cached messages, sends new one with pending applications if there are any
+				else {
+					String pendingApps = "";
+					if (BTE.getPendingApplications().getApplications().size() > 0) {
+					    	
+					    for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
+					    	
+					    	pendingApps += BTE.getPendingApplications().getApplications().get(i).getUser() + "has applied to the team.\n" 
+					    			+ BTE.getPendingApplications().getApplications().get(i).getUrl();	
+					    }
+					    staff.sendMessage(pendingApps).queue();
+					}
+				}
 			}
-		}, 1000, 600000);
+		}, 1000, 5000);
 	}
-*/	
+	
 	
 }	
 
