@@ -441,7 +441,7 @@ public class APICommands extends ListenerAdapter {
 					    	
 					    	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
 					    	
-					    		pendingApps += BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" 
+					    		pendingApps += BTE.getPendingApplications().getApplications().get(i).user + " has applied to the team.\n" 
 					    				+ "\nView their application here: https://buildtheearth.net/buildteams/36/applications/" 
 					    				+ BTE.getPendingApplications().getApplications().get(i).id;	
 					    	}
@@ -459,8 +459,9 @@ public class APICommands extends ListenerAdapter {
 					    	
 					    for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
 					    	
-					    	pendingApps += BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" 
-					    			+ BTE.getPendingApplications().getApplications().get(i).getUrl() + "\n";	
+				    		pendingApps += BTE.getPendingApplications().getApplications().get(i).user + " has applied to the team.\n" 
+				    				+ "\nView their application here: https://buildtheearth.net/buildteams/36/applications/" 
+				    				+ BTE.getPendingApplications().getApplications().get(i).id;	
 					    }
 					    staff.sendMessage(pendingApps).queue();
 					}
