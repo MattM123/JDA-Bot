@@ -431,7 +431,7 @@ public class APICommands extends ListenerAdapter {
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);									
+				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(951957461869420565L);									
 							
 				//if has message, edits the current one to include the pending applications if there are any
 				if (staff.hasLatestMessage()) {
