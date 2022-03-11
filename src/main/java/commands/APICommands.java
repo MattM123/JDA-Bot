@@ -436,7 +436,7 @@ public class APICommands extends ListenerAdapter {
 					    	
 					    	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
 					    	
-					    		pendingApps += BTE.getPendingApplications().getApplications().get(i).getUser() + "has applied to the team.\n" 
+					    		pendingApps += BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + "has applied to the team.\n" 
 					    				+ BTE.getPendingApplications().getApplications().get(i).getUrl();	
 					    	}
 					    	message.editMessage(pendingApps).queue();
@@ -453,7 +453,7 @@ public class APICommands extends ListenerAdapter {
 					    	
 					    for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
 					    	
-					    	pendingApps += BTE.getPendingApplications().getApplications().get(i).getUser() + "has applied to the team.\n" 
+					    	pendingApps += BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + "has applied to the team.\n" 
 					    			+ BTE.getPendingApplications().getApplications().get(i).getUrl();	
 					    }
 					    staff.sendMessage(pendingApps).queue();
