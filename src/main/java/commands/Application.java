@@ -6,14 +6,14 @@ public class Application {
 
 	final int id;
 	final List<AnswerInfo> answers;
-	final Applicant user;
+	final String user;
 	final String mediaUrl;
 	
 	public Application(int appID, List<AnswerInfo> ans, String url) {
 		id = appID;
 		answers = ans;
 		mediaUrl = url;
-		user = new Applicant();
+		user = new Applicant().getUserTag();
 	}
 	
 	public List<AnswerInfo> getAnswerList() {
