@@ -441,9 +441,9 @@ public class APICommands extends ListenerAdapter {
 					    	
 					    	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
 					    	
-					    		pendingApps += BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" 
-					    				+ "\nView their application here: https://buildtheearth.net/buildteams/36/applications/" 
-					    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n";	
+					    		pendingApps += BTE.getPendingApplications().getApplications().get(i).user + " has applied to the team.\n" 
+					    				+ "View their application here: https://buildtheearth.net/buildteams/36/applications/" 
+					    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n";	
 					    	}
 					    	message.editMessage(pendingApps).override(true).queue();
 					    }
@@ -459,9 +459,9 @@ public class APICommands extends ListenerAdapter {
 					    	
 					    for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
 					    	
-				    		pendingApps += BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" 
-				    				+ "\nView their application here: https://buildtheearth.net/buildteams/36/applications/" 
-				    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n";	
+				    		pendingApps += BTE.getPendingApplications().getApplications().get(i).user + " has applied to the team.\n" 
+				    				+ "View their application here: https://buildtheearth.net/buildteams/36/applications/" 
+				    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n";	
 					    }
 					    staff.sendMessage(pendingApps).queue();
 					}
