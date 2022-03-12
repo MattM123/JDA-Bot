@@ -424,7 +424,7 @@ public class APICommands extends ListenerAdapter {
 	}
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Notifies staff members of new applications since BTE bot stopped doing it
-	
+	/*
 	@Override
 	public void onReady(ReadyEvent event) {
 		
@@ -483,8 +483,9 @@ public class APICommands extends ListenerAdapter {
 					}
 				}
 			}
-		}, 1000, 5000);
+		}, 1000, 10000);
 	}
+	*/
 	
 	
 }	
