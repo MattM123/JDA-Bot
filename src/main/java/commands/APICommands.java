@@ -20,6 +20,7 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.exceptions.ContextException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 
@@ -431,6 +432,7 @@ public class APICommands extends ListenerAdapter {
 				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(951957461869420565L);									
 							
 				//if has message, edits the current one to include the pending applications if there are any
+				
 				if (staff.hasLatestMessage()) {
 					staff.retrieveMessageById(staff.getLatestMessageId()).queue(message -> {
 						String pendingApps = "";
