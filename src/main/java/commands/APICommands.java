@@ -432,24 +432,38 @@ public class APICommands extends ListenerAdapter {
 				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(951957461869420565L);									
 							
 				//if has message, edits the current one to include the pending applications if there are any
-				
 				if (staff.hasLatestMessage()) {
-					staff.retrieveMessageById(staff.getLatestMessageId()).queue(message -> {
+					try {
+						staff.retrieveMessageById(staff.getLatestMessageId()).queue(message -> {
+							String pendingApps = "";
+						    if (BTE.getPendingApplications().getApplications().size() > 0) {
+						    	
+						    	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
+						    	
+						    		pendingApps += BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" 
+						    				+ "View their application here: https://buildtheearth.net/buildteams/36/applications/" 
+						    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n";	
+						    	}
+						    	message.editMessage(pendingApps).override(true).queue();
+						    }
+						    else {
+						    	message.delete().queue();
+						    }
+						});
+					}
+					catch (IllegalStateException e) {
 						String pendingApps = "";
-					    if (BTE.getPendingApplications().getApplications().size() > 0) {
-					    	
-					    	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
-					    	
+						if (BTE.getPendingApplications().getApplications().size() > 0) {
+						    	
+						    for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
+						    	
 					    		pendingApps += BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" 
 					    				+ "View their application here: https://buildtheearth.net/buildteams/36/applications/" 
 					    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n";	
-					    	}
-					    	message.editMessage(pendingApps).override(true).queue();
-					    }
-					    else {
-					    	message.delete().queue();
-					    }
-					});
+						    }
+						    staff.sendMessage(pendingApps).queue();
+						}
+					}
 				}
 				//If channel has no cached messages, sends new one with pending applications if there are any
 				else {
