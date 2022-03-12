@@ -16,12 +16,14 @@ import com.mattmalec.pterodactyl4j.client.entities.PteroClient;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.ContextException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.RestAction;
 
 
 public class APICommands extends ListenerAdapter {
@@ -434,7 +436,9 @@ public class APICommands extends ListenerAdapter {
 				//if has message, edits the current one to include the pending applications if there are any
 				if (staff.hasLatestMessage()) {
 					try {
-						staff.retrieveMessageById(staff.getLatestMessageId()).queue(message -> {
+						RestAction<Message> action = staff.retrieveMessageById(staff.getLatestMessageId());
+						Message message = action.complete();
+						
 							String pendingApps = "";
 						    if (BTE.getPendingApplications().getApplications().size() > 0) {
 						    	
@@ -449,9 +453,8 @@ public class APICommands extends ListenerAdapter {
 						    else {
 						    	message.delete().queue();
 						    }
-						});
 					}
-					catch (IllegalStateException e) {
+					catch (Exception e) {
 						String pendingApps = "";
 						if (BTE.getPendingApplications().getApplications().size() > 0) {
 						    	
