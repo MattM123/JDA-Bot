@@ -14,7 +14,6 @@ public class Application {
 		answers = ans;
 		mediaUrl = url;
 		user = u;
-		
 	}
 	
 	public List<AnswerInfo> getAnswerList() {
