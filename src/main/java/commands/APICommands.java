@@ -154,13 +154,22 @@ public class APICommands extends ListenerAdapter {
 				
 				if ((usernameApplied.contains("Error Code: ") || usernameApplied.contains("MalformedURLException") || usernameApplied.contains("IOException") 
 						|| usernameApplied.contains("JSONException") || usernameApplied.contains("Error Code:"))) {
-	
 					
-					EmbedBuilder emb = new EmbedBuilder();
-					emb.setColor(Color.BLUE);  
-					emb.setTitle("There was an error retrieveing the users application data.");
-					emb.addField("", usernameApplied.toString().substring(0, 1000), false);
-					event.getChannel().sendMessageEmbeds(emb.build()).queue();
+					//if info cannot be obtained due to server error
+					if (usernameApplied.contains("Server returned HTTP response code: 5")) {					
+						EmbedBuilder emb = new EmbedBuilder();
+						emb.setColor(Color.BLUE);  
+						emb.setTitle("Buildtheearth.net is currently experiencing an outage and is unable to retrieve your information. Sorry for any inconvineience.");
+						event.getChannel().sendMessageEmbeds(emb.build()).queue();
+					}
+					//if info cannot be obtained due to my shitty ass code
+					else {						
+						EmbedBuilder emb = new EmbedBuilder();
+						emb.setColor(Color.BLUE);  
+						emb.setTitle("There was an error retrieveing the users application data. The URL or API may have changed.");
+						emb.addField("", usernameApplied.toString().substring(0, 1000), false);
+						event.getChannel().sendMessageEmbeds(emb.build()).queue();
+					}
 				}
 				else {
 					//roles = guild.getMemberById("309114198812655617").getRoles(); //test case for specific user
