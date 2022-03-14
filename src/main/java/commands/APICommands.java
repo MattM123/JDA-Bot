@@ -8,6 +8,7 @@ import java.util.TimerTask;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.marcuzzo.JDABot.Bot;
 import com.mattmalec.pterodactyl4j.DataType;
 import com.mattmalec.pterodactyl4j.PteroBuilder;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
@@ -403,22 +404,26 @@ public class APICommands extends ListenerAdapter {
 					else {
 						EmbedBuilder app = new EmbedBuilder();
 						EmbedBuilder images = new EmbedBuilder();
+						images.setColor(Color.blue);
 						app.setColor(Color.BLUE);
-						app.setTitle("Application " + appNum + " for " + NonAPICommands.pubGuild.getMemberById(user));
+						
+						Guild pubGuild = Bot.jda.getGuildById(735990134583066679L);
+						
+						app.setTitle("[" + appNum + "] Application Questions for " + pubGuild.getMemberById(user));
+						images.setTitle("[" + appNum + "] Application Media for " +  pubGuild.getMemberById(user));
 						
 						//images.addField("Link to Screenshots of Previous Builds", application.getApplications().get(appIndex).getUrl(), false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(0).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(0).getAnswer(), false);
 						app.addBlankField(false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(1).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(1).getAnswer(), false);
 						app.addBlankField(false);
-						app.addField(application.getApplications().get(appIndex).getAnswerList().get(2).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer(), false);
-						app.addBlankField(false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(3).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(3).getAnswer(), false);
 						app.addBlankField(false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(4).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(4).getAnswer(), false);
 						
-						event.getChannel().sendMessageEmbeds(app.build());//, images.build());
-						event.getChannel().sendMessage("Test: " + application.getApplications().get(appIndex).getUrl()).queue();
+						event.getChannel().sendMessageEmbeds(app.build()).queue();//, images.build());
+						event.getChannel().sendMessage(application.getApplications().get(appIndex).getUrl()).queue();
+						event.getChannel().sendMessage(application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer()).queue();
 
 					}
 				}
