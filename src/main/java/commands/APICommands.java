@@ -354,7 +354,7 @@ public class APICommands extends ListenerAdapter {
 					Long.parseLong(user);
 				}
 				catch (NumberFormatException e) {
-					String tag = event.getMessage().getContentRaw().substring(8, event.getMessage().getContentRaw().lastIndexOf('#') + 4);
+					String tag = event.getMessage().getContentRaw().substring(8, event.getMessage().getContentRaw().lastIndexOf('#') + 5);
 					try {
 						user = guild.getMemberByTag(tag).getId();				
 					}
@@ -365,8 +365,8 @@ public class APICommands extends ListenerAdapter {
 						event.getChannel().sendMessageEmbeds(emb.build()).queue();			
 					}
 				}
-
-				
+				event.getChannel().sendMessage( event.getMessage().getContentRaw().substring(8, event.getMessage().getContentRaw().lastIndexOf('#') + 5)).queue();
+				event.getChannel().sendMessage( event.getMessage().getContentRaw().substring(8, event.getMessage().getContentRaw().lastIndexOf('#') + 4)).queue();
 				//Test run for errors
 				BTE.getApplicationHistory(user); 
 				//if theres an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
@@ -427,8 +427,7 @@ public class APICommands extends ListenerAdapter {
 						
 						app.setTitle("[" + appNum + "] Application Questions for " + pubGuild.getMemberById(user).getUser().getName());
 						images.setTitle("[" + appNum + "] Application Media for " +  pubGuild.getMemberById(user).getUser().getName());
-						
-						//images.addField("Link to Screenshots of Previous Builds", application.getApplications().get(appIndex).getUrl(), false);
+
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(0).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(0).getAnswer(), false);
 						app.addBlankField(false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(1).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(1).getAnswer(), false);
