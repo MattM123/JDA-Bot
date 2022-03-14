@@ -409,8 +409,8 @@ public class APICommands extends ListenerAdapter {
 						
 						Guild pubGuild = Bot.jda.getGuildById(735990134583066679L);
 						
-						app.setTitle("[" + appNum + "] Application Questions for " + pubGuild.getMemberById(user));
-						images.setTitle("[" + appNum + "] Application Media for " +  pubGuild.getMemberById(user));
+						app.setTitle("[" + appNum + "] Application Questions for " + pubGuild.getMemberById(user).getUser().getName());
+						images.setTitle("[" + appNum + "] Application Media for " +  pubGuild.getMemberById(user).getUser().getName());
 						
 						//images.addField("Link to Screenshots of Previous Builds", application.getApplications().get(appIndex).getUrl(), false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(0).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(0).getAnswer(), false);
@@ -421,9 +421,9 @@ public class APICommands extends ListenerAdapter {
 						app.addBlankField(false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(4).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(4).getAnswer(), false);
 						
-						event.getChannel().sendMessageEmbeds(app.build()).queue();//, images.build());
-						event.getChannel().sendMessage(application.getApplications().get(appIndex).getUrl()).queue();
-						event.getChannel().sendMessage(application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer()).queue();
+						event.getChannel().sendMessageEmbeds(app.build()).queue();
+						event.getChannel().sendMessage("**__Previous BTE Builds__**\n" + application.getApplications().get(appIndex).getUrl()).queue();
+						event.getChannel().sendMessage("**__Reference Sources Used__**\n" + application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer()).queue();
 
 					}
 				}
@@ -439,7 +439,7 @@ public class APICommands extends ListenerAdapter {
 	}
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Notifies staff members of new applications since BTE bot stopped doing it
-	/*
+	
 	@Override
 	public void onReady(ReadyEvent event) {
 		
@@ -500,7 +500,7 @@ public class APICommands extends ListenerAdapter {
 			}
 		}, 1000, 10000);
 	}
-	*/
+	
 	
 	
 }	
