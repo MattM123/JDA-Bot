@@ -236,7 +236,6 @@ public class APICommands extends ListenerAdapter {
 							}
 						}						
 					
-		
 						//if user has state role, assign corresponding minecraft server rank else have user get state role and run command again.
 						if (isBuilder) {
 							
@@ -341,7 +340,7 @@ public class APICommands extends ListenerAdapter {
 			}
 		
 //-------------------------------------------------------------------------------------------------------------------------------------------	
-//Retrieves an application of user given a discord ID and an integer representing which application in the list to return
+//Retrieves an application of user given a discord ID(or Tag) and an integer representing which application in the list to return
 		
 		if (event.getMessage().getContentRaw().startsWith("=getapp")) { 
 			if (staff.contains(event.getMessage().getMember())) {
@@ -349,6 +348,14 @@ public class APICommands extends ListenerAdapter {
 				
 				String user = args[1];
 				String appNum = args[2];
+				
+				//can be Discord ID or a Discord Tag
+				try {
+					Long.parseLong(user);
+				}
+				catch (NumberFormatException e) {
+					user = guild.getMemberByTag(args[1]).getId();
+				}
 				
 				//Test run for errors
 				BTE.getApplicationHistory(user); 
@@ -465,6 +472,7 @@ public class APICommands extends ListenerAdapter {
 						    	}
 						    	message.editMessageEmbeds(emb.build()).queue();
 						    }
+						    //deletes message if all aps have already been reviewed
 						    else {
 						    	message.delete().queue();
 						    }
@@ -497,9 +505,6 @@ public class APICommands extends ListenerAdapter {
 			}
 		}, 1000, 10000);
 	}
-	
-	
-	
 }	
 
 	

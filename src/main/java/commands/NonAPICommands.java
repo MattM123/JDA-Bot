@@ -43,7 +43,7 @@ public class NonAPICommands extends ListenerAdapter {
 
 		helpMenu.addField("=link <minecraft username>", "Automatically assigns build perms and Builder role if user is on the team", false);
 		helpMenu.addField("=applicant <minecraft username>", "Assigns user application build perms on the server", false);
-		helpMenu.addField("=getapp -<DiscordID> -<number of app>", "Requires Staff role to view players applications", false);
+		helpMenu.addField("=getapp -<DiscordID OR DiscordTag> -<number of app>", "Requires Staff role to view players applications", false);
 		helpMenu.addField("=server", "Displays server status and resource usage.", false);
 		helpMenu.addField("=map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		helpMenu.addField("=measure", "Measure tutorial derived from the BTE Support Bot", false);
