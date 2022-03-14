@@ -354,7 +354,7 @@ public class APICommands extends ListenerAdapter {
 					Long.parseLong(user);
 				}
 				catch (NumberFormatException e) {
-					String tag = event.getMessage().getContentRaw().substring(8, user.lastIndexOf('#') + 4);
+					String tag = event.getMessage().getContentRaw().substring(8, event.getMessage().getContentRaw().lastIndexOf('#') + 4);
 					try {
 						user = guild.getMemberByTag(tag).getId();				
 					}
