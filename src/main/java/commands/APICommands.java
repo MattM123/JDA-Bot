@@ -382,6 +382,14 @@ public class APICommands extends ListenerAdapter {
 					event.getChannel().sendMessageEmbeds(notOnTeam.build()).queue();		
 				}
 				
+				//If you are trying to get the 0th application
+				else if (Integer.parseInt(appNum) == 0) {
+					EmbedBuilder emb = new EmbedBuilder();
+					emb.setColor(Color.blue);
+					emb.addField("Application does not exist", "Cannot retrieve the 0th application on a user", false);
+					event.getChannel().sendMessageEmbeds(emb.build()).queue();
+				}
+				
 				else {
 					ApplicationInfo application = BTE.getApplicationHistory(user);
 					int appIndex = Integer.parseInt(appNum) - 1;
@@ -412,7 +420,7 @@ public class APICommands extends ListenerAdapter {
 						
 						event.getChannel().sendMessageEmbeds(noApp.build()).queue();
 					}
-					
+
 					//Returns application
 					else {
 						EmbedBuilder app = new EmbedBuilder();
