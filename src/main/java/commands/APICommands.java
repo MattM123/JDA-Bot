@@ -417,7 +417,8 @@ public class APICommands extends ListenerAdapter {
 						app.addBlankField(false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(4).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(4).getAnswer(), false);
 						
-						event.getChannel().sendMessageEmbeds(app.build(), images.build());
+						event.getChannel().sendMessageEmbeds(app.build());//, images.build());
+						event.getChannel().sendMessage("Test: " + application.getApplications().get(appIndex).getUrl()).queue();
 
 					}
 				}
