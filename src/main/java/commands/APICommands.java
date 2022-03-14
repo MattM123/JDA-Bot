@@ -404,7 +404,7 @@ public class APICommands extends ListenerAdapter {
 						EmbedBuilder app = new EmbedBuilder();
 						EmbedBuilder images = new EmbedBuilder();
 						app.setColor(Color.BLUE);
-						app.setTitle("Application " + appNum + " for " + NonAPICommands.pubGuild.getMemberById(user));
+						app.setTitle("Application " + appNum + " for " + user);
 						
 						images.addField("Link to Screenshots of Previous Builds", application.getApplications().get(appIndex).getUrl(), false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(0).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(0).getAnswer(), false);
