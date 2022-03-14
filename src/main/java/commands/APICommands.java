@@ -404,9 +404,9 @@ public class APICommands extends ListenerAdapter {
 						EmbedBuilder app = new EmbedBuilder();
 						EmbedBuilder images = new EmbedBuilder();
 						app.setColor(Color.BLUE);
-						app.setTitle("Application " + appNum + " for " + user);
+						app.setTitle("Application " + appNum + " for " + NonAPICommands.pubGuild.getMemberById(user));
 						
-						images.addField("Link to Screenshots of Previous Builds", application.getApplications().get(appIndex).getUrl(), false);
+						//images.addField("Link to Screenshots of Previous Builds", application.getApplications().get(appIndex).getUrl(), false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(0).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(0).getAnswer(), false);
 						app.addBlankField(false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(1).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(1).getAnswer(), false);
@@ -417,7 +417,7 @@ public class APICommands extends ListenerAdapter {
 						app.addBlankField(false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(4).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(4).getAnswer(), false);
 						
-						event.getChannel().sendMessageEmbeds(app.build(),  images.build());
+						event.getChannel().sendMessageEmbeds(app.build(), images.build());
 
 					}
 				}
