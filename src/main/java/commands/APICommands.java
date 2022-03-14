@@ -349,11 +349,12 @@ public class APICommands extends ListenerAdapter {
 				String user = args[1];
 				String appNum = args[args.length - 1];
 				
-				//can be Discord ID or a Discord Tag
+				//checks for tag. If can be parsed to long, then its an ID, else it will be assumed a tag if the exception is caught
 				try {
 					Long.parseLong(user);
 				}
 				catch (NumberFormatException e) {
+					//parses tag and gets user ID
 					String tag = event.getMessage().getContentRaw().substring(8, event.getMessage().getContentRaw().lastIndexOf('#') + 5);
 					try {
 						user = guild.getMemberByTag(tag).getId();				
