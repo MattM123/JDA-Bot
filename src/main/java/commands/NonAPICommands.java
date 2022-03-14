@@ -58,7 +58,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		//returns list of commands used by bot
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=help")) {
-			event.getChannel().sendMessage(helpMenu.build()).queue();
+			event.getChannel().sendMessageEmbeds(helpMenu.build()).queue();
 		}
 		
 		//returns measure gif from BTE bot
@@ -77,7 +77,7 @@ public class NonAPICommands extends ListenerAdapter {
 		
 		//returns map image of states
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=map")) {
-			event.getChannel().sendMessage(map.build()).queue();
+			event.getChannel().sendMessageEmbeds(map.build()).queue();
 		}
 		
 		//Pings Discord API
@@ -146,7 +146,7 @@ public class NonAPICommands extends ListenerAdapter {
 				roleMenu.addField("*__Other Roles__*", "Event - This role is notified of build events", false);
 				roleMenu.setFooter("You can only have one state role at a time!");
 				
-				event.getChannel().sendMessage(roleMenu.build()).queue();
+				event.getChannel().sendMessageEmbeds(roleMenu.build()).queue();
 				
 			}
 			

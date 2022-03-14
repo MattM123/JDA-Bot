@@ -22,7 +22,6 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.exceptions.ContextException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
 
@@ -448,8 +447,9 @@ public class APICommands extends ListenerAdapter {
 			public void run() {
 				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(951957461869420565L);									
 				EmbedBuilder emb = new EmbedBuilder();
+				emb.setColor(Color.blue);
 				
-				//if has message, edits the current one to include the pending applications if there are any
+				//if a message already exists in the channel, edits the current one to include the updated pending applications if there are any
 				if (staff.hasLatestMessage()) {
 					try {
 						RestAction<Message> action = staff.retrieveMessageById(staff.getLatestMessageId());
@@ -461,9 +461,7 @@ public class APICommands extends ListenerAdapter {
 						    	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
 						    		emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,
 						    				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
-						    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n", false);
-						    		
-						    				
+						    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n", false);			
 						    	}
 						    	message.editMessageEmbeds(emb.build()).queue();
 						    }
