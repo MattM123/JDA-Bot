@@ -447,43 +447,44 @@ public class APICommands extends ListenerAdapter {
 			@Override
 			public void run() {
 				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(951957461869420565L);									
-							
+				EmbedBuilder emb = new EmbedBuilder();
+				
 				//if has message, edits the current one to include the pending applications if there are any
 				if (staff.hasLatestMessage()) {
 					try {
 						RestAction<Message> action = staff.retrieveMessageById(staff.getLatestMessageId());
 						Message message = action.complete();
 						
-							String pendingApps = "";
 						    if (BTE.getPendingApplications().getApplications().size() > 0) {
 						    	
-						    	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
 						    	
-						    		pendingApps += BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" 
-						    				+ "View their application here: https://buildtheearth.net/buildteams/36/applications/" 
-						    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n";	
+						    	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
+						    		emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,
+						    				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
+						    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n", false);
+						    		
+						    				
 						    	}
-						    	message.editMessage(pendingApps).override(true).queue();
+						    	message.editMessageEmbeds(emb.build()).queue();
 						    }
 						    else {
 						    	message.delete().queue();
 						    }
 					}
+					//staff.hasLatesMessage will apparently sometimes return true when there is no message which will throw an exception
 					catch (Exception e) {
-						String pendingApps = "";
 						if (BTE.getPendingApplications().getApplications().size() > 0) {
 						    	
-						    for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
-						    	
-					    		pendingApps += BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" 
-					    				+ "View their application here: https://buildtheearth.net/buildteams/36/applications/" 
-					    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n";	
+						    for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {	    	
+					    		emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,
+					    				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
+					    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n", false);	
 						    }
-						    staff.sendMessage(pendingApps).override(true).queue();
+						    staff.sendMessageEmbeds(emb.build()).queue();
 						}
 					}
 				}
-				//If channel has no cached messages, sends new one with pending applications if there are any
+				//If hasLatestMessage works like it is supposed to and channel has no cached messages, sends new one with pending applications if there are any
 				else {
 					String pendingApps = "";
 					if (BTE.getPendingApplications().getApplications().size() > 0) {
