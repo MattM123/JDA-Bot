@@ -486,14 +486,12 @@ public class APICommands extends ListenerAdapter {
 				}
 				//If hasLatestMessage works like it is supposed to and channel has no cached messages, sends new one with pending applications if there are any
 				else {
-					String pendingApps = "";
 					if (BTE.getPendingApplications().getApplications().size() > 0) {
 					    	
 					    for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
-					    	
-				    		pendingApps += BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" 
-				    				+ "View their application here: https://buildtheearth.net/buildteams/36/applications/" 
-				    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n";	
+				    		emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,
+				    				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
+				    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n", false);	
 					    }
 					    staff.sendMessageEmbeds(emb.build()).queue();
 					}
