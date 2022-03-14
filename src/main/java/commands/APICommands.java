@@ -347,7 +347,7 @@ public class APICommands extends ListenerAdapter {
 				String[] args = event.getMessage().getContentRaw().split(" ");
 				
 				String user = args[1];
-				String appNum = args[2];
+				String appNum = args[args.length - 1];
 				
 				//can be Discord ID or a Discord Tag
 				try {
