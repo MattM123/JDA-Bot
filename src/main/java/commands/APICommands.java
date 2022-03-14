@@ -495,7 +495,7 @@ public class APICommands extends ListenerAdapter {
 				    				+ "View their application here: https://buildtheearth.net/buildteams/36/applications/" 
 				    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n";	
 					    }
-					    staff.sendMessage(pendingApps).queue();
+					    staff.sendMessageEmbeds(emb.build()).queue();
 					}
 				}
 			}
