@@ -365,8 +365,6 @@ public class APICommands extends ListenerAdapter {
 						event.getChannel().sendMessageEmbeds(emb.build()).queue();			
 					}
 				}
-				event.getChannel().sendMessage( event.getMessage().getContentRaw().substring(8, event.getMessage().getContentRaw().lastIndexOf('#') + 5)).queue();
-				event.getChannel().sendMessage( event.getMessage().getContentRaw().substring(8, event.getMessage().getContentRaw().lastIndexOf('#') + 4)).queue();
 				//Test run for errors
 				BTE.getApplicationHistory(user); 
 				//if theres an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
@@ -380,9 +378,7 @@ public class APICommands extends ListenerAdapter {
 					notOnTeam.setColor(Color.BLUE);
 					notOnTeam.setTitle("No data on user");
 					notOnTeam.addField(BTE.stackTrace, "User account does not exist on the team", false);
-					event.getChannel().sendMessageEmbeds(notOnTeam.build()).queue();
-					
-				
+					event.getChannel().sendMessageEmbeds(notOnTeam.build()).queue();		
 				}
 				
 				else {
