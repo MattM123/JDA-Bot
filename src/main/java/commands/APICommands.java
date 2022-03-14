@@ -354,8 +354,18 @@ public class APICommands extends ListenerAdapter {
 					Long.parseLong(user);
 				}
 				catch (NumberFormatException e) {
-					user = guild.getMemberByTag(args[1]).getId();
+					String tag = event.getMessage().getContentRaw().substring(8, user.lastIndexOf('#') + 4);
+					try {
+						user = guild.getMemberByTag(tag).getId();				
+					}
+					catch (IllegalArgumentException f) {
+						EmbedBuilder emb = new EmbedBuilder();
+						emb.setColor(Color.blue);
+						emb.addField("Invalid User", "Tag must be a valid user and must be in the discord server", false);
+						event.getChannel().sendMessageEmbeds(emb.build()).queue();			
+					}
 				}
+
 				
 				//Test run for errors
 				BTE.getApplicationHistory(user); 
