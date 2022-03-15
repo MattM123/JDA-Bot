@@ -486,7 +486,7 @@ public class APICommands extends ListenerAdapter {
 						    	}
 						    	message.editMessageEmbeds(emb.build()).queue();
 						    }
-						    //deletes message if all aps have already been reviewed
+						    //deletes message if all apps have already been reviewed
 						    else {
 						    	message.delete().queue();
 						    }
@@ -499,7 +499,7 @@ public class APICommands extends ListenerAdapter {
 					    		emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,
 					    				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
 					    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n", false);	
-						    }
+						    }				    
 						    staff.sendMessageEmbeds(emb.build()).queue();
 						}
 					}
