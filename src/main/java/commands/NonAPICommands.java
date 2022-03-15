@@ -477,7 +477,7 @@ public class NonAPICommands extends ListenerAdapter {
 					}								
 				});
 			}
-		}, 6000, 6000);
+		}, 7000, 7000);
 		
 		//Refresh data every minute
 		Timer timer1 = new Timer();
