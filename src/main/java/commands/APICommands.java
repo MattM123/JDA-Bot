@@ -476,9 +476,7 @@ public class APICommands extends ListenerAdapter {
 						RestAction<Message> action = staff.retrieveMessageById(staff.getLatestMessageId());
 						Message message = action.complete();
 						
-						    if (BTE.getPendingApplications().getApplications().size() > 0) {
-						    	
-						    	
+						    if (BTE.getPendingApplications().getApplications().size() > 0) {						    							    	
 						    	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
 						    		emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,
 						    				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
@@ -493,14 +491,14 @@ public class APICommands extends ListenerAdapter {
 					}
 					//staff.hasLatesMessage will apparently sometimes return true when there is no message which will throw an exception
 					catch (Exception e) {
-						if (BTE.getPendingApplications().getApplications().size() > 0) {
-						    	
+						if (BTE.getPendingApplications().getApplications().size() > 0) {			    	
 						    for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {	    	
 					    		emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,
 					    				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
 					    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n", false);	
-						    }				    
-						    staff.sendMessageEmbeds(emb.build()).queue();
+						    }	
+						    if (!staff.hasLatestMessage())
+						    	staff.sendMessageEmbeds(emb.build()).queue();
 						}
 					}
 				}
@@ -513,7 +511,9 @@ public class APICommands extends ListenerAdapter {
 				    				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
 				    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n", false);	
 					    }
-					    staff.sendMessageEmbeds(emb.build()).queue();
+					    if (!staff.hasLatestMessage())
+					    	staff.sendMessageEmbeds(emb.build()).queue();
+					    
 					}
 				}
 			}
