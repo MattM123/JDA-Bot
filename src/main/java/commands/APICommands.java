@@ -3,6 +3,7 @@ package commands;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -490,7 +491,7 @@ public class APICommands extends ListenerAdapter {
 						    }
 					}
 					//staff.hasLatesMessage will apparently sometimes return true when there is no message which will throw an exception
-					catch (Exception e) {
+					catch (NoSuchElementException e) {
 						if (BTE.getPendingApplications().getApplications().size() > 0) {			    	
 						    for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {	    	
 					    		emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,

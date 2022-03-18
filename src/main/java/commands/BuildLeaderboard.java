@@ -53,7 +53,7 @@ public class BuildLeaderboard extends EmbedPaginator.Builder {
 			while (rs.next()) {	
 				Guild guild = NonAPICommands.pubGuild;
 				try {
-						items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag() + "\n");	
+					items.add(guild.getMemberById(rs.getString("id")).getUser().getAsTag() + "\n");	
 				} catch (NullPointerException e) {
 					items.add("Missing User\n");
 				}				

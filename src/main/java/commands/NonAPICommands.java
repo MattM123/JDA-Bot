@@ -459,7 +459,7 @@ public class NonAPICommands extends ListenerAdapter {
 		pubGuild = Bot.jda.getGuildById(735990134583066679L);
 		TextChannel leaderboard = pubGuild.getTextChannelById(929171594125914152L);
 		
-		//turns page every 6 seconds
+		//turns page every 8 seconds
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			public void run() {		
@@ -477,7 +477,7 @@ public class NonAPICommands extends ListenerAdapter {
 					}								
 				});
 			}
-		}, 7000, 7000);
+		}, 8000, 8000);
 		
 		//Refresh data every minute
 		Timer timer1 = new Timer();
@@ -507,7 +507,7 @@ public class NonAPICommands extends ListenerAdapter {
 						boolean isPresent = false;
 						Connect.connect();
 						
-						//get ID and counts form database				
+						//get ID and counts from database				
 						try {
 							String getIds = "SELECT id, count FROM buildcounts;";
 							Statement stmt  = Connect.getConnection().createStatement();
