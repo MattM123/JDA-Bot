@@ -516,7 +516,7 @@ public class APICommands extends ListenerAdapter {
 			
 			@Override
 			public void run() {
-				test.sendMessage("L: " + guild.getMemberById(BTE.getMemberList().get(3).getAsJsonObject().get("discordId").getAsLong())).queue();;
+				test.sendMessage(guild.getMemberById(BTE.getMemberList().get(3).getAsJsonObject().get("discordId").getAsLong()).getId()).queue();;
 				//For each guild member that is on website team, if they do not have builder role, assign builder role 
 				for (int i = 0; i < BTE.getMemberList().size(); i++) {
 					Member guildMember = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong());
