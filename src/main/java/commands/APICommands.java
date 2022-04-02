@@ -466,13 +466,18 @@ public class APICommands extends ListenerAdapter {
 		Timer permTimer = new Timer();
 		guild = Bot.jda.getGuildById(735990134583066679L);
 		Role builder = guild.getRoleById(735991952931160104L);
+		TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(951957461869420565L);
+		
+		if (builder.equals(null)) {
+			staff.sendMessage("0").queue();
+		}
 		
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Notifies staff members of new applications since BTE bot stopped doing it
 		appTimer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(951957461869420565L);									
+									
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.blue);
 				
