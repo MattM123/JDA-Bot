@@ -516,7 +516,7 @@ public class APICommands extends ListenerAdapter {
 			public void run() {
 				//For each guild member that is on website team, if they do not have builder role, assign builder role 
 				for (int i = 0; i < BTE.getMemberList().size(); i++) {
-					Member guildMember = guild.getMemberById(BTE.getMemberList().getAsJsonArray().get(i).getAsJsonObject().get("discordId").getAsLong());
+					Member guildMember = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong());
 					
 					if (!guildMember.getRoles().contains(builder)) {
 						guild.addRoleToMember(guildMember.getIdLong(), builder).queue();
