@@ -518,7 +518,7 @@ public class APICommands extends ListenerAdapter {
 				for (int i = 0; i < BTE.getMemberList().size(); i++) {
 					Member guildMember = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong());
 					
-					if (!guildMember.getRoles().contains(builder)) {
+					if (!guildMember.getRoles().contains(builder) && !guildMember.equals(null)) {
 						guild.addRoleToMember(guildMember.getIdLong(), builder).queue();
 					}		
 				}
