@@ -523,6 +523,8 @@ public class APICommands extends ListenerAdapter {
 							guild.addRoleToMember(guildMember.getIdLong(), builder).queue();
 						}		
 					}
+					else
+						continue;
 				}
 			}		
 		}, 1000, 10000);
