@@ -492,6 +492,7 @@ public class APICommands extends ListenerAdapter {
 							    else {
 							    	message.delete().queue();
 							    }
+						//	 staff.sendMessage("test").queue();
 					//	}
 						//staff.hasLatesMessage will apparently sometimes return true when there is no message which will throw an exception
 					//	catch (NoSuchElementException e) {
@@ -506,7 +507,7 @@ public class APICommands extends ListenerAdapter {
 					//		}
 					//	}
 					}
-					//If there is no message history, a message is created and sent instead of edited
+					//If there is no message history, a message is created and sent instead of edited if there is at least one pending application
 				} catch (ErrorResponseException e) {
 					if (BTE.getPendingApplications().getApplications().size() > 0) {    	
 						   for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
@@ -514,7 +515,6 @@ public class APICommands extends ListenerAdapter {
 					   				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
 					    			+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n", false);	
 						   }
-						   if (!staff.hasLatestMessage())
 						   	staff.sendMessageEmbeds(emb.build()).queue();	    
 					}
 				}
