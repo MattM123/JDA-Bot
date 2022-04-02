@@ -41,7 +41,7 @@ public class APICommands extends ListenerAdapter {
 	private List<Role> roles;
 	
 	//Guild used for onReady Events
-	private Guild pubGuild;
+	private Guild guild;
 
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -464,8 +464,8 @@ public class APICommands extends ListenerAdapter {
 	public void onReady(ReadyEvent event) {
 		Timer appTimer = new Timer();
 		Timer permTimer = new Timer();
-		pubGuild = Bot.jda.getGuildById(735990134583066679L);
-		Role builder = pubGuild.getRoleById(735991952931160104L);
+		guild = Bot.jda.getGuildById(735990134583066679L);
+		Role builder = guild.getRoleById(735991952931160104L);
 		
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Notifies staff members of new applications since BTE bot stopped doing it
@@ -510,16 +510,16 @@ public class APICommands extends ListenerAdapter {
 		}, 1000, 10000);
 		
 //-------------------------------------------------------------------------------------------------------------------------------------------	
-//Compares team roster with discord userlist and assigns build perms if necessary
+//Compares team ID list with discord users and assigns build perms if necessary
 		permTimer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
 				//For each guild member that is on website team, if they do not have builder role, assign builder role 
 				for (int i = 0; i < BTE.getMemberList().size(); i++) {
-					Member guildMember = pubGuild.getMemberById(BTE.getMemberList().getAsJsonObject().get("discordId").getAsLong());
+					Member guildMember = guild.getMemberById(BTE.getMemberList().getAsJsonArray().get(i).getAsJsonObject().get("discordId").getAsLong());
 					
 					if (!guildMember.getRoles().contains(builder)) {
-						pubGuild.addRoleToMember(guildMember.getIdLong(), builder).queue();
+						guild.addRoleToMember(guildMember.getIdLong(), builder).queue();
 					}		
 				}
 			}		
