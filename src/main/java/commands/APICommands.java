@@ -512,8 +512,11 @@ public class APICommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Compares team ID list with discord users and assigns build perms if necessary
 		permTimer.scheduleAtFixedRate(new TimerTask() {
+			TextChannel test = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);			
+			
 			@Override
 			public void run() {
+				test.sendMessage("L: " + guild.getMemberById(BTE.getMemberList().get(3).getAsJsonObject().get("discordId").getAsLong()));
 				//For each guild member that is on website team, if they do not have builder role, assign builder role 
 				for (int i = 0; i < BTE.getMemberList().size(); i++) {
 					Member guildMember = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong());
