@@ -40,9 +40,8 @@ public class APICommands extends ListenerAdapter {
 	//User role list
 	private List<Role> roles;
 	
-	//Timer to tell bot when to check pending applications
-	Timer timer = new Timer();
-	
+	//Guild used for onReady Events
+	private Guild pubGuild;
 
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -133,9 +132,9 @@ public class APICommands extends ListenerAdapter {
 			event.getChannel().sendMessageEmbeds(midwest.build()).queue();
 		}
 //-----------------------------------------------------------------------------------------------------------------------------
-//give build perms based on presence on build team
+//LEGACY: give build perms based on presence on build team
 		
-		if (event.getMessage().getContentRaw().startsWith("=link")) {			
+/*		if (event.getMessage().getContentRaw().startsWith("=link")) {			
 			
 			//Parses minecraft username for later use
 			String[] args = event.getMessage().getContentRaw().split(" ");
@@ -340,7 +339,7 @@ public class APICommands extends ListenerAdapter {
 											
 				}
 			}
-		
+*/		
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Retrieves an application of user given a discord ID(or Tag) and an integer representing which application in the list to return
 		
@@ -459,13 +458,18 @@ public class APICommands extends ListenerAdapter {
 			}
 		}
 	}
-//-------------------------------------------------------------------------------------------------------------------------------------------	
-//Notifies staff members of new applications since BTE bot stopped doing it
+
 	
 	@Override
 	public void onReady(ReadyEvent event) {
+		Timer appTimer = new Timer();
+		Timer permTimer = new Timer();
+		pubGuild = Bot.jda.getGuildById(735990134583066679L);
+		Role builder = pubGuild.getRoleById(735991952931160104L);
 		
-		timer.scheduleAtFixedRate(new TimerTask() {
+//-------------------------------------------------------------------------------------------------------------------------------------------	
+//Notifies staff members of new applications since BTE bot stopped doing it
+		appTimer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
 				TextChannel staff = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(951957461869420565L);									
@@ -501,13 +505,27 @@ public class APICommands extends ListenerAdapter {
 						   }
 						   	staff.sendMessageEmbeds(emb.build()).queue();	    
 					}
-				}
-
-
-			
+				}		
 			}
 		}, 1000, 10000);
-	}
+		
+//-------------------------------------------------------------------------------------------------------------------------------------------	
+//Compares team roster with discord userlist and assigns build perms if necessary
+		permTimer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				//For each guild member that is on website team, if they do not have builder role, assign builder role 
+				for (int i = 0; i < BTE.getMemberList().size(); i++) {
+					Member guildMember = pubGuild.getMemberById(BTE.getMemberList().getAsJsonObject().get("discordId").getAsLong());
+					
+					if (!guildMember.getRoles().contains(builder)) {
+						pubGuild.addRoleToMember(guildMember.getIdLong(), builder).queue();
+					}		
+				}
+			}		
+		}, 1000, 10000);
+	}	
+
 }	
 
 	
