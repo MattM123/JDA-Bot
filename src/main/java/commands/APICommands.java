@@ -518,14 +518,15 @@ public class APICommands extends ListenerAdapter {
 				for (int i = 0; i < BTE.getMemberList().size(); i++) {
 					Member guildMember = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong());
 						
-					if (!guildMember.equals(null)) {
-						if (!guildMember.getRoles().contains(builder) ) {
+					try {
+						if (!guildMember.equals(null) && !guildMember.getRoles().contains(builder) ) {
 							guild.addRoleToMember(guildMember.getIdLong(), builder).queue();
-						}		
-					}
-					else
+						}			
+					} catch (NullPointerException e) {
 						continue;
+					}
 				}
+
 			}		
 		}, 1000, 10000);
 	}	
