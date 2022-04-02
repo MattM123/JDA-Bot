@@ -519,11 +519,11 @@ public class APICommands extends ListenerAdapter {
 				test.sendMessage(guild.getMemberById(BTE.getMemberList().get(3).getAsJsonObject().get("discordId").getAsLong()).getId()).queue();;
 				//For each guild member that is on website team, if they do not have builder role, assign builder role 
 				for (int i = 0; i < BTE.getMemberList().size(); i++) {
-					Member guildMember = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong());
+					long memberId = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong()).getIdLong();
 						
 					try {
-						if (!guildMember.equals(null) && !guildMember.getRoles().contains(builder) ) {
-							guild.addRoleToMember(guildMember.getIdLong(), builder).queue();
+						if (!guild.getMemberById(memberId).equals(null) && !guild.getMemberById(memberId).getRoles().contains(builder) ) {
+							guild.addRoleToMember(memberId, builder).queue();
 						}			
 					} catch (NullPointerException e) {
 						continue;
