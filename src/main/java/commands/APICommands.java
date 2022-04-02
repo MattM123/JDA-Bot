@@ -475,37 +475,21 @@ public class APICommands extends ListenerAdapter {
 				//if a message already exists in the channel, edits the current one to include the updated pending applications if there are any
 				try {
 					if (staff.hasLatestMessage()) {
-					//	try {
-							RestAction<Message> action = staff.retrieveMessageById(staff.getLatestMessageId());
-							Message message = action.complete();
-	
-							
-							    if (BTE.getPendingApplications().getApplications().size() > 0) {						    							    	
-							    	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
-							    		emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,
-							    				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
-							    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n", false);			
-							    	}
-							    	message.editMessageEmbeds(emb.build()).queue();
-							    }
-							    //deletes message if all apps have already been reviewed
-							    else {
-							    	message.delete().queue();
-							    }
-						//	 staff.sendMessage("test").queue();
-					//	}
-						//staff.hasLatesMessage will apparently sometimes return true when there is no message which will throw an exception
-					//	catch (NoSuchElementException e) {
-					//		if (BTE.getPendingApplications().getApplications().size() > 0) {			    	
-					//		    for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {	    	
-					//	    		emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,
-					//	    				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
-					//	    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n", false);	
-					//		    }	
-					//		    if (!staff.hasLatestMessage())
-					//		    	staff.sendMessageEmbeds(emb.build()).queue();
-					//		}
-					//	}
+						RestAction<Message> action = staff.retrieveMessageById(staff.getLatestMessageId());
+						Message message = action.complete();
+						
+						if (BTE.getPendingApplications().getApplications().size() > 0) {						    							    	
+						   	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
+						   		emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,
+					   				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
+				    				+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n", false);			
+					    	}
+					    	message.editMessageEmbeds(emb.build()).queue();
+					    }
+					    //deletes message if all apps have already been reviewed
+					    else {
+					    	message.delete().queue();
+					    }
 					}
 					//If there is no message history, a message is created and sent instead of edited if there is at least one pending application
 				} catch (ErrorResponseException e) {
