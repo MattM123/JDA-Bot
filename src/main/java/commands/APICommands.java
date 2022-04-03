@@ -80,12 +80,9 @@ public class APICommands extends ListenerAdapter {
 //Gives applicant builder permissions
 		
 		if (event.getMessage().getContentRaw().startsWith("=apply")) {	
-			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String namebuilder = "";
-		
-			for (int i = 11; i < chararr.length; i++) {
-				namebuilder += chararr[i];
-			}		
+			String[] args = event.getMessage().getContentRaw().split(" ");
+			namebuilder = args[1];
 			
 			//if they actually type 'mcusername' instead of their mc username lol. Or if they include <>
 			if (namebuilder.equals("mcusername") || namebuilder.equals("<mcusername>") || (namebuilder.contains(">") && namebuilder.contains("<"))) {
