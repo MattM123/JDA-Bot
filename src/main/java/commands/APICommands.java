@@ -79,7 +79,7 @@ public class APICommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------		
 //Gives applicant builder permissions
 		
-		if (event.getMessage().getContentRaw().startsWith("=applicant")) {	
+		if (event.getMessage().getContentRaw().startsWith("=apply")) {	
 			char[] chararr = event.getMessage().getContentRaw().toCharArray();
 			String namebuilder = "";
 		
@@ -96,7 +96,7 @@ public class APICommands extends ListenerAdapter {
 				return;
 			}
 			
-			midwestServer.sendCommand("lp user " + namebuilder + " parent add applicant").execute();
+			midwestServer.sendCommand("lp user " + namebuilder + " parent add trialbuilder").execute();
 			
 			//assigns applicant role after getting applicant perms
 			if (!guild.getMemberById(event.getAuthor().getIdLong()).getRoles().contains(guild.getRoleById(923068579992186912L)))
@@ -104,7 +104,7 @@ public class APICommands extends ListenerAdapter {
 	
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.BLUE);
-			emb.setTitle("Applicant build permissions assigned to " + namebuilder);
+			emb.setTitle("Trial build permissions assigned to " + namebuilder);
 			emb.setFooter("If you did not recieve permissions, you will need to logon to the server and rerun this bot command");
 			event.getChannel().sendMessageEmbeds(emb.build()).queue();
 		}
