@@ -36,9 +36,6 @@ public class APICommands extends ListenerAdapter {
 	
 	//The minecraft server thats represented by a Ptero API instance
 	private ClientServer midwestServer = pteroAPI.retrieveServerByIdentifier(System.getenv("SERVER_ID")).execute();
-			
-	//User role list
-	private List<Role> roles;
 	
 	//Guild used for onReady Events
 	private Guild guild;
@@ -80,12 +77,8 @@ public class APICommands extends ListenerAdapter {
 //Gives applicant builder permissions
 		
 		if (event.getMessage().getContentRaw().startsWith("=apply")) {	
-
 			guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(923068579992186912L)).queue();
-	
-		
-			event.getChannel().sendMessage("Trial builder permissions assigned to <@" + event.getAuthor().getId() + ">").queue();
-			
+			event.getChannel().sendMessage("Trial builder permissions assigned to <@" + event.getAuthor().getId() + ">").queue();		
 		}
 
 //-----------------------------------------------------------------------------------------------------------------------------
