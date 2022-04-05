@@ -80,29 +80,12 @@ public class APICommands extends ListenerAdapter {
 //Gives applicant builder permissions
 		
 		if (event.getMessage().getContentRaw().startsWith("=apply")) {	
-			String namebuilder = "";
-			String[] args = event.getMessage().getContentRaw().split(" ");
-			namebuilder = args[1];
-			
-			//if they actually type 'mcusername' instead of their mc username lol. Or if they include <>
-			if (namebuilder.equals("mcusername") || namebuilder.equals("<mcusername>") || (namebuilder.contains(">") && namebuilder.contains("<"))) {
-				EmbedBuilder emb = new EmbedBuilder();
-				emb.setColor(Color.BLUE);
-				emb.setTitle("Replace `<mcusername>` with your acutal in-game username excluding the `<>`");
-				event.getChannel().sendMessageEmbeds(emb.build()).queue();
-				return;
-			}
-			
-			midwestServer.sendCommand("lp user " + namebuilder + " parent add trialbuilder").execute();
-			
-			//assigns applicant role after getting applicant perms
-			if (!guild.getMemberById(event.getAuthor().getIdLong()).getRoles().contains(guild.getRoleById(923068579992186912L)))
-				guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(923068579992186912L)).queue();
+
+			guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(923068579992186912L)).queue();
 	
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.BLUE);
-			emb.setTitle("Trial build permissions assigned to " + namebuilder);
-			emb.setFooter("If you did not recieve permissions, you will need to logon to the server and rerun this bot command");
+			emb.setTitle("Trial builder permissions assigned to " + event.getAuthor().getAsMention());
 			event.getChannel().sendMessageEmbeds(emb.build()).queue();
 		}
 
