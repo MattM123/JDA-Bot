@@ -454,7 +454,7 @@ public class APICommands extends ListenerAdapter {
 						RestAction<Message> action = staff.retrieveMessageById(staff.getLatestMessageId());
 						Message message = action.complete();
 						
-						if (BTE.getPendingApplications().getApplications().size() > 0) {						    							    	
+						if (BTE.getPendingApplications().getApplications() != null && BTE.getPendingApplications().getApplications().size() > 0) {						    							    	
 						   	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
 						   		emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,
 					   				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
@@ -489,15 +489,16 @@ public class APICommands extends ListenerAdapter {
 			public void run() {
 
 				//For each guild member that is on website team, if they do not have builder role, assign builder role 
-				for (int i = 0; i < BTE.getMemberList().size(); i++) {				
-					try {
-						BTE.getMemberList();
-						long memberId = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong()).getIdLong();
-						if (!guild.getMemberById(memberId).equals(null) && !guild.getMemberById(memberId).getRoles().contains(builder)) {
-							guild.addRoleToMember(memberId, builder).queue();
-						}			
-					} catch (NullPointerException e) {
-						continue;
+				if (BTE.getMemberList() != null) {
+					for (int i = 0; i < BTE.getMemberList().size(); i++) {				
+						try {
+							long memberId = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong()).getIdLong();
+							if (!guild.getMemberById(memberId).equals(null) && !guild.getMemberById(memberId).getRoles().contains(builder)) {
+								guild.addRoleToMember(memberId, builder).queue();
+							}			
+						} catch (NullPointerException e) {
+							continue;
+						}
 					}
 				}
 

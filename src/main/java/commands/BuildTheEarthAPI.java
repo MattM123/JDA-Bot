@@ -124,10 +124,6 @@ public class BuildTheEarthAPI {
 			stackTrace = stack.subSequence(0, 1000).toString();
 		}
 		
-	//	for (int i = 0; i < jarray.size(); i++) {
-	//		userIDs.add(jarray.get(i).getAsJsonObject().get("discordId").getAsLong());
-	//	}
-		
 		return jarray;
 	}
 	
