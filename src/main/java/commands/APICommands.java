@@ -502,7 +502,7 @@ public class APICommands extends ListenerAdapter {
 				}
 
 			}		
-		}, 1000, 10000);
+		}, 1000, 300000);
 	}	
 
 }	
