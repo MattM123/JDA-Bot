@@ -484,8 +484,7 @@ public class APICommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Compares team ID list with discord users and assigns build perms if necessary
 		permTimer.scheduleAtFixedRate(new TimerTask() {
-			TextChannel test = event.getJDA().getGuildById(735990134583066679L).getTextChannelById(786328890280247327L);			
-			
+
 			@Override
 			public void run() {
 				//For each guild member that is on website team, if they do not have builder role, assign builder role 
@@ -494,7 +493,6 @@ public class APICommands extends ListenerAdapter {
 						long memberId = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong()).getIdLong();
 						if (!guild.getMemberById(memberId).equals(null) && !guild.getMemberById(memberId).getRoles().contains(builder)) {
 							guild.addRoleToMember(memberId, builder).queue();
-							test.sendMessage("role added").queue();
 						}			
 					} catch (NullPointerException e) {
 						continue;
