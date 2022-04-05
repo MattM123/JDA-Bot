@@ -85,7 +85,7 @@ public class APICommands extends ListenerAdapter {
 	
 			EmbedBuilder emb = new EmbedBuilder();
 			emb.setColor(Color.BLUE);
-			emb.setTitle("Trial builder permissions assigned to " + event.getAuthor().getAsMention());
+			emb.setTitle("Trial builder permissions assigned to <" + event.getAuthor().getName() + ">");
 			event.getChannel().sendMessageEmbeds(emb.build()).queue();
 		}
 
