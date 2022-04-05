@@ -83,10 +83,9 @@ public class APICommands extends ListenerAdapter {
 
 			guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(923068579992186912L)).queue();
 	
-			EmbedBuilder emb = new EmbedBuilder();
-			emb.setColor(Color.BLUE);
-			emb.setTitle("Trial builder permissions assigned to <@" + event.getAuthor().getId() + ">");
-			event.getChannel().sendMessageEmbeds(emb.build()).queue();
+		
+			event.getChannel().sendMessage("Trial builder permissions assigned to <@" + event.getAuthor().getId() + ">").queue();
+			
 		}
 
 //-----------------------------------------------------------------------------------------------------------------------------
