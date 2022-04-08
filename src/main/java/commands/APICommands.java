@@ -508,12 +508,16 @@ public class APICommands extends ListenerAdapter {
 						}
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
-					test.sendMessage("Malformed URL while retrieving member list <@387330197420113930>");
+					test.sendMessage("Malformed URL while retrieving member list <@387330197420113930>").queue();
 					test.sendMessage(stack.subSequence(0, 1990)).queue();
 				} catch (IOException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
-					test.sendMessage("IO Exception while retrieving member list <@387330197420113930>");
-					test.sendMessage(stack.subSequence(0, 1990)).queue();	
+					if (stack.contains("Server returned HTTP response code: 5"))
+						test.sendMessage("Server side IO Exception while retrieving member list\n" + e.getMessage());
+					else {
+						test.sendMessage("Client side IO Exception while retrieving member list <@387330197420113930>").queue();
+						test.sendMessage(stack.subSequence(0, 1990)).queue();	
+					}
 				}
 			}		
 		}, 1000, 300000);
