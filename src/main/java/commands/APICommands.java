@@ -504,6 +504,7 @@ public class APICommands extends ListenerAdapter {
 
 			//	}
 				try {
+					BTE.getMemberList();
 					for (int i = 0; i < BTE.getMemberList().size(); i++) {				
 						
 						long memberId = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong()).getIdLong();
