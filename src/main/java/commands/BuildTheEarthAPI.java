@@ -116,14 +116,6 @@ public class BuildTheEarthAPI {
 			JsonElement ele = JsonParser.parseString(json.toString());
 			jarray = ele.getAsJsonObject().getAsJsonArray("members");
 			
-	//	} catch (MalformedURLException e) {
-	//		String stack = ExceptionUtils.getStackTrace(e);
-	//		stackTrace = stack.subSequence(0, 1000).toString();
-	//	} catch (IOException e) {
-	//		String stack = ExceptionUtils.getStackTrace(e);
-		//	stackTrace = stack.subSequence(0, 1000).toString();
-	//	}
-		
 		return jarray;
 	}
 	
