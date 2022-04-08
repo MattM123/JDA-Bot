@@ -504,14 +504,17 @@ public class APICommands extends ListenerAdapter {
 
 			//	}
 				try {
-					BTE.getMemberList();
-					for (int i = 0; i < BTE.getMemberList().size(); i++) {				
-						
-						long memberId = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong()).getIdLong();
-						if (!guild.getMemberById(memberId).equals(null) && !guild.getMemberById(memberId).getRoles().contains(builder)) {
-							guild.addRoleToMember(memberId, builder).queue();
-						}	
-					}
+					BTE.getMemberList();	
+						for (int i = 0; i < BTE.getMemberList().size(); i++) {				
+							try {
+								long memberId = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong()).getIdLong();
+								if (!guild.getMemberById(memberId).equals(null) && !guild.getMemberById(memberId).getRoles().contains(builder)) {
+									guild.addRoleToMember(memberId, builder).queue();
+								}	
+							} catch (NullPointerException e) {
+								continue;
+							}
+						}
 				} catch (MalformedURLException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
 					test.sendMessage("Malformed URL while retrieving member list <@387330197420113930>");
@@ -519,15 +522,11 @@ public class APICommands extends ListenerAdapter {
 				} catch (IOException e) {
 					String stack = ExceptionUtils.getStackTrace(e);
 					test.sendMessage("IO Exception while retrieving member list <@387330197420113930>");
-					test.sendMessage(stack.subSequence(0, 1990)).queue();
+					test.sendMessage(stack.subSequence(0, 1990)).queue();	
 				}
-					
-				//}
-
 			}		
 		}, 1000, 300000);
 	}	
-
 }	
 
 	
