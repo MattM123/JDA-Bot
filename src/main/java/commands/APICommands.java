@@ -490,7 +490,7 @@ public class APICommands extends ListenerAdapter {
 			public void run() {
 
 				//For each guild member that is on website team, if they do not have builder role, assign builder role 	
-				test.sendMessage("Size: " + BTE.getMemberList().size());
+				test.sendMessage("Size: " + BTE.getMemberList().size()).queue();
 				if (BTE.getMemberList() != null) {
 					for (int i = 0; i < BTE.getMemberList().size(); i++) {				
 						try {
