@@ -80,7 +80,7 @@ public class BuildTheEarthAPI {
 	}
 	
 	//returns a JSON list of all users discord IDs that are on the team
-	public JsonArray getMemberList() {
+	public JsonArray getMemberList() throws MalformedURLException, IOException{
 		stackTrace = "";
 		String line;
 		BufferedReader in; 
@@ -89,7 +89,7 @@ public class BuildTheEarthAPI {
 		HttpsURLConnection conn = null;
 		JsonArray jarray = null;
 		
-		try {
+	//	try {
 			url = new URL("https://buildtheearth.net/api/v1/members");
 			conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestProperty("Host","buildtheearth.net");
@@ -116,13 +116,13 @@ public class BuildTheEarthAPI {
 			JsonElement ele = JsonParser.parseString(json.toString());
 			jarray = ele.getAsJsonObject().getAsJsonArray("members");
 			
-		} catch (MalformedURLException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack.subSequence(0, 1000).toString();
-		} catch (IOException e) {
-			String stack = ExceptionUtils.getStackTrace(e);
-			stackTrace = stack.subSequence(0, 1000).toString();
-		}
+	//	} catch (MalformedURLException e) {
+	//		String stack = ExceptionUtils.getStackTrace(e);
+	//		stackTrace = stack.subSequence(0, 1000).toString();
+	//	} catch (IOException e) {
+	//		String stack = ExceptionUtils.getStackTrace(e);
+		//	stackTrace = stack.subSequence(0, 1000).toString();
+	//	}
 		
 		return jarray;
 	}

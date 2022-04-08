@@ -1,11 +1,15 @@
 package commands;
 
 import java.awt.Color;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -490,19 +494,34 @@ public class APICommands extends ListenerAdapter {
 			public void run() {
 
 				//For each guild member that is on website team, if they do not have builder role, assign builder role 	
-				test.sendMessage("Size: " + BTE.getMemberList().size()).queue();
-				if (BTE.getMemberList() != null) {
+			//	test.sendMessage("Size: " + BTE.getMemberList().size()).queue();
+			//if (BTE.getMemberList() != null) {
+				//Initiall populates memberList
+			//	try {
+			//		BTE.getMemberList();
+			//	}
+			//	catch (MalformedURLException e) {
+
+			//	}
+				try {
 					for (int i = 0; i < BTE.getMemberList().size(); i++) {				
-						try {
-							long memberId = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong()).getIdLong();
-							if (!guild.getMemberById(memberId).equals(null) && !guild.getMemberById(memberId).getRoles().contains(builder)) {
-								guild.addRoleToMember(memberId, builder).queue();
-							}			
-						} catch (NullPointerException e) {
-							continue;
-						}
+						
+						long memberId = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong()).getIdLong();
+						if (!guild.getMemberById(memberId).equals(null) && !guild.getMemberById(memberId).getRoles().contains(builder)) {
+							guild.addRoleToMember(memberId, builder).queue();
+						}	
 					}
+				} catch (MalformedURLException e) {
+					String stack = ExceptionUtils.getStackTrace(e);
+					test.sendMessage("Malformed URL while retrieving member list <@387330197420113930>");
+					test.sendMessage(stack.subSequence(0, 1990)).queue();
+				} catch (IOException e) {
+					String stack = ExceptionUtils.getStackTrace(e);
+					test.sendMessage("IO Exception while retrieving member list <@387330197420113930>");
+					test.sendMessage(stack.subSequence(0, 1990)).queue();
 				}
+					
+				//}
 
 			}		
 		}, 1000, 300000);
