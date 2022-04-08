@@ -502,6 +502,7 @@ public class APICommands extends ListenerAdapter {
 									guild.addRoleToMember(memberId, builder).queue();
 								}	
 							} catch (NullPointerException e) {
+								//If discord ID does not exist in guild, skips user since role cannot be assigned
 								continue;
 							}
 						}
