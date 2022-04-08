@@ -79,7 +79,7 @@ public class BuildTheEarthAPI {
 		return usernameAppliedWith;
 	}
 	
-	//returns a list of all users discord IDs that are on the team
+	//returns a JSON list of all users discord IDs that are on the team
 	public JsonArray getMemberList() {
 		stackTrace = "";
 		String line;

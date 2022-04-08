@@ -454,7 +454,7 @@ public class APICommands extends ListenerAdapter {
 						RestAction<Message> action = staff.retrieveMessageById(staff.getLatestMessageId());
 						Message message = action.complete();
 						
-						if (BTE.getPendingApplications().getApplications() != null && BTE.getPendingApplications().getApplications().size() > 0) {						    							    	
+						if (BTE.getPendingApplications() != null && BTE.getPendingApplications().getApplications().size() > 0) {						    							    	
 						   	for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
 						   		emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,
 					   				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
@@ -483,12 +483,14 @@ public class APICommands extends ListenerAdapter {
 		
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Compares team ID list with discord users and assigns build perms if necessary
+		TextChannel test = guild.getTextChannelById(786328890280247327L);
 		permTimer.scheduleAtFixedRate(new TimerTask() {
 
 			@Override
 			public void run() {
 
-				//For each guild member that is on website team, if they do not have builder role, assign builder role 
+				//For each guild member that is on website team, if they do not have builder role, assign builder role 	
+				test.sendMessage("Size: " + BTE.getMemberList().size());
 				if (BTE.getMemberList() != null) {
 					for (int i = 0; i < BTE.getMemberList().size(); i++) {				
 						try {
