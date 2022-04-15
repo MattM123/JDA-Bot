@@ -491,6 +491,9 @@ public class APICommands extends ListenerAdapter {
 						   }
 						   	staff.sendMessageEmbeds(emb.build()).queue();	    
 					}
+					
+				} catch (NullPointerException e) {
+					System.out.println("Somthing was null ig idk");
 				}
 			}
 		}, 1000, 10000);
@@ -525,8 +528,12 @@ public class APICommands extends ListenerAdapter {
 					if (stack.contains("Server returned HTTP response code: 5"))
 						test.sendMessage("Server side IO Exception while retrieving member list\n" + e.getMessage());
 					else {
-						test.sendMessage("Client side IO Exception while retrieving member list <@387330197420113930>").queue();
-						test.sendMessage(stack.subSequence(0, 1990)).queue();	
+						if (stack.length() >= 1990) {
+							test.sendMessage("Client side IO Exception while retrieving member list <@387330197420113930>").queue();
+							test.sendMessage(stack.subSequence(0, 1990)).queue();	
+						}
+						else 
+							test.sendMessage(stack).queue();
 					}
 				}
 			}		
