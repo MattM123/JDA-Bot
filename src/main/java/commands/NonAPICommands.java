@@ -49,6 +49,7 @@ public class NonAPICommands extends ListenerAdapter {
 	public long pollMessage = 0;
 	private String[] options;
 	private EmbedBuilder poll;
+	private List<User> users;
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -627,15 +628,27 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		//If reaction matches a poll option, option score is incremented based on role
 		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage) {
-			List<User> users = new ArrayList<>();
+			users = new ArrayList<>();
 			event.getChannel().retrieveMessageById(pollMessage).queue((message) -> {
-			
+				
 					event.getChannel().sendMessage(users.toString()).queue();
 					
 					for (int i = 0; i < users.size(); i++) {														
 						
 						//if usr has already reacted, decrements score				
-						if (!users.contains(event.getUser())) {
+						if (!users.contains(event.getUser()) || users == null) {
+							//poulates user array and looks for duplicate users
+							for (MessageReaction reaction : message.getReactions()){
+							    try {
+									users.addAll(reaction.retrieveUsers().submit().get());
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (ExecutionException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
 	/*
 							for (int j = 0; j < options.length; j++) {
 								if (options[j].contains(event.getReactionEmote().getName())) {
@@ -677,21 +690,6 @@ public class NonAPICommands extends ListenerAdapter {
 										//edits embed to update score
 										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
 									}
-								}
-							}
-						}
-						else {
-							
-							//poulates user array and looks for duplicate users
-							for (MessageReaction reaction : message.getReactions()){
-							    try {
-									users.addAll(reaction.retrieveUsers().submit().get());
-								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								} catch (ExecutionException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
 								}
 							}
 						}
