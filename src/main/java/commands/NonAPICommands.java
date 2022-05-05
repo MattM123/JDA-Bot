@@ -639,7 +639,7 @@ public class NonAPICommands extends ListenerAdapter {
 					
 
 					event.getChannel().sendMessage(users.toString()).queue();
-					for (int i = 0; i < message.getReactions().size(); i++) {								
+					for (int i = 0; i < users.size(); i++) {								
 						event.getChannel().sendMessage(users.toString()).queue();						
 							
 							//if usr has already reacted, decrements score
