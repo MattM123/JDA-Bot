@@ -482,7 +482,7 @@ public class NonAPICommands extends ListenerAdapter {
 					
 						
 						for (int i = 0; i < options.length; i++) {
-							poll.addField(options[i], "Score: 0", false);
+							poll.addField(options[i], "Score: 0.0", false);
 						}
 						//stores message id of poll for use in calculating scores
 						event.getChannel().sendMessageEmbeds(poll.build()).queue((message) -> {
@@ -618,14 +618,15 @@ public class NonAPICommands extends ListenerAdapter {
 			for (int i = 0; i < options.length; i++) {
 				if (options[i].contains(event.getReactionEmote().getName())) {
 					double currentScore = Double.parseDouble(poll.getFields().get(i).getValue().substring(7));
-					
+					event.getChannel().sendMessage("contains reaction").queue();
 					if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
 						|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
-							
 							poll.getFields().set(i, new Field(options[i], "Score: " + currentScore + 1.0, false));
+							event.getChannel().sendMessage("builder").queue();
 						}
 					else {
 						poll.getFields().set(i, new Field(options[i], "Score: " + currentScore + 0.5, false));
+						event.getChannel().sendMessage("nonbuilder").queue();
 					}
 				}
 			}
