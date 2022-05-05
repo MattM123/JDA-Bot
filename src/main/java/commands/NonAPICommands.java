@@ -14,6 +14,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import com.marcuzzo.JDABot.Bot;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -623,9 +624,9 @@ public class NonAPICommands extends ListenerAdapter {
 				for (int i = 0; i < message.getReactions().size(); i++) {			
 					List<User> users = message.getReactions().get(i).retrieveUsers().complete();
 					
-					//if usr has already reacted, igonre reaction
+					//if usr has already reacted, remove reaction
 					if (users.contains(event.getUser()))
-						return;
+						message.removeReaction((Emote) event.getReactionEmote());
 				}
 			});
 				
