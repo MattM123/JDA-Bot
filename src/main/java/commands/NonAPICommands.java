@@ -478,16 +478,16 @@ public class NonAPICommands extends ListenerAdapter {
 					if (poll != null) {
 						poll.setTitle(title);
 						poll.setColor(Color.blue);
-					}
 					
-					for (int i = 0; i < options.length; i++) {
-						poll.addField(options[i], "Score: 0", false);
+						
+						for (int i = 0; i < options.length; i++) {
+							poll.addField(options[i], "Score: 0", false);
+						}
+						//stores message id of poll for use in calculating scores
+						event.getChannel().sendMessageEmbeds(poll.build()).queue((message) -> {
+							pollMessage = message.getIdLong();
+						});
 					}
-					//stores message id of poll for use in calculating scores
-					event.getChannel().sendMessageEmbeds(poll.build()).queue((message) -> {
-						pollMessage = message.getIdLong();
-					});
-				
 				}
 				else {
 					event.getChannel().sendMessage("Title and or poll options are missing.").queue();
