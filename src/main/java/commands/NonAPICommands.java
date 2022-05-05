@@ -32,6 +32,8 @@ public class NonAPICommands extends ListenerAdapter {
 	private BuildLeaderboard bl = new BuildLeaderboard();
 	public static Guild pubGuild;
 	public int timeout = 6;
+	public boolean hasPoll = false;
+	public long pollMessage = 0;
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -454,12 +456,11 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 //------------------------------------------------------------------------------------------------------------------------------------
-//creatse poll
+//creates poll
 		if (event.getMessage().getContentRaw().startsWith("=poll")) {
 			String content = event.getMessage().getContentRaw();
 			String opts = "";
 			String title = "";
-			boolean pollExists = false;
 			
 			if (content.contains("-opts")) {
 				String[] args = {content.substring(6, content.indexOf("-opts ")), content.substring(content.indexOf("-opts ") + 6)};
@@ -468,18 +469,20 @@ public class NonAPICommands extends ListenerAdapter {
 				
 				
 				if (!title.isEmpty() && !opts.isEmpty()) {
-					pollExists = true;
+					hasPoll = true;
 					String[] options = args[1].split(",");
 
 					EmbedBuilder poll = new EmbedBuilder();
 					poll.setTitle(title);
 					poll.setColor(Color.blue);
 					for (int i = 0; i < options.length; i++) {
-						poll.addField(options[i], "Score: ", false);
+						poll.addField(options[i], "Score: 0", false);
 					}
-					event.getChannel().sendMessageEmbeds(poll.build()).queue();
-					poll.getFields().set(0, new Field(options[0], "Score: 1", false));
-					event.getChannel().sendMessageEmbeds(poll.build()).queue();
+					//stores message id of poll for use in calculating scores
+					event.getChannel().sendMessageEmbeds(poll.build()).queue((message) -> {
+						pollMessage = message.getIdLong();
+					});
+				
 				}
 				else {
 					event.getChannel().sendMessage("Title and or poll options are missing.").queue();
@@ -491,10 +494,11 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 	}
-//------------------------------------------------------------------------------------------------------------------------------------
-//Updates Leaderboard
+
 	@Override
 	public void onReady(ReadyEvent e) {
+//------------------------------------------------------------------------------------------------------------------------------------
+//Updates Leaderboard
 		pubGuild = Bot.jda.getGuildById(735990134583066679L);
 		TextChannel leaderboard = pubGuild.getTextChannelById(929171594125914152L);
 		
@@ -525,8 +529,6 @@ public class NonAPICommands extends ListenerAdapter {
 				bl.refresh();
 			}
 		}, 60000, 60000);
-		
-
 	}
 	
 	@Override
@@ -602,6 +604,9 @@ public class NonAPICommands extends ListenerAdapter {
 					
 			
 		}
+		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage) {
+			event.getChannel().sendMessage("test").queue();
+		}		
 	}
 
 }
