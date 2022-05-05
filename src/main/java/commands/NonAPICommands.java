@@ -460,7 +460,7 @@ public class NonAPICommands extends ListenerAdapter {
 			if (content.contains("-opts")) {
 				String[] args = {content.substring(6, content.indexOf("-opts ")), content.substring(content.indexOf("-opts "))};
 				title = args[0];
-				//opts = args[1];
+				opts = args[1];
 			}
 			else {
 				event.getChannel().sendMessage("You must specify poll options with the `-opts opt1,opt2,etc` argument").queue();
