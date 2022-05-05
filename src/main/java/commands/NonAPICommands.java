@@ -464,6 +464,7 @@ public class NonAPICommands extends ListenerAdapter {
 			String content = event.getMessage().getContentRaw();
 			String opts = "";
 			String title = "";
+			poll = new EmbedBuilder();
 			
 			if (content.contains("-opts")) {
 				String[] args = {content.substring(6, content.indexOf("-opts ")), content.substring(content.indexOf("-opts ") + 6)};
