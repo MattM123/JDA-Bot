@@ -631,25 +631,31 @@ public class NonAPICommands extends ListenerAdapter {
 			users = new ArrayList<>();
 			event.getChannel().retrieveMessageById(pollMessage).queue((message) -> {
 				
-					
-					
+				//poulates user array and looks for duplicate users
+				for (MessageReaction reaction : message.getReactions()){
+				    try {
+						users.addAll(reaction.retrieveUsers().submit().get());
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				//checks how many times user in in list
+				int counter = 0;
+				for (int e = 0; e < users.size(); e++) {
+					if (users.get(e).equals(event.getUser())) 
+						counter++;		
+				}
+				
 					for (int i = 0; i < users.size(); i++) {														
+						event.getChannel().sendMessage(users.toString()).queue();
 						
-						//if usr has already reacted, decrements score				
-						if (!users.contains(event.getUser()) || users == null) {
-							event.getChannel().sendMessage(users.toString()).queue();
-							//poulates user array and looks for duplicate users
-							for (MessageReaction reaction : message.getReactions()){
-							    try {
-									users.addAll(reaction.retrieveUsers().submit().get());
-								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								} catch (ExecutionException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}	
+					
+						//if user has already reacted more then once, remove reaction
+						if (counter < 1) {
 	/*
 							for (int j = 0; j < options.length; j++) {
 								if (options[j].contains(event.getReactionEmote().getName())) {
@@ -693,6 +699,9 @@ public class NonAPICommands extends ListenerAdapter {
 									}
 								}
 							}
+						}
+						else {
+							message.removeReaction((Emote) event.getReactionEmote());
 						}
 					}			
 				});
