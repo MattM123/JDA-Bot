@@ -456,18 +456,33 @@ public class NonAPICommands extends ListenerAdapter {
 			String content = event.getMessage().getContentRaw();
 			String opts = "";
 			String title = "";
+			boolean pollExists = false;
 			
 			if (content.contains("-opts")) {
 				String[] args = {content.substring(6, content.indexOf("-opts ")), content.substring(content.indexOf("-opts ") + 6)};
 				title = args[0];
 				opts = args[1];
+				
+				
+				if (!title.isEmpty() && !opts.isEmpty()) {
+					pollExists = true;
+					String[] options = args[1].split(",");
+
+					EmbedBuilder poll = new EmbedBuilder();
+					poll.setTitle(title);
+					for (int i = 0; i < options.length; i++) {
+						poll.addField(options[i], "Score: ", false);
+					}
+					event.getChannel().sendMessageEmbeds(poll.build()).queue();
+	
+				}
+				else {
+					event.getChannel().sendMessage("Title and or poll options are missing.").queue();
+				}
 			}
 			else {
 				event.getChannel().sendMessage("You must specify poll options with the `-opts opt1,opt2,etc` argument").queue();
-			}
-			
-			event.getChannel().sendMessage("poll: " + title + " " + opts).queue();
-			
+			}			
 		}
 		
 	}
