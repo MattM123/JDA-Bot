@@ -631,12 +631,13 @@ public class NonAPICommands extends ListenerAdapter {
 			users = new ArrayList<>();
 			event.getChannel().retrieveMessageById(pollMessage).queue((message) -> {
 				
-					event.getChannel().sendMessage(users.toString()).queue();
+					
 					
 					for (int i = 0; i < users.size(); i++) {														
 						
 						//if usr has already reacted, decrements score				
 						if (!users.contains(event.getUser()) || users == null) {
+							event.getChannel().sendMessage(users.toString()).queue();
 							//poulates user array and looks for duplicate users
 							for (MessageReaction reaction : message.getReactions()){
 							    try {
@@ -648,7 +649,7 @@ public class NonAPICommands extends ListenerAdapter {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-							}
+							}	
 	/*
 							for (int j = 0; j < options.length; j++) {
 								if (options[j].contains(event.getReactionEmote().getName())) {
