@@ -641,11 +641,10 @@ public class NonAPICommands extends ListenerAdapter {
 					
 					for (int i = 0; i < message.getReactions().size(); i++) {								
 						event.getChannel().sendMessage(users.toString()).queue();						
-						//if usr has already reacted, removes reaction
-						try {
+							
+							//if usr has already reacted, decrements score
 							if (users.contains(event.getUser())) {
-
-								
+	
 								for (int j = 0; j < options.length; j++) {
 									if (options[j].contains(event.getReactionEmote().getName())) {
 										double currentScore = Double.parseDouble(poll.getFields().get(j).getValue().substring(7));
@@ -666,16 +665,6 @@ public class NonAPICommands extends ListenerAdapter {
 									}
 								}
 							}
-						} catch (NumberFormatException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (ExecutionException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
 					}
 					return null;
 					
