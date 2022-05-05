@@ -679,6 +679,8 @@ public class NonAPICommands extends ListenerAdapter {
 									}
 								}
 							}
+						}
+						else {
 							
 							//poulates user array and looks for duplicate users
 							for (MessageReaction reaction : message.getReactions()){
