@@ -458,7 +458,7 @@ public class NonAPICommands extends ListenerAdapter {
 			String title = "";
 			
 			if (content.contains("-opts")) {
-				String[] args = {content.substring(content.indexOf(6, content.indexOf("-opts ")))};//), content.indexOf("-opts ")), content.substring(content.indexOf("-opts "))};
+				String[] args = {content.substring(6, content.indexOf("-opts ")), content.substring(content.indexOf("-opts "))};
 				title = args[0];
 				//opts = args[1];
 			}
