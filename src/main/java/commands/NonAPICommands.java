@@ -7,7 +7,9 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -620,14 +622,18 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		//If reaction matches a poll option, option score is incremented based on role
 		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage) {
-			event.getChannel().retrieveMessageById(pollMessage).queue(message -> {	
-				for (int i = 0; i < message.getReactions().size(); i++) {			
-					List<User> users = message.getReactions().get(i).retrieveUsers().complete();
+			event.getChannel().retrieveMessageById(pollMessage).submit()
+				.thenCompose((Function<? super Message, ? extends CompletionStage<Void>>) (Message message) -> {	
+					for (int i = 0; i < message.getReactions().size(); i++) {			
+						List<User> users = message.getReactions().get(i).retrieveUsers().complete();
+						
+						//if usr has already reacted, removes reaction
+						if (users != null && users.contains(event.getUser())) {
+							return message.removeReaction((Emote) event.getReactionEmote()).submit();
+						}
+					}
+					return null;
 					
-					//if usr has already reacted, removes reaction
-					if (users != null && users.contains(event.getUser()))
-						message.removeReaction((Emote) event.getReactionEmote()).queue();
-				}
 			});
 				
 			}
