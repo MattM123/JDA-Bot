@@ -718,8 +718,8 @@ public class NonAPICommands extends ListenerAdapter {
 				counter++;		
 		}
 		
-		//if user is in list once, decrement score on emote remove
-		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage && counter == 0) {
+		//if user is not in list after removing emoji, decrement score on emote remove
+		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage && counter == 1) {
 			for (int w = 0; w < options.length; w++) {
 				if (options[w].contains(event.getReactionEmote().getName())) {
 					double currentScore = Double.parseDouble(poll.getFields().get(w).getValue().substring(7));
