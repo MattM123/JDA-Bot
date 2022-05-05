@@ -451,6 +451,13 @@ public class NonAPICommands extends ListenerAdapter {
 				}
 			});
 		}
+		
+		if (event.getMessage().getContentRaw().startsWith("=poll")) {
+			String content = event.getMessage().getContentRaw();
+			String[] args = {content.substring(content.indexOf("-title"), content.indexOf("-opts ") - 1), content.substring(content.indexOf("-opts "))};
+			event.getChannel().sendMessage(args[0] + " " + args[1]).queue();
+			
+		}
 	}
 
 //------------------------------------------------------------------------------------------------------------------------------------
@@ -565,4 +572,6 @@ public class NonAPICommands extends ListenerAdapter {
 			
 		}
 	}
+
 }
+
