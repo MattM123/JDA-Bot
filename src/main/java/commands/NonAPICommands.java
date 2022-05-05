@@ -649,7 +649,7 @@ public class NonAPICommands extends ListenerAdapter {
 						
 						//if usr has already reacted, decrements score				
 						if (users.contains(event.getUser())) {
-	
+	/*
 							for (int j = 0; j < options.length; j++) {
 								if (options[j].contains(event.getReactionEmote().getName())) {
 									double currentScore = Double.parseDouble(poll.getFields().get(j).getValue().substring(7));
@@ -669,30 +669,31 @@ public class NonAPICommands extends ListenerAdapter {
 									}
 								}
 							}
-						}							
-					}
-					
-				});
-
-				for (int r = 0; r < options.length; r++) {
-					if (options[r].contains(event.getReactionEmote().getName())) {
-						double currentScore = Double.parseDouble(poll.getFields().get(r).getValue().substring(7));
-	
-						if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
-							|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
-							poll.getFields().set(r, new Field(options[r], "Score: " + String.valueOf(currentScore += 1.0), false));
-							
-							//edits embed to update score
-							event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
+							*/
 						}
 						else {
-							poll.getFields().set(r, new Field(options[r], "Score: " + String.valueOf(currentScore += 0.5), false));
-							
-							//edits embed to update score
-							event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
+							for (int r = 0; r < options.length; r++) {
+								if (options[r].contains(event.getReactionEmote().getName())) {
+									double currentScore = Double.parseDouble(poll.getFields().get(r).getValue().substring(7));
+				
+									if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
+										|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
+										poll.getFields().set(r, new Field(options[r], "Score: " + String.valueOf(currentScore += 1.0), false));
+										
+										//edits embed to update score
+										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
+									}
+									else {
+										poll.getFields().set(r, new Field(options[r], "Score: " + String.valueOf(currentScore += 0.5), false));
+										
+										//edits embed to update score
+										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
+									}
+								}
+							}
 						}
-					}
-				}
+					}			
+				});
 			}
 		}		
 	
