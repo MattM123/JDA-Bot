@@ -654,8 +654,8 @@ public class NonAPICommands extends ListenerAdapter {
 						event.getChannel().sendMessage(users.toString()).queue();
 						
 					
-						//if user has already reacted more then once, remove reaction
-						if (counter <= 1) {
+						//if user is in list once or more, increment score
+						if (counter == 1) {
 							for (int r = 0; r < options.length; r++) {
 								if (options[r].contains(event.getReactionEmote().getName())) {
 									double currentScore = Double.parseDouble(poll.getFields().get(r).getValue().substring(7));
@@ -676,9 +676,11 @@ public class NonAPICommands extends ListenerAdapter {
 								}
 							}
 						}
-						else {					
-							//users.remove(event.getUser());
 						
+						//if user is not in list on reaction add decrement score
+						
+						else {	
+							/*
 							for (int w = 0; w < options.length; w++) {
 								if (options[w].contains(event.getReactionEmote().getName())) {
 									double currentScore = Double.parseDouble(poll.getFields().get(i).getValue().substring(7));
@@ -697,8 +699,9 @@ public class NonAPICommands extends ListenerAdapter {
 										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
 									}
 								}
+								
 							}
-							
+							*/
 							event.getChannel().sendMessage(users.toString()).queue();
 						}
 					}			
@@ -709,18 +712,14 @@ public class NonAPICommands extends ListenerAdapter {
 
 	
 	public void onMessageReactionRemove(MessageReactionRemoveEvent event) {	
-		Guild guild = event.getGuild();
-		
-		//If reaction matches a poll option, option score is decremented based on role
-		
-		
-		//checks how many times user in in list
+		Guild guild = event.getGuild();	
 		int counter = 0;
 		for (int e = 0; e < users.size(); e++) {
 			if (users.get(e).equals(event.getUser())) 
 				counter++;		
 		}
 		
+		//if user is in list once, decrement score on emote remove
 		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage && counter == 1) {
 			for (int w = 0; w < options.length; w++) {
 				if (options[w].contains(event.getReactionEmote().getName())) {
