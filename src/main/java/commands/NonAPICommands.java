@@ -655,7 +655,7 @@ public class NonAPICommands extends ListenerAdapter {
 					return null;
 					
 			});
-				return;
+				
 			}
 			for (int i = 0; i < options.length; i++) {
 				if (options[i].contains(event.getReactionEmote().getName())) {
