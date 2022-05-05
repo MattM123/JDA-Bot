@@ -627,6 +627,8 @@ public class NonAPICommands extends ListenerAdapter {
 					for (int i = 0; i < message.getReactions().size(); i++) {			
 						List<User> users = message.getReactions().get(i).retrieveUsers().complete();
 						event.getChannel().sendMessage(users.toString()).queue();
+						event.getChannel().sendMessage("test").queue();
+						
 						//if usr has already reacted, removes reaction
 						if (users.contains(event.getUser())) {
 							event.getChannel().sendMessage("test").queue();
