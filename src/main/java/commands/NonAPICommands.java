@@ -637,13 +637,13 @@ public class NonAPICommands extends ListenerAdapter {
 
 									if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
 										|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
-										poll.getFields().set(j, new Field(options[j], "Score: " + String.valueOf(currentScore -= 1.0), false));
+										poll.getFields().set(j, new Field(options[j], "Score: " + String.valueOf(currentScore -= 2.0), false));
 										
 										//edits embed to update score
 										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
 									}
 									else {
-										poll.getFields().set(j, new Field(options[j], "Score: " + String.valueOf(currentScore -= 0.5), false));
+										poll.getFields().set(j, new Field(options[j], "Score: " + String.valueOf(currentScore -= 1.0), false));
 										
 										//edits embed to update score
 										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
