@@ -630,22 +630,16 @@ public class NonAPICommands extends ListenerAdapter {
 			List<User> users = new ArrayList<>();
 			event.getChannel().retrieveMessageById(pollMessage).submit()
 			
-				//poulates user array
+				//poulates user array and looks for duplicate users
 				.thenCompose((message) -> {	
 				
 					for (MessageReaction reaction : message.getReactions()){
 					    users.addAll(reaction.retrieveUsers().complete());
 					}
+
 					event.getChannel().sendMessage(users.toString()).queue();
-					return null;
 					
-				})
-				
-				//checks array for duplicate users
-				.thenCompose((message) -> {
-					event.getChannel().sendMessage(users.toString()).queue();
-					for (int i = 0; i < users.size(); i++) {								
-						event.getChannel().sendMessage(users.toString()).queue();						
+					for (int i = 0; i < users.size(); i++) {														
 							
 							//if usr has already reacted, decrements score
 							if (users.contains(event.getUser())) {
