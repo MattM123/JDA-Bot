@@ -479,6 +479,7 @@ public class NonAPICommands extends ListenerAdapter {
 					}
 					event.getChannel().sendMessageEmbeds(poll.build()).queue();
 					poll.getFields().set(0, new Field(options[0], "Score: 1", false));
+					event.getChannel().sendMessageEmbeds(poll.build()).queue();
 				}
 				else {
 					event.getChannel().sendMessage("Title and or poll options are missing.").queue();
