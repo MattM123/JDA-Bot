@@ -629,8 +629,7 @@ public class NonAPICommands extends ListenerAdapter {
 		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage) {
 
 			
-			event.getChannel().retrieveMessageById(pollMessage).submit()
-				.thenCompose((Function<? super Message, ? extends CompletionStage<Void>>) (Message message) -> {	
+			event.getChannel().retrieveMessageById(pollMessage).queue(message -> {	
 				
 					List<User> users = new ArrayList<>();
 					for (MessageReaction reaction : message.getReactions()){
@@ -666,7 +665,7 @@ public class NonAPICommands extends ListenerAdapter {
 								}
 							}
 					}
-					return null;
+				
 					
 			});
 				
