@@ -475,8 +475,11 @@ public class NonAPICommands extends ListenerAdapter {
 					hasPoll = true;
 					options = args[1].split(",");
 
-					poll.setTitle(title);
-					poll.setColor(Color.blue);
+					if (poll != null) {
+						poll.setTitle(title);
+						poll.setColor(Color.blue);
+					}
+					
 					for (int i = 0; i < options.length; i++) {
 						poll.addField(options[i], "Score: 0", false);
 					}
