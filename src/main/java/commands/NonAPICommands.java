@@ -13,6 +13,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import org.apache.commons.codec.net.QCodec;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.marcuzzo.JDABot.Bot;
@@ -630,7 +631,18 @@ public class NonAPICommands extends ListenerAdapter {
 				.thenCompose((Function<? super Message, ? extends CompletionStage<Void>>) (Message message) -> {	
 				
 					CompletableFuture<List<User>> users = message.getReactions().get(0).retrieveUsers().submit();
-
+					try {
+						event.getChannel().sendMessage(users.get().get(0).getAsTag()).queue();
+						event.getChannel().sendMessage(users.get().get(1).getAsTag()).queue();
+						event.getChannel().sendMessage(users.get().get(2).getAsTag()).queue();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ExecutionException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
 					for (int i = 0; i < message.getReactions().size(); i++) {								
 						event.getChannel().sendMessage(users.toString()).queue();						
 						//if usr has already reacted, removes reaction
