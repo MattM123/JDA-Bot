@@ -632,19 +632,18 @@ public class NonAPICommands extends ListenerAdapter {
 			
 				//poulates user array and looks for duplicate users
 				.thenCompose((message) -> {	
-				
-					event.getChannel().sendMessage(users.toString()).queue();
-					
+
 					for (MessageReaction reaction : message.getReactions()){
 					    users.addAll(reaction.retrieveUsers().complete());
 					}
-
-					event.getChannel().sendMessage(users.toString()).queue();
+					return null;
+				})
+				.whenComplete((v, error) -> {
+					if (error != null) error.printStackTrace();
 					
 					for (int i = 0; i < users.size(); i++) {														
 							
-						//if usr has already reacted, decrements score
-						/*
+						//if usr has already reacted, decrements score				
 						if (users.contains(event.getUser())) {
 	
 							for (int j = 0; j < options.length; j++) {
@@ -656,21 +655,19 @@ public class NonAPICommands extends ListenerAdapter {
 										poll.getFields().set(j, new Field(options[j], "Score: " + String.valueOf(currentScore -= 1.0), false));
 											
 										//edits embed to update score
-										return event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).submit();
+										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).submit();
 									}
 									else {
 										poll.getFields().set(j, new Field(options[j], "Score: " + String.valueOf(currentScore -= 0.5), false));
 										
 										//edits embed to update score
-										return event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).submit();
+										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).submit();
 									}
 								}
 							}
-						}
-						*/
-			
+						}							
 					}
-					return null;
+					
 				});
 			
 				for (int r = 0; r < options.length; r++) {
