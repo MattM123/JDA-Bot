@@ -724,6 +724,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage && counter >= 2) {
+			users.remove(event.getUser());
 			for (int i = 0; i < options.length; i++) {
 				if (options[i].contains(event.getReactionEmote().getName())) {
 					double currentScore = Double.parseDouble(poll.getFields().get(i).getValue().substring(7));
