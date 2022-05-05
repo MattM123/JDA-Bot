@@ -630,19 +630,6 @@ public class NonAPICommands extends ListenerAdapter {
 			List<User> users = new ArrayList<>();
 			event.getChannel().retrieveMessageById(pollMessage).queue((message) -> {
 			
-				//poulates user array and looks for duplicate users
-
-					for (MessageReaction reaction : message.getReactions()){
-					    try {
-							users.addAll(reaction.retrieveUsers().submit().get());
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (ExecutionException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
 					event.getChannel().sendMessage(users.toString()).queue();
 					
 					for (int i = 0; i < users.size(); i++) {														
@@ -690,6 +677,19 @@ public class NonAPICommands extends ListenerAdapter {
 										//edits embed to update score
 										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
 									}
+								}
+							}
+							
+							//poulates user array and looks for duplicate users
+							for (MessageReaction reaction : message.getReactions()){
+							    try {
+									users.addAll(reaction.retrieveUsers().submit().get());
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (ExecutionException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
 								}
 							}
 						}
