@@ -622,10 +622,14 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		//If reaction matches a poll option, option score is incremented based on role
 		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage) {
+
+			
 			event.getChannel().retrieveMessageById(pollMessage).submit()
 				.thenCompose((Function<? super Message, ? extends CompletionStage<Void>>) (Message message) -> {	
+					event.getChannel().sendMessage("test").queue();
+					List<User> users = message.getReactions().get(0).retrieveUsers().complete();
 					for (int i = 0; i < message.getReactions().size(); i++) {			
-						List<User> users = message.getReactions().get(i).retrieveUsers().complete();
+						
 						event.getChannel().sendMessage(users.toString()).queue();
 						event.getChannel().sendMessage("test").queue();
 						
