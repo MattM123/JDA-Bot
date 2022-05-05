@@ -633,6 +633,8 @@ public class NonAPICommands extends ListenerAdapter {
 				//poulates user array and looks for duplicate users
 				.thenCompose((message) -> {	
 				
+					event.getChannel().sendMessage(users.toString()).queue();
+					
 					for (MessageReaction reaction : message.getReactions()){
 					    users.addAll(reaction.retrieveUsers().complete());
 					}
