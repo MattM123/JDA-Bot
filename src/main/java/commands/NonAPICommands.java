@@ -629,6 +629,7 @@ public class NonAPICommands extends ListenerAdapter {
 						
 						//if usr has already reacted, removes reaction
 						if (users != null && users.contains(event.getUser())) {
+							event.getChannel().sendMessage("test").queue();
 							return message.removeReaction((Emote) event.getReactionEmote()).submit();
 						}
 					}
