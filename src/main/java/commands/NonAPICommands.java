@@ -7,7 +7,9 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -627,7 +629,7 @@ public class NonAPICommands extends ListenerAdapter {
 			event.getChannel().retrieveMessageById(pollMessage).submit()
 				.thenCompose((Function<? super Message, ? extends CompletionStage<Void>>) (Message message) -> {	
 				
-					List<User> users = message.getReactions().get(0).retrieveUsers().complete();
+					CompletableFuture<List<User>> users = message.getReactions().get(0).retrieveUsers().submit();
 					event.getChannel().sendMessage("test").queue();
 					for (int i = 0; i < message.getReactions().size(); i++) {			
 						
@@ -635,28 +637,39 @@ public class NonAPICommands extends ListenerAdapter {
 						event.getChannel().sendMessage("test").queue();
 						
 						//if usr has already reacted, removes reaction
-						if (users.contains(event.getUser())) {
-							event.getChannel().sendMessage("test").queue();
-							
-							for (int j = 0; j < options.length; j++) {
-								if (options[j].contains(event.getReactionEmote().getName())) {
-									double currentScore = Double.parseDouble(poll.getFields().get(j).getValue().substring(7));
+						try {
+							if (users.get().contains(event.getUser())) {
+								event.getChannel().sendMessage("test").queue();
+								
+								for (int j = 0; j < options.length; j++) {
+									if (options[j].contains(event.getReactionEmote().getName())) {
+										double currentScore = Double.parseDouble(poll.getFields().get(j).getValue().substring(7));
 
-									if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
-										|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
-										poll.getFields().set(j, new Field(options[j], "Score: " + String.valueOf(currentScore -= 1.0), false));
-										
-										//edits embed to update score
-										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
-									}
-									else {
-										poll.getFields().set(j, new Field(options[j], "Score: " + String.valueOf(currentScore -= 0.5), false));
-										
-										//edits embed to update score
-										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
+										if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
+											|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
+											poll.getFields().set(j, new Field(options[j], "Score: " + String.valueOf(currentScore -= 1.0), false));
+											
+											//edits embed to update score
+											event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
+										}
+										else {
+											poll.getFields().set(j, new Field(options[j], "Score: " + String.valueOf(currentScore -= 0.5), false));
+											
+											//edits embed to update score
+											event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
+										}
 									}
 								}
 							}
+						} catch (NumberFormatException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (ExecutionException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 					}
 					return null;
