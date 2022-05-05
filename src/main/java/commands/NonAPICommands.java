@@ -624,13 +624,13 @@ public class NonAPICommands extends ListenerAdapter {
 						poll.getFields().set(i, new Field(options[i], "Score: " + currentScore + 1.0, false));
 						
 						//edits embed to update score
-						event.getChannel().editMessageEmbedsById(pollMessage, poll.build());
+						event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
 					}
 					else {
 						poll.getFields().set(i, new Field(options[i], "Score: " + currentScore + 0.5, false));
 						
 						//edits embed to update score
-						event.getChannel().editMessageEmbedsById(pollMessage, poll.build());
+						event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
 					}
 				}
 			}
