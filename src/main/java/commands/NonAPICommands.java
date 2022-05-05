@@ -627,16 +627,21 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		//If reaction matches a poll option, option score is incremented based on role
 		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage) {
-
+			List<User> users = new ArrayList<>();
+			event.getChannel().retrieveMessageById(pollMessage).submit()
 			
-			event.getChannel().retrieveMessageById(pollMessage).queue(message -> {	
+				//poulates user array
+				.thenCompose((message) -> {	
 				
-					List<User> users = new ArrayList<>();
 					for (MessageReaction reaction : message.getReactions()){
 					    users.addAll(reaction.retrieveUsers().complete());
 					}
+					return null;
 					
-
+				})
+				
+				//checks array for duplicate users
+				.thenCompose((message) -> {
 					event.getChannel().sendMessage(users.toString()).queue();
 					for (int i = 0; i < users.size(); i++) {								
 						event.getChannel().sendMessage(users.toString()).queue();						
@@ -665,7 +670,7 @@ public class NonAPICommands extends ListenerAdapter {
 								}
 							}
 					}
-				
+					return null;
 					
 			});
 				
