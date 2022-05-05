@@ -636,6 +636,7 @@ public class NonAPICommands extends ListenerAdapter {
 					for (MessageReaction reaction : message.getReactions()){
 					    users.addAll(reaction.retrieveUsers().complete());
 					}
+					event.getChannel().sendMessage(users.toString()).queue();
 					return null;
 					
 				})
