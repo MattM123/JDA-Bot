@@ -655,7 +655,7 @@ public class NonAPICommands extends ListenerAdapter {
 						
 					
 						//if user has already reacted more then once, remove reaction
-						if (counter < 1) {
+						if (counter <= 1) {
 	/*
 							for (int j = 0; j < options.length; j++) {
 								if (options[j].contains(event.getReactionEmote().getName())) {
@@ -701,7 +701,7 @@ public class NonAPICommands extends ListenerAdapter {
 							}
 						}
 						else {
-							message.removeReaction((Emote) event.getReactionEmote());
+							message.removeReaction((Emote) event.getReactionEmote()).queue();
 						}
 					}			
 				});
