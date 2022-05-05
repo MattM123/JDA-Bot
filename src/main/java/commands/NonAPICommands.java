@@ -488,6 +488,9 @@ public class NonAPICommands extends ListenerAdapter {
 							pollMessage = message.getIdLong();
 						});
 					}
+					else {
+						event.getChannel().sendMessage("Cannot create poll, please try again.").queue();
+					}
 				}
 				else {
 					event.getChannel().sendMessage("Title and or poll options are missing.").queue();
