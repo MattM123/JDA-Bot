@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,6 +26,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.MessageEmbed.Field;
+import net.dv8tion.jda.api.entities.MessageReaction;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -630,25 +632,19 @@ public class NonAPICommands extends ListenerAdapter {
 			event.getChannel().retrieveMessageById(pollMessage).submit()
 				.thenCompose((Function<? super Message, ? extends CompletionStage<Void>>) (Message message) -> {	
 				
-					CompletableFuture<List<User>> users = message.getReactions().get(0).retrieveUsers().submit();
-					try {
-						event.getChannel().sendMessage(users.get().get(0).getAsTag()).queue();
-						event.getChannel().sendMessage(users.get().get(1).getAsTag()).queue();
-						event.getChannel().sendMessage(users.get().get(2).getAsTag()).queue();
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (ExecutionException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					List<User> users = new ArrayList<>();
+					for (MessageReaction reaction : message.getReactions()){
+					    users.addAll(reaction.retrieveUsers().complete());
 					}
+					
+
 					
 					for (int i = 0; i < message.getReactions().size(); i++) {								
 						event.getChannel().sendMessage(users.toString()).queue();						
 						//if usr has already reacted, removes reaction
 						try {
-							if (users.get().contains(event.getUser())) {
-		
+							if (users.contains(event.getUser())) {
+
 								
 								for (int j = 0; j < options.length; j++) {
 									if (options[j].contains(event.getReactionEmote().getName())) {
