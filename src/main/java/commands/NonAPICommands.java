@@ -678,7 +678,7 @@ public class NonAPICommands extends ListenerAdapter {
 						}
 						else {					
 							//users.remove(event.getUser());
-						/*	
+						
 							for (int w = 0; w < options.length; w++) {
 								if (options[w].contains(event.getReactionEmote().getName())) {
 									double currentScore = Double.parseDouble(poll.getFields().get(i).getValue().substring(7));
@@ -698,7 +698,7 @@ public class NonAPICommands extends ListenerAdapter {
 									}
 								}
 							}
-							*/
+							
 							event.getChannel().sendMessage(users.toString()).queue();
 						}
 					}			
