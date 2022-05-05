@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.MessageEmbed.Field;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -34,6 +35,8 @@ public class NonAPICommands extends ListenerAdapter {
 	public int timeout = 6;
 	public boolean hasPoll = false;
 	public long pollMessage = 0;
+	private String[] options;
+	private EmbedBuilder poll;
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -470,9 +473,8 @@ public class NonAPICommands extends ListenerAdapter {
 				
 				if (!title.isEmpty() && !opts.isEmpty()) {
 					hasPoll = true;
-					String[] options = args[1].split(",");
+					options = args[1].split(",");
 
-					EmbedBuilder poll = new EmbedBuilder();
 					poll.setTitle(title);
 					poll.setColor(Color.blue);
 					for (int i = 0; i < options.length; i++) {
@@ -604,8 +606,22 @@ public class NonAPICommands extends ListenerAdapter {
 					
 			
 		}
+		//If reaction matches a poll option, option score is incremented based on role
 		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage) {
-			event.getChannel().sendMessage("test").queue();
+			for (int i = 0; i < options.length; i++) {
+				if (options[i].contains(event.getReactionEmote().getName())) {
+					double currentScore = Double.parseDouble(poll.getFields().get(i).getValue().substring(7));
+					
+					if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
+						|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
+							
+							poll.getFields().set(i, new Field(options[i], "Score: " + currentScore + 1.0, false));
+						}
+					else {
+						poll.getFields().set(i, new Field(options[i], "Score: " + currentScore + 0.5, false));
+					}
+				}
+			}
 		}		
 	}
 
