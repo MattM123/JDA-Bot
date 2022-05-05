@@ -634,7 +634,15 @@ public class NonAPICommands extends ListenerAdapter {
 				.thenCompose((message) -> {	
 
 					for (MessageReaction reaction : message.getReactions()){
-					    users.addAll(reaction.retrieveUsers().complete());
+					    try {
+							users.addAll(reaction.retrieveUsers().submit().get());
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (ExecutionException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					return null;
 				})
