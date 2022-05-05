@@ -638,7 +638,7 @@ public class NonAPICommands extends ListenerAdapter {
 					}
 					
 
-					event.getChannel().sendMessage(users.toString());
+					event.getChannel().sendMessage(users.toString()).queue();
 					for (int i = 0; i < message.getReactions().size(); i++) {								
 						event.getChannel().sendMessage(users.toString()).queue();						
 							
