@@ -650,7 +650,7 @@ public class NonAPICommands extends ListenerAdapter {
 				}
 			}
 		}		
-	}
+	
 
 	
 	public void onMessageReactionRemove(MessageReactionRemoveEvent event) {	
