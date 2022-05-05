@@ -656,30 +656,6 @@ public class NonAPICommands extends ListenerAdapter {
 					
 						//if user has already reacted more then once, remove reaction
 						if (counter <= 1) {
-	/*
-							for (int j = 0; j < options.length; j++) {
-								if (options[j].contains(event.getReactionEmote().getName())) {
-									double currentScore = Double.parseDouble(poll.getFields().get(j).getValue().substring(7));
-
-									if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
-										|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
-										poll.getFields().set(j, new Field(options[j], "Score: " + String.valueOf(currentScore -= 1.0), false));
-											
-										//edits embed to update score
-										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).submit();
-									}
-									else {
-										poll.getFields().set(j, new Field(options[j], "Score: " + String.valueOf(currentScore -= 0.5), false));
-										
-										//edits embed to update score
-										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).submit();
-									}
-								}
-							}
-							*/
-						
-					//	else {
-							event.getChannel().sendMessage("test").queue();
 							for (int r = 0; r < options.length; r++) {
 								if (options[r].contains(event.getReactionEmote().getName())) {
 									double currentScore = Double.parseDouble(poll.getFields().get(r).getValue().substring(7));
@@ -700,9 +676,28 @@ public class NonAPICommands extends ListenerAdapter {
 								}
 							}
 						}
-						else {
-							message.removeReaction((Emote) event.getReactionEmote()).queue();
-							users.remove(event.getUser());
+						else {					
+							//users.remove(event.getUser());
+							for (int w = 0; w < options.length; w++) {
+								if (options[w].contains(event.getReactionEmote().getName())) {
+									double currentScore = Double.parseDouble(poll.getFields().get(i).getValue().substring(7));
+
+									if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
+										|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
+										poll.getFields().set(w, new Field(options[w], "Score: " + String.valueOf(currentScore -= 1.0), false));
+										
+										//edits embed to update score
+										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
+									}
+									else {
+										poll.getFields().set(w, new Field(options[w], "Score: " + String.valueOf(currentScore -= 0.5), false));
+										
+										//edits embed to update score
+										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
+									}
+								}
+							}
+							event.getChannel().sendMessage(users.toString()).queue();
 						}
 					}			
 				});
@@ -725,25 +720,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage && counter >= 2) {
-			for (int i = 0; i < options.length; i++) {
-				if (options[i].contains(event.getReactionEmote().getName())) {
-					double currentScore = Double.parseDouble(poll.getFields().get(i).getValue().substring(7));
 
-					if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
-						|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
-						poll.getFields().set(i, new Field(options[i], "Score: " + String.valueOf(currentScore -= 1.0), false));
-						
-						//edits embed to update score
-						event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
-					}
-					else {
-						poll.getFields().set(i, new Field(options[i], "Score: " + String.valueOf(currentScore -= 0.5), false));
-						
-						//edits embed to update score
-						event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
-					}
-				}
-			}
 		}
 	}
 	
