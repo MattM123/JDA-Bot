@@ -626,8 +626,9 @@ public class NonAPICommands extends ListenerAdapter {
 			
 			event.getChannel().retrieveMessageById(pollMessage).submit()
 				.thenCompose((Function<? super Message, ? extends CompletionStage<Void>>) (Message message) -> {	
-					event.getChannel().sendMessage("test").queue();
+				
 					List<User> users = message.getReactions().get(0).retrieveUsers().complete();
+					event.getChannel().sendMessage("test").queue();
 					for (int i = 0; i < message.getReactions().size(); i++) {			
 						
 						event.getChannel().sendMessage(users.toString()).queue();
