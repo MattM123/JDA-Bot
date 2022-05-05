@@ -630,16 +630,13 @@ public class NonAPICommands extends ListenerAdapter {
 				.thenCompose((Function<? super Message, ? extends CompletionStage<Void>>) (Message message) -> {	
 				
 					CompletableFuture<List<User>> users = message.getReactions().get(0).retrieveUsers().submit();
-					event.getChannel().sendMessage("test").queue();
-					for (int i = 0; i < message.getReactions().size(); i++) {			
-						
-						event.getChannel().sendMessage(users.toString()).queue();
-						event.getChannel().sendMessage("test").queue();
-						
+
+					for (int i = 0; i < message.getReactions().size(); i++) {								
+						event.getChannel().sendMessage(users.toString()).queue();						
 						//if usr has already reacted, removes reaction
 						try {
 							if (users.get().contains(event.getUser())) {
-								event.getChannel().sendMessage("test").queue();
+		
 								
 								for (int j = 0; j < options.length; j++) {
 									if (options[j].contains(event.getReactionEmote().getName())) {
