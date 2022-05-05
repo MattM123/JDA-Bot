@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Consumer;
@@ -20,12 +21,14 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.MessageEmbed.Field;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
+import net.dv8tion.jda.api.requests.restaction.pagination.ReactionPaginationAction;
 
 public class NonAPICommands extends ListenerAdapter {
 
@@ -616,6 +619,17 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		//If reaction matches a poll option, option score is incremented based on role
 		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage) {
+			event.getChannel().retrieveMessageById(pollMessage).queue(message -> {	
+				for (int i = 0; i < message.getReactions().size(); i++) {			
+					List<User> users = message.getReactions().get(i).retrieveUsers().complete();
+					
+					//if usr has already reacted, igonre reaction
+					if (users.contains(event.getUser()))
+						return;
+				}
+			});
+				
+			}
 			for (int i = 0; i < options.length; i++) {
 				if (options[i].contains(event.getReactionEmote().getName())) {
 					double currentScore = Double.parseDouble(poll.getFields().get(i).getValue().substring(7));
@@ -642,7 +656,7 @@ public class NonAPICommands extends ListenerAdapter {
 	public void onMessageReactionRemove(MessageReactionRemoveEvent event) {	
 		Guild guild = event.getGuild();
 		
-		//If reaction matches a poll option, option score is incremented based on role
+		//If reaction matches a poll option, option score is decremented based on role
 		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage) {
 			for (int i = 0; i < options.length; i++) {
 				if (options[i].contains(event.getReactionEmote().getName())) {
