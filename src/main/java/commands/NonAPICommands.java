@@ -23,6 +23,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
 
@@ -618,7 +619,7 @@ public class NonAPICommands extends ListenerAdapter {
 			for (int i = 0; i < options.length; i++) {
 				if (options[i].contains(event.getReactionEmote().getName())) {
 					double currentScore = Double.parseDouble(poll.getFields().get(i).getValue().substring(7));
-					event.getChannel().sendMessage("contains reaction").queue();
+
 					if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
 						|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
 						poll.getFields().set(i, new Field(options[i], "Score: " + String.valueOf(currentScore += 1.0), false));
@@ -637,7 +638,8 @@ public class NonAPICommands extends ListenerAdapter {
 		}		
 	}
 
-	public void onMessageReactionRemove(MessageReactionAddEvent event) {	
+	
+	public void onMessageReactionRemove(MessageReactionRemoveEvent event) {	
 		Guild guild = event.getGuild();
 		
 		//If reaction matches a poll option, option score is incremented based on role
@@ -645,7 +647,7 @@ public class NonAPICommands extends ListenerAdapter {
 			for (int i = 0; i < options.length; i++) {
 				if (options[i].contains(event.getReactionEmote().getName())) {
 					double currentScore = Double.parseDouble(poll.getFields().get(i).getValue().substring(7));
-					event.getChannel().sendMessage("contains reaction").queue();
+
 					if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
 						|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
 						poll.getFields().set(i, new Field(options[i], "Score: " + String.valueOf(currentScore -= 1.0), false));
