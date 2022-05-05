@@ -712,14 +712,19 @@ public class NonAPICommands extends ListenerAdapter {
 	
 	public void onMessageReactionRemove(MessageReactionRemoveEvent event) {	
 		Guild guild = event.getGuild();	
-		int counter = 0;
-		for (int e = 0; e < users.size(); e++) {
-			if (users.get(e).equals(event.getUser())) 
-				counter++;		
-		}
+
+		
 		
 		//if user is not in list after removing emoji, decrement score on emote remove
-		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage && counter == 0) {
+		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage) {
+			users.remove(event.getUser());
+			
+			int counter = 0;
+			for (int e = 0; e < users.size(); e++) {
+				if (users.get(e).equals(event.getUser())) 
+					counter++;		
+			}
+			if (counter == 0) {
 			for (int w = 0; w < options.length; w++) {
 				if (options[w].contains(event.getReactionEmote().getName())) {
 					double currentScore = Double.parseDouble(poll.getFields().get(w).getValue().substring(7));
@@ -738,6 +743,7 @@ public class NonAPICommands extends ListenerAdapter {
 						event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
 					}
 				}
+			}
 			}
 		}
 		
