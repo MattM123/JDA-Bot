@@ -458,12 +458,12 @@ public class NonAPICommands extends ListenerAdapter {
 			String title = "";
 			
 			if (content.contains("-opts")) {
-				String[] args = {content.substring(content.indexOf(6, content.indexOf("-opts ")), content.indexOf("-opts ")), content.substring(content.indexOf("-opts "))};
+				String[] args = {content.substring(content.indexOf(6, content.indexOf("-opts ")))};//), content.indexOf("-opts ")), content.substring(content.indexOf("-opts "))};
 				title = args[0];
-				opts = args[1];
+				//opts = args[1];
 			}
 			else {
-				event.getChannel().sendMessage("You must specify poll options with `-opts opt1,opt2,etc`").queue();
+				event.getChannel().sendMessage("You must specify poll options with the `-opts opt1,opt2,etc` argument").queue();
 			}
 			
 			event.getChannel().sendMessage("poll: " + title + " " + opts).queue();
