@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.MessageEmbed.Field;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
@@ -452,6 +453,8 @@ public class NonAPICommands extends ListenerAdapter {
 			});
 		}
 		
+//------------------------------------------------------------------------------------------------------------------------------------
+//creatse poll
 		if (event.getMessage().getContentRaw().startsWith("=poll")) {
 			String content = event.getMessage().getContentRaw();
 			String opts = "";
@@ -470,11 +473,12 @@ public class NonAPICommands extends ListenerAdapter {
 
 					EmbedBuilder poll = new EmbedBuilder();
 					poll.setTitle(title);
+					poll.setColor(Color.blue);
 					for (int i = 0; i < options.length; i++) {
 						poll.addField(options[i], "Score: ", false);
 					}
 					event.getChannel().sendMessageEmbeds(poll.build()).queue();
-	
+					poll.getFields().set(0, new Field(options[0], "Score: 1", false));
 				}
 				else {
 					event.getChannel().sendMessage("Title and or poll options are missing.").queue();
@@ -486,7 +490,6 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 	}
-
 //------------------------------------------------------------------------------------------------------------------------------------
 //Updates Leaderboard
 	@Override
