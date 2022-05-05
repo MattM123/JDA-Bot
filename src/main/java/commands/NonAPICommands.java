@@ -642,6 +642,7 @@ public class NonAPICommands extends ListenerAdapter {
 					for (int i = 0; i < users.size(); i++) {														
 							
 						//if usr has already reacted, decrements score
+						/*
 						if (users.contains(event.getUser())) {
 	
 							for (int j = 0; j < options.length; j++) {
@@ -664,7 +665,8 @@ public class NonAPICommands extends ListenerAdapter {
 								}
 							}
 						}
-						else {					
+						*/
+						//else {					
 							for (int r = 0; r < options.length; r++) {
 								if (options[r].contains(event.getReactionEmote().getName())) {
 									double currentScore = Double.parseDouble(poll.getFields().get(r).getValue().substring(7));
@@ -684,7 +686,7 @@ public class NonAPICommands extends ListenerAdapter {
 									}
 								}
 							}
-						}
+						//}
 					}
 					return null;
 				});			
