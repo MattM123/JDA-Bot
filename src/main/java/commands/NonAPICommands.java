@@ -714,7 +714,16 @@ public class NonAPICommands extends ListenerAdapter {
 		Guild guild = event.getGuild();
 		
 		//If reaction matches a poll option, option score is decremented based on role
-		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage) {
+		
+		
+		//checks how many times user in in list
+		int counter = 0;
+		for (int e = 0; e < users.size(); e++) {
+			if (users.get(e).equals(event.getUser())) 
+				counter++;		
+		}
+		
+		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage && counter >= 2) {
 			for (int i = 0; i < options.length; i++) {
 				if (options[i].contains(event.getReactionEmote().getName())) {
 					double currentScore = Double.parseDouble(poll.getFields().get(i).getValue().substring(7));
