@@ -527,14 +527,6 @@ public class APICommands extends ListenerAdapter {
 					String stack = ExceptionUtils.getStackTrace(e);
 					if (stack.contains("Server returned HTTP response code: 5"))
 						test.sendMessage("Server side IO Exception while retrieving member list\n" + e.getMessage());
-					else {
-						if (stack.length() >= 1990) {
-							test.sendMessage("Client side IO Exception while retrieving member list <@387330197420113930>").queue();
-							test.sendMessage(stack.subSequence(0, 1990)).queue();	
-						}
-						else 
-							test.sendMessage(stack).queue();
-					}
 				}
 			}		
 		}, 1000, 300000);
