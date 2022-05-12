@@ -473,13 +473,17 @@ public class APICommands extends ListenerAdapter {
 					}
 					//If there is no message history, a message is created and sent instead of edited if there is at least one pending application
 				} catch (ErrorResponseException e) {
-					if (BTE.getPendingApplications().getApplications().size() > 0) {    	
-						   for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
-					    	emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,
-					   				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
-					    			+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n", false);	
-						   }
-						   	staff.sendMessageEmbeds(emb.build()).queue();	    
+					try {
+						if (BTE.getPendingApplications().getApplications().size() > 0) {    	
+							   for (int i = 0; i < BTE.getPendingApplications().getApplications().size(); i++) {
+						    	emb.addField(BTE.getPendingApplications().getApplications().get(i).user.getUserTag() + " has applied to the team.\n" ,
+						   				"View their application here: https://buildtheearth.net/buildteams/36/applications/" 
+						    			+ BTE.getPendingApplications().getApplications().get(i).id + "\n\n", false);	
+							   }
+							   	staff.sendMessageEmbeds(emb.build()).queue();	    
+						}
+					} catch (NullPointerException r) {
+						r.printStackTrace();
 					}
 					//There is a message history but the message was not sent by the bot send new message instead of trying to edit
 				} catch (IllegalStateException e) {
