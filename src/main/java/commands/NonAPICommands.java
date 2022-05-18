@@ -59,14 +59,13 @@ public class NonAPICommands extends ListenerAdapter {
 		helpMenu.setColor(Color.blue);
 		helpMenu.setTitle("Command Information");
 
-		helpMenu.addField("=link <minecraft username>", "Automatically assigns build perms and Builder role if user is on the team", false);
-		helpMenu.addField("=applicant <minecraft username>", "Assigns user application build perms on the server", false);
+		helpMenu.addField("=apply", "Assigns trial build perms on the server", false);
 		helpMenu.addField("=getapp -<DiscordID OR DiscordTag> -<number of app>", "Requires Staff role to view players applications", false);
 		helpMenu.addField("=server", "Displays server status and resource usage.", false);
 		helpMenu.addField("=map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
 		helpMenu.addField("=measure", "Measure tutorial derived from the BTE Support Bot", false);
-		helpMenu.addField("=role <nameOfRole>", "Self assigns certain roles, use with no parameters for list of roles", false);
 		helpMenu.addField("=/<command>", "Requires Admin role to send console command to Minecraft server", false);
+		helpMenu.addField("=remove <int>", "Requires Admin or Staff role to delete messages in bulk", false);
 		
 		
 		EmbedBuilder map = new EmbedBuilder();
