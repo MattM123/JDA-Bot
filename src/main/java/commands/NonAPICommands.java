@@ -90,7 +90,7 @@ public class NonAPICommands extends ListenerAdapter {
 			EmbedBuilder measure1 = new EmbedBuilder();
 			measure1.setColor(Color.blue);
 			measure1.setTitle("/tpll Outline Tutorial");
-			measure1.setImage("https://i.imgur.com/G5c6bJl.gif");
+			measure1.setImage("https://www.youtube.com/watch?v=KlGOijIkePQ");
 			event.getChannel().sendMessageEmbeds(measure.build(), measure1.build()).queue();	
 		}
 		
@@ -111,10 +111,45 @@ public class NonAPICommands extends ListenerAdapter {
 		      
 		     action.queue(callback);      
 		}
+		
+		//deletes messages in bulk
+		if (event.getMessage().getContentRaw().equalsIgnoreCase("=remove")) {
+			
+			String[] command = event.getMessage().getContentRaw().split(" ");
+			if (command.length > 1) {
+				String arg2 = command[1];
+				
+				try {
+					if (Integer.parseInt(arg2) > 100) {
+						event.getChannel().sendMessage("You can only delete a maximum of 100 messages").queue();
+					}
+				
+				} catch (NumberFormatException e) {
+					event.getChannel().sendMessage("The second argument must be an integer").queue();
+				}
+				
+				event.getChannel().getHistory().retrievePast(Integer.parseInt(arg2)).queue(channel -> {
+					for (int i = 0; i < Integer.parseInt(arg2); i++) {
+						channel.get(i).delete().queue();
+					}			
+				});
+			}
+			else {
+				event.getChannel().sendMessage("Please provide a number of messages you would like to delete. For example, `=remove 5`").queue();
+			}
+			
+			
+			
+		}
+	}
+}
 	
-//------------------------------------------------------------------------------------------------------------------------------------
+		/*==========================================================================================================================================
+		======================================================LEGACY: replaced with YAGBPD==========================================================
+		============================================================================================================================================
+		
 //command for self-assigning roles
-		//LEGACY: replaced with yagpdb
+		
 /*		
 		Role[] stateRoles = {
 			guild.getRoleById(735995136978321541L), //nebraska
@@ -208,6 +243,10 @@ public class NonAPICommands extends ListenerAdapter {
 			}
 		}
 		*/	
+		
+		/*===========================================================================================================================================
+		======================================================LEGACY: replaced with NABS============================================================		
+		============================================================================================================================================
 		//BuildCount Tracker
 		TextChannel buildSubmissionChannel = guild.getTextChannelById(926285692542283846L);
 		TextChannel trackerChannel = guild.getTextChannelById(926460270782586921L);
@@ -470,52 +509,8 @@ public class NonAPICommands extends ListenerAdapter {
 				}
 			});
 		}
-		
-//------------------------------------------------------------------------------------------------------------------------------------
-//creates poll
-		if (event.getMessage().getContentRaw().startsWith("=poll")) {
-			String content = event.getMessage().getContentRaw();
-			String opts = "";
-			String title = "";
-			poll = new EmbedBuilder();
-			
-			if (content.contains("-opts")) {
-				String[] args = {content.substring(6, content.indexOf("-opts ")), content.substring(content.indexOf("-opts ") + 6)};
-				title = args[0];
-				opts = args[1];
-				
-				
-				if (!title.isEmpty() && !opts.isEmpty()) {
-					hasPoll = true;
-					options = args[1].split(",");
-
-					if (poll != null) {
-						poll.setTitle(title);
-						poll.setColor(Color.blue);
-					
-						
-						for (int i = 0; i < options.length; i++) {
-							poll.addField(options[i], "Score: 0.0", false);
-						}
-						//stores message id of poll for use in calculating scores
-						event.getChannel().sendMessageEmbeds(poll.build()).queue((message) -> {
-							pollMessage = message.getIdLong();
-						});
-					}
-					else {
-						event.getChannel().sendMessage("Cannot create poll, please try again.").queue();
-					}
-				}
-				else {
-					event.getChannel().sendMessage("Title and or poll options are missing.").queue();
-				}
-			}
-			else {
-				event.getChannel().sendMessage("You must specify poll options with the `-opts opt1,opt2,etc` argument").queue();
-			}			
-		}
-		
 	}
+		
 
 	@Override
 	public void onReady(ReadyEvent e) {
@@ -532,7 +527,7 @@ public class NonAPICommands extends ListenerAdapter {
 					page = 0;
 				}	
 				
-				leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue(message -> {		
+				leaderboard.retrieveMessageById(leaderboard.getLatestMessageId()).queue		
 					try { 	
 						page += 1;
 						bl.build().paginate(message, page);
@@ -623,131 +618,12 @@ public class NonAPICommands extends ListenerAdapter {
 						}  
 					});					
 				}
-					
-			
-		}
-		//If reaction matches a poll option, option score is incremented based on role
-		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage) {
-			users = new ArrayList<>();
-			event.getChannel().retrieveMessageById(pollMessage).queue((message) -> {
-				
-				//poulates user array and looks for duplicate users
-				for (MessageReaction reaction : message.getReactions()){
-				    try {
-						users.addAll(reaction.retrieveUsers().submit().get());
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ExecutionException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				//checks how many times user in in list
-				int counter = 0;
-				for (int e = 0; e < users.size(); e++) {
-					if (users.get(e).equals(event.getUser())) 
-						counter++;		
-				}
-				
-					for (int i = 0; i < users.size(); i++) {														
-						event.getChannel().sendMessage(users.toString()).queue();
-						
-					
-						//if user is in list once or more, increment score
-						if (counter == 1) {
-							for (int r = 0; r < options.length; r++) {
-								if (options[r].contains(event.getReactionEmote().getName())) {
-									double currentScore = Double.parseDouble(poll.getFields().get(r).getValue().substring(7));
-				
-									if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
-										|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
-										poll.getFields().set(r, new Field(options[r], "Score: " + String.valueOf(currentScore += 1.0), false));
-										
-										//edits embed to update score
-										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
-									}
-									else {
-										poll.getFields().set(r, new Field(options[r], "Score: " + String.valueOf(currentScore += 0.5), false));
-										
-										//edits embed to update score
-										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
-									}
-								}
-							}
-						}
-						//if user is not in list on reaction add decrement score
-						
-						else {	
-							/*
-							for (int w = 0; w < options.length; w++) {
-								if (options[w].contains(event.getReactionEmote().getName())) {
-									double currentScore = Double.parseDouble(poll.getFields().get(i).getValue().substring(7));
-
-									if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
-										|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
-										poll.getFields().set(w, new Field(options[w], "Score: " + String.valueOf(currentScore -= 1.0), false));
-										
-										//edits embed to update score
-										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
-									}
-									else {
-										poll.getFields().set(w, new Field(options[w], "Score: " + String.valueOf(currentScore -= 0.5), false));
-										
-										//edits embed to update score
-										event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
-									}
-								}
-								
-							}
-							*/
-							event.getChannel().sendMessage(users.toString()).queue();
-						}
-					}			
-				});
-			}
-		}		
-	
-
-	
-	public void onMessageReactionRemove(MessageReactionRemoveEvent event) {	
-		Guild guild = event.getGuild();	
-
-		
-		
-		//if user is not in list after removing emoji, decrement score on emote remove
-		if (hasPoll && pollMessage != 0 && event.getMessageIdLong() == pollMessage) {
-			users.remove(event.getUser());
-			
-			int counter = 0;
-			for (int e = 0; e < users.size(); e++) {
-				if (users.get(e).equals(event.getUser())) 
-					counter++;		
-			}
-			if (counter == 0) {
-			for (int w = 0; w < options.length; w++) {
-				if (options[w].contains(event.getReactionEmote().getName())) {
-					double currentScore = Double.parseDouble(poll.getFields().get(w).getValue().substring(7));
-
-					if (event.getMember().getRoles().contains(guild.getRoleById(735991952931160104L)) || event.getMember().getRoles().contains(guild.getRoleById(901920567664443392L))
-						|| event.getMember().getRoles().contains(guild.getRoleById(958109276512084020L)) || event.getMember().getRoles().contains(guild.getRoleById(958109526551306350L))) {
-						poll.getFields().set(w, new Field(options[w], "Score: " + String.valueOf(currentScore -= 1.0), false));
-						
-						//edits embed to update score
-						event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
-					}
-					else {
-						poll.getFields().set(w, new Field(options[w], "Score: " + String.valueOf(currentScore -= 0.5), false));
-						
-						//edits embed to update score
-						event.getChannel().editMessageEmbedsById(pollMessage, poll.build()).queue();
-					}
-				}
-			}
 			}
 		}
-		
-	}
 	
-}
+
+	*/
+
+	
+
 
