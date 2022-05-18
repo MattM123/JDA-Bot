@@ -113,7 +113,7 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		//deletes messages in bulk
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("=remove")) {
+		if (event.getMessage().getContentRaw().startsWith("=remove")) {
 			
 			String[] command = event.getMessage().getContentRaw().split(" ");
 			if (command.length > 1) {
