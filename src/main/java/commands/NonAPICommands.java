@@ -40,19 +40,18 @@ import net.dv8tion.jda.api.requests.restaction.pagination.ReactionPaginationActi
 
 public class NonAPICommands extends ListenerAdapter {
 
-	private String counter = "";
-	private int page = 1;
-	private BuildLeaderboard bl = new BuildLeaderboard();
 	public static Guild pubGuild;
 	public int timeout = 6;
 	public boolean hasPoll = false;
 	public long pollMessage = 0;
-	private String[] options;
-	private EmbedBuilder poll;
-	private List<User> users;
+
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+		Role leadadmin = event.getJDA().getRoleById(774017385283190835L);
+		Role admin = event.getJDA().getRoleById(735991904352731176L);
+		Role staff = event.getJDA().getRoleById(901162820484333610L);
+		
 		super.onGuildMessageReceived(event);
 		Guild guild = event.getGuild();
 		
@@ -113,7 +112,8 @@ public class NonAPICommands extends ListenerAdapter {
 		}
 		
 		//deletes messages in bulk
-		if (event.getMessage().getContentRaw().startsWith("=remove")) {
+		if (event.getMessage().getContentRaw().startsWith("=remove") && (event.getMember().getRoles().contains(leadadmin) || event.getMember().getRoles().contains(admin)
+				|| event.getMember().getRoles().contains(staff))) {
 			
 			String[] command = event.getMessage().getContentRaw().split(" ");
 			if (command.length > 1) {
@@ -121,7 +121,7 @@ public class NonAPICommands extends ListenerAdapter {
 				
 				try {
 					if (Integer.parseInt(arg2) > 100) {
-						event.getChannel().sendMessage("You can only delete a maximum of 100 messages").queue();
+						event.getChannel().sendMessage("The API is only able to retrieve a maximum of 100 messages for deletion").queue();
 					}
 				
 				} catch (NumberFormatException e) {
