@@ -117,6 +117,7 @@ public class APICommands extends ListenerAdapter {
 				
 				String user = args[1];
 				String appNum = args[args.length - 1];
+				boolean isNull = false;
 				
 				//checks for tag. If can be parsed to long, then its an ID, else it will be assumed a tag if the exception is caught
 				try {
@@ -135,6 +136,7 @@ public class APICommands extends ListenerAdapter {
 						event.getChannel().sendMessageEmbeds(emb.build()).queue();			
 					}
 					catch (NullPointerException g) {
+						isNull = true;
 						EmbedBuilder emb = new EmbedBuilder();
 						emb.setColor(Color.blue);
 						emb.addField("Invalid User", "The user must be a member of the discord server in order for this command to return their application", false);
@@ -149,7 +151,7 @@ public class APICommands extends ListenerAdapter {
 				}
 				
 				//If user not found on team
-				else if (BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")) {
+				else if (BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it") && !isNull) {
 					EmbedBuilder notOnTeam = new EmbedBuilder();
 					notOnTeam.setColor(Color.BLUE);
 					notOnTeam.setTitle("No data on user");
@@ -158,7 +160,7 @@ public class APICommands extends ListenerAdapter {
 				}
 				
 				//If you are trying to get the 0th application
-				else if (Integer.parseInt(appNum) == 0) {
+				else if (Integer.parseInt(appNum) == 0 && !isNull) {
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setColor(Color.blue);
 					emb.addField("Application does not exist", "Cannot retrieve the 0th application on a user", false);
