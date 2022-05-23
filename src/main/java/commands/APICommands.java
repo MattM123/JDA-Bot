@@ -134,6 +134,12 @@ public class APICommands extends ListenerAdapter {
 						emb.addField("Invalid User", "Tag must be a valid user and must be in the discord server", false);
 						event.getChannel().sendMessageEmbeds(emb.build()).queue();			
 					}
+					catch (NullPointerException g) {
+						EmbedBuilder emb = new EmbedBuilder();
+						emb.setColor(Color.blue);
+						emb.addField("Invalid User", "The user must be a member of the discord server in order for this command to return their application", false);
+						event.getChannel().sendMessageEmbeds(emb.build()).queue();	
+					}
 				}
 				//Test run for errors
 				BTE.getApplicationHistory(user); 

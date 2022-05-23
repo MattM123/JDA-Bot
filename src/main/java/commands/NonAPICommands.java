@@ -62,7 +62,7 @@ public class NonAPICommands extends ListenerAdapter {
 		helpMenu.addField("=apply", "Assigns trial build perms on the server", false);
 		helpMenu.addField("=getapp -<DiscordID OR DiscordTag> -<number of app>", "Requires Staff role to view players applications", false);
 		helpMenu.addField("=server", "Displays server status and resource usage.", false);
-		helpMenu.addField("=map", "Shows all of the states that are currently being built accorss BTE Midwest", false);
+		helpMenu.addField("=map", "Shows all of the states that are currently being built across BTE Midwest", false);
 		helpMenu.addField("=measure", "Measure tutorial derived from the BTE Support Bot", false);
 		helpMenu.addField("=/<command>", "Requires Admin role to send console command to Minecraft server", false);
 		helpMenu.addField("=remove <int>", "Requires Admin or Staff role to delete messages in bulk", false);
