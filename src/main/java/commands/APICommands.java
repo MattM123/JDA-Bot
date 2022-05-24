@@ -71,14 +71,14 @@ public class APICommands extends ListenerAdapter {
 				emb.setColor(Color.blue);
 				emb.setTitle("Command Executed");
 				emb.addField(cmdBuilder, "", false);	
-				event.getChannel().sendMessageEmbeds(emb.build()).queue();
+				event.replyEmbeds(emb.build()).queue();
 				}
 			
 			else {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.blue);
 				emb.setTitle("Only staff can execute this command");
-				event.getChannel().sendMessageEmbeds(emb.build()).queue();
+				event.replyEmbeds(emb.build()).queue();
 			}
 		}
 //-------------------------------------------------------------------------------------------------------------		
@@ -86,7 +86,7 @@ public class APICommands extends ListenerAdapter {
 		
 		if (event.getName().equals("apply")) {	
 			guild.addRoleToMember(event.getMember(), guild.getRoleById(923068579992186912L)).queue();
-			event.getChannel().sendMessage("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();		
+			event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();		
 		}
 
 //-----------------------------------------------------------------------------------------------------------------------------
@@ -109,7 +109,7 @@ public class APICommands extends ListenerAdapter {
 			midwest.addField("Memory Usage", midwestServer.retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + Integer.parseInt(midwestServer.getLimits().getMemory()) / 1000 + " GB", false);
 			midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/Unlimited", false);
 	
-			event.getChannel().sendMessageEmbeds(midwest.build()).queue();
+			event.replyEmbeds(midwest.build()).queue();
 		}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------	
@@ -197,10 +197,10 @@ public class APICommands extends ListenerAdapter {
 						app.addBlankField(false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(4).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(4).getAnswer(), false);
 						
-						event.getChannel().sendMessageEmbeds(app.build()).queue();
-						event.getChannel().sendMessage("**__Previous BTE Builds__**\n" + application.getApplications().get(appIndex).getUrl()).queue();
-						event.getChannel().sendMessage("**__Reference Sources Used__**\n" + application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer()).queue();
-
+						event.replyEmbeds(app.build()).queue();
+						event.reply("**__Previous BTE Builds__**\n" + application.getApplications().get(appIndex).getUrl()).queue();
+						event.reply("**__Reference Sources Used__**\n" + application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer()).queue();
+					
 					}
 				}
 			}
@@ -209,7 +209,7 @@ public class APICommands extends ListenerAdapter {
 				noperm.setColor(Color.BLUE);
 				noperm.setTitle("Only staff can execute this command");
 				
-				event.getChannel().sendMessageEmbeds(noperm.build()).queue();
+				event.replyEmbeds(noperm.build()).queue();
 			}
 		}
 	}

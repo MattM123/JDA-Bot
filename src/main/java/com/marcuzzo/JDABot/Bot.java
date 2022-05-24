@@ -18,6 +18,7 @@ public class Bot {
 	private static String token = System.getenv("BOT_TOKEN"); //token used to hook into the Discord bot (bot token)	
 	public static JDA jda;
 	
+	//private CommandClientBuilder cmds = new CommandClientBuilder();
 	static List<CommandData> cmds = new ArrayList<CommandData>();
 	
 	public static void main (String[] args) {		
@@ -32,19 +33,20 @@ public class Bot {
 			jda.addEventListener(new APICommands()); //The ServerCommands object contains classes with calls to the other 2 API's
 			jda.addEventListener(new NonAPICommands()); //Basic commands with no API authentication
 			
-			cmds.add(new CommandData("console", "Send a console command to the BTE Midwest minecraft server")
-                    .addOption(OptionType.STRING, "Console command", "The command to send to the server console"));
-    		
-			cmds.add(new CommandData("apply", "Obtain trial builder permissions on the Minecraft server"));
+			if (guild != null) {
+		
+				guild.upsertCommand(new CommandData("console", "Send a console command to the BTE Midwest minecraft server")
+	                    .addOption(OptionType.STRING, "Console command", "The command to send to the server console")).queue();
+				
+				guild.upsertCommand(new CommandData("apply", "Obtain trial builder permissions on the Minecraft server")).queue();
+				
+				guild.upsertCommand(new CommandData("server", "View resource usage of the Minecraft server"));
+				
+				guild.upsertCommand(new CommandData("getapp", "View an application of a user who has previously applied to the team")
+						.addOption(OptionType.USER, "user", "The user whos applications you want to retrieve")
+						.addOption(OptionType.INTEGER, "n", "Retrieve the n-th application from the users application history"));
 			
-			cmds.add(new CommandData("server", "View resource usage of the Minecraft server"));
-			
-			cmds.add(new CommandData("getapp", "View an application of a user who has previously applied to the team")
-					.addOption(OptionType.USER, "user", "The user whos applications you want to retrieve")
-					.addOption(OptionType.INTEGER, "n", "Retrieve the n-th application from the users application history"));
-
-			
-			guild.updateCommands().addCommands(cmds).queue();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
