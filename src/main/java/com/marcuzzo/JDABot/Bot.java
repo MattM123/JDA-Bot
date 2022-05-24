@@ -36,7 +36,7 @@ public class Bot {
 			if (guild != null) {
 		
 				guild.upsertCommand(new CommandData("console", "Send a console command to the BTE Midwest minecraft server")
-	                    .addOption(OptionType.STRING, "Console command", "The command to send to the server console")).queue();
+	                    .addOption(OptionType.STRING, "console command", "The command to send to the server console")).queue();
 				
 				guild.upsertCommand(new CommandData("apply", "Obtain trial builder permissions on the Minecraft server")).queue();
 				
