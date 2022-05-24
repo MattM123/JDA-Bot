@@ -218,7 +218,7 @@ public class APICommands extends ListenerAdapter {
 
 		Timer appTimer = new Timer();
 		Timer permTimer = new Timer();
-		Role builder = guild.getRoleById(735991952931160104L);
+	//	Role builder = guild.getRoleById(735991952931160104L);
 		
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Notifies staff members of new applications since BTE bot stopped doing it
@@ -292,8 +292,8 @@ public class APICommands extends ListenerAdapter {
 						for (int i = 0; i < BTE.getMemberList().size(); i++) {				
 							try {
 								long memberId = guild.getMemberById(BTE.getMemberList().get(i).getAsJsonObject().get("discordId").getAsLong()).getIdLong();
-								if (!guild.getMemberById(memberId).equals(null) && !guild.getMemberById(memberId).getRoles().contains(builder)) {
-									guild.addRoleToMember(memberId, builder).queue();
+								if (!guild.getMemberById(memberId).equals(null) && !guild.getMemberById(memberId).getRoles().contains(Bot.jda.getGuildById(735990134583066679L).getRoleById(735991952931160104L))) {
+									guild.addRoleToMember(memberId, Bot.jda.getGuildById(735990134583066679L).getRoleById(735991952931160104L)).queue();
 								}	
 							} catch (NullPointerException e) {
 								//If discord ID does not exist in guild, skips user since role cannot be assigned
