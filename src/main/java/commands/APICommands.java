@@ -71,6 +71,7 @@ public class APICommands extends ListenerAdapter {
 				emb.setColor(Color.blue);
 				emb.setTitle("Command Executed");
 				emb.addField(cmdBuilder, "", false);	
+				event.deferReply();
 				event.replyEmbeds(emb.build()).queue();
 				}
 			
@@ -78,6 +79,7 @@ public class APICommands extends ListenerAdapter {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.blue);
 				emb.setTitle("Only staff can execute this command");
+				event.deferReply();
 				event.replyEmbeds(emb.build()).queue();
 			}
 		}
@@ -86,6 +88,7 @@ public class APICommands extends ListenerAdapter {
 		
 		if (event.getName().equals("apply")) {	
 			guild.addRoleToMember(event.getMember(), guild.getRoleById(923068579992186912L)).queue();
+			event.deferReply();
 			event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();		
 		}
 
@@ -108,7 +111,8 @@ public class APICommands extends ListenerAdapter {
 			midwest.addField("CPU Usage", midwestServer.retrieveUtilization().execute().getCPU() + "%/100%", false);
 			midwest.addField("Memory Usage", midwestServer.retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + Integer.parseInt(midwestServer.getLimits().getMemory()) / 1000 + " GB", false);
 			midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/Unlimited", false);
-	
+			
+			event.deferReply();
 			event.replyEmbeds(midwest.build()).queue();
 		}
 
@@ -126,7 +130,8 @@ public class APICommands extends ListenerAdapter {
 				BTE.getApplicationHistory(user.getId()); 
 				//if theres an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
 				if (!BTE.stackTrace.equals("") && !BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")) {
-					event.getChannel().sendMessage(BTE.stackTrace).queue();
+					event.deferReply();
+					event.reply(BTE.stackTrace).queue();
 				}
 				
 				//If user not found on team
@@ -143,7 +148,9 @@ public class APICommands extends ListenerAdapter {
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setColor(Color.blue);
 					emb.addField("Application does not exist", "Cannot retrieve the 0th application on a user", false);
-					event.getChannel().sendMessageEmbeds(emb.build()).queue();
+					
+					event.deferReply();
+					event.replyEmbeds(emb.build()).queue();
 				}
 				
 				else {
@@ -156,7 +163,9 @@ public class APICommands extends ListenerAdapter {
 						noinfo.setColor(Color.BLUE);
 						noinfo.setTitle("No applications found for user");
 						noinfo.addField("This user was most likely merged into the team", "", false);
-						event.getChannel().sendMessageEmbeds(noinfo.build()).queue();
+						
+						event.deferReply();
+						event.replyEmbeds(noinfo.build()).queue();
 					}
 					
 					//If you are trying to retrieve more applications then the user has
@@ -165,7 +174,8 @@ public class APICommands extends ListenerAdapter {
 						noApp.setColor(Color.BLUE);
 						noApp.setTitle("User does not have that many applications, try a lower number.");
 						
-						event.getChannel().sendMessageEmbeds(noApp.build()).queue();
+						event.deferReply();
+						event.replyEmbeds(noApp.build()).queue();
 					}
 					
 					//If you are trying to retrieve an application that does not exist
@@ -174,7 +184,8 @@ public class APICommands extends ListenerAdapter {
 						noApp.setColor(Color.BLUE);
 						noApp.setTitle("User does not have any applications. They were most likely merged into the team");
 						
-						event.getChannel().sendMessageEmbeds(noApp.build()).queue();
+						event.deferReply();
+						event.replyEmbeds(noApp.build()).queue();
 					}
 
 					//Returns application
@@ -194,10 +205,13 @@ public class APICommands extends ListenerAdapter {
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(3).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(3).getAnswer(), false);
 						app.addBlankField(false);
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(4).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(4).getAnswer(), false);
-						
+						app.addBlankField(false);
+						app.addField("Previous BTE Builds", application.getApplications().get(appIndex).getUrl(), false);
+						app.addBlankField(false);
+						app.addField("Reference Sources Used", application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer(), false);
+						event.deferReply();
 						event.replyEmbeds(app.build()).queue();
-						event.reply("**__Previous BTE Builds__**\n" + application.getApplications().get(appIndex).getUrl()).queue();
-						event.reply("**__Reference Sources Used__**\n" + application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer()).queue();
+					
 					
 					}
 				}
@@ -206,7 +220,7 @@ public class APICommands extends ListenerAdapter {
 				EmbedBuilder noperm = new EmbedBuilder();
 				noperm.setColor(Color.BLUE);
 				noperm.setTitle("Only staff can execute this command");
-				
+				event.deferReply();
 				event.replyEmbeds(noperm.build()).queue();
 			}
 		}
