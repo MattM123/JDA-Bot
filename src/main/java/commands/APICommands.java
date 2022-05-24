@@ -27,12 +27,16 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+import net.dv8tion.jda.api.interactions.commands.privileges.CommandPrivilege;
 import net.dv8tion.jda.api.requests.RestAction;
+import net.dv8tion.jda.internal.JDAImpl;
 
 
 public class APICommands extends ListenerAdapter {
@@ -47,19 +51,9 @@ public class APICommands extends ListenerAdapter {
 	//Guild used for onReady Events
 	private Guild guild;
 	
-	//Slash command list
-	private static List<CommandData> cmds = new ArrayList<CommandData>();	
-	
-	
-	public static void populateCommands(JDA jda) {
-		cmds.add(new CommandData("user", "Shows information about a specific Discord User.")
-                .addOption(OptionType.USER, "user", "The user you want to get the information from."));
-		
-		jda.getGuildById(735990134583066679L).updateCommands().addCommands(cmds).queue();
-	}
 	@Override
-	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-		super.onGuildMessageReceived(event);
+	public void onSlashCommand(SlashCommandEvent event) {
+		super.onSlashCommand(event);
 
 		 Guild guild = event.getGuild(); 
 		 Role staffRole = guild.getRoleById(901162820484333610L);                                             
@@ -68,14 +62,11 @@ public class APICommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------	
 //send command to server console
 		 
-		if (event.getMessage().getContentRaw().startsWith("=/")) {
-			if (staff.contains(event.getMessage().getMember())) {
+		if (event.getName().equals("console")) {
+			if (staff.contains(event.getMember())) {
 				String cmdBuilder = "";
-				for (int i = 2; i < event.getMessage().getContentRaw().length(); i++) {
-					cmdBuilder += event.getMessage().getContentRaw().charAt(i);
-				}
 				
-				midwestServer.sendCommand(cmdBuilder).execute();
+				midwestServer.sendCommand(event.getOption("Console command").getAsString()).execute();
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.blue);
 				emb.setTitle("Command Executed");
@@ -93,15 +84,15 @@ public class APICommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------		
 //Gives applicant builder permissions
 		
-		if (event.getMessage().getContentRaw().startsWith("=apply")) {	
-			guild.addRoleToMember(event.getAuthor().getIdLong(), guild.getRoleById(923068579992186912L)).queue();
-			event.getChannel().sendMessage("Trial builder permissions assigned to <@" + event.getAuthor().getId() + ">").queue();		
+		if (event.getName().equals("apply")) {	
+			guild.addRoleToMember(event.getMember(), guild.getRoleById(923068579992186912L)).queue();
+			event.getChannel().sendMessage("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();		
 		}
 
 //-----------------------------------------------------------------------------------------------------------------------------
 //get server stats
 		
-		if (event.getMessage().getContentRaw().equalsIgnoreCase("=server")) {
+		if (event.getName().equals("server")) {
 			EmbedBuilder midwest = new EmbedBuilder();
 			if (midwestServer.retrieveUtilization().execute().getState().toString().equals("RUNNING")) {
 				midwest.setColor(Color.green);
@@ -124,40 +115,15 @@ public class APICommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Retrieves an application of user given a discord ID(or Tag) and an integer representing which application in the list to return
 		
-		if (event.getMessage().getContentRaw().startsWith("=getapp")) { 
-			if (staff.contains(event.getMessage().getMember())) {
-				String[] args = event.getMessage().getContentRaw().split(" ");
+		if (event.getName().equals("getapp")) { 
+			if (staff.contains(event.getMember())) {
 				
-				String user = args[1];
-				String appNum = args[args.length - 1];
+				Member user = event.getOption("user").getAsMember();
+				int appNum = Integer.parseInt(event.getOption("n").getAsString());
 				boolean isNull = false;
 				
-				//checks for tag. If can be parsed to long, then its an ID, else it will be assumed a tag if the exception is caught
-				try {
-					Long.parseLong(user);
-				}
-				catch (NumberFormatException e) {
-					//parses tag and gets user ID
-					String tag = event.getMessage().getContentRaw().substring(8, event.getMessage().getContentRaw().lastIndexOf('#') + 5);
-					try {
-						user = guild.getMemberByTag(tag).getId();				
-					}
-					catch (IllegalArgumentException f) {
-						EmbedBuilder emb = new EmbedBuilder();
-						emb.setColor(Color.blue);
-						emb.addField("Invalid User", "Tag must be a valid user and must be in the discord server", false);
-						event.getChannel().sendMessageEmbeds(emb.build()).queue();			
-					}
-					catch (NullPointerException g) {
-						isNull = true;
-						EmbedBuilder emb = new EmbedBuilder();
-						emb.setColor(Color.blue);
-						emb.addField("Invalid User", "The user must be a member of the discord server in order for this command to return their application", false);
-						event.getChannel().sendMessageEmbeds(emb.build()).queue();	
-					}
-				}
 				//Test run for errors
-				BTE.getApplicationHistory(user); 
+				BTE.getApplicationHistory(user.getId()); 
 				//if theres an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
 				if (!BTE.stackTrace.equals("") && !BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")) {
 					event.getChannel().sendMessage(BTE.stackTrace).queue();
@@ -173,7 +139,7 @@ public class APICommands extends ListenerAdapter {
 				}
 				
 				//If you are trying to get the 0th application
-				else if (Integer.parseInt(appNum) == 0 && !isNull) {
+				else if (appNum == 0 && !isNull) {
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setColor(Color.blue);
 					emb.addField("Application does not exist", "Cannot retrieve the 0th application on a user", false);
@@ -181,8 +147,8 @@ public class APICommands extends ListenerAdapter {
 				}
 				
 				else {
-					ApplicationInfo application = BTE.getApplicationHistory(user);
-					int appIndex = Integer.parseInt(appNum) - 1;
+					ApplicationInfo application = BTE.getApplicationHistory(user.getId());
+					int appIndex = appNum - 1;
 					
 					//If user exists on team but no applications exist for them, user was merged into the team
 					if ((application.getApplications().isEmpty())) {		
@@ -220,8 +186,8 @@ public class APICommands extends ListenerAdapter {
 						
 						Guild pubGuild = Bot.jda.getGuildById(735990134583066679L);
 						
-						app.setTitle("[" + appNum + "] Application Questions for " + pubGuild.getMemberById(user).getUser().getName());
-						images.setTitle("[" + appNum + "] Application Media for " +  pubGuild.getMemberById(user).getUser().getName());
+						app.setTitle("[" + appNum + "] Application Questions for " + user.getUser().getAsTag());
+						images.setTitle("[" + appNum + "] Application Media for " + user.getUser().getAsTag());
 
 						app.addField(application.getApplications().get(appIndex).getAnswerList().get(0).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(0).getAnswer(), false);
 						app.addBlankField(false);
@@ -350,9 +316,6 @@ public class APICommands extends ListenerAdapter {
 		}, 1000, 300000);
 	}	
 	
-	public static void main(String[]args) {
-		populateCommands(Bot.jda);
-	}
 }	
 
 			
