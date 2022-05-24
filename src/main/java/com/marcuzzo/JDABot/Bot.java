@@ -32,10 +32,10 @@ public class Bot {
 			
 			Guild guild = jda.getGuildById(735990134583066679L);
 			
-			//if (guild != null) {
+			if (guild != null) {
 		
 				guild.upsertCommand(new CommandData("console", "Send a console command to the BTE Midwest minecraft server")
-	                    .addOption(OptionType.STRING, "console command", "The command to send to the server console")).queue();
+	                    .addOption(OptionType.STRING, "command", "The command to send to the server console")).queue();
 				
 				guild.upsertCommand(new CommandData("apply", "Obtain trial builder permissions on the Minecraft server")).queue();
 				
@@ -45,7 +45,7 @@ public class Bot {
 						.addOption(OptionType.USER, "user", "The user whos applications you want to retrieve")
 						.addOption(OptionType.INTEGER, "n", "Retrieve the n-th application from the users application history"));
 			
-		//	}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
