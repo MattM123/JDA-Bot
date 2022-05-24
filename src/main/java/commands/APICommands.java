@@ -20,6 +20,7 @@ import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
 import com.mattmalec.pterodactyl4j.client.entities.PteroClient;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
@@ -29,6 +30,8 @@ import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.requests.RestAction;
 
 
@@ -43,7 +46,17 @@ public class APICommands extends ListenerAdapter {
 	
 	//Guild used for onReady Events
 	private Guild guild;
-
+	
+	//Slash command list
+	private static List<CommandData> cmds = new ArrayList<CommandData>();	
+	
+	
+	public static void populateCommands(JDA jda) {
+		cmds.add(new CommandData("user", "Shows information about a specific Discord User.")
+                .addOption(OptionType.USER, "user", "The user you want to get the information from."));
+		
+		jda.getGuildById(735990134583066679L).updateCommands().addCommands(cmds).queue();
+	}
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		super.onGuildMessageReceived(event);
@@ -238,6 +251,7 @@ public class APICommands extends ListenerAdapter {
 	
 	@Override
 	public void onReady(ReadyEvent event) {
+
 		Timer appTimer = new Timer();
 		Timer permTimer = new Timer();
 		guild = Bot.jda.getGuildById(735990134583066679L);
@@ -335,6 +349,10 @@ public class APICommands extends ListenerAdapter {
 			}		
 		}, 1000, 300000);
 	}	
+	
+	public static void main(String[]args) {
+		populateCommands(Bot.jda);
+	}
 }	
 
 			

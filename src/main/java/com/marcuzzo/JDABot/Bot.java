@@ -17,7 +17,7 @@ import commands.NonAPICommands;
 public class Bot {	
 	private static String token = System.getenv("BOT_TOKEN"); //token used to hook into the Discord bot (bot token)	
 	public static JDA jda;
-	private static List<CommandData> cmds = new ArrayList<CommandData>();	
+	
 	
 	public static void main (String[] args) {		
 		try {
@@ -29,11 +29,6 @@ public class Bot {
 			
 			jda.addEventListener(new APICommands()); //The ServerCommands object contains classes with calls to the other 2 API's
 			jda.addEventListener(new NonAPICommands()); //Basic commands with no API authentication
-			
-			cmds.add(new CommandData("user", "Shows information about a specific Discord User.")
-                    .addOption(OptionType.USER, "user", "The user you want to get the information from."));
-			
-			jda.getGuildById(735990134583066679L).updateCommands().addCommands(cmds).queue();
 
 		} catch (Exception e) {
 			e.printStackTrace();
