@@ -27,11 +27,10 @@ public class Bot {
 				.setChunkingFilter(ChunkingFilter.ALL)
 				.setMemberCachePolicy(MemberCachePolicy.ALL)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
+                .addEventListeners(new APICommands(), new NonAPICommands())        
 				.build();
 			
 			Guild guild = jda.getGuildById(735990134583066679L);
-			jda.addEventListener(new APICommands()); //The ServerCommands object contains classes with calls to the other 2 API's
-			jda.addEventListener(new NonAPICommands()); //Basic commands with no API authentication
 			
 			if (guild != null) {
 		
