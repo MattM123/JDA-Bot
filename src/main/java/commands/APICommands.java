@@ -183,9 +183,7 @@ public class APICommands extends ListenerAdapter {
 						EmbedBuilder images = new EmbedBuilder();
 						images.setColor(Color.blue);
 						app.setColor(Color.BLUE);
-						
-						Guild pubGuild = Bot.jda.getGuildById(735990134583066679L);
-						
+
 						app.setTitle("[" + appNum + "] Application Questions for " + user.getUser().getAsTag());
 						images.setTitle("[" + appNum + "] Application Media for " + user.getUser().getAsTag());
 
@@ -220,7 +218,6 @@ public class APICommands extends ListenerAdapter {
 
 		Timer appTimer = new Timer();
 		Timer permTimer = new Timer();
-		guild = Bot.jda.getGuildById(735990134583066679L);
 		Role builder = guild.getRoleById(735991952931160104L);
 		
 //-------------------------------------------------------------------------------------------------------------------------------------------	
