@@ -26,10 +26,10 @@ public class Bot {
 			jda = JDABuilder.createDefault(token)
 				.setChunkingFilter(ChunkingFilter.ALL)
 				.setMemberCachePolicy(MemberCachePolicy.ALL)
-                .enableIntents(GatewayIntent.GUILD_MEMBERS)
-                .addEventListeners(new APICommands(), new NonAPICommands())        
+                .enableIntents(GatewayIntent.GUILD_MEMBERS)        
 				.build().awaitReady();
 			
+			jda.addEventListener(new APICommands(), new NonAPICommands());
 			Guild guild = jda.getGuildById(735990134583066679L);
 			
 			if (guild != null) {
