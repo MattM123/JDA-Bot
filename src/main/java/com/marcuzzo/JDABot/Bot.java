@@ -28,7 +28,7 @@ public class Bot {
 				.setMemberCachePolicy(MemberCachePolicy.ALL)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
                 .addEventListeners(new APICommands(), new NonAPICommands())        
-				.build();
+				.build().awaitReady();
 			
 			Guild guild = jda.getGuildById(735990134583066679L);
 			
