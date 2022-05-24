@@ -35,6 +35,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.pagination.ReactionPaginationAction;
 
@@ -44,6 +45,8 @@ public class NonAPICommands extends ListenerAdapter {
 	public int timeout = 6;
 	public boolean hasPoll = false;
 	public long pollMessage = 0;
+	
+
 
 	
 	@Override
@@ -76,9 +79,11 @@ public class NonAPICommands extends ListenerAdapter {
 		//returns list of commands used by bot
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=help")) {
 			event.getChannel().sendMessageEmbeds(helpMenu.build()).queue();
+			
 		}
 		
 		//returns measure gif from BTE bot
+	
 		if (event.getMessage().getContentRaw().equalsIgnoreCase("=measure")) {
 			EmbedBuilder measure = new EmbedBuilder();
 			measure.setColor(Color.blue);
@@ -87,8 +92,7 @@ public class NonAPICommands extends ListenerAdapter {
 			
 			EmbedBuilder measure1 = new EmbedBuilder();
 			measure1.setColor(Color.blue);
-			measure1.setTitle("/tpll Outline Tutorial");
-			measure1.setImage("https://www.youtube.com/watch?v=KlGOijIkePQ");
+			measure1.addField("/tpll Outline Tutorial", "https://www.youtube.com/watch?v=KlGOijIkePQ", false)
 			event.getChannel().sendMessageEmbeds(measure.build(), measure1.build()).queue();	
 		}
 		
