@@ -56,8 +56,10 @@ public class APICommands extends ListenerAdapter {
 		super.onSlashCommand(event);
 
 		 Guild guild = event.getGuild(); 
-		 Role staffRole = guild.getRoleById(901162820484333610L);                                             
-		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole);
+		 Role staffRole = guild.getRoleById(901162820484333610L);  
+		 Role adminRole = guild.getRoleById(735991904352731176L);
+		 Role leadAdminRole = guild.getRoleById(774017385283190835L);
+		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(staffRole, adminRole, leadAdminRole);
 
 //-------------------------------------------------------------------------------------------------------------	
 //send command to server console
