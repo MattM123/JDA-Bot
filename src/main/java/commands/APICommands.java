@@ -64,13 +64,12 @@ public class APICommands extends ListenerAdapter {
 		 
 		if (event.getName().equals("console")) {
 			if (staff.contains(event.getMember())) {
-				String cmdBuilder = "";
 				
-				midwestServer.sendCommand(event.getOption("Console command").getAsString()).execute();
+				midwestServer.sendCommand(event.getOption("command").getAsString()).execute();
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.blue);
 				emb.setTitle("Command Executed");
-				emb.addField(cmdBuilder, "", false);	
+				emb.addField(event.getOption("command").getAsString(), "", false);	
 				event.deferReply();
 				event.replyEmbeds(emb.build()).queue();
 				}
