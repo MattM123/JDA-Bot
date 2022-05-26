@@ -182,7 +182,7 @@ public class Commands extends ListenerAdapter {
 			midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/Unlimited", false);
 			
 			event.deferReply().queue();
-			event.getInteraction().getHook().sendMessageEmbeds(midwest.build()).queue();
+			event.getHook().sendMessageEmbeds(midwest.build()).queue();
 		}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------	
