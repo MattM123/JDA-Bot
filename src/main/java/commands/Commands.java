@@ -75,21 +75,27 @@ public class Commands extends ListenerAdapter {
 			
 //-------------------------------------------------------------------------------------------------------------			
 		//deletes messages in bulk
-		if (event.getName().equals("remove") && event.getMember().getRoles().contains(adminRole) || event.getMember().getRoles().contains(staffRole)
-			|| event.getMember().getRoles().contains(leadAdminRole)) {
+		if (event.getName().equals("remove")) {
+			if (event.getMember().getRoles().contains(adminRole) || event.getMember().getRoles().contains(staffRole)
+				|| event.getMember().getRoles().contains(leadAdminRole)) {
 			
-			int amount = Integer.parseInt(event.getOption("amount").getAsString());
-			
-			if (Integer.parseInt(event.getOption("amount").getAsString()) > 100) {
-				event.deferReply();
-				event.reply("The API is only able to retrieve a maximum of 100 messages for deletion").queue();
-			}
+				int amount = Integer.parseInt(event.getOption("amount").getAsString());
 					
-			event.getChannel().getHistory().retrievePast(amount).queue(channel -> {
-				for (int i = 0; i < amount; i++) {
-					channel.get(i).delete().queue();
-				}			
-			});
+				if (Integer.parseInt(event.getOption("amount").getAsString()) > 100) {
+					event.deferReply();
+					event.reply("The API is only able to retrieve a maximum of 100 messages for deletion").queue();
+				}
+							
+				event.getChannel().getHistory().retrievePast(amount).queue(channel -> {
+					for (int i = 0; i < amount; i++) {
+						channel.get(i).delete().queue();
+					}			
+				});
+			}
+			else {
+				event.deferReply();
+				event.reply("Only staff can execute this command").queue();
+			}
 		}	
 		
 //-------------------------------------------------------------------------------------------------------------			 
