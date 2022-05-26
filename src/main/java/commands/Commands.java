@@ -83,20 +83,18 @@ public class Commands extends ListenerAdapter {
 				int amount = Integer.parseInt(event.getOption("amount").getAsString());
 					
 				if (Integer.parseInt(event.getOption("amount").getAsString()) > 100) {
-					event.deferReply();
 					event.reply("The API is only able to retrieve a maximum of 100 messages for deletion").queue();
 				}
-				event.deferReply().queue();	
+				event.reply("Removing " + amount + "messages").queue();
 				event.getChannel().getHistory().retrievePast(amount).queue(channel -> {
-					for (int i = 0; i < amount; i++) {
+					for (int i = 0; i < amount + 1; i++) {
 						channel.get(i).delete().queue();
 					}			
 				});
 				
-				event.reply(amount + "messages removed").queue();
+				
 			}
 			else {
-				event.deferReply().queue();
 				event.reply("Only staff can execute this command").queue();
 			}
 		}	
@@ -116,7 +114,6 @@ public class Commands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------	
 		//returns map image of states
 		if (event.getName().equals("map")) {
-			event.deferReply().queue();
 			event.replyEmbeds(map.build()).queue();
 		} 
 //-------------------------------------------------------------------------------------------------------------			 
@@ -126,7 +123,6 @@ public class Commands extends ListenerAdapter {
 			EmbedBuilder measure1 = new EmbedBuilder();
 			measure1.setColor(Color.blue);
 			measure1.addField("tpll Outline Tutorial", "https://www.youtube.com/watch?v=KlGOijIkePQ", false);
-			event.deferReply().queue();
 			event.replyEmbeds(measure.build(), measure1.build()).queue();	
 		}
 //-------------------------------------------------------------------------------------------------------------	
@@ -140,15 +136,13 @@ public class Commands extends ListenerAdapter {
 				emb.setColor(Color.blue);
 				emb.setTitle("Command Executed");
 				emb.addField(event.getOption("command").getAsString(), "", false);	
-				event.deferReply().queue();
 				event.replyEmbeds(emb.build()).queue();
-				}
+			}
 			
 			else {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.blue);
 				emb.setTitle("Only administrators can execute this command");
-				event.deferReply().queue();
 				event.replyEmbeds(emb.build()).queue();
 			}
 		}
@@ -157,7 +151,6 @@ public class Commands extends ListenerAdapter {
 		
 		if (event.getName().equals("apply")) {	
 			guild.addRoleToMember(event.getMember(), guild.getRoleById(923068579992186912L)).queue();
-			event.deferReply().queue();
 			event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();		
 		}
 
@@ -181,8 +174,7 @@ public class Commands extends ListenerAdapter {
 			midwest.addField("Memory Usage", midwestServer.retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + Integer.parseInt(midwestServer.getLimits().getMemory()) / 1000 + " GB", false);
 			midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/Unlimited", false);
 			
-			event.deferReply().queue();
-			event.getHook().sendMessageEmbeds(midwest.build()).queue();
+			event.replyEmbeds(midwest.build()).queue();
 		}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------	
@@ -199,7 +191,6 @@ public class Commands extends ListenerAdapter {
 				BTE.getApplicationHistory(user.getId()); 
 				//if theres an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
 				if (!BTE.stackTrace.equals("") && !BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")) {
-					event.deferReply().queue();
 					event.reply(BTE.stackTrace).queue();
 				}
 				
@@ -209,7 +200,6 @@ public class Commands extends ListenerAdapter {
 					notOnTeam.setColor(Color.BLUE);
 					notOnTeam.setTitle("No data on user");
 					notOnTeam.addField(BTE.stackTrace, "User account does not exist on the team", false);
-					event.deferReply().queue();
 					event.replyEmbeds(notOnTeam.build()).queue();		
 				}
 				
@@ -218,8 +208,7 @@ public class Commands extends ListenerAdapter {
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setColor(Color.blue);
 					emb.addField("Application does not exist", "Cannot retrieve the 0th application on a user", false);
-					
-					event.deferReply().queue();
+
 					event.replyEmbeds(emb.build()).queue();
 				}
 				
@@ -233,8 +222,7 @@ public class Commands extends ListenerAdapter {
 						noinfo.setColor(Color.BLUE);
 						noinfo.setTitle("No applications found for user");
 						noinfo.addField("This user was most likely merged into the team", "", false);
-						
-						event.deferReply().queue();
+
 						event.replyEmbeds(noinfo.build()).queue();
 					}
 					
@@ -243,8 +231,7 @@ public class Commands extends ListenerAdapter {
 						EmbedBuilder noApp = new EmbedBuilder();
 						noApp.setColor(Color.BLUE);
 						noApp.setTitle("User does not have that many applications, try a lower number.");
-						
-						event.deferReply().queue();
+
 						event.replyEmbeds(noApp.build()).queue();
 					}
 					
@@ -253,8 +240,7 @@ public class Commands extends ListenerAdapter {
 						EmbedBuilder noApp = new EmbedBuilder();
 						noApp.setColor(Color.BLUE);
 						noApp.setTitle("User does not have any applications. They were most likely merged into the team");
-						
-						event.deferReply().queue();
+
 						event.replyEmbeds(noApp.build()).queue();
 					}
 
@@ -279,7 +265,7 @@ public class Commands extends ListenerAdapter {
 						app.addField("Previous BTE Builds", application.getApplications().get(appIndex).getUrl(), false);
 						app.addBlankField(false);
 						app.addField("Reference Sources Used", application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer(), false);
-						event.deferReply().queue();
+
 						event.replyEmbeds(app.build()).queue();
 					
 					
@@ -290,7 +276,7 @@ public class Commands extends ListenerAdapter {
 				EmbedBuilder noperm = new EmbedBuilder();
 				noperm.setColor(Color.BLUE);
 				noperm.setTitle("Only staff can execute this command");
-				event.deferReply().queue();
+
 				event.replyEmbeds(noperm.build()).queue();
 			}
 		}
