@@ -46,7 +46,7 @@ public class Bot {
 				
 				guild.upsertCommand(new CommandData("map", "Displays map of states our team is building")).queue();
 				
-				guild.upsertCommand(new CommandData("measure", "Gives gif and vido tutorial on measuring buildings")).queue();
+				guild.upsertCommand(new CommandData("measure", "Gives gif and video tutorial on measuring buildings")).queue();
 				
 				guild.upsertCommand(new CommandData("getapp", "View an application of a user who has previously applied to the team")						
 						.addOption(OptionType.USER, "user", "The user whos applications you want to retrieve", true)
