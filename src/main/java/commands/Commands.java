@@ -33,6 +33,7 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -181,7 +182,7 @@ public class Commands extends ListenerAdapter {
 			midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/Unlimited", false);
 			
 			event.deferReply().queue();
-			event.replyEmbeds(midwest.build()).queue();
+			event.getInteraction().getHook().editOriginal((Message) midwest.build()).queue();
 		}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------	
