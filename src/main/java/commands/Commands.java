@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Consumer;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -24,6 +25,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
@@ -39,7 +41,7 @@ import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.internal.JDAImpl;
 
 
-public class APICommands extends ListenerAdapter {
+public class Commands extends ListenerAdapter {
 
 	//API authentication
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI(System.getenv("BTE_API"));
@@ -58,8 +60,66 @@ public class APICommands extends ListenerAdapter {
 		 Guild guild = event.getGuild(); 
 		 Role adminRole = guild.getRoleById(735991904352731176L);
 		 Role leadAdminRole = guild.getRoleById(774017385283190835L);
+		 Role staffRole = event.getJDA().getRoleById(901162820484333610L);
 		 ArrayList<Member> staff = (ArrayList<Member>) guild.getMembersWithRoles(adminRole, leadAdminRole);
-
+		 
+		 EmbedBuilder measure = new EmbedBuilder();
+		 measure.setColor(Color.blue);
+	     measure.setTitle("Google Earth Pro Measuring Tutotrial");
+		 measure.setImage("https://i.gyazo.com/thumb/1200/d58446cec35cc504bb36b749346041a9-gif.gif");
+		 
+		 EmbedBuilder map = new EmbedBuilder();
+		 map.setTitle("BTE Midwest Map");
+		 map.setColor(Color.blue);
+		 map.setImage("https://cdn.discordapp.com/attachments/735998501053530163/901644652157997076/bte_midwest.png");
+			
+//-------------------------------------------------------------------------------------------------------------			
+		//deletes messages in bulk
+		if (event.getName().equals("remove") && event.getMember().getRoles().contains(adminRole) || event.getMember().getRoles().contains(staffRole)
+			|| event.getMember().getRoles().contains(leadAdminRole)) {
+			
+			int amount = Integer.parseInt(event.getOption("amount").getAsString());
+			
+			if (Integer.parseInt(event.getOption("amount").getAsString()) > 100) {
+				event.deferReply();
+				event.reply("The API is only able to retrieve a maximum of 100 messages for deletion").queue();
+			}
+					
+			event.getChannel().getHistory().retrievePast(amount).queue(channel -> {
+				for (int i = 0; i < amount; i++) {
+					channel.get(i).delete().queue();
+				}			
+			});
+		}	
+		
+//-------------------------------------------------------------------------------------------------------------			 
+		//Pings Discord API
+		if (event.getName().equals("ping")) {
+			MessageChannel channel = event.getChannel();
+		    final long time = System.currentTimeMillis();
+		    RestAction<Message> action = channel.sendMessage("Calculating API Response Time...");
+			   Consumer<Message> callback = (message) ->  {
+				   Message m = message;
+				   m.editMessage("Discord API Response Time: " + (System.currentTimeMillis() - time) + "ms").queue();
+			   };			  
+			     action.queue(callback);      
+		}
+//-------------------------------------------------------------------------------------------------------------	
+		//returns map image of states
+		if (event.getName().equals("map")) {
+			event.deferReply();
+			event.replyEmbeds(map.build()).queue();
+		} 
+//-------------------------------------------------------------------------------------------------------------			 
+		//returns measure gif from BTE bot
+			
+		if (event.getName().equals("measure")) {		
+			EmbedBuilder measure1 = new EmbedBuilder();
+			measure1.setColor(Color.blue);
+			measure1.addField("tpll Outline Tutorial", "https://www.youtube.com/watch?v=KlGOijIkePQ", false);
+			event.deferReply();
+			event.replyEmbeds(measure.build(), measure1.build()).queue();	
+		}
 //-------------------------------------------------------------------------------------------------------------	
 //send command to server console
 		 
