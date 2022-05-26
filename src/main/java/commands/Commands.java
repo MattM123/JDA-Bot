@@ -75,15 +75,13 @@ public class Commands extends ListenerAdapter {
 		 map.setImage("https://cdn.discordapp.com/attachments/735998501053530163/901644652157997076/bte_midwest.png");
 			
 		EmbedBuilder midwest = new EmbedBuilder();
-		if (midwestServer.retrieveUtilization().execute().getState().toString().equals("RUNNING")) {
-			midwest.setColor(Color.green);
-		}
-		else if (midwestServer.retrieveUtilization().execute().getState().toString().equals("OFFLINE")) {
-			midwest.setColor(Color.red);
-		}
-		else {
+		if (midwestServer.retrieveUtilization().execute().getState().toString().equals("RUNNING")) 
+			midwest.setColor(Color.green);		
+		else if (midwestServer.retrieveUtilization().execute().getState().toString().equals("OFFLINE")) 
+			midwest.setColor(Color.red);		
+		else 
 			midwest.setColor(Color.yellow);
-		}
+		
 		midwest.setTitle(midwestServer.getName());
 		midwest.addField("Status", midwestServer.retrieveUtilization().execute().getState().toString(), false);
 		midwest.addField("CPU Usage", midwestServer.retrieveUtilization().execute().getCPU() + "%/100%", false);
@@ -107,11 +105,9 @@ public class Commands extends ListenerAdapter {
 						channel.get(i).delete().queue();
 					}			
 				});
-				
 			}
-			else {
-				event.reply("Only staff can execute this command").queue();
-			}
+			else
+				event.reply("Only staff can execute this command").queue();		
 		}	
 		
 //-------------------------------------------------------------------------------------------------------------			 
@@ -128,9 +124,9 @@ public class Commands extends ListenerAdapter {
 		}
 //-------------------------------------------------------------------------------------------------------------	
 		//returns map image of states
-		if (event.getName().equals("map")) {
+		if (event.getName().equals("map"))
 			event.replyEmbeds(map.build()).queue();
-		} 
+		
 //-------------------------------------------------------------------------------------------------------------			 
 		//returns measure gif from BTE bot
 			
@@ -172,10 +168,9 @@ public class Commands extends ListenerAdapter {
 //-----------------------------------------------------------------------------------------------------------------------------
 //get server stats
 		
-		if (event.getName().equals("server")) {		
+		if (event.getName().equals("server"))	
 			event.replyEmbeds(midwest.build()).queue();
-		}
-
+		
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Retrieves an application of user given a discord ID(or Tag) and an integer representing which application in the list to return
 		
@@ -189,59 +184,38 @@ public class Commands extends ListenerAdapter {
 				//Test run for errors
 				BTE.getApplicationHistory(user.getId()); 
 				//if theres an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
-				if (!BTE.stackTrace.equals("") && !BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")) {
+				if (!BTE.stackTrace.equals("") && !BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")) 
 					event.reply(BTE.stackTrace).queue();
-				}
+				
 				
 				//If user not found on team
-				else if (BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it") && !isNull) {
-					EmbedBuilder notOnTeam = new EmbedBuilder();
-					notOnTeam.setColor(Color.BLUE);
-					notOnTeam.setTitle("No data on user");
-					notOnTeam.addField(BTE.stackTrace, "User account does not exist on the team", false);
-					event.replyEmbeds(notOnTeam.build()).queue();		
-				}
+				else if (BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it") && !isNull) 
+					event.reply(BTE.stackTrace).queue();		
+				
 				
 				//If you are trying to get the 0th application
-				else if (appNum == 0 && !isNull) {
-					EmbedBuilder emb = new EmbedBuilder();
-					emb.setColor(Color.blue);
-					emb.addField("Application does not exist", "Cannot retrieve the 0th application on a user", false);
-
-					event.replyEmbeds(emb.build()).queue();
-				}
+				else if (appNum == 0 && !isNull) 
+					event.reply("Cannot retrieve the 0th application on a user").queue();
+				
 				
 				else {
 					ApplicationInfo application = BTE.getApplicationHistory(user.getId());
 					int appIndex = appNum - 1;
 					
 					//If user exists on team but no applications exist for them, user was merged into the team
-					if ((application.getApplications().isEmpty())) {		
-						EmbedBuilder noinfo = new EmbedBuilder();
-						noinfo.setColor(Color.BLUE);
-						noinfo.setTitle("No applications found for user");
-						noinfo.addField("This user was most likely merged into the team", "", false);
-
-						event.replyEmbeds(noinfo.build()).queue();
-					}
+					if ((application.getApplications().isEmpty())) 	
+						event.reply("This user was most likely merged into the team\nNo applications found for user").queue();
+					
 					
 					//If you are trying to retrieve more applications then the user has
-					else if (appIndex >= application.getApplications().size() && application.getApplications().size() > 0) {
-						EmbedBuilder noApp = new EmbedBuilder();
-						noApp.setColor(Color.BLUE);
-						noApp.setTitle("User does not have that many applications, try a lower number.");
-
-						event.replyEmbeds(noApp.build()).queue();
-					}
+					else if (appIndex >= application.getApplications().size() && application.getApplications().size() > 0) 
+						event.reply("User does not have that many applications, try a lower number.").queue();
+					
 					
 					//If you are trying to retrieve an application that does not exist
-					else if (application.getApplications().size() < 1) {
-						EmbedBuilder noApp = new EmbedBuilder();
-						noApp.setColor(Color.BLUE);
-						noApp.setTitle("User does not have any applications. They were most likely merged into the team");
-
-						event.replyEmbeds(noApp.build()).queue();
-					}
+					else if (application.getApplications().size() < 1) 
+						event.reply("User does not have any applications. They were most likely merged into the team").queue();
+					
 
 					//Returns application
 					else {
@@ -265,26 +239,17 @@ public class Commands extends ListenerAdapter {
 						app.addBlankField(false);
 						app.addField("Reference Sources Used", application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer(), false);
 
-						event.replyEmbeds(app.build()).queue();
-					
-					
+						event.replyEmbeds(app.build()).queue();	
 					}
 				}
 			}
-			else {
-				EmbedBuilder noperm = new EmbedBuilder();
-				noperm.setColor(Color.BLUE);
-				noperm.setTitle("Only staff can execute this command");
-
-				event.replyEmbeds(noperm.build()).queue();
-			}
+			else 
+				event.reply("Only staff can execute this command").queue();
 		}
 	}
 
-	
 	@Override
 	public void onReady(ReadyEvent event) {
-
 		Timer appTimer = new Timer();
 		Timer permTimer = new Timer();
 		guild = Bot.jda.getGuildById(735990134583066679L);
