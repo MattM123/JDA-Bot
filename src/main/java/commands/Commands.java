@@ -85,13 +85,13 @@ public class Commands extends ListenerAdapter {
 					event.deferReply();
 					event.reply("The API is only able to retrieve a maximum of 100 messages for deletion").queue();
 				}
-							
+				event.deferReply().queue();	
 				event.getChannel().getHistory().retrievePast(amount).queue(channel -> {
 					for (int i = 0; i < amount; i++) {
 						channel.get(i).delete().queue();
 					}			
 				});
-				event.deferReply().queue();
+				
 				event.reply(amount + "messages removed").queue();
 			}
 			else {
