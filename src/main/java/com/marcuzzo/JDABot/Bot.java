@@ -35,7 +35,7 @@ public class Bot {
 				guild.upsertCommand(new CommandData("console", "Send a console command to the BTE Midwest minecraft server")
 	                    .addOption(OptionType.STRING, "command", "The command to send to the server console", true)).queue();
 				
-				guild.upsertCommand(new CommandData("remove", "Deletes messags in bulk")
+				guild.upsertCommand(new CommandData("remove", "Deletes messages in bulk")
 	                    .addOption(OptionType.INTEGER, "amount", "The number of messages to remove", true)).queue();
 				
 				guild.upsertCommand(new CommandData("apply", "Obtain trial builder permissions on the Minecraft server")).queue();
