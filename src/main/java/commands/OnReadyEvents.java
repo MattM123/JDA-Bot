@@ -1,23 +1,11 @@
 package commands;
 
-import java.awt.Color;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.Timer;
-import java.util.TimerTask;
-
-import org.apache.commons.lang3.exception.ExceptionUtils;
-
 import com.marcuzzo.JDABot.Bot;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.requests.RestAction;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
-import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 
 public class OnReadyEvents extends ListenerAdapter {
 
@@ -30,6 +18,11 @@ public class OnReadyEvents extends ListenerAdapter {
 		Timer permTimer = new Timer();
 		guild = Bot.jda.getGuildById(735990134583066679L);
 		Role builder = guild.getRoleById(735991952931160104L);
+		
+		
+/*==========================================================================================================================================
+======================================================LEGACY: replaced with ticket bot/SRV==================================================
+============================================================================================================================================
 		
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Notifies staff members of new applications since BTE bot stopped doing it
@@ -122,6 +115,8 @@ public class OnReadyEvents extends ListenerAdapter {
 				}
 			}		
 		}, 1000, 300000);
+		*/
 	}	
+	
 }	
 
