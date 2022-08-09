@@ -141,31 +141,33 @@ public class SlashCommands extends ListenerAdapter {
 //Gives applicant builder permissions if they havnt already been rejected
 		
 		File file = new File("Resources/RejectedUsers.txt");
-		if (RoleEvents.usersDenied.containsKey(event.getUser().getId()) && event.getName().equals("apply")) {
-			
+		StringBuilder content = new StringBuilder();
+		
+		if (event.getName().equals("apply")) {	
 			try {
 				Scanner scan = new Scanner(file);
 				String line;
 				while (scan.hasNextLine()) {
 					line = scan.nextLine();
+					content.append(line);
 					
 					if (line.contains(event.getUser().getId())) {
 						event.reply("Hi, it looks like your previous application was rejected. You will be able to re-apply <t:" + (line.split(":")[1]) 
 								+ ":R \nIn the meantime, please use the feedback that staff has given you to improve for your next application.").queue();
 					}
 				}
+				
+				if (!content.toString().contains(event.getUser().getId())) {
+					guild.addRoleToMember(event.getMember(), guild.getRoleById(923068579992186912L)).queue();
+					event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();		
+				}
+				
 				scan.close();		
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		else if (event.getName().equals("apply")) {	
-			guild.addRoleToMember(event.getMember(), guild.getRoleById(923068579992186912L)).queue();
-			event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();		
-		}
-
 
 //-----------------------------------------------------------------------------------------------------------------------------
 //get server stats

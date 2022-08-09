@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.apache.commons.collections4.BidiMap;
-import org.apache.commons.collections4.bidimap.DualHashBidiMap;
-
 import com.marcuzzo.JDABot.Bot;
 
 import net.dv8tion.jda.api.entities.Guild;
@@ -18,20 +15,16 @@ public class RoleEvents extends ListenerAdapter {
 
 	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
 	
-	//Stores users who were denied and a date of when they can reapply (two weeks from application role assign date)
-	public static BidiMap<String, String> usersDenied = new DualHashBidiMap<>();
-	
 	@Override
 	public void onGuildMemberRoleAdd(GuildMemberRoleAddEvent event) {
 		Role improve = guild.getRoleById(1006335736695500801L);
 		File file = new File("Resources/RejectedUsers.txt");
 		
-		
 		//If user is assigned a specific role, they are given a minimum 2 week period to improve their building and reapply
 		if (event.getRoles().contains(improve)) {
 			try {
 				FileWriter writer = new FileWriter(file);
-				writer.write(event.getMember().getId() + ":" + System.currentTimeMillis() + 1209600000 + "\n");
+				writer.write(event.getMember().getId() + ":" + System.currentTimeMillis() + 1209600000 + "\n");	
 				writer.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
