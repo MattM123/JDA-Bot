@@ -18,7 +18,7 @@ public class RoleEvents extends ListenerAdapter {
 	@Override
 	public void onGuildMemberRoleAdd(GuildMemberRoleAddEvent event) {
 		Role improve = guild.getRoleById(1006335736695500801L);
-		File file = new File("Resources/RejectedUsers.txt");
+		File file = new File("/src/main/java/Resources//RejectedUsers.txt");
 		
 		//If user is assigned a specific role, they are given a minimum 2 week period to improve their building and reapply
 		if (event.getRoles().contains(improve)) {
