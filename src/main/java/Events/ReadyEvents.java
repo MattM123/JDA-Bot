@@ -15,7 +15,7 @@ public class ReadyEvents extends ListenerAdapter {
 		Role improve = guild.getRoleById(1006335736695500801L);
 		
 		//Checks if a rejected user can re-apply, removes role if the time requirement has been met
-		if (Events.RoleEvents.usersDenied.values().contains(System.currentTimeMillis() + 1209600000 + "")) {
+		if (Events.RoleEvents.usersDenied.values().contains(System.currentTimeMillis() + "")) {
 			if (guild.getMemberById(Events.RoleEvents.usersDenied.getKey("" + System.currentTimeMillis())).getRoles().contains(improve))
 				guild.removeRoleFromMember(Events.RoleEvents.usersDenied.getKey("" + System.currentTimeMillis()), improve).queue();
 		}
