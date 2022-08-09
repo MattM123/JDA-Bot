@@ -1,7 +1,10 @@
 package commands;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.function.Consumer;
 
 import com.mattmalec.pterodactyl4j.DataType;
@@ -135,12 +138,29 @@ public class SlashCommands extends ListenerAdapter {
 			}
 		}
 //-------------------------------------------------------------------------------------------------------------		
-//Gives applicant builder permissions
+//Gives applicant builder permissions if they havnt already been rejected
 		
+		File file = new File("Resources/RejectedUsers.txt");
 		if (RoleEvents.usersDenied.containsKey(event.getUser().getId()) && event.getName().equals("apply")) {
-			event.reply("Hi, it looks like your previous application was rejected. You will be able to re-apply <t:" + (RoleEvents.usersDenied.get(event.getUser().getId())) 
-					+ ":R \nIn the meantime, please use the feedback that staff has given you to improve your BTE building skills for your next application.").queue();
+			
+			try {
+				Scanner scan = new Scanner(file);
+				String line;
+				while (scan.hasNextLine()) {
+					line = scan.nextLine();
+					
+					if (line.contains(event.getUser().getId())) {
+						event.reply("Hi, it looks like your previous application was rejected. You will be able to re-apply <t:" + (line.split(":")[1]) 
+								+ ":R \nIn the meantime, please use the feedback that staff has given you to improve for your next application.").queue();
+					}
+				}
+				scan.close();		
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 		else {	
 			guild.addRoleToMember(event.getMember(), guild.getRoleById(923068579992186912L)).queue();
 			event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();		

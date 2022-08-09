@@ -1,5 +1,13 @@
 package Events;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
 import com.marcuzzo.JDABot.Bot;
 
 import net.dv8tion.jda.api.entities.Guild;
@@ -13,11 +21,40 @@ public class ReadyEvents extends ListenerAdapter {
 	
 	public void onReadyEvent(ReadyEvent event) {
 		Role improve = guild.getRoleById(1006335736695500801L);
+		File file = new File("Resources/RejectedUsers.txt");
+		StringBuilder newContents = new StringBuilder();
 		
 		//Checks if a rejected user can re-apply, removes role if the time requirement has been met
-		if (Events.RoleEvents.usersDenied.values().contains(System.currentTimeMillis() + "")) {
-			if (guild.getMemberById(Events.RoleEvents.usersDenied.getKey("" + System.currentTimeMillis())).getRoles().contains(improve))
-				guild.removeRoleFromMember(Events.RoleEvents.usersDenied.getKey("" + System.currentTimeMillis()), improve).queue();
+		try {
+			Scanner scan = new Scanner(file);
+			String line;
+			while (scan.hasNextLine()) {
+				line = scan.nextLine();
+				
+				if (line.contains(System.currentTimeMillis() + "")) {
+					guild.removeRoleFromMember(line.split(":")[0], improve).queue();
+					continue;
+				}
+				newContents.append(line);
+			}
+			
+			//Delete File Content
+			PrintWriter pw = new PrintWriter(file);
+			pw.close();
+	
+			//Write new contents to file
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+			writer.append(newContents.toString());
+			writer.close();		
+			
+			scan.close();	
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

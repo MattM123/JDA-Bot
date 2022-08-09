@@ -1,5 +1,9 @@
 package Events;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 
@@ -20,9 +24,19 @@ public class RoleEvents extends ListenerAdapter {
 	@Override
 	public void onGuildMemberRoleAdd(GuildMemberRoleAddEvent event) {
 		Role improve = guild.getRoleById(1006335736695500801L);
+		File file = new File("Resources/RejectedUsers.txt");
+		
+		
 		//If user is assigned a specific role, they are given a minimum 2 week period to improve their building and reapply
 		if (event.getRoles().contains(improve)) {
-			usersDenied.put(event.getMember().getId(), System.currentTimeMillis() + 1209600000 + "");
+			try {
+				FileWriter writer = new FileWriter(file);
+				writer.write(event.getMember().getId() + ":" + System.currentTimeMillis() + 1209600000 + "\n");
+				writer.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		}
 	
 		
