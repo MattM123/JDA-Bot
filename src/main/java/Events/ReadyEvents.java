@@ -21,7 +21,7 @@ public class ReadyEvents extends ListenerAdapter {
 	
 	public void onReadyEvent(ReadyEvent event) {
 		Role improve = guild.getRoleById(1006335736695500801L);
-		File file = new File("RejectedUsers");
+		File file = new File("/JDABot/src/main/java/commands/RejectedUsers.txt");
 		StringBuilder newContents = new StringBuilder();
 		
 		//Checks if a rejected user can re-apply, removes role if the time requirement has been met

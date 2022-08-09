@@ -140,7 +140,7 @@ public class SlashCommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------		
 //Gives applicant builder permissions if they havnt already been rejected
 		
-		File file = new File("RejectedUsers");
+		File file = new File("/JDABot/src/main/java/commands/RejectedUsers.txt");
 		StringBuilder content = new StringBuilder();
 		
 		if (event.getName().equals("apply")) {	
