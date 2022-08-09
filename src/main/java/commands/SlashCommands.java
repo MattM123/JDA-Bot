@@ -142,8 +142,9 @@ public class SlashCommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------		
 //Gives applicant builder permissions if they havnt already been rejected
 		
-		File file = new File("//java//commands//Applicants.txt");
+		File file = new File("Applicants.txt");
 		StringBuilder content = new StringBuilder();
+		event.reply(file.getAbsolutePath()).queue();
 		
 		if (event.getName().equals("apply")) {	
 			try {
