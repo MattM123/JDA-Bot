@@ -144,7 +144,6 @@ public class SlashCommands extends ListenerAdapter {
 		
 		File file = new File("/src/main/java/Applicants.txt");
 		StringBuilder content = new StringBuilder();
-		event.reply(file.getAbsolutePath()).queue();
 		
 		if (event.getName().equals("apply")) {	
 			try {
