@@ -138,7 +138,7 @@ public class SlashCommands extends ListenerAdapter {
 //Gives applicant builder permissions
 		
 		if (RoleEvents.usersDenied.containsKey(event.getUser().getId()) && event.getName().equals("apply")) {
-			event.reply("Hi, it looks like your previous application was rejected. You will be able to re-apply <t:" + (RoleEvents.usersDenied.get(event.getUser().getId()) + 1209600000) 
+			event.reply("Hi, it looks like your previous application was rejected. You will be able to re-apply <t:" + (RoleEvents.usersDenied.get(event.getUser().getId())) 
 					+ ":R \nIn the meantime, please use the feedback that staff has given you to improve your BTE building skills for your next application.").queue();
 		}
 		else {	
