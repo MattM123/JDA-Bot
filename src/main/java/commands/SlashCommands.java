@@ -161,7 +161,7 @@ public class SlashCommands extends ListenerAdapter {
 			}
 		}
 		
-		else {	
+		else if (event.getName().equals("apply")) {	
 			guild.addRoleToMember(event.getMember(), guild.getRoleById(923068579992186912L)).queue();
 			event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();		
 		}
