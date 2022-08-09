@@ -9,6 +9,7 @@ import com.mattmalec.pterodactyl4j.PteroBuilder;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
 import com.mattmalec.pterodactyl4j.client.entities.PteroClient;
 
+import Events.RoleEvents;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -20,7 +21,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
 
 
-public class Commands extends ListenerAdapter {
+public class SlashCommands extends ListenerAdapter {
 
 	//API authentication
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI(System.getenv("BTE_API"));
@@ -28,6 +29,7 @@ public class Commands extends ListenerAdapter {
 	
 	//The minecraft server thats represented by a Ptero API instance
 	private ClientServer midwestServer = pteroAPI.retrieveServerByIdentifier(System.getenv("SERVER_ID")).execute();
+	
 	
 	@Override
 	public void onSlashCommand(SlashCommandEvent event) {
@@ -135,10 +137,15 @@ public class Commands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------		
 //Gives applicant builder permissions
 		
-		if (event.getName().equals("apply")) {	
+		if (RoleEvents.usersDenied.containsKey(event.getUser().getId()) && event.getName().equals("apply")) {
+			event.reply("Hi, it looks like your previous application was rejected. You will be able to re-apply <t:" + (RoleEvents.usersDenied.get(event.getUser().getId()) + 1209600000) 
+					+ ":R \nIn the meantime, please use the feedback that staff has given you to improve your BTE building skills for your next application.").queue();
+		}
+		else {	
 			guild.addRoleToMember(event.getMember(), guild.getRoleById(923068579992186912L)).queue();
 			event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();		
 		}
+
 
 //-----------------------------------------------------------------------------------------------------------------------------
 //get server stats

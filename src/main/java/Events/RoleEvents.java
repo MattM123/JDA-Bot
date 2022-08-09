@@ -1,23 +1,31 @@
-package commands;
+package Events;
 
-import java.util.Timer;
+import org.apache.commons.collections4.BidiMap;
+import org.apache.commons.collections4.bidimap.DualHashBidiMap;
+
 import com.marcuzzo.JDABot.Bot;
+
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
 
-public class OnReadyEvents extends ListenerAdapter {
+public class RoleEvents extends ListenerAdapter {
 
-	private BuildTheEarthAPI BTE = new BuildTheEarthAPI(System.getenv("BTE_API"));
-	private Guild guild;
+	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
+	
+	//Stores users who were denied and a date of when they can reapply (two weeks from application role assign date)
+	public static BidiMap<String, String> usersDenied = new DualHashBidiMap<>();
 	
 	@Override
-	public void onReady(ReadyEvent event) {
-		Timer appTimer = new Timer();
-		Timer permTimer = new Timer();
-		guild = Bot.jda.getGuildById(735990134583066679L);
-		Role builder = guild.getRoleById(735991952931160104L);
+	public void onGuildMemberRoleAdd(GuildMemberRoleAddEvent event) {
+		Role improve = guild.getRoleById(1006335736695500801L);
+		//If user is assigned a specific role, they are given a minimum 2 week period to improve their building and reapply
+		if (event.getRoles().contains(improve)) {
+			usersDenied.put(event.getMember().getId(), System.currentTimeMillis() + 1209600000 + "");
+		}
+	
+		
 		
 		
 /*==========================================================================================================================================

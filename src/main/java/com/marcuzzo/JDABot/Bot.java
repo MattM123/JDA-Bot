@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import java.util.ArrayList;
 import java.util.List;
-import commands.Commands;
+import commands.SlashCommands;
 
 public class Bot {	
 	private static String token = System.getenv("BOT_TOKEN"); //token used to hook into the Discord bot (bot token)	
@@ -27,7 +27,7 @@ public class Bot {
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)        
 				.build().awaitReady();
 			
-			jda.addEventListener(new Commands());
+			jda.addEventListener(new SlashCommands());
 			Guild guild = jda.getGuildById(735990134583066679L);
 			
 			if (guild != null) {
