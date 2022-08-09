@@ -22,14 +22,14 @@ public class RoleEvents extends ListenerAdapter {
 		
 		//If user is assigned a specific role, they are given a minimum 2 week period to improve their building and reapply
 		if (event.getRoles().contains(improve)) {
-			try {
-				FileWriter writer = new FileWriter(file);
-				writer.write(event.getMember().getId() + ":" + System.currentTimeMillis() + 1209600000 + "\n");	
-				writer.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
+		//	try {
+		//		FileWriter writer = new FileWriter(file);
+		//		writer.write(event.getMember().getId() + ":" + System.currentTimeMillis() + 1209600000 + "\n");	
+		//		writer.close();
+		//	} catch (IOException e) {
+		//		// TODO Auto-generated catch block
+		//		e.printStackTrace();
+		//	}			
 		}
 	
 		

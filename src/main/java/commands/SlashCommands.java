@@ -3,6 +3,8 @@ package commands;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.function.Consumer;
@@ -140,7 +142,7 @@ public class SlashCommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------		
 //Gives applicant builder permissions if they havnt already been rejected
 		
-		File file = new File("/JDABot/src/main/java/commands/RejectedUsers.txt");
+		File file = new File("//java//commands//Applicants.txt");
 		StringBuilder content = new StringBuilder();
 		
 		if (event.getName().equals("apply")) {	
@@ -152,14 +154,22 @@ public class SlashCommands extends ListenerAdapter {
 					content.append(line);
 					
 					if (line.contains(event.getUser().getId())) {
-						event.reply("Hi, it looks like your previous application was rejected. You will be able to re-apply <t:" + (line.split(":")[1]) 
-								+ ":R \nIn the meantime, please use the feedback that staff has given you to improve for your next application.").queue();
+						event.reply("You have already applied to the team!").queue();
 					}
 				}
 				
 				if (!content.toString().contains(event.getUser().getId())) {
 					guild.addRoleToMember(event.getMember(), guild.getRoleById(923068579992186912L)).queue();
-					event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();		
+					event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();	
+					
+					try {
+						FileWriter writer = new FileWriter(file);
+						writer.write(event.getMember().getId() + "\n");	
+						writer.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}	
 				}
 				
 				scan.close();		
