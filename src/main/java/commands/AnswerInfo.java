@@ -19,4 +19,4 @@ public class AnswerInfo {
 	public String getQuestion() {
 		return question;
 	}
-}
+} 
