@@ -184,7 +184,7 @@ public class SlashCommands extends ListenerAdapter {
 		
 		if (event.getName().equals("server"))	
 			event.replyEmbeds(midwest.build()).queue();
-		
+			
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 //Retrieves an application of user given a discord ID(or Tag) and an integer representing which application in the list to return
 		
