@@ -302,10 +302,12 @@ public class SlashCommands extends ListenerAdapter {
 			Color color;
 			String hex = event.getOption("hex") == null ? null : event.getOption("hex").getAsString();
 			Attachment msgImage = event.getOption("image") == null ? null : event.getOption("image").getAsAttachment();
+			ImageReader reader = ImageIO.getImageReadersByFormatName("png").next();
 			
 	        for (File textureFile : new File("src/main/java/Resources/textures/blocks/").listFiles()) {
 	            try {
-	        		ImageInputStream imageStream = ImageIO.createImageInputStream(textureFile);   	
+	        		ImageInputStream imageStream = ImageIO.createImageInputStream(textureFile);  
+	        		reader.setInput(ImageIO.createImageInputStream(textureFile));
 	        		BufferedImage image = ImageIO.read(imageStream);
 	  
 
