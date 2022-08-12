@@ -306,7 +306,7 @@ public class SlashCommands extends ListenerAdapter {
 			Attachment msgImage = event.getOption("image") == null ? null : event.getOption("image").getAsAttachment();
 			ImageReader reader = ImageIO.getImageReadersByFormatName("png").next();
 			Pattern mypattern = Pattern.compile("[0-9a-f]{6}", Pattern.CASE_INSENSITIVE);
-			Matcher mymatcher;
+			Matcher mymatcher = null;
 			
 			if (hex != null)
 				mymatcher = mypattern.matcher(hex);
@@ -337,7 +337,7 @@ public class SlashCommands extends ListenerAdapter {
 	        }
 	     
 	        
-			if (hex != null && mymatcher.matches()) {
+			if (hex != null && (mymatcher.matches() && mymatcher != null)) {
 				color = Color.decode("#" + event.getOption("hex").getAsString());
                 
                 Map<Color, Double> distances = new HashMap<>();
@@ -384,7 +384,7 @@ public class SlashCommands extends ListenerAdapter {
                 event.replyFile(is, "image.png").queue();
 			
 			}
-			else if (hex != null && !mymatcher.matches()) {
+			else if (hex != null && (!mymatcher.matches() && mymatcher != null)) {
 				event.reply("Please enter a valid hex value").queue();
 			}
 			else if (msgImage != null && (event.getOption("image").getAsAttachment().isImage() && (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
