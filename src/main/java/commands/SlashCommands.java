@@ -23,6 +23,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 
 import com.mattmalec.pterodactyl4j.DataType;
 import com.mattmalec.pterodactyl4j.PteroAction;
@@ -303,8 +305,9 @@ public class SlashCommands extends ListenerAdapter {
 			
 	        for (File textureFile : new File("src/main/java/Resources/textures/blocks/").listFiles()) {
 	            try {
-	            	FileInputStream fstream = new FileInputStream(textureFile);       	
-	                BufferedImage image = ImageIO.read(fstream);
+	        		ImageInputStream imageStream = ImageIO.createImageInputStream(textureFile);   	
+	        		BufferedImage image = ImageIO.read(imageStream);
+	  
 
 	                int sumR = 0, sumG = 0, sumB = 0;
 	                for (int x = 0; x < image.getWidth(); x++) {
