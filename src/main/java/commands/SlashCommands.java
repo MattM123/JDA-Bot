@@ -300,7 +300,7 @@ public class SlashCommands extends ListenerAdapter {
 			String hex = event.getOption("hex") == null ? null : event.getOption("hex").getAsString();
 			Attachment msgImage = event.getOption("image") == null ? null : event.getOption("image").getAsAttachment();
 			
-	        for (File textureFile : new File("src/main/java/Resources/textures/blocks").listFiles()) {
+	        for (File textureFile : new File("src/main/java/Resources/textures/blocks/").listFiles()) {
 	            try {
 	                BufferedImage image = ImageIO.read(textureFile);
 
