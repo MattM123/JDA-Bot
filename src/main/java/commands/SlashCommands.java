@@ -356,6 +356,8 @@ public class SlashCommands extends ListenerAdapter {
                 g.drawImage(textures.get(finalList.get(0)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 0, 0, null);
                 g.drawImage(textures.get(finalList.get(1)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 480, 0, null);
                 g.drawImage(textures.get(finalList.get(2)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 960, 0, null);
+                g.drawImage(textures.get(finalList.get(2)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 1440, 0, null);
+                g.drawImage(textures.get(finalList.get(2)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 1920, 0, null);
 
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 try {
@@ -379,7 +381,7 @@ public class SlashCommands extends ListenerAdapter {
                 event.replyFile(is, "image.png").queue();
 			
 			}
-			else if (hex != null && !Pattern.matches(mypattern, hex)) {
+			else if (hex != null && !mymatcher.matches()) {
 				event.reply("Please enter a valid hex value").queue();
 			}
 			else if (msgImage != null && (event.getOption("image").getAsAttachment().isImage() && (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
@@ -440,6 +442,8 @@ public class SlashCommands extends ListenerAdapter {
                 g.drawImage(textures.get(finalList.get(0)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 0, 0, null);
                 g.drawImage(textures.get(finalList.get(1)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 480, 0, null);
                 g.drawImage(textures.get(finalList.get(2)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 960, 0, null);
+                g.drawImage(textures.get(finalList.get(2)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 1440, 0, null);
+                g.drawImage(textures.get(finalList.get(2)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 1920, 0, null);
 
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 try {
