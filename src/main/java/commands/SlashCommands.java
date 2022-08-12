@@ -21,6 +21,8 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -303,7 +305,9 @@ public class SlashCommands extends ListenerAdapter {
 			String hex = event.getOption("hex") == null ? null : event.getOption("hex").getAsString();
 			Attachment msgImage = event.getOption("image") == null ? null : event.getOption("image").getAsAttachment();
 			ImageReader reader = ImageIO.getImageReadersByFormatName("png").next();
-			
+			Pattern mypattern = Pattern.compile("[0-9a-f]{6}", Pattern.CASE_INSENSITIVE);
+			Matcher mymatcher = mypattern.matcher(hex);
+					
 	        for (File textureFile : new File("src/main/java/Resources/textures/blocks/").listFiles()) {
 	            try {
 	        		reader.setInput(ImageIO.createImageInputStream(textureFile));
@@ -330,7 +334,7 @@ public class SlashCommands extends ListenerAdapter {
 	        }
 	     
 	        
-			if (hex != null && hex.matches("[0-9a-f]{6}")) {
+			if (hex != null && mymatcher.matches()) {
 				color = Color.decode("#" + event.getOption("hex").getAsString());
                 
                 Map<Color, Double> distances = new HashMap<>();
@@ -375,7 +379,7 @@ public class SlashCommands extends ListenerAdapter {
                 event.replyFile(is, "image.png").queue();
 			
 			}
-			else if (hex != null && !hex.matches("[0-9a-f]{6}")) {
+			else if (hex != null && !Pattern.matches(mypattern, hex)) {
 				event.reply("Please enter a valid hex value").queue();
 			}
 			else if (msgImage != null && (event.getOption("image").getAsAttachment().isImage() && (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
