@@ -306,7 +306,6 @@ public class SlashCommands extends ListenerAdapter {
 			Attachment msgImage = event.getOption("image") == null ? null : event.getOption("image").getAsAttachment();
 			ImageReader reader = ImageIO.getImageReadersByFormatName("png").next();
 			Pattern mypattern = Pattern.compile("[0-9a-f]{6}", Pattern.CASE_INSENSITIVE);
-			Matcher mymatcher = mypattern.matcher(hex);
 					
 	        for (File textureFile : new File("src/main/java/Resources/textures/blocks/").listFiles()) {
 	            try {
@@ -333,7 +332,7 @@ public class SlashCommands extends ListenerAdapter {
 	            }
 	        }
 	     
-	        
+	        Matcher mymatcher = mypattern.matcher(hex);
 			if (hex != null && mymatcher.matches()) {
 				color = Color.decode("#" + event.getOption("hex").getAsString());
                 
