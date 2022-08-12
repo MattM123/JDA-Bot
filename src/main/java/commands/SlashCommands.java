@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -299,11 +300,11 @@ public class SlashCommands extends ListenerAdapter {
 			Color color;
 			String hex = event.getOption("hex") == null ? null : event.getOption("hex").getAsString();
 			Attachment msgImage = event.getOption("image") == null ? null : event.getOption("image").getAsAttachment();
-			String er = "";
 			
 	        for (File textureFile : new File("src/main/java/Resources/textures/blocks/").listFiles()) {
 	            try {
-	                BufferedImage image = ImageIO.read(textureFile.getAbsoluteFile());
+	            	FileInputStream stream = new FileInputStream(textureFile);       	
+	                BufferedImage image = ImageIO.read(stream);
 
 	                int sumR = 0, sumG = 0, sumB = 0;
 	                for (int x = 0; x < image.getWidth(); x++) {
