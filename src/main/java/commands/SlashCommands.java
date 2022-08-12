@@ -299,10 +299,11 @@ public class SlashCommands extends ListenerAdapter {
 			Color color;
 			String hex = event.getOption("hex") == null ? null : event.getOption("hex").getAsString();
 			Attachment msgImage = event.getOption("image") == null ? null : event.getOption("image").getAsAttachment();
+			String er = "";
 			
-	        for (int t = 0; t < new File("src/main/java/Resources/textures/blocks/").listFiles().length - 1; t++) {
+	        for (File textureFile : new File("src/main/java/Resources/textures/blocks/").listFiles()) {
 	            try {
-	                BufferedImage image = ImageIO.read(new File("src/main/java/Resources/textures/blocks/").listFiles()[t].getAbsoluteFile());
+	                BufferedImage image = ImageIO.read(textureFile.getAbsoluteFile());
 
 	                int sumR = 0, sumG = 0, sumB = 0;
 	                for (int x = 0; x < image.getWidth(); x++) {
@@ -320,8 +321,12 @@ public class SlashCommands extends ListenerAdapter {
 
 	            } catch (IOException e) {
 	                e.printStackTrace();
+	            } catch (NullPointerException e) {
+	            	er += "Null";
 	            }
 	        }
+	  	  event.reply(er).queue();
+	     
 	        
 			if (hex != null && hex.matches("[0-9a-f]{6}")) {
 				color = Color.decode("#" + event.getOption("hex").getAsString());
@@ -333,6 +338,7 @@ public class SlashCommands extends ListenerAdapter {
 			else if (msgImage != null && (event.getOption("image").getAsAttachment().isImage() && (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
 				|| event.getOption("image").getAsAttachment().getFileExtension().contains("jpg")))) {
 				
+				   
 				 InputStream stream;
                  try {
                      stream = msgImage.getProxy().download().get();
