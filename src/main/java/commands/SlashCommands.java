@@ -301,7 +301,7 @@ public class SlashCommands extends ListenerAdapter {
 			Attachment msgImage = event.getOption("image") == null ? null : event.getOption("image").getAsAttachment();
 			
 			boolean test = new File("src/main/java/Resources/textures/blocks/anvil_base.png").exists();
-			event.reply("" + test);
+			event.reply("" + test).queue();
 			
 	        for (File textureFile : new File("src/main/java/Resources/textures/blocks/").listFiles()) {
 	            try {
