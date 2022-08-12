@@ -280,18 +280,18 @@ public class SlashCommands extends ListenerAdapter {
 		
 		if (event.getName().startsWith("findcolor")) {
 			Color color;
+			String hasHex = event.getOption("hex") == null ? null : event.getOption("hex").getAsString();
 			
-			if (event.getOption("hex").getAsString().matches("[0-9a-f]{6}")) {
+			if (hasHex != null) {
 				color = Color.decode("#" + event.getOption("hex").getAsString());
-				event.reply("test hex").queue();
+				event.reply(color.toString()).queue();
 			}
 			else if (event.getOption("image").getAsAttachment().isImage() && (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
 				|| event.getOption("image").getAsAttachment().getFileExtension().contains("jpg"))) {
 				event.reply("test image").queue();
-				event.reply(event.getOption("image").getAsAttachment().getFileExtension()).queue();
 			}
 			else {
-				event.reply("This command accepts jpg, jpeg, and png image types or hex values. Please enter an image with a valid extension type or hex value.").queue();
+				event.reply("This command accepts jpg, jpeg, and png image types or hex values. Please enter an image with a valid extension type or valid hex value.").queue();
 			}
 		}
 	}
