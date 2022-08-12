@@ -22,6 +22,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -281,13 +282,14 @@ public class SlashCommands extends ListenerAdapter {
 		if (event.getName().startsWith("findcolor")) {
 			Color color;
 			String hasHex = event.getOption("hex") == null ? null : event.getOption("hex").getAsString();
+			Attachment hasImage = event.getOption("image") == null ? null : event.getOption("image").getAsAttachment();
 			
 			if (hasHex != null && hasHex.matches("[0-9a-f]{6}")) {
 				color = Color.decode("#" + event.getOption("hex").getAsString());
 				event.reply(color.toString()).queue();
 			}
-			else if (event.getOption("image").getAsAttachment().isImage() && (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
-				|| event.getOption("image").getAsAttachment().getFileExtension().contains("jpg"))) {
+			else if (hasImage != null && (event.getOption("image").getAsAttachment().isImage() && (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
+				|| event.getOption("image").getAsAttachment().getFileExtension().contains("jpg")))) {
 				event.reply("test image").queue();
 			}
 			else {
