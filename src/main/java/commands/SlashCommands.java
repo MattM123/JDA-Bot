@@ -461,7 +461,7 @@ public class SlashCommands extends ListenerAdapter {
 			
 		
 			else {
-				event.reply("This command accepts `jpg`, `jpeg`, and `png` image types or a hex value. Please select an option and enter an image with a valid extension type or a valid hex value").queue();
+				event.replyEmbeds(errorEmbed("This command accepts `jpg`, `jpeg`, and `png` image types or a hex value. Please select an option and enter an image with a valid extension type or a valid hex value")).queue();
 			}
 		}
 	}
