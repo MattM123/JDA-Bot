@@ -303,7 +303,7 @@ public class SlashCommands extends ListenerAdapter {
 	        for (File textureFile : new File("src/main/java/Resources/textures/blocks/").listFiles()) {
 	            try {
 	                BufferedImage image = ImageIO.read(textureFile.getAbsoluteFile());
-	                File test = null;
+	                File test = new File("src/main/java/Resources/textures/blocks/brick.png");
 	                ImageIO.write(image, "png", test);
 	                
 	                event.replyFile(test).queue();
