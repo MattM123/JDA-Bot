@@ -220,82 +220,6 @@ public class SlashCommands extends ListenerAdapter {
 		if (event.getName().equals("server"))	
 			event.replyEmbeds(midwest.build()).queue();
 			
-//-------------------------------------------------------------------------------------------------------------------------------------------	
-		//Retrieves an application of user given a discord ID(or Tag) and an integer representing which application in the list to return
-		
-		if (event.getName().equals("getapp")) { 
-			if (staff.contains(event.getMember())) {
-				
-				Member user = event.getOption("user").getAsMember();
-				int appNum = Integer.parseInt(event.getOption("n").getAsString());
-				boolean isNull = false;
-				
-				//Test run for errors
-				BTE.getApplicationHistory(user.getId()); 
-				//if theres an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
-				if (!BTE.stackTrace.equals("") && !BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")) 
-					event.reply(BTE.stackTrace).queue();
-				
-				
-				//If user not found on team
-				else if (BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it") && !isNull) 
-					event.reply(BTE.stackTrace).queue();		
-				
-				
-				//If you are trying to get the 0th application
-				else if (appNum == 0 && !isNull) 
-					event.reply("Cannot retrieve the 0th application on a user").queue();
-				
-				
-				else {
-					ApplicationInfo application = BTE.getApplicationHistory(user.getId());
-					int appIndex = appNum - 1;
-					
-					//If user exists on team but no applications exist for them, user was merged into the team
-					if ((application.getApplications().isEmpty())) 	
-						event.reply("This user was most likely merged into the team\nNo applications found for user").queue();
-					
-					
-					//If you are trying to retrieve more applications then the user has
-					else if (appIndex >= application.getApplications().size() && application.getApplications().size() > 0) 
-						event.reply("User does not have that many applications, try a lower number.").queue();
-					
-					
-					//If you are trying to retrieve an application that does not exist
-					else if (application.getApplications().size() < 1) 
-						event.reply("User does not have any applications. They were most likely merged into the team").queue();
-					
-
-					//Returns application
-					else {
-						EmbedBuilder app = new EmbedBuilder();
-						EmbedBuilder images = new EmbedBuilder();
-						images.setColor(Color.blue);
-						app.setColor(Color.BLUE);
-
-						app.setTitle("[" + appNum + "] Application Questions for " + user.getUser().getAsTag());
-						images.setTitle("[" + appNum + "] Application Media for " + user.getUser().getAsTag());
-
-						app.addField(application.getApplications().get(appIndex).getAnswerList().get(0).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(0).getAnswer(), false);
-						app.addBlankField(false);
-						app.addField(application.getApplications().get(appIndex).getAnswerList().get(1).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(1).getAnswer(), false);
-						app.addBlankField(false);
-						app.addField(application.getApplications().get(appIndex).getAnswerList().get(3).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(3).getAnswer(), false);
-						app.addBlankField(false);
-						app.addField(application.getApplications().get(appIndex).getAnswerList().get(4).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(4).getAnswer(), false);
-						app.addBlankField(false);
-						app.addField("Previous BTE Builds", application.getApplications().get(appIndex).getUrl(), false);
-						app.addBlankField(false);
-						app.addField("Reference Sources Used", application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer(), false);
-
-						event.replyEmbeds(app.build()).queue();	
-					}
-				}
-			}
-			else 
-				event.reply("Only staff can execute this command").queue();
-		}
-		
 
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 		//Attempts to find a color based on a provided image or hex value
@@ -494,6 +418,89 @@ public class SlashCommands extends ListenerAdapter {
         return Math.sqrt((((512+rMean)*r*r)>>8) + 4*g*g + (((767-rMean)*b*b)>>8));
     }
 }		
+
+/*
+ * /*==========================================================================================================================================
+======================================================LEGACY: replaced with Tickets bot======================================================
+============================================================================================================================================
+ * //-------------------------------------------------------------------------------------------------------------------------------------------	
+		//Retrieves an application of user given a discord ID(or Tag) and an integer representing which application in the list to return
+		
+		if (event.getName().equals("getapp")) { 
+			if (staff.contains(event.getMember())) {
+				
+				Member user = event.getOption("user").getAsMember();
+				int appNum = Integer.parseInt(event.getOption("n").getAsString());
+				boolean isNull = false;
+				
+				//Test run for errors
+				BTE.getApplicationHistory(user.getId()); 
+				//if theres an exception in retrieving the member list then it stores the stacktrace of that exception in the API objects public string
+				if (!BTE.stackTrace.equals("") && !BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it")) 
+					event.reply(BTE.stackTrace).queue();
+				
+				
+				//If user not found on team
+				else if (BTE.stackTrace.equals("User has not applied to the team nor have they been merged into it") && !isNull) 
+					event.reply(BTE.stackTrace).queue();		
+				
+				
+				//If you are trying to get the 0th application
+				else if (appNum == 0 && !isNull) 
+					event.reply("Cannot retrieve the 0th application on a user").queue();
+				
+				
+				else {
+					ApplicationInfo application = BTE.getApplicationHistory(user.getId());
+					int appIndex = appNum - 1;
+					
+					//If user exists on team but no applications exist for them, user was merged into the team
+					if ((application.getApplications().isEmpty())) 	
+						event.reply("This user was most likely merged into the team\nNo applications found for user").queue();
+					
+					
+					//If you are trying to retrieve more applications then the user has
+					else if (appIndex >= application.getApplications().size() && application.getApplications().size() > 0) 
+						event.reply("User does not have that many applications, try a lower number.").queue();
+					
+					
+					//If you are trying to retrieve an application that does not exist
+					else if (application.getApplications().size() < 1) 
+						event.reply("User does not have any applications. They were most likely merged into the team").queue();
+					
+
+					//Returns application
+					else {
+						EmbedBuilder app = new EmbedBuilder();
+						EmbedBuilder images = new EmbedBuilder();
+						images.setColor(Color.blue);
+						app.setColor(Color.BLUE);
+
+						app.setTitle("[" + appNum + "] Application Questions for " + user.getUser().getAsTag());
+						images.setTitle("[" + appNum + "] Application Media for " + user.getUser().getAsTag());
+
+						app.addField(application.getApplications().get(appIndex).getAnswerList().get(0).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(0).getAnswer(), false);
+						app.addBlankField(false);
+						app.addField(application.getApplications().get(appIndex).getAnswerList().get(1).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(1).getAnswer(), false);
+						app.addBlankField(false);
+						app.addField(application.getApplications().get(appIndex).getAnswerList().get(3).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(3).getAnswer(), false);
+						app.addBlankField(false);
+						app.addField(application.getApplications().get(appIndex).getAnswerList().get(4).getQuestion(), application.getApplications().get(appIndex).getAnswerList().get(4).getAnswer(), false);
+						app.addBlankField(false);
+						app.addField("Previous BTE Builds", application.getApplications().get(appIndex).getUrl(), false);
+						app.addBlankField(false);
+						app.addField("Reference Sources Used", application.getApplications().get(appIndex).getAnswerList().get(2).getAnswer(), false);
+
+						event.replyEmbeds(app.build()).queue();	
+					}
+				}
+			}
+			else 
+				event.reply("Only staff can execute this command").queue();
+		}
+		
+
+ */
 /*==========================================================================================================================================
 ======================================================LEGACY: replaced with DiscordSRV======================================================
 ============================================================================================================================================
