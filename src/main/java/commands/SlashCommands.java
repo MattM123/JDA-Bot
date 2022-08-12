@@ -281,7 +281,7 @@ public class SlashCommands extends ListenerAdapter {
 		if (event.getName().startsWith("findcolor")) {
 			Color color;
 			
-			if (event.getOption("hex").getAsString().matches("[0-9a-f]{6}") || event.getOption("hex") != null) {
+			if (event.getOption("hex").getAsString().matches("[0-9a-f]{6}")) {
 				color = Color.decode("#" + event.getOption("hex").getAsString());
 				event.reply("test hex").queue();
 			}
