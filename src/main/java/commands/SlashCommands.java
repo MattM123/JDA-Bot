@@ -331,7 +331,7 @@ public class SlashCommands extends ListenerAdapter {
 			else if (hex != null && !hex.matches("[0-9a-f]{6}")) {
 				event.reply("Please enter a valid hex value").queue();
 			}
-			else if (msgImage != null && (event.getOption("image").getAsAttachment().isImage() && (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
+			else if ((msgImage != null && msgImage.isImage()) && (event.getOption("image").getAsAttachment().isImage() && (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
 				|| event.getOption("image").getAsAttachment().getFileExtension().contains("jpg")))) {
 				
 				 InputStream stream;
