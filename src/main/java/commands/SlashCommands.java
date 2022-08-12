@@ -1,14 +1,27 @@
 package commands;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+
+import javax.imageio.ImageIO;
 
 import com.mattmalec.pterodactyl4j.DataType;
 import com.mattmalec.pterodactyl4j.PteroAction;
@@ -24,6 +37,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -39,6 +53,8 @@ public class SlashCommands extends ListenerAdapter {
 	//The minecraft server thats returned by a Ptero API instance
 	private ClientServer midwestServer = pteroAPI.retrieveServerByIdentifier(System.getenv("SERVER_ID")).execute();
 	
+	//Texture storage for findcolor
+	private final Map<Color, BufferedImage> textures = new HashMap<>();
 	
 	@Override
 	public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
@@ -281,25 +297,143 @@ public class SlashCommands extends ListenerAdapter {
 		
 		if (event.getName().startsWith("findcolor")) {
 			Color color;
-			String hasHex = event.getOption("hex") == null ? null : event.getOption("hex").getAsString();
-			Attachment hasImage = event.getOption("image") == null ? null : event.getOption("image").getAsAttachment();
+			String hex = event.getOption("hex") == null ? null : event.getOption("hex").getAsString();
+			Attachment msgImage = event.getOption("image") == null ? null : event.getOption("image").getAsAttachment();
 			
-			if (hasHex != null && hasHex.matches("[0-9a-f]{6}")) {
+	        for (File textureFile : new File("src/main/java/resources/textures/blocks").listFiles()) {
+	            try {
+	                BufferedImage image = ImageIO.read(textureFile);
+
+
+	                int sumR = 0, sumG = 0, sumB = 0;
+	                for (int x = 0; x < image.getWidth(); x++) {
+	                    for (int y = 0; y < image.getHeight(); y++) {
+	                        Color pixel = new Color(image.getRGB(x, y));
+	                        sumR += pixel.getRed();
+	                        sumG += pixel.getGreen();
+	                        sumB += pixel.getBlue();
+	                    }
+	                }
+	                int num = image.getWidth() * image.getHeight();
+	                color = new Color(sumR / num, sumG / num, sumB / num);
+
+	                textures.put(color, image);
+
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        
+			if (hex != null && hex.matches("[0-9a-f]{6}")) {
 				color = Color.decode("#" + event.getOption("hex").getAsString());
 				event.reply(color.toString()).queue();
 			}
-			else if (hasHex != null && !hasHex.matches("[0-9a-f]{6}")) {
+			else if (hex != null && !hex.matches("[0-9a-f]{6}")) {
 				event.reply("Please enter a valid hex value").queue();
 			}
-			else if (hasImage != null && (event.getOption("image").getAsAttachment().isImage() && (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
+			else if (msgImage != null && (event.getOption("image").getAsAttachment().isImage() && (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
 				|| event.getOption("image").getAsAttachment().getFileExtension().contains("jpg")))) {
-				event.reply("test image").queue();
+				
+				 InputStream stream;
+                 try {
+                     stream = msgImage.getProxy().download().get();
+
+                 } catch (InterruptedException | ExecutionException e) {
+                     event.replyEmbeds(errorEmbed("An error occured while downloading the image. Pleaase try again.")).queue(
+                             msg -> msg.deleteOriginal().queueAfter(10, TimeUnit.SECONDS)
+                     );
+                     return;
+                 }
+             
+                BufferedImage input;
+                try {
+
+                    input = ImageIO.read(stream);
+
+                } catch (IOException e) {
+                    event.replyEmbeds(errorEmbed("Am error occured while reading the image. Please try again.")).queue(
+                            msg -> msg.deleteOriginal().queueAfter(10, TimeUnit.SECONDS)
+                    );
+                    return;
+                }
+
+                int sumR = 0, sumG = 0, sumB = 0;
+                for (int x = 0; x < input.getWidth(); x++) {
+                    for (int y = 0; y < input.getHeight(); y++) {
+                        Color pixel = new Color(input.getRGB(x, y));
+                        sumR += pixel.getRed();
+                        sumG += pixel.getGreen();
+                        sumB += pixel.getBlue();
+                    }
+                }
+                int num = input.getWidth() * input.getHeight();
+                color = new Color(sumR / num, sumG / num, sumB / num);
+                
+                Map<Color, Double> distances = new HashMap<>();
+                for (Color c : textures.keySet()) {
+                    distances.put(c, colorDistance(color, c));
+                }
+
+                List<Map.Entry<Color, Double>> list = new ArrayList<>(distances.entrySet());
+                list.sort(Map.Entry.comparingByValue());
+
+                List<Color> finalList = new ArrayList<>();
+                for (Map.Entry<Color, Double> entry : list) {
+                    finalList.add(entry.getKey());
+                }
+
+                // make image
+                BufferedImage image = new BufferedImage(1440, 480, BufferedImage.TYPE_INT_RGB);
+                Graphics2D g = image.createGraphics();
+                g.drawImage(textures.get(finalList.get(0)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 0, 0, null);
+                g.drawImage(textures.get(finalList.get(1)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 480, 0, null);
+                g.drawImage(textures.get(finalList.get(2)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 960, 0, null);
+
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                try {
+                    ImageIO.write(image, "png", os);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                InputStream is = new ByteArrayInputStream(os.toByteArray());
+
+                String hexTitle = String.format("#%02X%02X%02X", color.getRed(), color.getGreen(), color.getBlue());
+
+                EmbedBuilder embed = new EmbedBuilder();
+                embed.setColor(color);
+                embed.setTitle("Textures most closely resembling " + hexTitle);
+                embed.setImage("attachment://img.png");
+
+                event.replyFile(is, "img.png").addEmbeds(embed.build()).queue(
+                        msg -> msg.deleteOriginal().queueAfter(20, TimeUnit.MINUTES)
+                );
+
+                event.replyFile(is, "image.png").queue();
 			}
+			
+		
 			else {
-				event.reply("This command accepts `jpg`, `jpeg`, and `png` image types. Please enter an image with a valid extension type.").queue();
+				event.reply("This command accepts `jpg`, `jpeg`, and `png` image types or a hex value. Please select an option and enter an image with a valid extension type or a valid hex value").queue();
 			}
 		}
 	}
+	
+    public static MessageEmbed errorEmbed(String text){
+        EmbedBuilder embed = new EmbedBuilder();
+        embed.setColor(Color.RED);
+        embed.setTitle(text);
+        return embed.build();
+    }
+    
+    public static double colorDistance(Color c1, Color c2) {
+        int red1 = c1.getRed();
+        int red2 = c2.getRed();
+        int rMean = (red1 + red2) >> 1;
+        int r = red1 - red2;
+        int g = c1.getGreen() - c2.getGreen();
+        int b = c1.getBlue() - c2.getBlue();
+        return Math.sqrt((((512+rMean)*r*r)>>8) + 4*g*g + (((767-rMean)*b*b)>>8));
+    }
 }		
 /*==========================================================================================================================================
 ======================================================LEGACY: replaced with DiscordSRV======================================================
