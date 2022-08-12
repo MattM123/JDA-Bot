@@ -54,10 +54,10 @@ public class Bot {
 						.addOption(OptionType.USER, "user", "The user whos applications you want to retrieve", true)
 						.addOption(OptionType.INTEGER, "n", "Retrieve the n-th application from the users application history", true))
 				
-					.addCommands(Commands.slash("getapp", "Attempts to find the closest block pallete to the provided color")
+					.addCommands(Commands.slash("findcolor", "Attempts to find the closest block pallete to the provided color")
 						.addOption(OptionType.STRING, "hex", "Color value represented in hex", false)
 						.addOption(OptionType.ATTACHMENT, "image", "The average color value of the image will be extracted", false)).queue();
-						
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
