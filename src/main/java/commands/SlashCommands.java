@@ -288,12 +288,15 @@ public class SlashCommands extends ListenerAdapter {
 				color = Color.decode("#" + event.getOption("hex").getAsString());
 				event.reply(color.toString()).queue();
 			}
+			else if (hasHex != null && !hasHex.matches("[0-9a-f]{6}")) {
+				event.reply("Please enter a valid hex value").queue();
+			}
 			else if (hasImage != null && (event.getOption("image").getAsAttachment().isImage() && (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
 				|| event.getOption("image").getAsAttachment().getFileExtension().contains("jpg")))) {
 				event.reply("test image").queue();
 			}
 			else {
-				event.reply("This command accepts jpg, jpeg, and png image types or hex values. Please enter an image with a valid extension type or valid hex value.").queue();
+				event.reply("This command accepts `jpg`, `jpeg`, and `png` image types. Please enter an image with a valid extension type.").queue();
 			}
 		}
 	}
