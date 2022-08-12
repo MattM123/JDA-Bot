@@ -306,7 +306,6 @@ public class SlashCommands extends ListenerAdapter {
 			
 	        for (File textureFile : new File("src/main/java/Resources/textures/blocks/").listFiles()) {
 	            try {
-	        		ImageInputStream imageStream = ImageIO.createImageInputStream(textureFile);  
 	        		reader.setInput(ImageIO.createImageInputStream(textureFile));
 	        		BufferedImage image = reader.read(0);
 	  
@@ -333,7 +332,48 @@ public class SlashCommands extends ListenerAdapter {
 	        
 			if (hex != null && hex.matches("[0-9a-f]{6}")) {
 				color = Color.decode("#" + event.getOption("hex").getAsString());
-				event.reply(color.toString()).queue();
+                
+                Map<Color, Double> distances = new HashMap<>();
+                for (Color c : textures.keySet()) {
+                    distances.put(c, colorDistance(color, c));
+                }
+
+                List<Map.Entry<Color, Double>> list = new ArrayList<>(distances.entrySet());
+                list.sort(Map.Entry.comparingByValue());
+
+                List<Color> finalList = new ArrayList<>();
+                for (Map.Entry<Color, Double> entry : list) {
+                    finalList.add(entry.getKey());
+                }
+
+                // make image
+                BufferedImage image = new BufferedImage(1440, 480, BufferedImage.TYPE_INT_RGB);
+                Graphics2D g = image.createGraphics();
+                g.drawImage(textures.get(finalList.get(0)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 0, 0, null);
+                g.drawImage(textures.get(finalList.get(1)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 480, 0, null);
+                g.drawImage(textures.get(finalList.get(2)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 960, 0, null);
+
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                try {
+                    ImageIO.write(image, "png", os);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                InputStream is = new ByteArrayInputStream(os.toByteArray());
+
+                String hexTitle = String.format("#%02X%02X%02X", color.getRed(), color.getGreen(), color.getBlue());
+
+                EmbedBuilder embed = new EmbedBuilder();
+                embed.setColor(color);
+                embed.setTitle("Textures most closely resembling " + hexTitle);
+                embed.setImage("attachment://img.png");
+
+                event.replyFile(is, "img.png").addEmbeds(embed.build()).queue(
+                        msg -> msg.deleteOriginal().queueAfter(20, TimeUnit.MINUTES)
+                );
+
+                event.replyFile(is, "image.png").queue();
+			
 			}
 			else if (hex != null && !hex.matches("[0-9a-f]{6}")) {
 				event.reply("Please enter a valid hex value").queue();
