@@ -300,7 +300,7 @@ public class SlashCommands extends ListenerAdapter {
 			String hex = event.getOption("hex") == null ? null : event.getOption("hex").getAsString();
 			Attachment msgImage = event.getOption("image") == null ? null : event.getOption("image").getAsAttachment();
 			
-	        for (File textureFile : new File("src/main/java/resources/textures/blocks").listFiles()) {
+	        for (File textureFile : new File("src/main/java/Resources/textures/blocks").listFiles()) {
 	            try {
 	                BufferedImage image = ImageIO.read(textureFile);
 
@@ -331,7 +331,7 @@ public class SlashCommands extends ListenerAdapter {
 			else if (hex != null && !hex.matches("[0-9a-f]{6}")) {
 				event.reply("Please enter a valid hex value").queue();
 			}
-			else if ((msgImage != null && msgImage.isImage()) && (event.getOption("image").getAsAttachment().isImage() && (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
+			else if (msgImage != null && (event.getOption("image").getAsAttachment().isImage() && (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
 				|| event.getOption("image").getAsAttachment().getFileExtension().contains("jpg")))) {
 				
 				 InputStream stream;
