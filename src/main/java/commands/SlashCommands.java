@@ -308,7 +308,7 @@ public class SlashCommands extends ListenerAdapter {
 	            try {
 	        		ImageInputStream imageStream = ImageIO.createImageInputStream(textureFile);  
 	        		reader.setInput(ImageIO.createImageInputStream(textureFile));
-	        		BufferedImage image = ImageIO.read(imageStream);
+	        		BufferedImage image = reader.read(0);
 	  
 
 	                int sumR = 0, sumG = 0, sumB = 0;
