@@ -356,8 +356,8 @@ public class SlashCommands extends ListenerAdapter {
                 g.drawImage(textures.get(finalList.get(0)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 0, 0, null);
                 g.drawImage(textures.get(finalList.get(1)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 480, 0, null);
                 g.drawImage(textures.get(finalList.get(2)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 960, 0, null);
-                g.drawImage(textures.get(finalList.get(2)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 1440, 0, null);
-                g.drawImage(textures.get(finalList.get(2)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 1920, 0, null);
+                g.drawImage(textures.get(finalList.get(3)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 1440, 0, null);
+                g.drawImage(textures.get(finalList.get(4)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 1920, 0, null);
 
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 try {
@@ -442,8 +442,8 @@ public class SlashCommands extends ListenerAdapter {
                 g.drawImage(textures.get(finalList.get(0)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 0, 0, null);
                 g.drawImage(textures.get(finalList.get(1)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 480, 0, null);
                 g.drawImage(textures.get(finalList.get(2)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 960, 0, null);
-                g.drawImage(textures.get(finalList.get(2)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 1440, 0, null);
-                g.drawImage(textures.get(finalList.get(2)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 1920, 0, null);
+                g.drawImage(textures.get(finalList.get(3)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 1440, 0, null);
+                g.drawImage(textures.get(finalList.get(4)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 1920, 0, null);
 
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 try {
