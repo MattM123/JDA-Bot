@@ -16,7 +16,7 @@
     	<dependency>
 	    	<groupId>net.dv8tion</groupId>
 	    	<artifactId>JDA</artifactId>
-	    	<version>4.4.0_352</version>
+	    	<version>5.0.0-alpha.17</version>
     	</dependency>
     	<dependency>
 	    	<groupId>org.slf4j</groupId>
@@ -27,7 +27,7 @@
 		<dependency>
 	    	<groupId>com.mattmalec</groupId>
 	    	<artifactId>Pterodactyl4J</artifactId>
-	    	<version>2.BETA_59</version>
+	    	<version>2.BETA_134</version>
 		</dependency>
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>

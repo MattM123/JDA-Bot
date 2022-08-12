@@ -6,12 +6,15 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
 import com.mattmalec.pterodactyl4j.DataType;
+import com.mattmalec.pterodactyl4j.PteroAction;
 import com.mattmalec.pterodactyl4j.PteroBuilder;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
+import com.mattmalec.pterodactyl4j.client.entities.Directory;
 import com.mattmalec.pterodactyl4j.client.entities.PteroClient;
 
 import Events.RoleEvents;
@@ -21,7 +24,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
 
@@ -32,13 +35,13 @@ public class SlashCommands extends ListenerAdapter {
 	private BuildTheEarthAPI BTE = new BuildTheEarthAPI(System.getenv("BTE_API"));
 	private PteroClient pteroAPI = PteroBuilder.createClient(System.getenv("PANEL_URL"), System.getenv("PTERO_API"));
 	
-	//The minecraft server thats represented by a Ptero API instance
+	//The minecraft server thats returned by a Ptero API instance
 	private ClientServer midwestServer = pteroAPI.retrieveServerByIdentifier(System.getenv("SERVER_ID")).execute();
 	
 	
 	@Override
-	public void onSlashCommand(SlashCommandEvent event) {
-		super.onSlashCommand(event);
+	public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+		super.onSlashCommandInteraction(event);
 
 		 Guild guild = event.getGuild(); 
 		 Role adminRole = guild.getRoleById(735991904352731176L);
@@ -119,7 +122,7 @@ public class SlashCommands extends ListenerAdapter {
 			event.replyEmbeds(measure.build(), measure1.build()).queue();	
 		}
 //-------------------------------------------------------------------------------------------------------------	
-//send command to server console
+		//send command to server console
 		 
 		if (event.getName().equals("console")) {
 			if (staff.contains(event.getMember())) {
@@ -140,10 +143,20 @@ public class SlashCommands extends ListenerAdapter {
 			}
 		}
 //-------------------------------------------------------------------------------------------------------------		
-//Gives applicant builder permissions if they havnt already been rejected
+		//Gives applicant builder permissions if they havnt already been rejected
+	
+//		pteroAPI.retrieveServerByIdentifier(System.getenv("SERVER_ID"))
+//			.flatMap(clientServer -> clientServer.retrieveDirectory())
+//			.flatMap(rootDir -> rootDir.getFileByName("Applicants.txt"))
+//			.map(Optional::get)
+//			.flatMap(fileContents -> fileContents.retrieveContent())
+	//		.execute();
+		
+		
 		
 		File file = new File("src/main/java/commands/Applicants.txt");
 		StringBuilder content = new StringBuilder();
+		
 		
 		if (event.getName().equals("apply")) {	
 			try {
@@ -180,13 +193,13 @@ public class SlashCommands extends ListenerAdapter {
 		}
 
 //-----------------------------------------------------------------------------------------------------------------------------
-//get server stats
+		//get server stats
 		
 		if (event.getName().equals("server"))	
 			event.replyEmbeds(midwest.build()).queue();
 			
 //-------------------------------------------------------------------------------------------------------------------------------------------	
-//Retrieves an application of user given a discord ID(or Tag) and an integer representing which application in the list to return
+		//Retrieves an application of user given a discord ID(or Tag) and an integer representing which application in the list to return
 		
 		if (event.getName().equals("getapp")) { 
 			if (staff.contains(event.getMember())) {
@@ -259,6 +272,25 @@ public class SlashCommands extends ListenerAdapter {
 			}
 			else 
 				event.reply("Only staff can execute this command").queue();
+		}
+		
+
+//-------------------------------------------------------------------------------------------------------------------------------------------	
+		//Attempts to find a color based on a provided image or hex value
+		
+		if (event.getName().startsWith("findcolor")) {
+			Color color;
+			
+			if (event.getOption("hex").getAsString().matches("[0-9a-f]{6}")) {
+				color = Color.decode("#" + event.getOption("hex").getAsString());
+			}
+			else if (event.getOption("image").getAsAttachment().getFileExtension().contains("jpeg") || event.getOption("image").getAsAttachment().getFileExtension().contains("png")
+				|| event.getOption("image").getAsAttachment().getFileExtension().contains("jpg")) {
+				
+			}
+			else {
+				event.reply("This command accepts jpg, jpeg, and png image types or hex values. Please enter an image with a valid extension type or hex value.").queue();
+			}
 		}
 	}
 }		
