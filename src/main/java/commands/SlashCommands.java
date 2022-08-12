@@ -351,7 +351,7 @@ public class SlashCommands extends ListenerAdapter {
                 }
 
                 // make image
-                BufferedImage image = new BufferedImage(1440, 480, BufferedImage.TYPE_INT_RGB);
+                BufferedImage image = new BufferedImage(2400, 480, BufferedImage.TYPE_INT_RGB);
                 Graphics2D g = image.createGraphics();
                 g.drawImage(textures.get(finalList.get(0)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 0, 0, null);
                 g.drawImage(textures.get(finalList.get(1)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 480, 0, null);
@@ -437,7 +437,7 @@ public class SlashCommands extends ListenerAdapter {
                 }
 
                 // make image
-                BufferedImage image = new BufferedImage(1440, 480, BufferedImage.TYPE_INT_RGB);
+                BufferedImage image = new BufferedImage(2400, 480, BufferedImage.TYPE_INT_RGB);
                 Graphics2D g = image.createGraphics();
                 g.drawImage(textures.get(finalList.get(0)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 0, 0, null);
                 g.drawImage(textures.get(finalList.get(1)).getScaledInstance(480, 480, Image.SCALE_DEFAULT), 480, 0, null);
