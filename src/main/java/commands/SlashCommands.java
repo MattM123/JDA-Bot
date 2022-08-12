@@ -282,7 +282,7 @@ public class SlashCommands extends ListenerAdapter {
 			Color color;
 			String hasHex = event.getOption("hex") == null ? null : event.getOption("hex").getAsString();
 			
-			if (hasHex != null) {
+			if (hasHex != null && hasHex.matches("[0-9a-f]{6}")) {
 				color = Color.decode("#" + event.getOption("hex").getAsString());
 				event.reply(color.toString()).queue();
 			}
