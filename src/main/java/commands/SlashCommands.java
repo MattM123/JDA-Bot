@@ -321,11 +321,8 @@ public class SlashCommands extends ListenerAdapter {
 
 	            } catch (IOException e) {
 	                e.printStackTrace();
-	            } catch (NullPointerException e) {
-	            	er += "Null";
 	            }
 	        }
-	  	  event.reply(er).queue();
 	     
 	        
 			if (hex != null && hex.matches("[0-9a-f]{6}")) {
