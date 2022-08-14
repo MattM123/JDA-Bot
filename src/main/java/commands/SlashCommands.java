@@ -178,40 +178,18 @@ public class SlashCommands extends ListenerAdapter {
 					.flatMap(fileContents -> fileContents.retrieveContent())		
 					.execute();
 
-			event.reply(applicants).queue();
-			
-			try {
-				Scanner scan = new Scanner(file);
-				String line;
-				while (scan.hasNextLine()) {
-					line = scan.nextLine();
-					content.append(line);
-					
-					if (line.contains(event.getUser().getId())) {
-						event.reply("You have already applied to the team!").queue();
-					}
-				}
-				
-				if (!content.toString().contains(event.getUser().getId())) {
-					guild.addRoleToMember(event.getMember(), guild.getRoleById(923068579992186912L)).queue();
-					event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();	
-					
-					try {
-						FileWriter writer = new FileWriter(file);
-						writer.write(event.getMember().getId() + "\n");	
-						writer.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace(); 
-					}	
-				}
-				
-				scan.close();		
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (applicants.contains(event.getUser().getId())) {
+				event.reply("You have already applied to the team!").queue();
+			}
+			else {
+				pteroAPI.retrieveServerByIdentifier(System.getenv("SERVER_ID"))
+					.flatMap(clientServer -> clientServer.retrieveDirectory())
+					.map(rootDir -> rootDir.getFileByName("Applicants.txt").get().write("test" + "\n"))		
+					.execute();
+
 			}
 		}
+
 
 //-----------------------------------------------------------------------------------------------------------------------------
 		//get server stats
