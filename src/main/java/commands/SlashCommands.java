@@ -188,7 +188,7 @@ public class SlashCommands extends ListenerAdapter {
 					.flatMap(writeToFile -> writeToFile.write(applicants + event.getUser().getId() + "\n"))
 					.execute();
 			
-				
+				event.getGuild().addRoleToMember(event.getUser(), event.getGuild().getRoleById(923068579992186912L)).queue();
 				event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();	
 			}
 		}
