@@ -183,9 +183,11 @@ public class SlashCommands extends ListenerAdapter {
 			}
 			else {
 				pteroAPI.retrieveServerByIdentifier(System.getenv("SERVER_ID"))
-				.flatMap(clientServer -> clientServer.retrieveDirectory())
-				.map(rootDir -> rootDir.getFileByName("Applicants.txt").get().write("test" + "\n"))		
-				.execute();
+					.flatMap(clientServer -> clientServer.retrieveDirectory())
+					.map(rootDir -> rootDir.getFileByName("Applicants.txt").get())
+					.flatMap(writeToFile -> writeToFile.write("test" + "\n"))
+					.execute();
+			
 				
 				event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();	
 			}
