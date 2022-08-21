@@ -166,11 +166,7 @@ public class SlashCommands extends ListenerAdapter {
 		}
 //-------------------------------------------------------------------------------------------------------------		
 		//Gives applicant builder permissions if they havnt already been rejected
-		
-		File file = new File("src/main/java/commands/Applicants.txt");
-		StringBuilder content = new StringBuilder();
-		
-		
+
 		if (event.getName().equals("apply")) {	
 			String applicants = pteroAPI.retrieveServerByIdentifier(System.getenv("SERVER_ID"))
 					.flatMap(clientServer -> clientServer.retrieveDirectory())
