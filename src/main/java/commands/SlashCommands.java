@@ -141,7 +141,7 @@ public class SlashCommands extends ListenerAdapter {
 			EmbedBuilder measure1 = new EmbedBuilder();
 			measure1.setColor(Color.blue);
 			measure1.setTitle("Tpll Outline Tutorial");
-			measure1.setImage("https://imgur.com/a/z2WXvF9");
+			measure1.setImage("https://media3.giphy.com/media/FmgKd3XTkCZeX2SmVN/giphy.gif?cid=790b7611707749f4b934e80f11c31a66191c0a527f384ca6&rid=giphy.gif&ct=g");
 			event.replyEmbeds(measure.build(), measure1.build()).queue();	
 		}
 //-------------------------------------------------------------------------------------------------------------	
