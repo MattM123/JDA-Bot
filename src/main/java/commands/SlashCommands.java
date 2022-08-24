@@ -141,8 +141,8 @@ public class SlashCommands extends ListenerAdapter {
 			EmbedBuilder measure1 = new EmbedBuilder();
 			measure1.setColor(Color.blue);
 			measure1.setTitle("Tpll Outline Tutorial");
-			measure1.setImage("attachment://src/main/java/Resources/measure1.mp4");
-			event.replyEmbeds(measure.build(), measure1.build()).queue();	
+			measure1.setImage("attachment://measure1.mp4");
+			event.replyEmbeds(measure.build(), measure1.build()).addFile(new File("/src/main/java/Resources/measure1.mp4")).queue();	
 		}
 //-------------------------------------------------------------------------------------------------------------	
 		//send command to server console
