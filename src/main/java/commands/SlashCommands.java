@@ -140,7 +140,7 @@ public class SlashCommands extends ListenerAdapter {
 		if (event.getName().equals("measure")) {		
 			EmbedBuilder measure1 = new EmbedBuilder();
 			measure1.setColor(Color.blue);
-			measure1.addField("tpll Outline Tutorial", "https://www.youtube.com/watch?v=KlGOijIkePQ", false);
+			measure1.addField("Tpll Outline Tutorial", "https://i.imgur.com/G5c6bJl.mp4", false);
 			event.replyEmbeds(measure.build(), measure1.build()).queue();	
 		}
 //-------------------------------------------------------------------------------------------------------------	
