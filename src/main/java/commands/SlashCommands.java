@@ -143,8 +143,7 @@ public class SlashCommands extends ListenerAdapter {
 		//returns measure gif from BTE bot
 			
 		if (event.getName().equals("measure")) {		
-			event.replyEmbeds(measure.build()).queue();	
-			event.replyFile(new File("src/main/java/Resources/measure1.mp4")).queue();
+			event.replyEmbeds(measure.build()).addFile(new File("src/main/java/Resources/measure1.mp4")).queue();	
 		}
 //-------------------------------------------------------------------------------------------------------------	
 		//send command to server console
