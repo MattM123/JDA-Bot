@@ -76,6 +76,11 @@ public class SlashCommands extends ListenerAdapter {
 	     measure.setTitle("Google Earth Pro Measuring Tutotrial");
 		 measure.setImage("https://i.gyazo.com/thumb/1200/d58446cec35cc504bb36b749346041a9-gif.gif");
 		 
+		EmbedBuilder measure1 = new EmbedBuilder();
+		measure1.setColor(Color.blue);
+		measure1.setTitle("Tpll Outline Tutorial");
+		measure1.setImage("https://cdn.discordapp.com/attachments/786328890280247327/1012110095619985498/measure1.mp4");
+			
 		 EmbedBuilder map = new EmbedBuilder();
 		 map.setTitle("BTE Midwest Map");
 		 map.setColor(Color.blue);
@@ -138,11 +143,7 @@ public class SlashCommands extends ListenerAdapter {
 		//returns measure gif from BTE bot
 			
 		if (event.getName().equals("measure")) {		
-			EmbedBuilder measure1 = new EmbedBuilder();
-			measure1.setColor(Color.blue);
-			measure1.setTitle("Tpll Outline Tutorial");
-			measure1.setImage("attachment://measure1.mp4");
-			event.replyEmbeds(measure.build(), measure1.build()).addFile(new File("src/main/java/Resources/measure1.mp4")).queue();	
+			event.replyEmbeds(measure.build(), measure1.build()).queue();	
 		}
 //-------------------------------------------------------------------------------------------------------------	
 		//send command to server console
