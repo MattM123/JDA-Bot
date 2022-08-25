@@ -206,11 +206,17 @@ public class SlashCommands extends ListenerAdapter {
 			String hex = event.getOption("hex") == null ? null : event.getOption("hex").getAsString();
 			Attachment msgImage = event.getOption("image") == null ? null : event.getOption("image").getAsAttachment();
 			ImageReader reader = ImageIO.getImageReadersByFormatName("png").next();
+			
 			Pattern mypattern = Pattern.compile("[0-9a-f]{6}", Pattern.CASE_INSENSITIVE);
 			Matcher mymatcher = null;
 			
-			if (hex != null)
+			Pattern myotherpattern = Pattern.compile("#[0-9a-f]{6}", Pattern.CASE_INSENSITIVE);
+			Matcher myothermatcher = null;
+			
+			if (hex != null) {
 				mymatcher = mypattern.matcher(hex);
+				myothermatcher = myotherpattern.matcher(hex);
+			}
 					
 	        for (File textureFile : new File("src/main/java/Resources/textures/blocks/").listFiles()) {
 	            try {
@@ -238,8 +244,12 @@ public class SlashCommands extends ListenerAdapter {
 	        }
 	     
 	        
-			if (hex != null && (mymatcher.matches() && mymatcher != null)) {
-				color = Color.decode("#" + event.getOption("hex").getAsString());
+			if ((hex != null && (mymatcher.matches() && mymatcher != null)) || (hex != null && (myothermatcher.matches() && myothermatcher != null))) {
+				if (mymatcher.matches())
+					color = Color.decode("#" + event.getOption("hex").getAsString());
+				else
+					color = Color.decode(event.getOption("hex").getAsString());
+				
                 
                 Map<Color, Double> distances = new HashMap<>();
                 for (Color c : textures.keySet()) {
