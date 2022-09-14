@@ -152,10 +152,10 @@ public class SlashCommands extends ListenerAdapter {
 				event.replyEmbeds(emb.build()).queue();
 			}
 		}
-		else {
+		else if (event.getName().equals("console") && midwestServer.isSuspended()) {
 			EmbedBuilder err = new EmbedBuilder();
 			err.setColor(Color.red);
-			err.setTitle("Server is suspended. Unable to pull any data");
+			err.setTitle("Server is suspended. Unable to send command to console.");
 			event.replyEmbeds(err.build()).queue();	
 		}
 //-------------------------------------------------------------------------------------------------------------		
@@ -182,10 +182,10 @@ public class SlashCommands extends ListenerAdapter {
 				event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();	
 			}
 		}
-		else {
+		else if (event.getName().equals("apply") && midwestServer.isSuspended()) {
 			EmbedBuilder err = new EmbedBuilder();
 			err.setColor(Color.red);
-			err.setTitle("Server is suspended. Unable to pull any data");
+			err.setTitle("Server is suspended. Unable to give trial builder permissions. Please try again later.");
 			event.replyEmbeds(err.build()).queue();
 		}
 
@@ -208,8 +208,8 @@ public class SlashCommands extends ListenerAdapter {
 			
 			event.replyEmbeds(midwest.build()).queue();
 		}
-		else {
-			midwest.setTitle("Server is suspended. Unable to pull any data");
+		else if (event.getName().equals("server") && midwestServer.isSuspended()) {
+			midwest.setTitle("Server is suspended. Unable to pull server data.");
 			midwest.setColor(Color.red);
 			event.replyEmbeds(midwest.build()).queue();
 		}
