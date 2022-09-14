@@ -134,7 +134,7 @@ public class SlashCommands extends ListenerAdapter {
 //-------------------------------------------------------------------------------------------------------------	
 		//send command to server console
 		 
-		if (event.getName().equals("console")) {
+		if (event.getName().equals("console") && !midwestServer.isSuspended()) {
 			if (staff.contains(event.getMember())) {
 				
 				midwestServer.sendCommand(event.getOption("command").getAsString()).execute();
@@ -152,10 +152,16 @@ public class SlashCommands extends ListenerAdapter {
 				event.replyEmbeds(emb.build()).queue();
 			}
 		}
+		else {
+			EmbedBuilder err = new EmbedBuilder();
+			err.setColor(Color.red);
+			err.setTitle("Server is suspended. Unable to pull any data");
+			event.replyEmbeds(err.build()).queue();	
+		}
 //-------------------------------------------------------------------------------------------------------------		
 		//Gives applicant builder permissions if they havnt already been rejected
 
-		if (event.getName().equals("apply")) {	
+		if (event.getName().equals("apply") && !midwestServer.isSuspended()) {	
 			String applicants = pteroAPI.retrieveServerByIdentifier(System.getenv("SERVER_ID"))
 					.flatMap(clientServer -> clientServer.retrieveDirectory())
 					.map(rootDir -> rootDir.getFileByName("Applicants.txt").get())
@@ -175,6 +181,12 @@ public class SlashCommands extends ListenerAdapter {
 				event.getGuild().addRoleToMember(event.getUser(), event.getGuild().getRoleById(923068579992186912L)).queue();
 				event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();	
 			}
+		}
+		else {
+			EmbedBuilder err = new EmbedBuilder();
+			err.setColor(Color.red);
+			err.setTitle("Server is suspended. Unable to pull any data");
+			event.replyEmbeds(err.build()).queue();
 		}
 
 //-----------------------------------------------------------------------------------------------------------------------------
@@ -197,7 +209,8 @@ public class SlashCommands extends ListenerAdapter {
 			event.replyEmbeds(midwest.build()).queue();
 		}
 		else {
-			midwest.setTitle("Server is suspended. Unable to pull server data");
+			midwest.setTitle("Server is suspended. Unable to pull any data");
+			midwest.setColor(Color.red);
 			event.replyEmbeds(midwest.build()).queue();
 		}
 
