@@ -183,10 +183,8 @@ public class SlashCommands extends ListenerAdapter {
 			}
 		}
 		else if (event.getName().equals("apply") && midwestServer.isSuspended()) {
-			EmbedBuilder err = new EmbedBuilder();
-			err.setColor(Color.red);
-			err.setTitle("Server is suspended. Unable to give trial builder permissions. Please try again later.");
-			event.replyEmbeds(err.build()).queue();
+			event.getGuild().addRoleToMember(event.getUser(), event.getGuild().getRoleById(923068579992186912L)).queue();
+			event.reply("Trial builder permissions assigned to <@" + event.getMember().getId() + ">").queue();	
 		}
 
 //-----------------------------------------------------------------------------------------------------------------------------
