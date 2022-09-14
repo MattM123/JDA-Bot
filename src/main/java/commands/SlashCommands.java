@@ -85,20 +85,6 @@ public class SlashCommands extends ListenerAdapter {
 		 map.setTitle("BTE Midwest Map");
 		 map.setColor(Color.blue);
 		 map.setImage("https://cdn.discordapp.com/attachments/735998501053530163/901644652157997076/bte_midwest.png");
-			
-		EmbedBuilder midwest = new EmbedBuilder();
-		if (midwestServer.retrieveUtilization().execute().getState().toString().equals("RUNNING")) 
-			midwest.setColor(Color.green);		
-		else if (midwestServer.retrieveUtilization().execute().getState().toString().equals("OFFLINE")) 
-			midwest.setColor(Color.red);		
-		else 
-			midwest.setColor(Color.yellow);
-		
-		midwest.setTitle(midwestServer.getName());
-		midwest.addField("Status", midwestServer.retrieveUtilization().execute().getState().toString(), false);
-		midwest.addField("CPU Usage", midwestServer.retrieveUtilization().execute().getCPU() + "%/100%", false);
-		midwest.addField("Memory Usage", midwestServer.retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + Integer.parseInt(midwestServer.getLimits().getMemory()) / 1000 + " GB", false);
-		midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/Unlimited", false);
 		
 //-------------------------------------------------------------------------------------------------------------			
 		//deletes messages in bulk
@@ -193,10 +179,27 @@ public class SlashCommands extends ListenerAdapter {
 
 //-----------------------------------------------------------------------------------------------------------------------------
 		//get server stats
-		
-		if (event.getName().equals("server"))	
-			event.replyEmbeds(midwest.build()).queue();
+		EmbedBuilder midwest = new EmbedBuilder();
+		if (event.getName().equals("server") && !midwestServer.isSuspended()) {
+			if (midwestServer.retrieveUtilization().execute().getState().toString().equals("RUNNING")) 
+				midwest.setColor(Color.green);		
+			else if (midwestServer.retrieveUtilization().execute().getState().toString().equals("OFFLINE")) 
+				midwest.setColor(Color.red);		
+			else 
+				midwest.setColor(Color.yellow);
 			
+			midwest.setTitle(midwestServer.getName());
+			midwest.addField("Status", midwestServer.retrieveUtilization().execute().getState().toString(), false);
+			midwest.addField("CPU Usage", midwestServer.retrieveUtilization().execute().getCPU() + "%/100%", false);
+			midwest.addField("Memory Usage", midwestServer.retrieveUtilization().execute().getMemoryFormatted(DataType.GB) + "/" + Integer.parseInt(midwestServer.getLimits().getMemory()) / 1000 + " GB", false);
+			midwest.addField("Server Size", midwestServer.retrieveUtilization().execute().getDiskFormatted(DataType.GB) + "/Unlimited", false);
+			
+			event.replyEmbeds(midwest.build()).queue();
+		}
+		else {
+			midwest.setTitle("Server is suspended. Unable to pull server data");
+			event.replyEmbeds(midwest.build()).queue();
+		}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------	
 		//Attempts to find a color based on a provided image or hex value
