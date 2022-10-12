@@ -101,7 +101,7 @@ public class SlashCommands extends ListenerAdapter {
 				event.getChannel().getHistory().retrievePast(amount).queue(channel -> {
 					for (int i = 0; i < amount; i++) {
 						channel.get(i).delete().queue();
-					}			
+					}	
 				});
 			}
 			else

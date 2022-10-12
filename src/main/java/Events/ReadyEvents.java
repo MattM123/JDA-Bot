@@ -44,23 +44,28 @@ public class ReadyEvents extends ListenerAdapter {
 		
 		long start = System.currentTimeMillis();
 		long end = start + interval;
-		
-		while (System.currentTimeMillis() != end) {
-				//Comapares cached messages and authors with new messages. Clears cache if tuples differ.
-				if (messages.isEmpty() || !messages.contains(new Tuple(event.getMessage(), event.getAuthor()))) {
-					messages.clear();
-					messages.add(new Tuple(event.getMessage(), event.getAuthor()));
-				}
-				//If message and author match, caches 
-				else if (messages.contains(new Tuple(event.getMessage(), event.getAuthor()))) {				
-					messages.add(new Tuple(event.getMessage(), event.getAuthor()));
-				}
-				
-				//If cache is full, user has sent 3 of the same messages in 3 different channels
-				if (messages.size() == messageAmount) {
+		guild.getTextChannelById(786328890280247327L).sendMessage("test").queue();
+		if (event.isFromGuild()) {
+			while (System.currentTimeMillis() != end) {
+					//Comapares cached messages and authors with new messages. Clears cache if tuples differ.
+					if (messages.isEmpty() || !messages.contains(new Tuple(event.getMessage(), event.getAuthor()))) {
+						messages.clear();
+						messages.add(new Tuple(event.getMessage(), event.getAuthor()));
+					}
+					//If message and author match, caches 
+					else if (messages.contains(new Tuple(event.getMessage(), event.getAuthor()))) {				
+						messages.add(new Tuple(event.getMessage(), event.getAuthor()));
+					}
 					
-				}
-				guild.getTextChannelById(786328890280247327L).sendMessage("Cache: " + messages.toString()).queue();
+					//If cache is full, user has sent 3 of the same messages in 3 different channels
+					if (messages.size() == messageAmount) {
+						
+					}
+					guild.getTextChannelById(786328890280247327L).sendMessage("Cache: " + messages.toString()).queue();
+			}
+		}
+		else {
+			guild.getTextChannelById(786328890280247327L).sendMessage("Message not from guild").queue();
 		}
 	}
 }
