@@ -55,20 +55,13 @@ public class ReadyEventListener extends ListenerAdapter {
 	//Channel spam detection
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event) {	
-		guild.getTextChannelById(786328890280247327L).sendMessage("test").queue();
-		//The time interval the messages need to be sent within for it to be considered channel spam
+
+		//The time interval in milliseconds the messages need to be sent within for it to be considered channel spam
 		int interval = 10000;
 	
 		//The amount of messages to be considered channel spam
 		int messageAmount = 3;		
-		//Clears cache before next execution
-		messages.clear();
-		
-		long start = System.currentTimeMillis();
-		long end = start + interval;
-		guild.getTextChannelById(786328890280247327L).sendMessage("test").queue();
-		
-		
+	
 		if (event.isFromGuild() && event.getChannelType().isMessage()) {
 		//	while (System.currentTimeMillis() != end) {
 					//Comapares cached messages and authors with new messages. 				
