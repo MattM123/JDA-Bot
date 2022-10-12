@@ -5,8 +5,10 @@ import com.marcuzzo.JDABot.Bot;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -15,7 +17,7 @@ public class ReadyEventListener extends ListenerAdapter {
 	class Tuple { 
 	    private Message x;
 	    private User y;
-	    private TextChannel z;
+	    private MessageChannel z;
 	    
 	    public Tuple(Message x, User y, TextChannel z) {
 	    	this.x = x;
@@ -31,7 +33,7 @@ public class ReadyEventListener extends ListenerAdapter {
 	    	return y;
 	    }
 	    
-	    public TextChannel getChannel() {
+	    public MessageChannel getChannel() {
 	    	return z;
 	    }
 	} 
@@ -40,7 +42,8 @@ public class ReadyEventListener extends ListenerAdapter {
 	ArrayList<Tuple> messages = new ArrayList<Tuple>();
 	
 	//Channel spam detection
-	public void onReady(MessageReceivedEvent event) {
+	@Override
+	public void onMessageReceived(MessageReceivedEvent event) {	
 		guild.getTextChannelById(786328890280247327L).sendMessage("test").queue();
 		//The time interval the messages need to be sent within for it to be considered channel spam
 		int interval = 10000;
@@ -52,6 +55,7 @@ public class ReadyEventListener extends ListenerAdapter {
 		long start = System.currentTimeMillis();
 		long end = start + interval;
 		guild.getTextChannelById(786328890280247327L).sendMessage("test").queue();
+		
 		if (event.isFromGuild() && event.getChannelType().isMessage()) {
 			while (System.currentTimeMillis() != end) {
 					//Comapares cached messages and authors with new messages. 				
