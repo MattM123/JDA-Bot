@@ -27,7 +27,7 @@ public class Bot {
 			jda = JDABuilder.createDefault(token)
 				.setChunkingFilter(ChunkingFilter.ALL)
 				.setMemberCachePolicy(MemberCachePolicy.ALL)
-                .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES)        
+                .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT)        
 				.build().awaitReady();
 			
 			jda.addEventListener(new SlashCommands(), new ReadyEventListener());
