@@ -23,7 +23,7 @@ public class ReadyEventListener extends ListenerAdapter {
 	    private MessageChannel z;
 	    private long time;
 	    
-	    public Tuple(Message x, User y, TextChannel z, long time) {
+	    public Tuple(Message x, User y, MessageChannel z, long time) {
 	    	this.x = x;
 	    	this.y = y;
 	    	this.z = z;
@@ -90,9 +90,10 @@ public class ReadyEventListener extends ListenerAdapter {
 							messages.addFirst(new Tuple(event.getMessage(), event.getAuthor(), (TextChannel) event.getChannel(), System.currentTimeMillis()));
 						}
 					}
-					if (counter >= messageAmount && messages.get(0).getTime() - messages.get(messages.size()).getTime() < interval) {
+					if (counter >= messageAmount && messages.get(messages.size() - 1).getTime() - messages.get(0).getTime() < interval) {
+						counter = 0;
 						guild.getTextChannelById(786328890280247327L).sendMessage("Channel Spammed by :\n" + spammer.getAsTag() + " in " 
-								+ (messages.get(0).getTime() - messages.get(messages.size()).getTime()) + "ms").queue();
+								+ (messages.get(messages.size() - 1).getTime() - messages.get(0).getTime()) + "ms").queue();
 					}
 				}
 				//If cache is empty on message recieved, caches the message regardless of content, author, or channel to be used 
@@ -103,9 +104,9 @@ public class ReadyEventListener extends ListenerAdapter {
 					
 				//If cache is full and user has sent 3 of the same messages in 3 different channels within the time interval
 				//it is considered channel spam
-				if (messages.size() == cacheSize && messages.get(0).getTime() - messages.get(messages.size() - 1).getTime() < interval) {				
-					guild.getTextChannelById(786328890280247327L).sendMessage("Channel Spammed:\n" + messages.toString()).queue();
-				}
+			//	if (messages.size() == cacheSize && messages.get(0).getTime() - messages.get(messages.size() - 1).getTime() < interval) {				
+			//		guild.getTextChannelById(786328890280247327L).sendMessage("Channel Spammed:\n" + messages.toString()).queue();
+				//}
 				guild.getTextChannelById(786328890280247327L).sendMessage("Cache: " + messages.toString()).queue();
 		}
 	}
