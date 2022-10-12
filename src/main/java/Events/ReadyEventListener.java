@@ -62,7 +62,7 @@ public class ReadyEventListener extends ListenerAdapter {
 		//The amount of messages to be considered channel spam
 		int messageAmount = 3;		
 	
-		if (event.isFromGuild() && event.getChannelType().isMessage()) {
+		if (event.isFromGuild() && event.getChannelType().isMessage() && !event.getMessage().isEphemeral() && !event.getAuthor().isBot()) {
 				//Comapares cached messages and authors with new messages. 				
 				if (!messages.isEmpty()) {
 					for (int i = 0; i < messages.size(); i++) {
