@@ -7,6 +7,8 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.events.message.MessageDeleteEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -40,7 +42,7 @@ public class ReadyEvents extends ListenerAdapter {
 	ArrayList<Tuple> messages = new ArrayList<Tuple>();
 	
 	//Channel spam detection
-	public void onReadyEvent(MessageReceivedEvent event) {
+	public void onMessageReceieved(MessageReceivedEvent event) {
 		
 		//The time interval the messages need to be sent within for it to be considered channel spam
 		int interval = 10000;
