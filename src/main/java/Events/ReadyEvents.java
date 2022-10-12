@@ -42,8 +42,8 @@ public class ReadyEvents extends ListenerAdapter {
 	ArrayList<Tuple> messages = new ArrayList<Tuple>();
 	
 	//Channel spam detection
-	public void onMessageRecieved(MessageReceivedEvent event) {
-		
+	public void onReady(MessageReceivedEvent event) {
+		guild.getTextChannelById(786328890280247327L).sendMessage("test").queue();
 		//The time interval the messages need to be sent within for it to be considered channel spam
 		int interval = 10000;
 		//The amount of messages to be considered channel spam
