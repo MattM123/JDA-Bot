@@ -11,6 +11,8 @@ import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import java.util.ArrayList;
 import java.util.List;
+
+import Events.ReadyEvents;
 import commands.SlashCommands;
 
 public class Bot {	
@@ -29,6 +31,7 @@ public class Bot {
 				.build().awaitReady();
 			
 			jda.addEventListener(new SlashCommands());
+			jda.addEventListener(new ReadyEvents());
 			Guild guild = jda.getGuildById(735990134583066679L);
 			
 			if (guild != null) {
