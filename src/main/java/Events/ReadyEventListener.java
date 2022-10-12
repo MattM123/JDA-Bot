@@ -1,17 +1,12 @@
 package Events;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
-
 import com.marcuzzo.JDABot.Bot;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -53,7 +48,7 @@ public class ReadyEventListener extends ListenerAdapter {
 	} 
 	
 	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
-	private LinkedList<Tuple> messages = new LinkedList<Tuple>();
+	private LinkedList<Tuple> messageCache = new LinkedList<Tuple>();
 	
 	//Channel spam detection
 	@Override
@@ -70,15 +65,15 @@ public class ReadyEventListener extends ListenerAdapter {
 	
 		if (event.isFromGuild() && event.getChannelType().isMessage() && !event.getMessage().isEphemeral() && !event.getAuthor().isBot()) {
 				//Comapares cached messages and authors with new messages. 				
-				if (messages.size() == cacheSize) {
+				if (messageCache.size() == cacheSize) {
 					int counter = 0;
 					User spammer = null;
 					
-					//Iterates through cache and determines if channel spam is happening
-					for (int i = 0; i < messages.size(); i++) {
-						if (event.getMessage().equals(messages.get(i).getMessage()) 
-								&& event.getAuthor().equals(messages.get(i).getUser()) 
-								&& !event.getChannel().equals(messages.get(i).getChannel())) {
+					//Iterates through cache and determines if channel spam is happenin
+					for (int i = 0; i < messageCache.size(); i++) {
+						if (event.getMessage().equals(messageCache.get(i).getMessage()) 
+								&& event.getAuthor().equals(messageCache.get(i).getUser()) 
+								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
 							counter++;
 							spammer = event.getAuthor();
 						}					
@@ -87,26 +82,20 @@ public class ReadyEventListener extends ListenerAdapter {
 					//The criteria for determining channel spam are:
 					//If at least messageAmount messages have the same content and author but different channels
 					//And if the time difference between the last cached message and the first cached message is less than interval
-					if (counter >= messageAmount && messages.get(messages.size() - 1).getTime() - messages.get(0).getTime() < interval) {
-						guild.getTextChannelById(786328890280247327L).sendMessage("Channel Spammed by :\n" + spammer.getAsTag() + " in " 
-								+ (messages.get(messages.size() - 1).getTime() - messages.get(0).getTime()) + "ms").queue();
+					if (counter >= messageAmount && messageCache.get(messageCache.size() - 1).getTime() - messageCache.get(0).getTime() < interval) {
+						guild.getTextChannelById(786328890280247327L).sendMessage("Channel Spammed by :" + spammer.getAsTag() + " in " 
+								+ (messageCache.get(messageCache.size() - 1).getTime() - messageCache.get(0).getTime()) + "ms").queue();
 					}
 					
 					//keeps cache updated with most recent messages 
-					messages.removeLast();
-					messages.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+					messageCache.removeLast();
+					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 				}
 				else {
-					messages.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 				}
 
-					
-				//If cache is full and user has sent 3 of the same messages in 3 different channels within the time interval
-				//it is considered channel spam
-			//	if (messages.size() == cacheSize && messages.get(0).getTime() - messages.get(messages.size() - 1).getTime() < interval) {				
-			//		guild.getTextChannelById(786328890280247327L).sendMessage("Channel Spammed:\n" + messages.toString()).queue();
-				//}
-				guild.getTextChannelById(786328890280247327L).sendMessage("Cache: " + messages.toString()).queue();
+				guild.getTextChannelById(786328890280247327L).sendMessage("Cache: " + messageCache.toString()).queue();
 		}
 	}
 }
