@@ -87,7 +87,7 @@ public class ReadyEventListener extends ListenerAdapter {
 						else {
 							counter = 0;
 							messages.removeLast();
-							messages.addFirst(new Tuple(event.getMessage(), event.getAuthor(), (TextChannel) event.getChannel(), System.currentTimeMillis()));
+							messages.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 						}
 					}
 					if (counter >= messageAmount && messages.get(messages.size() - 1).getTime() - messages.get(0).getTime() < interval) {
@@ -99,7 +99,7 @@ public class ReadyEventListener extends ListenerAdapter {
 				//If cache is empty on message recieved, caches the message regardless of content, author, or channel to be used 
 				//for the next loop iteration 
 				else {
-					messages.add(new Tuple(event.getMessage(), event.getAuthor(), (TextChannel) event.getChannel(), System.currentTimeMillis()));
+					messages.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 				}
 					
 				//If cache is full and user has sent 3 of the same messages in 3 different channels within the time interval
