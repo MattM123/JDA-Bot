@@ -42,7 +42,7 @@ public class ReadyEvents extends ListenerAdapter {
 	ArrayList<Tuple> messages = new ArrayList<Tuple>();
 	
 	//Channel spam detection
-	public void onMessageReceieved(MessageReceivedEvent event) {
+	public void onReady(MessageReceivedEvent event) {
 		
 		//The time interval the messages need to be sent within for it to be considered channel spam
 		int interval = 10000;
@@ -57,7 +57,7 @@ public class ReadyEvents extends ListenerAdapter {
 		if (event.isFromGuild() && event.getChannelType().isMessage()) {
 			while (System.currentTimeMillis() != end) {
 					//Comapares cached messages and authors with new messages. 
-					//Cache only stores object if the message and author are the same but the channel is different
+					//Cache only stores object if the message and author are the same but the channel is different and the cache is not empty
 					if (!messages.isEmpty()) {
 						for (int i = 0; i < messages.size(); i++) {
 							if (event.getMessage().equals(messages.get(i).getMessage()) 
@@ -73,7 +73,7 @@ public class ReadyEvents extends ListenerAdapter {
 					
 					//If cache is full, user has sent 3 of the same messages in 3 different channels
 					if (messages.size() == messageAmount) {
-						
+						guild.getTextChannelById(786328890280247327L).sendMessage("Channel Spam Detected:\n" + messages.toString()).queue();
 					}
 					guild.getTextChannelById(786328890280247327L).sendMessage("Cache: " + messages.toString()).queue();
 			}

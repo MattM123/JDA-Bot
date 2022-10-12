@@ -34,8 +34,7 @@ public class Bot {
 			jda.addEventListener(new ReadyEvents());
 			Guild guild = jda.getGuildById(735990134583066679L);
 			
-			if (guild != null) {
-				
+			if (guild != null) {				
 				jda.updateCommands()
 					.addCommands(Commands.slash("console", "Send a console command to the BTE Midwest minecraft server")
 	                    .addOption(OptionType.STRING, "command", "The command to send to the server console", true))
