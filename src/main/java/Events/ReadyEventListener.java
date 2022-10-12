@@ -73,34 +73,33 @@ public class ReadyEventListener extends ListenerAdapter {
 				if (messages.size() == cacheSize) {
 					int counter = 0;
 					User spammer = null;
+					
+					//Iterates through cache and determines if channel spam is happening
 					for (int i = 0; i < messages.size(); i++) {
-						//Cache stores tuples with similar content and author but differing channels
-						//Messages need to be sent within the time interval to be tracked
 						if (event.getMessage().equals(messages.get(i).getMessage()) 
 								&& event.getAuthor().equals(messages.get(i).getUser()) 
 								&& !event.getChannel().equals(messages.get(i).getChannel())) {
 							counter++;
 							spammer = event.getAuthor();
-						}
-						//If cache is not full and a message with different content and author is recieved, 
-						//resets counter to 0
-						else {
-							counter = 0;
-							messages.removeLast();
-							messages.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
-						}
+						}					
 					}
+					
+					//The criteria for determining channel spam are:
+					//If at least messageAmount messages have the same content and author but different channels
+					//And if the time difference between the last cached message and the first cached message is less than interval
 					if (counter >= messageAmount && messages.get(messages.size() - 1).getTime() - messages.get(0).getTime() < interval) {
-						counter = 0;
 						guild.getTextChannelById(786328890280247327L).sendMessage("Channel Spammed by :\n" + spammer.getAsTag() + " in " 
 								+ (messages.get(messages.size() - 1).getTime() - messages.get(0).getTime()) + "ms").queue();
 					}
+					
+					//keeps cache updated with most recent messages 
+					messages.removeLast();
+					messages.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 				}
-				//If cache is empty on message recieved, caches the message regardless of content, author, or channel to be used 
-				//for the next loop iteration 
 				else {
 					messages.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 				}
+
 					
 				//If cache is full and user has sent 3 of the same messages in 3 different channels within the time interval
 				//it is considered channel spam
