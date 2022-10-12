@@ -42,7 +42,7 @@ public class ReadyEvents extends ListenerAdapter {
 	ArrayList<Tuple> messages = new ArrayList<Tuple>();
 	
 	//Channel spam detection
-	public void onReady(MessageReceivedEvent event) {
+	public void onMessageRecieved(MessageReceivedEvent event) {
 		
 		//The time interval the messages need to be sent within for it to be considered channel spam
 		int interval = 10000;
