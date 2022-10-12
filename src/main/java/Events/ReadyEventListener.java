@@ -7,12 +7,10 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.ReadyEvent;
-import net.dv8tion.jda.api.events.message.MessageDeleteEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class ReadyEvents extends ListenerAdapter {
+public class ReadyEventListener extends ListenerAdapter {
 	
 	class Tuple { 
 	    private Message x;
@@ -56,24 +54,33 @@ public class ReadyEvents extends ListenerAdapter {
 		guild.getTextChannelById(786328890280247327L).sendMessage("test").queue();
 		if (event.isFromGuild() && event.getChannelType().isMessage()) {
 			while (System.currentTimeMillis() != end) {
-					//Comapares cached messages and authors with new messages. 
-					//Cache only stores object if the message and author are the same but the channel is different and the cache is not empty
+					//Comapares cached messages and authors with new messages. 				
 					if (!messages.isEmpty()) {
 						for (int i = 0; i < messages.size(); i++) {
+							//Cache stores tuples with similar content and author but differing channels
 							if (event.getMessage().equals(messages.get(i).getMessage()) 
 									&& event.getAuthor().equals(messages.get(i).getUser()) 
 									&& !event.getChannel().equals(messages.get(i).getChannel())) {
 								messages.add(new Tuple(event.getMessage(), event.getAuthor(), (TextChannel) event.getChannel()));
 							}
+							//If cache is not full and a message with different content and author is recieved, 
+							//clears cache and stores the different message thats been recieved.
+							else {
+								messages.clear();
+								messages.add(new Tuple(event.getMessage(), event.getAuthor(), (TextChannel) event.getChannel()));
+							}
 						}
 					}
+					//If cache is empty on message recieved, caches the message regardless of content, author, or channel to be used 
+					//for the next loop iteration 
 					else {
 						messages.add(new Tuple(event.getMessage(), event.getAuthor(), (TextChannel) event.getChannel()));
 					}
 					
-					//If cache is full, user has sent 3 of the same messages in 3 different channels
+					//If cache is full, user has sent 3 of the same messages in 3 different channels within the time interval
 					if (messages.size() == messageAmount) {
 						guild.getTextChannelById(786328890280247327L).sendMessage("Channel Spam Detected:\n" + messages.toString()).queue();
+						break;
 					}
 					guild.getTextChannelById(786328890280247327L).sendMessage("Cache: " + messages.toString()).queue();
 			}

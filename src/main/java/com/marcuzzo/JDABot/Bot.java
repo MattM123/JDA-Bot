@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import java.util.ArrayList;
 import java.util.List;
 
-import Events.ReadyEvents;
+import Events.ReadyEventListener;
 import commands.SlashCommands;
 
 public class Bot {	
@@ -30,8 +30,7 @@ public class Bot {
                 .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES)        
 				.build().awaitReady();
 			
-			jda.addEventListener(new SlashCommands());
-			jda.addEventListener(new ReadyEvents());
+			jda.addEventListener(new SlashCommands(), new ReadyEventListener());
 			Guild guild = jda.getGuildById(735990134583066679L);
 			
 			if (guild != null) {				
