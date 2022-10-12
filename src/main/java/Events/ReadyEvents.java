@@ -54,7 +54,7 @@ public class ReadyEvents extends ListenerAdapter {
 		int interval = 10000;
 		//The amount of messages to be considered channel spam
 		int messageAmount = 3;		
-		//Clears cache before next exection
+		//Clears cache before next execution
 		messages.clear();
 		
 		long start = System.currentTimeMillis();
@@ -75,7 +75,7 @@ public class ReadyEvents extends ListenerAdapter {
 				if (messages.size() == messageAmount) {
 					
 				}
-				guild.getTextChannelById(786328890280247327L).sendMessage("Cache: " + messages.toString());
+				guild.getTextChannelById(786328890280247327L).sendMessage("Cache: " + messages.toString()).queue();
 		}
 	}
 }
