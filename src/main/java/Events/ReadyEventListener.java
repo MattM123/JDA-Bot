@@ -103,7 +103,7 @@ public class ReadyEventListener extends ListenerAdapter {
 					
 				//If cache is full and user has sent 3 of the same messages in 3 different channels within the time interval
 				//it is considered channel spam
-				if (messages.size() == cacheSize && messages.get(0).getTime() - messages.get(messages.size()).getTime() < interval) {				
+				if (messages.size() == cacheSize && messages.get(0).getTime() - messages.get(messages.size() - 1).getTime() < interval) {				
 					guild.getTextChannelById(786328890280247327L).sendMessage("Channel Spammed:\n" + messages.toString()).queue();
 				}
 				guild.getTextChannelById(786328890280247327L).sendMessage("Cache: " + messages.toString()).queue();
