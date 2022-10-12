@@ -36,6 +36,11 @@ public class ReadyEventListener extends ListenerAdapter {
 	    public MessageChannel getChannel() {
 	    	return z;
 	    }
+	    
+	    @Override
+	    public String toString() {
+	    	return "| " + x.getContentRaw() + "," + y.getAsTag() + "," + z.getName() + "|";
+	    }
 	} 
 	
 	private Guild guild = Bot.jda.getGuildById(735990134583066679L);
