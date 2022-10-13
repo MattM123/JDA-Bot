@@ -71,9 +71,14 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 		if (event.isFromGuild() && event.getChannelType().isMessage() && !event.getMessage().isEphemeral() && !event.getAuthor().isBot()) {
 				//Comapares cached messages and authors with new messages. 				
 				if (messageCache.size() == cacheSize) {
+						
 					int counter = 0;
 					User spammer = null;
 					
+					//keeps cache updated with most recent messages 
+					messageCache.removeLast();
+					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+									
 					//Iterates through cache and determines if channel spam is happenin
 					for (int i = 0; i < messageCache.size(); i++) {
 						if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
@@ -89,8 +94,8 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					//And if the time difference between the last cached message and the first cached message is less than interval
 					
 					if (counter >= messageAmount && messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime() < interval) {
-						double time = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) / 1000;
-						double t2 = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 2).getTime()) / 1000; 
+						double time = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) / 1000.0;
+						double t2 = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 2).getTime()) / 1000.0; 
 						
 						EmbedBuilder emb = new EmbedBuilder();
 						emb.setColor(Color.red);
@@ -107,10 +112,6 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 
 						guild.getTextChannelById(786328890280247327L).sendMessageEmbeds(emb.build()).queue();
 					}
-					
-					//keeps cache updated with most recent messages 
-					messageCache.removeLast();
-					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 				}
 				else {
 					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
