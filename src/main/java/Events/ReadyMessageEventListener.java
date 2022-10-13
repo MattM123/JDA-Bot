@@ -95,21 +95,20 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					}
 					else {
 						messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
-					}
-				//	counter = 0;
-				//	spammer = null;
-					
-				/*	//Rechecks cache to prevent deteciton from happening on the messageAmount + 1 message
-					for (int i = 0; i < messageCache.size(); i++) {
-						if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
-								&& event.getAuthor().equals(messageCache.get(i).getUser()) 
-								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
-							counter++;
-							guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();							
-							spammer = event.getAuthor();
-						}					
-					} 
-					*/				
+						counter = 0;
+						spammer = null;
+						
+						//Iterates through cache and determines if channel spam is happening
+						for (int i = 0; i < messageCache.size(); i++) {
+							if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
+									&& event.getAuthor().equals(messageCache.get(i).getUser()) 
+									&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
+								counter++;
+								guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();							
+								spammer = event.getAuthor();
+							}					
+						} 
+					}		
 				}
 				
 				else {
