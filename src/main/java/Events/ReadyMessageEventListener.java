@@ -119,9 +119,9 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					emb.setTitle(spammer.getAsTag() + " is suspected of channel spamming and has been muted");
 					if (messageCache.get(0).getMessage().getContentRaw().length() < 2000) {
 						emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
-							"`" + messageCache.get(0).getMessage().getContentRaw() + "...` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
-							+ "`" + messageCache.get(1).getMessage().getContentRaw() + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
-							+ "`" + messageCache.get(2).getMessage().getContentRaw()+ "...` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
+							"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
+							+ "`" + messageCache.get(1).getMessage().getContentRaw() + "` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
+							+ "`" + messageCache.get(2).getMessage().getContentRaw()+ "` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
 					}
 					else {
 						emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
