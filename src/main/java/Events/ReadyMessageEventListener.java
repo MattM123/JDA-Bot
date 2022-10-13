@@ -70,15 +70,14 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 	
 		if (event.isFromGuild() && event.getChannelType().isMessage() && !event.getMessage().isEphemeral() && !event.getAuthor().isBot()) {
 				//Comapares cached messages and authors with new messages. 				
-				if (messageCache.size() == cacheSize) {
-						
-					int counter = 0;
-					User spammer = null;
+				if (messageCache.size() == cacheSize) {				
 					
 					//keeps cache updated with most recent messages 
 					messageCache.removeLast();
 					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 					
+					int counter = 0;
+					User spammer = null;
 					
 					//Iterates through cache and determines if channel spam is happenin
 					for (int i = 0; i < messageCache.size(); i++) {
