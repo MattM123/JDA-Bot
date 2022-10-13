@@ -61,7 +61,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 		int messageAmount = 3;		
 		
 		//How many messages should be analysed to determine spam
-		int cacheSize = 5;
+		int cacheSize = messageAmount;
 	
 		if (event.isFromGuild() && event.getChannelType().isMessage() && !event.getMessage().isEphemeral() && !event.getAuthor().isBot()) {
 				//Comapares cached messages and authors with new messages. 				
