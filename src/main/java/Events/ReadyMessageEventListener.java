@@ -86,6 +86,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 								&& event.getAuthor().equals(messageCache.get(i).getUser()) 
 								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
 							counter++;
+							guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();
 							spammer = event.getAuthor();
 						}					
 					} 
@@ -94,7 +95,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					//If at least messageAmount messages have the same content and author but different channels
 					//And if the time difference between the last cached message and the first cached message is less than interval
 					
-					if (counter >= messageAmount && messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime() < interval) {
+					if (counter >= messageAmount && (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) < interval) {
 						double time = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) / 1000.0;
 						double t2 = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 2).getTime()) / 1000.0; 
 						
