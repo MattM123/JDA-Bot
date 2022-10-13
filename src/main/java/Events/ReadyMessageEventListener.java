@@ -74,33 +74,43 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 	
 		if (event.isFromGuild() && event.getChannelType().isMessage() && !event.getMessage().isEphemeral() && !event.getAuthor().isBot()) {
 				//Comapares cached messages and authors with new messages. 	
-				if (messageCache.size() == cacheSize) {				
+				if (messageCache.size() >= cacheSize - 1) {				
 					
 					//Iterates through cache and determines if channel spam is happening
-					if (messageCache.size() >= cacheSize - 1) {
-						if (messageCache.size() == cacheSize) {
-							//keeps cache updated with most recent messages					 
-							messageCache.removeLast();
-							messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
-						}
-						else {
-							messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
-						}
-						
-						if (messageCache.size() == cacheSize) {
-							for (int i = 0; i < messageCache.size(); i++) {
-								if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
-										&& event.getAuthor().equals(messageCache.get(i).getUser()) 
-										&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
-									counter++;
-									guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();							
-									spammer = event.getAuthor();
-								}					
-							}
-						}
-					}				
+					for (int i = 0; i < messageCache.size(); i++) {
+						if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
+								&& event.getAuthor().equals(messageCache.get(i).getUser()) 
+								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
+							counter++;
+							guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();							
+							spammer = event.getAuthor();
+						}					
+					} 
+							
 								
-
+					//keeps cache updated with most recent messages
+					if (messageCache.size() == cacheSize) {
+						messageCache.removeLast();
+						messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+					}
+					else {
+						messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+					}
+					counter = 0;
+					spammer = null;
+					
+					//Rechecks cache to prevent deteciton from happening on the messageAmount + 1 message
+					if (messageCache.size() == cacheSize) {
+						for (int i = 0; i < messageCache.size(); i++) {
+							if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
+									&& event.getAuthor().equals(messageCache.get(i).getUser()) 
+									&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
+								counter++;
+								guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();							
+								spammer = event.getAuthor();
+							}					
+						} 
+					}				
 				}
 				
 				else {
@@ -120,8 +130,8 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					if (messageCache.get(0).getMessage().getContentRaw().length() < 2000) {
 						emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
 							"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
-							+ "`" + messageCache.get(1).getMessage().getContentRaw() + "` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
-							+ "`" + messageCache.get(2).getMessage().getContentRaw()+ "` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
+							+ "`" + messageCache.get(1).getMessage().getContentRaw()+ "` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
+							+ "`" + messageCache.get(2).getMessage().getContentRaw() + "` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
 					}
 					else {
 						emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
