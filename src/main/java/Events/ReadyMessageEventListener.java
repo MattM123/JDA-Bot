@@ -84,54 +84,56 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 				messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));		
 			}
 			
-				//Comapares cached messages and authors with new messages. 	
-				if (messageCache.size() == cacheSize) {				
+			//Comapares cached messages and authors with new messages. 	
+			if (messageCache.size() == cacheSize) {				
 
-					//Iterates through cache and determines if channel spam is happening
-					for (int i = 0; i < messageCache.size(); i++) {
-						if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
-								&& event.getAuthor().equals(messageCache.get(i).getUser()) 
-								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
-							counter++;
-							guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();							
-							spammer = event.getAuthor();
-						}					
-					} 
-							
-							
-				}
-				
-				//The criteria for determining channel spam are:
-				//If at least messageAmount messages have the same content and author but different channels
-				//And if the time difference between the last cached message and the first cached message is less than interval				
-				if (counter >= messageAmount && (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) < interval) {
-					double time = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) / 1000.0;
-					double t2 = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 2).getTime()) / 1000.0; 
-						
-					EmbedBuilder emb = new EmbedBuilder();
-					emb.setColor(Color.red);
-					emb.setTitle(spammer.getAsTag() + " is suspected of channel spamming and has been muted");
-					if (messageCache.get(0).getMessage().getContentRaw().length() < 2000) {
-						emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
-							"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
-							+ "`" + messageCache.get(1).getMessage().getContentRaw()+ "` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
-							+ "`" + messageCache.get(2).getMessage().getContentRaw() + "` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
+				//Iterates through cache and determines if channel spam is happening
+				for (int i = 0; i < messageCache.size(); i++) {
+					if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
+							&& event.getAuthor().equals(messageCache.get(i).getUser()) 
+							&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
+						counter++;
+						guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();							
+						spammer = event.getAuthor();
 					}
 					else {
-						emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
-								"`" + messageCache.get(0).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
-								+ "`" + messageCache.get(1).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
-								+ "`" + messageCache.get(2).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
+						guild.getTextChannelById(786328890280247327L).sendMessage("v:").queue();	
 					}
-				//	guild.getMember(spammer).timeoutFor(10, TimeUnit.MINUTES).queue();
-					messageCache.get(0).getMessage().delete().queue();
-					messageCache.get(1).getMessage().delete().queue();
-					messageCache.get(2).getMessage().delete().queue();
-
-					guild.getTextChannelById(786328890280247327L).sendMessageEmbeds(emb.build()).queue();
-				}
+				} 
+							
+							
+			}
 				
+			//The criteria for determining channel spam are:
+			//If at least messageAmount messages have the same content and author but different channels
+			//And if the time difference between the last cached message and the first cached message is less than interval				
+			if (counter >= messageAmount && (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) < interval) {
+				double time = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) / 1000.0;
+				double t2 = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 2).getTime()) / 1000.0; 
+						
+				EmbedBuilder emb = new EmbedBuilder();
+				emb.setColor(Color.red);
+				emb.setTitle(spammer.getAsTag() + " is suspected of channel spamming and has been muted");
+				if (messageCache.get(0).getMessage().getContentRaw().length() < 2000) {
+					emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
+						"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
+						+ "`" + messageCache.get(1).getMessage().getContentRaw()+ "` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
+						+ "`" + messageCache.get(2).getMessage().getContentRaw() + "` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
+				}
+				else {
+					emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
+							"`" + messageCache.get(0).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
+							+ "`" + messageCache.get(1).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
+							+ "`" + messageCache.get(2).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
+				}
+			//	guild.getMember(spammer).timeoutFor(10, TimeUnit.MINUTES).queue();
+				messageCache.get(0).getMessage().delete().queue();
+				messageCache.get(1).getMessage().delete().queue();
+				messageCache.get(2).getMessage().delete().queue();
 
+				guild.getTextChannelById(786328890280247327L).sendMessageEmbeds(emb.build()).queue();
+			}
+				
 			guild.getTextChannelById(786328890280247327L).sendMessage(messageCache.toString()).queue();
 		}
 	}
