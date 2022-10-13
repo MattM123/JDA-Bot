@@ -78,7 +78,8 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					//keeps cache updated with most recent messages 
 					messageCache.removeLast();
 					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
-									
+					
+					
 					//Iterates through cache and determines if channel spam is happenin
 					for (int i = 0; i < messageCache.size(); i++) {
 						if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
