@@ -74,10 +74,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 		
 	
 		if (event.isFromGuild() && event.getChannelType().isMessage() && !event.getMessage().isEphemeral() && !event.getAuthor().isBot()) {
-			
-			messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));		
-		
-			
+						
 			//Comapares cached messages and authors with new messages. 	
 			if (messageCache.size() >= cacheSize - 1) {	
 				
