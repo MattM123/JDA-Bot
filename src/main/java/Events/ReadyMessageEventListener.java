@@ -97,13 +97,18 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					
 					//keeps cache updated with most recent messages.
 					//Tracks message attachments as well
-					if (event.getMessage().getAttachments().size() == 0 || (event.getMessage().getAttachments().size() > 0 && !event.getMessage().getContentRaw().isEmpty())) {
+					if (event.getMessage().getAttachments().size() == 0 || (event.getMessage().getAttachments().size() > 0 && !event.getMessage().getContentRaw().isBlank())) {
 						messageCache.removeLast();
 						messageCache.addFirst(new Tuple(event.getMessage().getContentRaw(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 					}
 					else {
 						messageCache.removeLast();
-						messageCache.addFirst(new Tuple(event.getMessage().getAttachments().get(0).getFileName(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+						if (event.getMessage().getAttachments().get(0).getUrl().isBlank()) {
+							messageCache.addFirst(new Tuple(event.getMessage().getAttachments().get(0).getFileName(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+						} else {
+							messageCache.addFirst(new Tuple(event.getMessage().getAttachments().get(0).getUrl(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+						}
+												
 						
 					}
 				}
