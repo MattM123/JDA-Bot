@@ -90,15 +90,21 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					
 					if (counter >= messageAmount && messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime() < interval) {
 						double time = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) / 1000;
+						double t2 = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 2).getTime()) / 1000; 
+						
 						EmbedBuilder emb = new EmbedBuilder();
 						emb.setColor(Color.red);
 						emb.setTitle(spammer.getAsTag() + " is suspected of channel spamming and has been muted");
 						emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
-							"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.0\n"
-							+ "`" + messageCache.get(1).getMessage().getContentRaw() + "` in " + messageCache.get(1).getChannel().getAsMention() + ": " + (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 2).getTime()) / 1000 + "s\n"
-							+ "`" + messageCache.get(2).getMessage().getContentRaw() + "` in " + messageCache.get(2).getChannel().getAsMention() + ": " + (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) / 1000 + "s", false);
+							"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.0s\n"
+							+ "`" + messageCache.get(1).getMessage().getContentRaw() + "` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
+							+ "`" + messageCache.get(2).getMessage().getContentRaw() + "` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
 						
 					//	guild.getMember(spammer).timeoutFor(10, TimeUnit.MINUTES).queue();
+						messageCache.get(0).getMessage().delete().queue();
+						messageCache.get(1).getMessage().delete().queue();
+						messageCache.get(2).getMessage().delete().queue();
+
 						guild.getTextChannelById(786328890280247327L).sendMessageEmbeds(emb.build()).queue();
 					}
 					
@@ -109,8 +115,6 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 				else {
 					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 				}
-
-				guild.getTextChannelById(786328890280247327L).sendMessage("Cache: " + messageCache.toString()).queue();
 		}
 	}
 }
