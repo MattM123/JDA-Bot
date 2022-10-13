@@ -85,8 +85,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 								&& event.getAuthor().equals(messageCache.get(i).getUser()) 
 								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
 							counter++;
-							guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();
-							guild.getTextChannelById(786328890280247327L).sendMessage(messageCache.toString()).queue();
+							guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();							
 							spammer = event.getAuthor();
 						}					
 					} 
@@ -103,9 +102,9 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 						emb.setColor(Color.red);
 						emb.setTitle(spammer.getAsTag() + " is suspected of channel spamming and has been muted");
 						emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
-							"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.0s\n"
-							+ "`" + messageCache.get(1).getMessage().getContentRaw() + "` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
-							+ "`" + messageCache.get(2).getMessage().getContentRaw() + "` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
+							"`" + messageCache.get(0).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.0s\n"
+							+ "`" + messageCache.get(1).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
+							+ "`" + messageCache.get(2).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
 						
 					//	guild.getMember(spammer).timeoutFor(10, TimeUnit.MINUTES).queue();
 						messageCache.get(0).getMessage().delete().queue();
@@ -118,6 +117,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 				else {
 					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 				}
+				guild.getTextChannelById(786328890280247327L).sendMessage(messageCache.toString()).queue();
 		}
 	}
 }
