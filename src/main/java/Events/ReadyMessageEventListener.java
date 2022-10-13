@@ -94,11 +94,11 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 						emb.setColor(Color.red);
 						emb.setTitle(spammer.getAsTag() + " is suspected of channel spamming and has been muted");
 						emb.addField(messageAmount + "messages containing the same content were sent by this user in " + time + "seconds", 
-							"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + "\n"
-							+ messageCache.get(1).getMessage().getContentRaw() + "` in " + messageCache.get(1).getChannel().getAsMention() + "\n"
-							+ messageCache.get(2).getMessage().getContentRaw() + "` in " + messageCache.get(2).getChannel().getAsMention(), false);
+							"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.00s\n"
+							+ messageCache.get(1).getMessage().getContentRaw() + "` in " + messageCache.get(1).getChannel().getAsMention() + ": " + (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 2).getTime()) / 1000 + "\n"
+							+ messageCache.get(2).getMessage().getContentRaw() + "` in " + messageCache.get(2).getChannel().getAsMention() + ": " + (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) / 1000, false);
 						
-						guild.getMember(spammer).timeoutFor(10, TimeUnit.MINUTES).queue();
+					//	guild.getMember(spammer).timeoutFor(10, TimeUnit.MINUTES).queue();
 						guild.getTextChannelById(786328890280247327L).sendMessageEmbeds(emb.build()).queue();
 					}
 					
