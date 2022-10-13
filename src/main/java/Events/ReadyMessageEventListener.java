@@ -102,9 +102,9 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					else {
 						guild.getTextChannelById(786328890280247327L).sendMessage("v:").queue();	
 					}
-					guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getContentRaw() + " : " + messageCache.get(i).getMessage().getContentRaw()).queue();
-					guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getAuthor().getName() + " : " + messageCache.get(i).getUser().getName()).queue();
-					guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getChannel().getName() + " : " + messageCache.get(i).getChannel().getName()).queue();
+				//	guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getContentRaw() + " : " + messageCache.get(i).getMessage().getContentRaw()).queue();
+					//guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getAuthor().getName() + " : " + messageCache.get(i).getUser().getName()).queue();
+					//guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getChannel().getName() + " : " + messageCache.get(i).getChannel().getName()).queue();
 				} 										
 			}
 				
