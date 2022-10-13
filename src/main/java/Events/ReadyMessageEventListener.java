@@ -87,23 +87,21 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 			//Comapares cached messages and authors with new messages. 	
 			if (messageCache.size() >= cacheSize - 1) {	
 				
-
-				
 				//Iterates through cache and determines if channel spam is happening
 				for (int i = 0; i < messageCache.size(); i++) {
 					if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
 							&& event.getAuthor().equals(messageCache.get(i).getUser()) 
 							&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
 						counter++;
-						guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();	
+						//guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();	
 						spammer = event.getAuthor();
 					}
 					else {
-						guild.getTextChannelById(786328890280247327L).sendMessage("v:").queue();	
+						//guild.getTextChannelById(786328890280247327L).sendMessage("v:").queue();	
 					}
-				//	guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getContentRaw() + " : " + messageCache.get(i).getMessage().getContentRaw()).queue();
-					//guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getAuthor().getName() + " : " + messageCache.get(i).getUser().getName()).queue();
-					//guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getChannel().getName() + " : " + messageCache.get(i).getChannel().getName()).queue();
+					guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getContentRaw() + " : " + messageCache.get(i).getMessage().getContentRaw()).queue();
+					guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getAuthor().getName() + " : " + messageCache.get(i).getUser().getName()).queue();
+					guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getChannel().getName() + " : " + messageCache.get(i).getChannel().getName()).queue();
 				} 										
 			}
 				
