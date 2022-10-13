@@ -80,7 +80,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					User spammer = null;
 					
 					//Iterates through cache and determines if channel spam is happenin
-					for (int i = 0; i < messageCache.size(); i++) {
+					for (int i = 0; i < messageCache.size() - 1; i++) {
 						if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
 								&& event.getAuthor().equals(messageCache.get(i).getUser()) 
 								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
