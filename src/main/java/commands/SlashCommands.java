@@ -388,8 +388,6 @@ public class SlashCommands extends ListenerAdapter {
                 event.replyFile(is, "img.png").addEmbeds(embed.build()).queue(
                         msg -> msg.deleteOriginal().queueAfter(20, TimeUnit.MINUTES)
                 );
-
-                event.replyFile(is, "image.png").queue();
 			}
 			
 		
