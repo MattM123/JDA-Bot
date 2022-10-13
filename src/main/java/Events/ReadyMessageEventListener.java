@@ -96,12 +96,12 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 							&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
 						counter++;
 						guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();	
-						guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getContentRaw() + " : " + messageCache.get(i).getMessage().getContentRaw()).queue();
 						spammer = event.getAuthor();
 					}
 					else {
 						guild.getTextChannelById(786328890280247327L).sendMessage("v:").queue();	
 					}
+					guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getContentRaw() + " : " + messageCache.get(i).getMessage().getContentRaw()).queue();
 				} 										
 			}
 				
