@@ -108,11 +108,18 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					EmbedBuilder emb = new EmbedBuilder();
 					emb.setColor(Color.red);
 					emb.setTitle(spammer.getAsTag() + " is suspected of channel spamming and has been muted");
-					emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
-						"`" + messageCache.get(0).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.0s\n"
-						+ "`" + messageCache.get(1).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
-						+ "`" + messageCache.get(2).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
-						
+					if (messageCache.get(0).getMessage().getContentRaw().length() < 2000) {
+						emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
+							"`" + messageCache.get(0).getMessage().getContentRaw() + "...` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.0s\n"
+							+ "`" + messageCache.get(1).getMessage().getContentRaw() + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
+							+ "`" + messageCache.get(2).getMessage().getContentRaw()+ "...` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
+					}
+					else {
+						emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
+								"`" + messageCache.get(0).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.0s\n"
+								+ "`" + messageCache.get(1).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
+								+ "`" + messageCache.get(2).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
+					}
 				//	guild.getMember(spammer).timeoutFor(10, TimeUnit.MINUTES).queue();
 					messageCache.get(0).getMessage().delete().queue();
 					messageCache.get(1).getMessage().delete().queue();
