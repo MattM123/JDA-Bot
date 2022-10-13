@@ -13,26 +13,19 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 public class ReadyMessageEventListener extends ListenerAdapter {
 	
 	class Tuple { 
-	    private String x;
+	    private Message x;
 	    private User y;
 	    private MessageChannel z;
 	    private long time;
 	    
-	    public Tuple(String x, User y, MessageChannel z, long time) {
+	    public Tuple(Message x, User y, MessageChannel z, long time) {
 	    	this.x = x;
 	    	this.y = y;
 	    	this.z = z;
 	    	this.time = time;
 	    }
 	    
-	    public Tuple(String x, User y, MessageChannel z, long time, String attachment) {
-	    	this.x = x;
-	    	this.y = y;
-	    	this.z = z;
-	    	this.time = time;
-	    }
-	    
-	    public String getMessage() {
+	    public Message getMessage() {
 	    	return x;
 	    }
 	    
@@ -47,10 +40,9 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 	    public long getTime() {
 	    	return time;
 	    }
-
 	    @Override
 	    public String toString() {
-	    	return x + "," + y.getAsTag() + "," + z.getName() + "," + time;
+	    	return x.getContentRaw() + "," + y.getAsTag() + "," + z.getName() + "," + time;
 	    	
 	    }
 	} 
@@ -77,15 +69,15 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					int counter = 0;
 					User spammer = null;
 					
-					//Iterates through cache and determines if channel spam is happening
+					//Iterates through cache and determines if channel spam is happenin
 					for (int i = 0; i < messageCache.size(); i++) {
-						if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage()) 
+						if (event.getMessage().equals(messageCache.get(i).getMessage()) 
 								&& event.getAuthor().equals(messageCache.get(i).getUser()) 
 								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
 							counter++;
 							spammer = event.getAuthor();
 						}					
-					}
+					} 
 					
 					//The criteria for determining channel spam are:
 					//If at least messageAmount messages have the same content and author but different channels
@@ -95,25 +87,12 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 								+ (messageCache.get(messageCache.size() - 1).getTime() - messageCache.get(0).getTime()) + "ms").queue();
 					}
 					
-					//keeps cache updated with most recent messages.
-					//Tracks message attachments as well
-					if (event.getMessage().getAttachments().size() == 0 || (event.getMessage().getAttachments().size() > 0 && !event.getMessage().getContentRaw().isBlank())) {
-						messageCache.removeLast();
-						messageCache.addFirst(new Tuple(event.getMessage().getContentRaw(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
-					}
-					else {
-						messageCache.removeLast();
-						if (event.getMessage().getAttachments().get(0).getUrl().isBlank()) {
-							messageCache.addFirst(new Tuple(event.getMessage().getAttachments().get(0).getFileName(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
-						} else {
-							messageCache.addFirst(new Tuple(event.getMessage().getAttachments().get(0).getUrl(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
-						}
-												
-						
-					}
+					//keeps cache updated with most recent messages 
+					messageCache.removeLast();
+					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 				}
 				else {
-					messageCache.addFirst(new Tuple(event.getMessage().getContentRaw(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 				}
 
 				guild.getTextChannelById(786328890280247327L).sendMessage("Cache: " + messageCache.toString()).queue();
