@@ -304,10 +304,7 @@ public class SlashCommands extends ListenerAdapter {
 
                 event.replyFile(is, "img.png").addEmbeds(embed.build()).queue(
                         msg -> msg.deleteOriginal().queueAfter(20, TimeUnit.MINUTES)
-                );
-
-                event.replyFile(is, "image.png").queue();
-			
+                );			
 			}
 			else if (hex != null && (!mymatcher.matches() && mymatcher != null)) {
 				event.reply("Please enter a valid hex value").queue();

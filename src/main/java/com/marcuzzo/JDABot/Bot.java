@@ -11,8 +11,7 @@ import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import java.util.ArrayList;
 import java.util.List;
-
-import Events.ReadyEventListener;
+import Events.ReadyMessageEventListener;
 import commands.SlashCommands;
 
 public class Bot {	
@@ -30,7 +29,7 @@ public class Bot {
                 .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT)        
 				.build().awaitReady();
 			
-			jda.addEventListener(new SlashCommands(), new ReadyEventListener());
+			jda.addEventListener(new SlashCommands(), new ReadyMessageEventListener());
 			Guild guild = jda.getGuildById(735990134583066679L);
 			
 			if (guild != null) {				
