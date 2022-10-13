@@ -76,10 +76,6 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 				//Comapares cached messages and authors with new messages. 				
 				if (messageCache.size() == cacheSize) {				
 					
-					//keeps cache updated with most recent messages 
-					messageCache.removeLast();
-					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
-					
 					//Iterates through cache and determines if channel spam is happenin
 					for (int i = 0; i < messageCache.size(); i++) {
 						if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
@@ -90,6 +86,10 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 							spammer = event.getAuthor();
 						}					
 					} 
+					
+					//keeps cache updated with most recent messages 
+					messageCache.removeLast();
+					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 				}
 				else {
 					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
