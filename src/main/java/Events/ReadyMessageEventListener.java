@@ -103,7 +103,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					}
 					else {
 						messageCache.removeLast();
-						messageCache.addFirst(new Tuple(event.getMessage().getAttachments().get(0).getUrl(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+						messageCache.addFirst(new Tuple(event.getMessage().getAttachments().get(0).getFileName(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 						
 					}
 				}
