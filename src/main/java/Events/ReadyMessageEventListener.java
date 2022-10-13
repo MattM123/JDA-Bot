@@ -73,8 +73,19 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 		User spammer = null;
 	
 		if (event.isFromGuild() && event.getChannelType().isMessage() && !event.getMessage().isEphemeral() && !event.getAuthor().isBot()) {
-				//Comapares cached messages and authors with new messages. 				
-				if (messageCache.size() == cacheSize) {				
+				//Comapares cached messages and authors with new messages. 	
+				//When cache size is compared to messageAmount directly, channel spam wont be detected until the messageAmount + 1 message which is
+				//why the below if statement compares size to cachesize - 1
+				if (messageCache.size() >= cacheSize - 1) {				
+					
+					//keeps cache updated with most recent messages
+					if (messageCache.size() == messageAmount) {			 
+						messageCache.removeLast();
+						messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+					}
+					
+					else
+						messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 					
 					//Iterates through cache and determines if channel spam is happenin
 					for (int i = 0; i < messageCache.size(); i++) {
@@ -87,9 +98,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 						}					
 					} 
 					
-					//keeps cache updated with most recent messages 
-					messageCache.removeLast();
-					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+
 				}
 				else {
 					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
