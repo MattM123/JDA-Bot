@@ -104,6 +104,9 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					//guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getChannel().getName() + " : " + messageCache.get(i).getChannel().getName()).queue();
 				} 										
 			}
+			else {
+				messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+			}
 				
 			//The criteria for determining channel spam are:
 			//If at least messageAmount messages have the same content and author but different channels
