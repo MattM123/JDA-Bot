@@ -75,17 +75,19 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 	
 		if (event.isFromGuild() && event.getChannelType().isMessage() && !event.getMessage().isEphemeral() && !event.getAuthor().isBot()) {
 						
+			//keeps cache updated with most recent messages
+			if (messageCache.size() == cacheSize) {
+				messageCache.removeLast();
+				messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+			}
+			else {
+				messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));		
+			}
+			
 			//Comapares cached messages and authors with new messages. 	
 			if (messageCache.size() >= cacheSize - 1) {	
 				
-				//keeps cache updated with most recent messages
-				if (messageCache.size() == cacheSize) {
-					messageCache.removeLast();
-					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
-				}
-				else {
-					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));		
-				}
+
 				
 				//Iterates through cache and determines if channel spam is happening
 				for (int i = 0; i < messageCache.size(); i++) {
@@ -103,9 +105,6 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					//guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getAuthor().getName() + " : " + messageCache.get(i).getUser().getName()).queue();
 					//guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getChannel().getName() + " : " + messageCache.get(i).getChannel().getName()).queue();
 				} 										
-			}
-			else {
-				messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 			}
 				
 			//The criteria for determining channel spam are:
