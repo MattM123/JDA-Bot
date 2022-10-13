@@ -82,9 +82,9 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					//The criteria for determining channel spam are:
 					//If at least messageAmount messages have the same content and author but different channels
 					//And if the time difference between the last cached message and the first cached message is less than interval
-					if (counter >= messageAmount && messageCache.get(messageCache.size() - 1).getTime() - messageCache.get(0).getTime() < interval) {
+					if (counter >= messageAmount && messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime() < interval) {
 						guild.getTextChannelById(786328890280247327L).sendMessage("Channel Spammed by :" + spammer.getAsTag() + " in " 
-								+ (messageCache.get(messageCache.size() - 1).getTime() - messageCache.get(0).getTime()) + "ms").queue();
+								+ (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) + "ms").queue();
 					}
 					
 					//keeps cache updated with most recent messages 
