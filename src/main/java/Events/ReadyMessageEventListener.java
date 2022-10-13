@@ -71,10 +71,11 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					
 					//Iterates through cache and determines if channel spam is happenin
 					for (int i = 0; i < messageCache.size(); i++) {
-						if (event.getMessage().equals(messageCache.get(i).getMessage()) 
+						if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
 								&& event.getAuthor().equals(messageCache.get(i).getUser()) 
 								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
 							counter++;
+							guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();
 							spammer = event.getAuthor();
 						}					
 					} 
@@ -82,6 +83,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					//The criteria for determining channel spam are:
 					//If at least messageAmount messages have the same content and author but different channels
 					//And if the time difference between the last cached message and the first cached message is less than interval
+					
 					if (counter >= messageAmount && messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime() < interval) {
 						guild.getTextChannelById(786328890280247327L).sendMessage("Channel Spammed by :" + spammer.getAsTag() + " in " 
 								+ (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) + "ms").queue();
