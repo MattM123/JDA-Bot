@@ -96,10 +96,10 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					else {
 						messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 					}
-					counter = 0;
-					spammer = null;
+				//	counter = 0;
+				//	spammer = null;
 					
-					//Rechecks cache to prevent deteciton from happening on the messageAmount + 1 message
+				/*	//Rechecks cache to prevent deteciton from happening on the messageAmount + 1 message
 					for (int i = 0; i < messageCache.size(); i++) {
 						if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
 								&& event.getAuthor().equals(messageCache.get(i).getUser()) 
@@ -109,7 +109,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 							spammer = event.getAuthor();
 						}					
 					} 
-									
+					*/				
 				}
 				
 				else {
