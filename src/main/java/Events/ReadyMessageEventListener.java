@@ -1,8 +1,13 @@
 package Events;
 
+import java.awt.Color;
+import java.time.Duration;
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
+
 import com.marcuzzo.JDABot.Bot;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -75,7 +80,6 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 								&& event.getAuthor().equals(messageCache.get(i).getUser()) 
 								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
 							counter++;
-							guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();
 							spammer = event.getAuthor();
 						}					
 					} 
@@ -85,8 +89,17 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					//And if the time difference between the last cached message and the first cached message is less than interval
 					
 					if (counter >= messageAmount && messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime() < interval) {
-						guild.getTextChannelById(786328890280247327L).sendMessage("Channel Spammed by :" + spammer.getAsTag() + " in " 
-								+ (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) + "ms").queue();
+						double time = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) / 1000;
+						EmbedBuilder emb = new EmbedBuilder();
+						emb.setColor(Color.red);
+						emb.setTitle(spammer.getAsTag() + " is suspected of channel spamming and has been muted");
+						emb.addField(messageAmount + "messages containing the same content were sent by this user in " + time + "seconds", 
+							"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + "\n"
+							+ messageCache.get(1).getMessage().getContentRaw() + "` in " + messageCache.get(1).getChannel().getAsMention() + "\n"
+							+ messageCache.get(2).getMessage().getContentRaw() + "` in " + messageCache.get(2).getChannel().getAsMention(), false);
+						
+						guild.getMember(spammer).timeoutFor(10, TimeUnit.MINUTES).queue();
+						guild.getTextChannelById(786328890280247327L).sendMessageEmbeds(emb.build()).queue();
 					}
 					
 					//keeps cache updated with most recent messages 
