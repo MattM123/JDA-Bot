@@ -79,7 +79,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 				if (messageCache.size() >= cacheSize - 1) {				
 					
 					//keeps cache updated with most recent messages
-					if (messageCache.size() == messageAmount) {			 
+					if (messageCache.size() == cacheSize) {			 
 						messageCache.removeLast();
 						messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 					}
@@ -87,18 +87,18 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 					else
 						messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 					
-					//Iterates through cache and determines if channel spam is happenin
-					for (int i = 0; i < messageCache.size(); i++) {
-						if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
-								&& event.getAuthor().equals(messageCache.get(i).getUser()) 
-								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
-							counter++;
-							guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();							
-							spammer = event.getAuthor();
-						}					
-					} 
-					
-
+					//Iterates through cache and determines if channel spam is happening
+					if (messageCache.size() == cacheSize) {
+						for (int i = 0; i < messageCache.size(); i++) {
+							if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
+									&& event.getAuthor().equals(messageCache.get(i).getUser()) 
+									&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
+								counter++;
+								guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();							
+								spammer = event.getAuthor();
+							}					
+						} 
+					}
 				}
 				else {
 					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
