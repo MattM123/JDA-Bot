@@ -66,7 +66,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 		int messageAmount = 3;		
 		
 		//How many messages should be analysed to determine spam
-		int cacheSize = messageAmount;
+		int cacheSize = messageAmount + 1;
 		
 		//Counts similar messages
 		int counter = 0;
@@ -88,7 +88,8 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 			if (messageCache.size() >= cacheSize - 1) {	
 				
 				//Iterates through cache and determines if channel spam is happening
-				for (int i = 0; i < messageCache.size(); i++) {
+				//Has buffer slot 0 to account for redundant additions to cache
+				for (int i = 1; i < messageCache.size(); i++) {
 					if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
 							&& event.getAuthor().equals(messageCache.get(i).getUser()) 
 							&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
