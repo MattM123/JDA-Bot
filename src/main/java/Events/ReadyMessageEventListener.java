@@ -145,7 +145,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 				messageCache.removeLast();
 				messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 				
-				guild.getTextChannelById(786328890280247327L).sendMessageEmbeds(emb.build()).queue();
+				event.getChannel().sendMessageEmbeds(emb.build()).queue();
 			
 			}
 		}
