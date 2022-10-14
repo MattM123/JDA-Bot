@@ -123,7 +123,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 						
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.red);
-				emb.setTitle(spammer.getAsMention() + " is suspected of channel spamming and has been muted");
+				emb.setTitle(spammer.getAsTag() + " is suspected of channel spamming and has been muted");
 				if (messageCache.get(0).getMessage().getContentRaw().length() < 1000) {
 					emb.addField((messageAmount + 1) + " messages containing the same content were sent by this user in " + timeTotal + " seconds", 
 						"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
