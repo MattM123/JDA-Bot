@@ -156,6 +156,8 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 			
 			}
 			guild.getTextChannelById(786328890280247327L).sendMessage("Current: " + event.getMessage().toString() + "Cached: " + messageCache.toString()).queue();
+			guild.getTextChannelById(786328890280247327L).sendMessage(("" +(messageCache.get(0).getTime() - event.getMessage().getTimeCreated().toEpochSecond()) / 1000.0)).queue();
+			guild.getTextChannelById(786328890280247327L).sendMessage("" + counter).queue();
 		}
 	}
 }
