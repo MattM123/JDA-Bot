@@ -62,7 +62,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 		//The time interval in milliseconds the messages need to be sent within for it to be considered channel spam
 		int interval = 10000;
 	
-		//The amount of messages to be cached. In execution, this will consider messageAmount + 1 messages when determining potential channel spam
+		//The amount of messages to be cached and analyzed. In execution, this will consider messageAmount + 1 messages when determining potential channel spam
 		//since the event is only triggered when a message is recieved
 		int messageAmount = 2;		
 		
@@ -153,8 +153,9 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 				messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 				
 				guild.getTextChannelById(786328890280247327L).sendMessageEmbeds(emb.build()).queue();
-				guild.getTextChannelById(786328890280247327L).sendMessage("Current: " + event.getMessage().toString() + "Cached: " + messageCache.toString()).queue();
+			
 			}
+			guild.getTextChannelById(786328890280247327L).sendMessage("Current: " + event.getMessage().toString() + "Cached: " + messageCache.toString()).queue();
 		}
 	}
 }
