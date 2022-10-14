@@ -123,7 +123,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 						
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.red);
-				emb.setTitle(spammer.getAsTag() + " is suspected of channel spamming and has been muted");
+				emb.setTitle(spammer.getAsMention() + " is suspected of channel spamming and has been muted");
 				if (messageCache.get(0).getMessage().getContentRaw().length() < 1000) {
 					emb.addField((messageAmount + 1) + " messages containing the same content were sent by this user in " + timeTotal + " seconds", 
 						"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
@@ -136,7 +136,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 							+ "`" + messageCache.get(1).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t1 + "s\n"
 							+ "`" + event.getMessage().getContentRaw() + "` in " + event.getMessage().getChannel().getAsMention() + ": " + timeTotal + "s", false);
 				}
-				guild.getMember(spammer).timeoutFor(30, TimeUnit.MINUTES).queue();
+				//guild.getMember(spammer).timeoutFor(30, TimeUnit.MINUTES).queue();
 				messageCache.get(0).getMessage().delete().queue();
 				messageCache.get(1).getMessage().delete().queue();
 				event.getMessage().delete().queue();
