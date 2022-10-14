@@ -96,7 +96,6 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
 							
 							counter++;
-							guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();
 							spammer = event.getAuthor();
 						}
 					}
@@ -119,31 +118,30 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 			if (counter >= messageAmount && (messageCache.get(0).getTime() - (event.getMessage().getTimeCreated().toEpochSecond() * 1000)) < interval) {
 				
 				//The time between the first message in cache being recieved and the current message thats being processed
-				double timeTotal = (messageCache.get(0).getTime() - event.getMessage().getTimeCreated().toEpochSecond())  / 1000.0;
+				double timeTotal = (messageCache.get(0).getTime() - (event.getMessage().getTimeCreated().toEpochSecond() * 1000)) / 1000.0;
 				
-				//The time between the first message in chace being recieved and the second message in cache being recieved
-				double t1 = messageCache.get(0).getTime() -  messageCache.get(1).getTime() / 1000.0;
+				//The time between the first message in cahce being recieved and the second message in cache being recieved
+				double t1 = (messageCache.get(0).getTime() - messageCache.get(1).getTime()) / 1000.0;
 				
 				//The time between the second message in cache being recieved and the current message being processed
-				double t2 = ( messageCache.get(1).getTime() - event.getMessage().getTimeCreated().toEpochSecond()) / 1000.0;
-				//		double t2 = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 2).getTime()) / 1000.0; 
+				double t2 = (messageCache.get(1).getTime() - (event.getMessage().getTimeCreated().toEpochSecond() * 1000)) / 1000.0;
 						
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.red);
 				emb.setTitle(spammer.getAsTag() + " is suspected of channel spamming and has been muted");
 				if (messageCache.get(0).getMessage().getContentRaw().length() < 1000) {
-					emb.addField(messageAmount + " messages containing the same content were sent by this user in " + timeTotal + " seconds", 
+					emb.addField((messageAmount + 1) + " messages containing the same content were sent by this user in " + timeTotal + " seconds", 
 						"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
 						+ "`" + messageCache.get(1).getMessage().getContentRaw()+ "` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t1 + "s\n"
 						+ "`" + event.getMessage().getContentRaw() + "` in " + event.getMessage().getChannel().getAsMention() + ": " + t2 + "s", false);
 				}
 				else {
-					emb.addField(messageAmount + " messages containing the same content were sent by this user in " + timeTotal + " seconds", 
+					emb.addField((messageAmount + 1) + " messages containing the same content were sent by this user in " + timeTotal + " seconds", 
 							"`" + messageCache.get(0).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
 							+ "`" + messageCache.get(1).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t1 + "s\n"
 							+ "`" + event.getMessage().getContentRaw() + "` in " + event.getMessage().getChannel().getAsMention() + ": " + t2 + "s", false);
 				}
-			//	guild.getMember(spammer).timeoutFor(10, TimeUnit.MINUTES).queue();
+			//	guild.getMember(spammer).timeoutFor(30, TimeUnit.MINUTES).queue();
 				messageCache.get(0).getMessage().delete().queue();
 				messageCache.get(1).getMessage().delete().queue();
 				event.getMessage().delete().queue();
@@ -155,9 +153,6 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 				guild.getTextChannelById(786328890280247327L).sendMessageEmbeds(emb.build()).queue();
 			
 			}
-			guild.getTextChannelById(786328890280247327L).sendMessage("Current: " + event.getMessage().toString() + "Cached: " + messageCache.toString()).queue();
-			guild.getTextChannelById(786328890280247327L).sendMessage(("" +(messageCache.get(0).getTime() - (event.getMessage().getTimeCreated().toEpochSecond() * 1000)) / 1000.0)).queue();
-			guild.getTextChannelById(786328890280247327L).sendMessage("" + counter).queue();
 		}
 	}
 }
