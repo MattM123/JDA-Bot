@@ -98,12 +98,13 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 							counter++;
 							spammer = event.getAuthor();
 						}
-
 					}
-					
-				//keeps cache updated with most recent messages
-				messageCache.removeLast();
-				messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+				
+				//No spam detected carry on updating cache
+				if (counter < messageAmount) {						
+					messageCache.removeLast();
+					messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+				}
 			}
 			
 			else {
@@ -141,11 +142,15 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 							+ "`" + messageCache.get(1).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t1 + "s\n"
 							+ "`" + event.getMessage().getContentRaw() + "` in " + event.getMessage().getChannel().getAsMention() + ": " + t2 + "s", false);
 				}
-				guild.getMember(spammer).timeoutFor(10, TimeUnit.MINUTES).queue();
+			//	guild.getMember(spammer).timeoutFor(10, TimeUnit.MINUTES).queue();
 				messageCache.get(0).getMessage().delete().queue();
 				messageCache.get(1).getMessage().delete().queue();
-				messageCache.get(2).getMessage().delete().queue();
-
+				event.getMessage().delete().queue();
+				
+				//keeps cache updated with most recent messages after spam detected
+				messageCache.removeLast();
+				messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
+				
 				guild.getTextChannelById(786328890280247327L).sendMessageEmbeds(emb.build()).queue();
 			}
 		}
