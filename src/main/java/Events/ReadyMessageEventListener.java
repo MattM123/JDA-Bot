@@ -62,18 +62,18 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 		//The time interval in milliseconds the messages need to be sent within for it to be considered channel spam
 		int interval = 10000;
 	
-		//The amount of messages to be cached and analyzed. In execution, this will consider messageAmount + 1 messages when determining potential channel spam
+		//The amount of messages to be cached and analyzed. In execution, this will consider messageAmount + 1 messages
 		//since the event is only triggered when a message is recieved
 		int messageAmount = 2;		
 		
 		/*
-		 * E.x messageAmount = 2 
-		 * will consider + 1 messages than whats in its cache. In this case, 3 messages instead of 2. 
+		 * E.x messageAmount = x
+		 * will consider x + 1 messages than whats in its cache.
 		 * 
-		 * 			1							      2		    			3
-		 * |	             |	   	          |					  | |			   	    |	 
-		 * |Current message  |    Compared    |messageCache.get(0)| |messageCache.get(1)|
-		 * |recieved by event|	  against     |	               	  | |			        |
+		 * 			1							      2		    			3					n
+		 * |	             |	   	          |					  | |			   	    | |						|
+		 * |Current message  |    Compared    |messageCache.get(0)| |messageCache.get(1)| |messageCache.get(...)|
+		 * |recieved by event|	  against     |	               	  | |			        | |						|
 		 * |	             |
 		 */
 		
@@ -111,10 +111,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 				//keeps cache updated with most recent messages
 				messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 			}
-			
-			//The criteria for determining channel spam are:
-			//If at least messageAmount messages have the same content and author but different channels
-			//And if the time difference between the last cached message and the first cached message is less than interval				
+						
 			if (counter >= messageAmount && (messageCache.get(0).getTime() - (event.getMessage().getTimeCreated().toEpochSecond() * 1000)) < interval) {
 				
 				//The time between the first message in cache being recieved and the current message thats being processed
@@ -139,7 +136,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 							+ "`" + messageCache.get(1).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t1 + "s\n"
 							+ "`" + event.getMessage().getContentRaw() + "` in " + event.getMessage().getChannel().getAsMention() + ": " + timeTotal + "s", false);
 				}
-			//	guild.getMember(spammer).timeoutFor(30, TimeUnit.MINUTES).queue();
+				guild.getMember(spammer).timeoutFor(30, TimeUnit.MINUTES).queue();
 				messageCache.get(0).getMessage().delete().queue();
 				messageCache.get(1).getMessage().delete().queue();
 				event.getMessage().delete().queue();
