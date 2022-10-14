@@ -118,13 +118,13 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 			if (counter >= messageAmount && (messageCache.get(0).getTime() - (event.getMessage().getTimeCreated().toEpochSecond() * 1000)) < interval) {
 				
 				//The time between the first message in cache being recieved and the current message thats being processed
-				double timeTotal = (messageCache.get(0).getTime() - (event.getMessage().getTimeCreated().toEpochSecond() * 1000)) / 1000.0;
+				double timeTotal = ((event.getMessage().getTimeCreated().toEpochSecond() * 1000) - messageCache.get(0).getTime() ) / 1000.0;
 				
 				//The time between the first message in cahce being recieved and the second message in cache being recieved
 				double t1 = (messageCache.get(0).getTime() - messageCache.get(1).getTime()) / 1000.0;
 				
 				//The time between the second message in cache being recieved and the current message being processed
-				double t2 = (messageCache.get(1).getTime() - (event.getMessage().getTimeCreated().toEpochSecond() * 1000)) / 1000.0;
+				double t2 = ((event.getMessage().getTimeCreated().toEpochSecond() * 1000) - messageCache.get(1).getTime()) / 1000.0;
 						
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.red);
