@@ -96,6 +96,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
 							
 							counter++;
+							guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();
 							spammer = event.getAuthor();
 						}
 					}
@@ -152,6 +153,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 				messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 				
 				guild.getTextChannelById(786328890280247327L).sendMessageEmbeds(emb.build()).queue();
+				guild.getTextChannelById(786328890280247327L).sendMessage("Current: " + event.getMessage().toString() + "Cached: " + messageCache.toString()).queue();
 			}
 		}
 	}
