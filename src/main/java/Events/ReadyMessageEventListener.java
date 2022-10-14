@@ -62,7 +62,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 		//The time interval in milliseconds the messages need to be sent within for it to be considered channel spam
 		int interval = 10000;
 	
-		//The amount of messages to be considered channel spam
+		//The amount of messages to be considered channel spam.
 		int messageAmount = 3;		
 		
 		//How many messages should be analysed to determine spam
@@ -84,15 +84,9 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 								&& event.getAuthor().equals(messageCache.get(i).getUser()) 
 								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
 							counter++;
-						//	guild.getTextChannelById(786328890280247327L).sendMessage("c:" + counter).queue();	
 							spammer = event.getAuthor();
 						}
-						else {
-						//	guild.getTextChannelById(786328890280247327L).sendMessage("v:").queue();	
-						}
-				//		guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getContentRaw() + " : " + messageCache.get(i).getMessage().getContentRaw()).queue();
-					//	guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getAuthor().getName() + " : " + messageCache.get(i).getUser().getName()).queue();
-						//guild.getTextChannelById(786328890280247327L).sendMessage(event.getMessage().getChannel().getName() + " : " + messageCache.get(i).getChannel().getName()).queue();
+
 					} 		
 				
 			
@@ -127,15 +121,13 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 							+ "`" + messageCache.get(1).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
 							+ "`" + messageCache.get(2).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
 				}
-			//	guild.getMember(spammer).timeoutFor(10, TimeUnit.MINUTES).queue();
+				guild.getMember(spammer).timeoutFor(10, TimeUnit.MINUTES).queue();
 				messageCache.get(0).getMessage().delete().queue();
 				messageCache.get(1).getMessage().delete().queue();
 				messageCache.get(2).getMessage().delete().queue();
 
 				guild.getTextChannelById(786328890280247327L).sendMessageEmbeds(emb.build()).queue();
 			}
-				
-			//guild.getTextChannelById(786328890280247327L).sendMessage(messageCache.toString()).queue();
 		}
 	}
 }
