@@ -62,10 +62,21 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 		//The time interval in milliseconds the messages need to be sent within for it to be considered channel spam
 		int interval = 10000;
 	
-		//The amount of messages to be considered channel spam.
-		int messageAmount = 3;		
+		//The amount of messages to be cached. In execution, this will consider messageAmount + 1 messages when determining potential channel spam
+		//since the event is only triggered when a message is recieved
+		int messageAmount = 2;		
 		
-		//How many messages should be analysed to determine spam
+		/*
+		 * E.x messageAmount = 2 
+		 * will consider + 1 messages than whats in its cache. In this case, 3 messages instead of 2. 
+		 * 
+		 * 			1							      2		    			3
+		 * |	             |	   	          |					  | |			   	    |	 
+		 * |Current message  |    Compared    |messageCache.get(0)| |messageCache.get(1)|
+		 * |recieved by event|	  against     |	               	  | |			        |
+		 * |	             |
+		 */
+		
 		int cacheSize = messageAmount;
 		
 		//Counts similar messages
@@ -83,13 +94,14 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 						if (event.getMessage().getContentRaw().equals(messageCache.get(i).getMessage().getContentRaw()) 
 								&& event.getAuthor().equals(messageCache.get(i).getUser()) 
 								&& !event.getChannel().equals(messageCache.get(i).getChannel())) {
+							
 							counter++;
 							spammer = event.getAuthor();
 						}
 
-					} 		
-				
-			
+					}
+					
+				//keeps cache updated with most recent messages
 				messageCache.removeLast();
 				messageCache.addFirst(new Tuple(event.getMessage(), event.getAuthor(), event.getChannel(), System.currentTimeMillis()));
 			}
@@ -102,24 +114,32 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 			//The criteria for determining channel spam are:
 			//If at least messageAmount messages have the same content and author but different channels
 			//And if the time difference between the last cached message and the first cached message is less than interval				
-			if (counter >= messageAmount && (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) < interval) {
-				double time = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 1).getTime()) / 1000.0;
-				double t2 = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 2).getTime()) / 1000.0; 
+			if (counter >= messageAmount && (messageCache.get(0).getTime() - event.getMessage().getTimeCreated().toEpochSecond()) < interval) {
+				
+				//The time between the first message in cache being recieved and the current message thats being processed
+				double timeTotal = (messageCache.get(0).getTime() - event.getMessage().getTimeCreated().toEpochSecond())  / 1000.0;
+				
+				//The time between the first message in chace being recieved and the second message in cache being recieved
+				double t1 = messageCache.get(0).getTime() -  messageCache.get(1).getTime() / 1000.0;
+				
+				//The time between the second message in cache being recieved and the current message being processed
+				double t2 = ( messageCache.get(1).getTime() - event.getMessage().getTimeCreated().toEpochSecond()) / 1000.0;
+				//		double t2 = (messageCache.get(0).getTime() - messageCache.get(messageCache.size() - 2).getTime()) / 1000.0; 
 						
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.red);
 				emb.setTitle(spammer.getAsTag() + " is suspected of channel spamming and has been muted");
 				if (messageCache.get(0).getMessage().getContentRaw().length() < 2000) {
-					emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
+					emb.addField(messageAmount + " messages containing the same content were sent by this user in " + timeTotal + " seconds", 
 						"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
-						+ "`" + messageCache.get(1).getMessage().getContentRaw()+ "` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
-						+ "`" + messageCache.get(2).getMessage().getContentRaw() + "` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
+						+ "`" + messageCache.get(1).getMessage().getContentRaw()+ "` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t1 + "s\n"
+						+ "`" + event.getMessage().getContentRaw() + "` in " + event.getMessage().getChannel().getAsMention() + ": " + t2 + "s", false);
 				}
 				else {
-					emb.addField(messageAmount + " messages containing the same content were sent by this user in " + time + " seconds", 
+					emb.addField(messageAmount + " messages containing the same content were sent by this user in " + timeTotal + " seconds", 
 							"`" + messageCache.get(0).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
-							+ "`" + messageCache.get(1).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t2 + "s\n"
-							+ "`" + messageCache.get(2).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(2).getChannel().getAsMention() + ": " + time + "s", false);
+							+ "`" + messageCache.get(1).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t1 + "s\n"
+							+ "`" + event.getMessage().getContentRaw() + "` in " + event.getMessage().getChannel().getAsMention() + ": " + t2 + "s", false);
 				}
 				guild.getMember(spammer).timeoutFor(10, TimeUnit.MINUTES).queue();
 				messageCache.get(0).getMessage().delete().queue();
