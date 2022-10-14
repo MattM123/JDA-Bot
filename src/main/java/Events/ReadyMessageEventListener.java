@@ -116,7 +116,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 			//The criteria for determining channel spam are:
 			//If at least messageAmount messages have the same content and author but different channels
 			//And if the time difference between the last cached message and the first cached message is less than interval				
-			if (counter >= messageAmount && (messageCache.get(0).getTime() - event.getMessage().getTimeCreated().toEpochSecond()) < interval) {
+			if (counter >= messageAmount && (messageCache.get(0).getTime() - (event.getMessage().getTimeCreated().toEpochSecond() * 1000)) < interval) {
 				
 				//The time between the first message in cache being recieved and the current message thats being processed
 				double timeTotal = (messageCache.get(0).getTime() - event.getMessage().getTimeCreated().toEpochSecond())  / 1000.0;
@@ -131,7 +131,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.red);
 				emb.setTitle(spammer.getAsTag() + " is suspected of channel spamming and has been muted");
-				if (messageCache.get(0).getMessage().getContentRaw().length() < 2000) {
+				if (messageCache.get(0).getMessage().getContentRaw().length() < 1000) {
 					emb.addField(messageAmount + " messages containing the same content were sent by this user in " + timeTotal + " seconds", 
 						"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
 						+ "`" + messageCache.get(1).getMessage().getContentRaw()+ "` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t1 + "s\n"
@@ -156,7 +156,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 			
 			}
 			guild.getTextChannelById(786328890280247327L).sendMessage("Current: " + event.getMessage().toString() + "Cached: " + messageCache.toString()).queue();
-			guild.getTextChannelById(786328890280247327L).sendMessage(("" +(messageCache.get(0).getTime() - event.getMessage().getTimeCreated().toEpochSecond()) / 1000.0)).queue();
+			guild.getTextChannelById(786328890280247327L).sendMessage(("" +(messageCache.get(0).getTime() - (event.getMessage().getTimeCreated().toEpochSecond() * 1000)) / 1000.0)).queue();
 			guild.getTextChannelById(786328890280247327L).sendMessage("" + counter).queue();
 		}
 	}
