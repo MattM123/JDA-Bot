@@ -136,7 +136,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 							+ "`" + messageCache.get(1).getMessage().getContentRaw().substring(0, 100) + "...` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t1 + "s\n"
 							+ "`" + event.getMessage().getContentRaw() + "` in " + event.getMessage().getChannel().getAsMention() + ": " + timeTotal + "s", false);
 				}
-				//guild.getMember(spammer).timeoutFor(30, TimeUnit.MINUTES).queue();
+				guild.getMember(spammer).timeoutFor(30, TimeUnit.MINUTES).queue();
 				messageCache.get(0).getMessage().delete().queue();
 				messageCache.get(1).getMessage().delete().queue();
 				event.getMessage().delete().queue();
