@@ -86,7 +86,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 	
 		if (event.isFromGuild() && event.getChannelType().isMessage() && !event.getMessage().isEphemeral() && !event.getAuthor().isBot()) {
 									
-			//Comapares cached messages and authors with new messages. 	
+			//Comapares cached messages with new messages. 	
 			if (messageCache.size() == cacheSize) {	
 				
 				//Iterates through cache and determines if channel spam is happening						
@@ -114,7 +114,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 						
 			if (counter >= messageAmount && (messageCache.get(0).getTime() - (event.getMessage().getTimeCreated().toEpochSecond() * 1000)) < interval) {
 				
-				//The time between the first message in cache being recieved and the current message thats being processed
+				//The time between the last message in cache being recieved and the current message thats being processed
 				double timeTotal = ((event.getMessage().getTimeCreated().toEpochSecond() * 1000) - messageCache.get(1).getTime() ) / 1000.0;
 				
 				//The time between the first message in cahce being recieved and the second message in cache being recieved
@@ -124,7 +124,7 @@ public class ReadyMessageEventListener extends ListenerAdapter {
 				EmbedBuilder emb = new EmbedBuilder();
 				emb.setColor(Color.red);
 				emb.setTitle(spammer.getAsTag() + " is suspected of channel spamming and has been muted");
-				if (messageCache.get(0).getMessage().getContentRaw().length() < 1000) {
+				if (messageCache.get(0).getMessage().getContentRaw().length() <= 300) {
 					emb.addField((messageAmount + 1) + " messages containing the same content were sent by this user in " + timeTotal + " seconds", 
 						"`" + messageCache.get(0).getMessage().getContentRaw() + "` in " + messageCache.get(0).getChannel().getAsMention() + ": 0.000s\n"
 						+ "`" + messageCache.get(1).getMessage().getContentRaw()+ "` in " + messageCache.get(1).getChannel().getAsMention() + ": " + t1 + "s\n"
